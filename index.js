@@ -4,7 +4,7 @@ const { Client } = require('@notionhq/client');
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 async function run() {
-    console.log("🚀 チェッカー起動（美麗フォーマット＆タイトルリンク版）");
+    console.log("🚀 スナイパー起動（美麗フォーマット自動作成版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -80,6 +80,7 @@ async function run() {
 ${text.substring(0, 5000)}`;
             
             try {
+                // 先ほど無事に通った最新のAPI（3.8-flash）を指定します
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
                 const res = await fetch(url, {
                     method: "POST",
@@ -116,17 +117,13 @@ ${text.substring(0, 5000)}`;
             });
             
             const notionPayload = {
-                "名前": { title: [{ text: { content: data.live_name } }] }
+                "名前": { title: [{ text: { content: data.live_name } }] },
+                "URL": { url: data.official_url || article.url }
             };
             
             if (existing.results.length === 0) {
+                // 画像のようなページ内のブロックを自動作成
                 const childrenBlocks = [
-                    { 
-                        object: "block", 
-                        type: "paragraph", 
-                        paragraph: { rich_text: [{ type: "text", text: { content: `🔗 ${data.live_name} (公式サイトへ)`, link: { url: data.official_url || article.url } } }] } 
-                    },
-                    { object: "block", type: "paragraph", paragraph: { rich_text: [] } },
                     { object: "block", type: "heading_3", heading_3: { rich_text: [{ type: "text", text: { content: "📍 開催情報" } }] } },
                     { object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: `会場: ${data.venues}` } }] } }
                 ];
