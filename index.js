@@ -124,6 +124,15 @@ ${text.substring(0, 5000)}`;
             if (existing.results.length === 0) {
                 // 画像のようなページ内のブロックを自動作成
                 const childrenBlocks = [
+                    // ▼ ここにタイトルリンクのブロックを追加 ▼
+                    { 
+                        object: "block", 
+                        type: "paragraph", 
+                        paragraph: { rich_text: [{ type: "text", text: { content: `🔗 ${data.live_name} (公式サイトへ)`, link: { url: data.official_url || article.url } } }] } 
+                    },
+                    { object: "block", type: "paragraph", paragraph: { rich_text: [] } }, // 空白行
+                    // ▲ ここまで追加 ▲
+                    
                     { object: "block", type: "heading_3", heading_3: { rich_text: [{ type: "text", text: { content: "📍 開催情報" } }] } },
                     { object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: `会場: ${data.venues}` } }] } }
                 ];
