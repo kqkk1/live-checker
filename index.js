@@ -4,7 +4,7 @@ const { Client } = require('@notionhq/client');
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 async function run() {
-    console.log("🚀 チェッカー起動（AI＋厳格フィルター完全版）");
+    console.log("🚀 チェッカー起動（美麗フォーマット自動作成版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -29,7 +29,6 @@ async function run() {
         for (const article of articles) {
             console.log(`\n▶ 対象: ${article.title || article.url}`);
             
-            // 【強化フィルター1】タイトルでグッズや円盤情報をシャットアウト
             const title = article.title || "";
             if (title.includes("グッズ") || title.includes("Blu-ray") || title.includes("CD") || title.includes("放送") || title.includes("配信") || title.includes("受注")) {
                 console.log(" ├─ ⏩ スキップ: タイトルからグッズ・配信情報と判定");
@@ -41,12 +40,11 @@ async function run() {
             
             const text = await page.evaluate(() => document.body.innerText);
             
-            // 【強化フィルター2】本文にチケットと申込の両方のキーワードがあるか
             const hasTicket = text.includes("チケット") || text.includes("入場券") || text.includes("プロデューサーシート");
             const hasApply = text.includes("先行") || text.includes("抽選") || text.includes("一般発売") || text.includes("一般会員") || text.includes("受付");
             
             if (!(hasTicket && hasApply)) {
-                console.log(" ├─ ⏩ スキップ: チケット申込の決定的なキーワードがありません");
+                console.log(" ├─ ⏩ スキップ: チケット申込の決定的なキーワードなし");
                 continue;
             }
             
@@ -55,15 +53,34 @@ async function run() {
             let data = {
                 live_name: title,
                 official_url: article.url,
-                apply_start: "",
-                result_date: "",
-                venues: "",
-                schedule: ""
+                venues: "未定",
+                schedules: [],
+                performances: [],
+                result_date_text: "次回募集待ち"
             };
 
-            const prompt = `以下のテキストから、ライブやイベントの「チケット先行抽選」に関する情報を抽出し、必ず指定されたJSONフォーマットのみを出力してください。Markdownのコードブロックは含めず、純粋なJSON文字列だけを返してください。\n\n【抽出フォーマット】\n{\n  "live_name": "イベントの正式名称",\n  "official_url": "特設サイトのURL（不明なら空文字）",\n  "apply_start": "受付開始日（YYYY-MM-DD形式、不明なら空文字）",\n  "result_date": "当落発表日（YYYY-MM-DD形式、不明なら空文字）",\n  "venues": "会場名（不明なら空文字）",\n  "schedule": "開場・開演時間など（不明なら空文字）"\n}\n\n【テキスト】\n${text.substring(0, 5000)}`;
+            const prompt = `以下のテキストから、ライブやイベントのチケットに関する情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。複数日程（Day1, Day2など）や昼夜公演がある場合は、配列に分けて見やすく整形してください。
+
+【抽出フォーマット】
+{
+  "live_name": "イベントの正式名称（装飾文字などは省く）",
+  "official_url": "特設サイトのURL",
+  "venues": "会場名",
+  "schedules": [
+    "Day1: 2月27日(土) 開場15:30 / 開演17:00",
+    "Day2: 2月28日(日) 開場15:30 / 開演17:00"
+  ],
+  "performances": [
+    "Day1",
+    "Day2"
+  ],
+  "result_date_text": "当落発表日（例: '10/31当落発表'。不明なら'次回募集待ち'）"
+}
+【テキスト】
+${text.substring(0, 5000)}`;
             
             try {
+                // 先ほど無事に通った最新のAPI（3.8-flash）を指定します
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
                 const res = await fetch(url, {
                     method: "POST",
@@ -81,23 +98,19 @@ async function run() {
                         const gData = JSON.parse(cleanJson);
                         if (gData.live_name) data.live_name = gData.live_name;
                         if (gData.official_url) data.official_url = gData.official_url;
-                        if (gData.apply_start) data.apply_start = gData.apply_start;
-                        if (gData.result_date) data.result_date = gData.result_date;
                         if (gData.venues) data.venues = gData.venues;
-                        if (gData.schedule) data.schedule = gData.schedule;
+                        if (gData.schedules) data.schedules = gData.schedules;
+                        if (gData.performances) data.performances = gData.performances;
+                        if (gData.result_date_text) data.result_date_text = gData.result_date_text;
                         console.log(" ├─ ✨ Gemini抽出成功！");
                     }
                 } else {
-                    const errText = await res.text();
-                    console.log(` ├─ ⚠️ Geminiエラー(${res.status}): ${errText}`);
-                    console.log(" ├─ ⚠️ 詳細抽出をスキップし、名前とURLだけで登録します");
+                    console.log(` ├─ ⚠️ Geminiエラー(${res.status})`);
                 }
             } catch (e) {
                 console.log(` ├─ ⚠️ Gemini通信失敗: ${e.message}`);
-                console.log(" ├─ ⚠️ 詳細抽出をスキップし、名前とURLだけで登録します");
             }
             
-            // Notionへ登録処理
             const existing = await notion.databases.query({
                 database_id: process.env.NOTION_DB_ID,
                 filter: { or: [{ property: "名前", title: { equals: data.live_name } }] }
@@ -108,30 +121,39 @@ async function run() {
                 "URL": { url: data.official_url || article.url }
             };
             
-            if (data.venues) notionPayload["会場"] = { rich_text: [{ text: { content: data.venues } }] };
-            if (data.schedule) notionPayload["開場・開演"] = { rich_text: [{ text: { content: data.schedule } }] };
-            if (data.apply_start && /^\d{4}-\d{2}-\d{2}$/.test(data.apply_start)) notionPayload["応募開始日"] = { date: { start: data.apply_start } };
-            if (data.result_date && /^\d{4}-\d{2}-\d{2}$/.test(data.result_date)) notionPayload["当落発表日"] = { date: { start: data.result_date } };
-            
             if (existing.results.length === 0) {
-                await notion.pages.create({ parent: { database_id: process.env.NOTION_DB_ID }, properties: notionPayload });
-                console.log(" ├─ ⭐ 成功: Notionに新規登録しました！");
+                // 画像のようなページ内のブロックを自動作成
+                const childrenBlocks = [
+                    { object: "block", type: "heading_3", heading_3: { rich_text: [{ type: "text", text: { content: "📍 開催情報" } }] } },
+                    { object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: `会場: ${data.venues}` } }] } }
+                ];
+
+                if (data.schedules && data.schedules.length > 0) {
+                    data.schedules.forEach(sched => {
+                        childrenBlocks.push({ object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: sched } }] } });
+                    });
+                }
+
+                childrenBlocks.push({ object: "block", type: "paragraph", paragraph: { rich_text: [] } });
+
+                childrenBlocks.push({ object: "block", type: "heading_3", heading_3: { rich_text: [{ type: "text", text: { content: `✅ 当落状況(${data.result_date_text})` } }] } });
+
+                if (data.performances && data.performances.length > 0) {
+                    data.performances.forEach(perf => {
+                        childrenBlocks.push({ object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: `${perf}: ` } }] } });
+                    });
+                } else {
+                    childrenBlocks.push({ object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: "参加者: " } }] } });
+                }
+
+                await notion.pages.create({ parent: { database_id: process.env.NOTION_DB_ID }, properties: notionPayload, children: childrenBlocks });
+                console.log(" ├─ ⭐ 成功: Notionに美麗フォーマットで新規登録しました！");
                 processedCount++;
             } else {
-                const page = existing.results[0];
-                const prop = page.properties["開場・開演"];
-                const hasSchedule = prop && prop.rich_text && prop.rich_text.length > 0 && prop.rich_text[0].plain_text.trim() !== "";
-                
-                if (!hasSchedule && data.schedule) {
-                    await notion.pages.update({ page_id: page.id, properties: notionPayload });
-                    console.log(" ├─ 🔄 更新: Notionのスケジュール等を上書き追加しました");
-                    processedCount++;
-                } else {
-                    console.log(" ├─ 🆗 スキップ: 既に登録済みです");
-                }
+                console.log(" ├─ 🆗 スキップ: 既に登録済みです");
             }
         }
-        console.log(`\n完了！ 新規・更新: ${processedCount}件`);
+        console.log(`\n完了！ 新規登録: ${processedCount}件`);
     } catch (error) {
         console.error("エラー:", error);
     } finally {
