@@ -1,19 +1,17 @@
 const { chromium } = require('playwright');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { Client } = require('@notionhq/client');
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 async function run() {
-    console.log("🚀 チェッカー起動（GitHub Actions版）");
+    console.log("🚀 チェッカー起動（GitHub Actions直結版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
     try {
         console.log("ニュース一覧（ライブカテゴリ）にアクセス中...");
         await page.goto('https://idolmaster-official.jp/news?category=live-event', { waitUntil: 'networkidle' });
-        await page.waitForTimeout(3000); // SPAの描画完了を確実に待つ
+        await page.waitForTimeout(3000);
         
         const links = await page.$$eval('a', anchors => {
             return anchors.map(a => ({ url: a.href, title: a.innerText.trim() }))
@@ -31,7 +29,7 @@ async function run() {
         for (const article of articles) {
             console.log(`\n▶ 対象: ${article.title || article.url}`);
             await page.goto(article.url, { waitUntil: 'networkidle' });
-            await page.waitForTimeout(2000); // 記事本文の描画を待機
+            await page.waitForTimeout(2000);
             
             const text = await page.evaluate(() => document.body.innerText);
             const keywords = ["アソビストア", "先行", "抽選", "チケット", "spラウンジ", "SPラウンジ", "バルコニー席", "SPプロデューサーシート", "プロデューサーシート", "一般会員"];
@@ -41,15 +39,40 @@ async function run() {
                 continue;
             }
             
-            console.log(" ├─ キーワード検出！ Geminiに解析を依頼します...");
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            console.log(" ├─ キーワード検出！ Geminiに直接解析を依頼します...");
             const prompt = `以下のテキストから、ライブやイベントの「チケット先行抽選」に関する情報を抽出し、必ず指定されたJSONフォーマットのみを出力してください。Markdownのコードブロックは含めず、純粋なJSON文字列だけを返してください。\n\n【抽出フォーマット】\n{\n  "live_name": "イベントの正式名称",\n  "official_url": "特設サイトのURL（不明なら空文字）",\n  "apply_start": "受付開始日（YYYY-MM-DD形式、不明なら空文字）",\n  "result_date": "当落発表日（YYYY-MM-DD形式、不明なら空文字）",\n  "venues": "会場名（不明なら空文字）",\n  "schedule": "開場・開演時間など（不明なら空文字）"\n}\n\n【テキスト】\n${text.substring(0, 5000)}`;
             
-            const result = await model.generateContent(prompt);
-            const cleanJson = result.response.text().replace(/^```(json)?/i, "").replace(/```$/, "").trim();
+            // ツールに頼らず、直接GeminiのAPIを叩く（100%確実な方法）
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: { temperature: 0.1, responseMimeType: "application/json" }
+            };
+            
+            const res = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            
+            if (!res.ok) {
+                console.log(` ├─ Gemini通信エラー: ${res.status}`);
+                continue;
+            }
+            
+            const result = await res.json();
+            if (!result.candidates || result.candidates.length === 0) {
+                console.log(" ├─ Geminiエラー: 解析結果が空です");
+                continue;
+            }
+            
+            const cleanJson = result.candidates[0].content.parts[0].text.replace(/^```(json)?/i, "").replace(/```$/, "").trim();
             
             let data;
-            try { data = JSON.parse(cleanJson); } catch (e) { continue; }
+            try { data = JSON.parse(cleanJson); } catch (e) { 
+                console.log(" ├─ JSON変換エラー"); 
+                continue; 
+            }
             
             if (!data.apply_start && !data.result_date && !data.schedule) {
                 console.log(" ├─ スキップ: 日付・時間情報がありません");
