@@ -116,8 +116,7 @@ ${text.substring(0, 5000)}`;
             });
             
             const notionPayload = {
-                "名前": { title: [{ text: { content: data.live_name } }] },
-                "URL": { url: data.official_url || article.url }
+                "名前": { title: [{ text: { content: data.live_name } }] }
             };
             
             if (existing.results.length === 0) {
