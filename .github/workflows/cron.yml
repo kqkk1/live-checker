@@ -5,7 +5,7 @@ on:
   workflow_dispatch: # 手動実行用ボタン
 
 jobs:
-  run-sniper:
+  run-checker:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
