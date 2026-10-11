@@ -1,0 +1,30 @@
+name: Imas Ticket Checker
+on:
+  schedule:
+    - cron: '0 0,6,12,18 * * *' # 毎日6時間おき（日本時間9時,15時,21時,3時）に自動実行
+  workflow_dispatch: # 手動実行用ボタン
+
+jobs:
+  run-sniper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Install Headless Browser
+        run: npx playwright install chromium
+        
+      - name: Run Script
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node index.js
