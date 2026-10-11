@@ -64,7 +64,7 @@ async function run() {
             const prompt = `以下のテキストから、ライブやイベントの「チケット先行抽選」に関する情報を抽出し、必ず指定されたJSONフォーマットのみを出力してください。Markdownのコードブロックは含めず、純粋なJSON文字列だけを返してください。\n\n【抽出フォーマット】\n{\n  "live_name": "イベントの正式名称",\n  "official_url": "特設サイトのURL（不明なら空文字）",\n  "apply_start": "受付開始日（YYYY-MM-DD形式、不明なら空文字）",\n  "result_date": "当落発表日（YYYY-MM-DD形式、不明なら空文字）",\n  "venues": "会場名（不明なら空文字）",\n  "schedule": "開場・開演時間など（不明なら空文字）"\n}\n\n【テキスト】\n${text.substring(0, 5000)}`;
             
             try {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
                 const res = await fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
