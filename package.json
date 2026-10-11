@@ -1,0 +1,9 @@
+{
+  "name": "imas-scraper",
+  "version": "1.0.0",
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "@google/generative-ai": "^0.2.1",
+    "@notionhq/client": "^2.2.14"
+  }
+}
