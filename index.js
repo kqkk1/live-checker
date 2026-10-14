@@ -4,7 +4,7 @@ const { Client } = require('@notionhq/client');
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 async function run() {
-    console.log("🚀 スナイパー起動（締切日・自動追跡版）");
+    console.log("🚀 スナイパー起動（オケコン対応＆締切日・自動追跡版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -50,6 +50,7 @@ async function run() {
             console.log(" ├─ 🎯 情報検知！ Geminiに詳細解析と判定を依頼します...");
             let data = null;
 
+            // ▼ ここがオーケストラコンサートを含めるように修正した新しい命令です ▼
             const prompt = `以下のテキストからイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
 【抽出フォーマット】
@@ -67,7 +68,7 @@ async function run() {
 }
 
 【厳格な判定ルール】
-・is_target_live: 現地開催のアイマス単独音楽ライブ・コンサート・ファンミであれば true。「遊園地等のコラボ」「同時視聴などの上映会」「オンライン限定」「外部フェスへの出展」は必ず false にすること。
+・is_target_live: 現地開催のアイマス単独音楽ライブ、コンサート、ファンミ、および「オーケストラコンサート」であれば true。「遊園地等のコラボ」「同時視聴などの上映会」「オンライン限定」「外部フェスへの出展」は必ず false にすること。
 ・base_live_name: ニュースタイトルが違っても同一ライブとして紐付けられるよう、一切の装飾を排除した共通のライブ名だけにすること。
 【テキスト】
 ${text.substring(0, 5000)}`;
@@ -100,7 +101,7 @@ ${text.substring(0, 5000)}`;
 
             if (!data) continue;
             if (data.is_target_live === false) {
-                console.log(` ├─ ⏩ スキップ: AI判定により非ライブとみなされました`);
+                console.log(` ├─ ⏩ スキップ: AI判定により非対象イベントとみなされました`);
                 continue;
             }
             
@@ -113,7 +114,6 @@ ${text.substring(0, 5000)}`;
                 "名前": { title: [{ text: { content: data.base_live_name } }] }
             };
 
-            // 締切日が抽出されていればプロパティにセットする
             if (data.deadline_date && /^\d{4}-\d{2}-\d{2}$/.test(data.deadline_date)) {
                 notionPayload["締切日"] = { date: { start: data.deadline_date } };
             }
@@ -168,14 +168,13 @@ ${text.substring(0, 5000)}`;
                     
                     await notion.blocks.children.append({ block_id: pageId, children: appendBlocks });
                     
-                    // 新しい先行受付の締切日で、Notionのプロパティを上書き更新する
                     const updatePayload = {};
                     if (data.deadline_date && /^\d{4}-\d{2}-\d{2}$/.test(data.deadline_date)) {
                         updatePayload["締切日"] = { date: { start: data.deadline_date } };
                         await notion.pages.update({ page_id: pageId, properties: updatePayload });
                     }
                     
-                    console.log(` ├─ 🔄 更新: 新しい受付情報（${data.ticket_tier}）を追記し、締切日を延長しました！`);
+                    console.log(` ├─ 🔄 更新: 新しい受付情報（${data.ticket_tier}）を追記し、締切日を更新しました！`);
                     processedCount++;
                 } else {
                     console.log(" ├─ 🆗 スキップ: 新しい受付情報はありません");
