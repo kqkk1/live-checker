@@ -4,7 +4,7 @@ const { Client } = require('@notionhq/client');
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 async function run() {
-    console.log("🚀 スナイパー起動（オケコン対応＆締切日・自動追跡版）");
+    console.log("🚀 チェッカー起動（略称・開催日自動取得版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -50,26 +50,26 @@ async function run() {
             console.log(" ├─ 🎯 情報検知！ Geminiに詳細解析と判定を依頼します...");
             let data = null;
 
-            // ▼ ここがオーケストラコンサートを含めるように修正した新しい命令です ▼
             const prompt = `以下のテキストからイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
 【抽出フォーマット】
 {
   "is_target_live": true, 
-  "base_live_name": "ライブの基本名称（【】や『』、日付、「〜先行開始！」などの宣伝文句を完全に除外した、純粋なライブの正式名称）",
+  "base_live_name": "ライブの基本名称（装飾を除外した正式名称）",
+  "short_name": "カレンダー表示用の短い略称（例: デレ15周年オケコン、シャニ 6.5th など15文字以内）",
+  "live_date": "ライブ開催初日の日付（YYYY-MM-DD形式。例: 2026-11-20。不明なら空文字）",
   "official_url": "特設サイトのURL（不明なら空文字）",
   "venues": "会場名（不明なら未定）",
   "schedules": ["Day1: 2月27日(土) 開場15:30 / 開演17:00"],
   "performances": ["Day1", "Day2"],
-  "ticket_tier": "今回の記事で募集している受付名称（例: アソビストアプレミアム会員先行。不明なら空文字）",
+  "ticket_tier": "今回の記事で募集している受付名称（例: アソビストアプレミアム。不明なら空文字）",
   "apply_period": "受付期間（例: 10/12(月)〜10/20(火)23:59。不明なら空文字）",
   "deadline_date": "受付の最終締切日（YYYY-MM-DD形式。例: 2026-10-20）。記載がない場合は空文字",
   "result_date": "当落発表日時（例: 10/24(木)13:00。不明なら空文字）"
 }
 
 【厳格な判定ルール】
-・is_target_live: 現地開催のアイマス単独音楽ライブ、コンサート、ファンミ、および「オーケストラコンサート」であれば true。「遊園地等のコラボ」「同時視聴などの上映会」「オンライン限定」「外部フェスへの出展」は必ず false にすること。
-・base_live_name: ニュースタイトルが違っても同一ライブとして紐付けられるよう、一切の装飾を排除した共通のライブ名だけにすること。
+・is_target_live: 現地開催のアイマス単独音楽ライブ、コンサート、ファンミ、オーケストラコンサートであれば true。「遊園地等のコラボ」「上映会」「オンライン限定」「外部フェスへの出展」は必ず false。
 【テキスト】
 ${text.substring(0, 5000)}`;
             
@@ -87,7 +87,8 @@ ${text.substring(0, 5000)}`;
                 if (res.ok) {
                     const result = await res.json();
                     if (result.candidates && result.candidates.length > 0) {
-                        const cleanJson = result.candidates[0].content.parts[0].text.replace(/^```(json)?/i, "").replace(/```$/, "").trim();
+                        const cleanJson = result.candidates[0].content.parts[0].text.replace(/^
+```(json)?/i, "").replace(/```$/, "").trim();
                         data = JSON.parse(cleanJson);
                     }
                 } else {
@@ -111,11 +112,15 @@ ${text.substring(0, 5000)}`;
             });
             
             const notionPayload = {
-                "名前": { title: [{ text: { content: data.base_live_name } }] }
+                "名前": { title: [{ text: { content: data.base_live_name } }] },
+                "略称": { rich_text: [{ text: { content: data.short_name || "" } }] }
             };
 
             if (data.deadline_date && /^\d{4}-\d{2}-\d{2}$/.test(data.deadline_date)) {
                 notionPayload["締切日"] = { date: { start: data.deadline_date } };
+            }
+            if (data.live_date && /^\d{4}-\d{2}-\d{2}$/.test(data.live_date)) {
+                notionPayload["ライブ開催日"] = { date: { start: data.live_date } };
             }
             
             if (existing.results.length === 0) {
@@ -149,13 +154,33 @@ ${text.substring(0, 5000)}`;
                 }
 
                 await notion.pages.create({ parent: { database_id: process.env.NOTION_DB_ID }, properties: notionPayload, children: childrenBlocks });
-                console.log(" ├─ ⭐ 成功: Notionに新規登録し、締切日をセットしました！");
+                console.log(" ├─ ⭐ 成功: Notionに新規登録しました！");
                 processedCount++;
             } else {
                 const pageId = existing.results[0].id;
                 const blocks = await notion.blocks.children.list({ block_id: pageId });
                 const blocksText = JSON.stringify(blocks.results);
                 
+                let updated = false;
+                const updatePayload = {};
+
+                if (data.deadline_date && /^\d{4}-\d{2}-\d{2}$/.test(data.deadline_date)) {
+                    updatePayload["締切日"] = { date: { start: data.deadline_date } };
+                    updated = true;
+                }
+                if (data.live_date && /^\d{4}-\d{2}-\d{2}$/.test(data.live_date)) {
+                    updatePayload["ライブ開催日"] = { date: { start: data.live_date } };
+                    updated = true;
+                }
+                if (data.short_name) {
+                    updatePayload["略称"] = { rich_text: [{ text: { content: data.short_name } }] };
+                    updated = true;
+                }
+
+                if (updated) {
+                    await notion.pages.update({ page_id: pageId, properties: updatePayload });
+                }
+
                 if (data.ticket_tier && data.ticket_tier !== "未定" && data.ticket_tier !== "" && !blocksText.includes(data.ticket_tier)) {
                     const appendBlocks = [
                         { object: "block", type: "paragraph", paragraph: { rich_text: [] } },
@@ -165,16 +190,8 @@ ${text.substring(0, 5000)}`;
                         { object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: `当落発表: ${data.result_date || "不明"}` } }] } },
                         { object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: "詳細ニュースを開く", link: { url: article.url } } }] } }
                     ];
-                    
                     await notion.blocks.children.append({ block_id: pageId, children: appendBlocks });
-                    
-                    const updatePayload = {};
-                    if (data.deadline_date && /^\d{4}-\d{2}-\d{2}$/.test(data.deadline_date)) {
-                        updatePayload["締切日"] = { date: { start: data.deadline_date } };
-                        await notion.pages.update({ page_id: pageId, properties: updatePayload });
-                    }
-                    
-                    console.log(` ├─ 🔄 更新: 新しい受付情報（${data.ticket_tier}）を追記し、締切日を更新しました！`);
+                    console.log(` ├─ 🔄 更新: 新しい受付情報（${data.ticket_tier}）を追記しました！`);
                     processedCount++;
                 } else {
                     console.log(" ├─ 🆗 スキップ: 新しい受付情報はありません");
