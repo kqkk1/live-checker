@@ -4,7 +4,7 @@ const { Client } = require('@notionhq/client');
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 async function run() {
-    console.log("🚀 チェッカー起動（略称・開催日自動取得版）");
+    console.log("🚀 スナイパー起動（略称・開催日自動取得版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
