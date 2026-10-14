@@ -4,7 +4,7 @@ const { Client } = require('@notionhq/client');
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 async function run() {
-    console.log("🚀 チェッカー起動（重複排除＆非ライブ除外 究極版）");
+    console.log("🚀 スナイパー起動（締切日・自動追跡版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -30,7 +30,6 @@ async function run() {
             console.log(`\n▶ 対象: ${article.title || article.url}`);
             
             const title = article.title || "";
-            // 【強化フィルター】事前のキーワード弾き
             if (title.includes("グッズ") || title.includes("Blu-ray") || title.includes("CD") || title.includes("配信") || title.includes("上映会") || title.includes("コラボ") || title.includes("展示") || title.includes("出展")) {
                 console.log(" ├─ ⏩ スキップ: タイトルから対象外(グッズ/上映/コラボ等)と判定");
                 continue;
@@ -40,7 +39,6 @@ async function run() {
             await page.waitForTimeout(2000);
             
             const text = await page.evaluate(() => document.body.innerText);
-            
             const hasTicket = text.includes("チケット") || text.includes("入場券") || text.includes("プロデューサーシート");
             const hasApply = text.includes("先行") || text.includes("抽選") || text.includes("一般発売") || text.includes("一般会員") || text.includes("受付");
             
@@ -50,7 +48,6 @@ async function run() {
             }
             
             console.log(" ├─ 🎯 情報検知！ Geminiに詳細解析と判定を依頼します...");
-            
             let data = null;
 
             const prompt = `以下のテキストからイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
@@ -58,18 +55,19 @@ async function run() {
 【抽出フォーマット】
 {
   "is_target_live": true, 
-  "base_live_name": "ライブの基本名称（【】や『』、日付、「〜先行開始！」などの宣伝文句を完全に除外した、純粋なライブの正式名称。例: 283 Production LIVE Performance noctchill）",
+  "base_live_name": "ライブの基本名称（【】や『』、日付、「〜先行開始！」などの宣伝文句を完全に除外した、純粋なライブの正式名称）",
   "official_url": "特設サイトのURL（不明なら空文字）",
   "venues": "会場名（不明なら未定）",
   "schedules": ["Day1: 2月27日(土) 開場15:30 / 開演17:00"],
   "performances": ["Day1", "Day2"],
   "ticket_tier": "今回の記事で募集している受付名称（例: アソビストアプレミアム会員先行。不明なら空文字）",
-  "apply_period": "受付期間と締切日（例: 10/12(月・祝)23:59まで。不明なら空文字）",
+  "apply_period": "受付期間（例: 10/12(月)〜10/20(火)23:59。不明なら空文字）",
+  "deadline_date": "受付の最終締切日（YYYY-MM-DD形式。例: 2026-10-20）。記載がない場合は空文字",
   "result_date": "当落発表日時（例: 10/24(木)13:00。不明なら空文字）"
 }
 
 【厳格な判定ルール】
-・is_target_live: 現地開催のアイマス単独音楽ライブ・コンサート・ファンミであれば true。「遊園地等のコラボ」「同時視聴などの上映会」「オンライン限定」「外部フェス(コミックフロンティア等)への出展」は必ず false にすること。
+・is_target_live: 現地開催のアイマス単独音楽ライブ・コンサート・ファンミであれば true。「遊園地等のコラボ」「同時視聴などの上映会」「オンライン限定」「外部フェスへの出展」は必ず false にすること。
 ・base_live_name: ニュースタイトルが違っても同一ライブとして紐付けられるよう、一切の装飾を排除した共通のライブ名だけにすること。
 【テキスト】
 ${text.substring(0, 5000)}`;
@@ -101,15 +99,11 @@ ${text.substring(0, 5000)}`;
             }
 
             if (!data) continue;
-
             if (data.is_target_live === false) {
-                console.log(` ├─ ⏩ スキップ: AI判定により非ライブ(コラボ/上映会等)とみなされました`);
+                console.log(` ├─ ⏩ スキップ: AI判定により非ライブとみなされました`);
                 continue;
             }
             
-            console.log(` ├─ ✨ AI判定クリア！ ライブ純化名: ${data.base_live_name}`);
-
-            // 「純粋なライブ名」を使ってNotion内を検索（重複チェック）
             const existing = await notion.databases.query({
                 database_id: process.env.NOTION_DB_ID,
                 filter: { property: "名前", title: { equals: data.base_live_name } }
@@ -118,9 +112,13 @@ ${text.substring(0, 5000)}`;
             const notionPayload = {
                 "名前": { title: [{ text: { content: data.base_live_name } }] }
             };
+
+            // 締切日が抽出されていればプロパティにセットする
+            if (data.deadline_date && /^\d{4}-\d{2}-\d{2}$/.test(data.deadline_date)) {
+                notionPayload["締切日"] = { date: { start: data.deadline_date } };
+            }
             
             if (existing.results.length === 0) {
-                // まだNotionにないライブなら「完全新規作成」
                 const childrenBlocks = [
                     { object: "block", type: "paragraph", paragraph: { rich_text: [{ type: "text", text: { content: `🔗 ${data.base_live_name} (公式サイトへ)`, link: { url: data.official_url || article.url } } }] } },
                     { object: "block", type: "paragraph", paragraph: { rich_text: [] } },
@@ -144,22 +142,20 @@ ${text.substring(0, 5000)}`;
                 if (data.ticket_tier) {
                     childrenBlocks.push({ object: "block", type: "paragraph", paragraph: { rich_text: [] } });
                     childrenBlocks.push({ object: "block", type: "divider", divider: {} });
-                    childrenBlocks.push({ object: "block", type: "heading_3", heading_3: { rich_text: [{ type: "text", text: { content: `🎫 受付中: ${data.ticket_tier}` } }] } });
+                    childrenBlocks.push({ object: "block", type: "heading_3", heading_3: { rich_text: [{ type: "text", text: { content: `🎫 受付履歴: ${data.ticket_tier}` } }] } });
                     childrenBlocks.push({ object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: `受付期間: ${data.apply_period || "不明"}` } }] } });
                     childrenBlocks.push({ object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: `当落発表: ${data.result_date || "不明"}` } }] } });
                     childrenBlocks.push({ object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: "詳細ニュースを開く", link: { url: article.url } } }] } });
                 }
 
                 await notion.pages.create({ parent: { database_id: process.env.NOTION_DB_ID }, properties: notionPayload, children: childrenBlocks });
-                console.log(" ├─ ⭐ 成功: Notionに新規登録しました！");
+                console.log(" ├─ ⭐ 成功: Notionに新規登録し、締切日をセットしました！");
                 processedCount++;
             } else {
-                // 既にNotionにあるライブなら「最新のチケット情報を追記」
                 const pageId = existing.results[0].id;
                 const blocks = await notion.blocks.children.list({ block_id: pageId });
                 const blocksText = JSON.stringify(blocks.results);
                 
-                // 今回抽出した先行（アソビストア二次先行など）が、まだNotionに書き込まれていなければ追記
                 if (data.ticket_tier && data.ticket_tier !== "未定" && data.ticket_tier !== "" && !blocksText.includes(data.ticket_tier)) {
                     const appendBlocks = [
                         { object: "block", type: "paragraph", paragraph: { rich_text: [] } },
@@ -171,10 +167,18 @@ ${text.substring(0, 5000)}`;
                     ];
                     
                     await notion.blocks.children.append({ block_id: pageId, children: appendBlocks });
-                    console.log(` ├─ 🔄 更新: 新しい受付情報（${data.ticket_tier}）を追記しました！`);
+                    
+                    // 新しい先行受付の締切日で、Notionのプロパティを上書き更新する
+                    const updatePayload = {};
+                    if (data.deadline_date && /^\d{4}-\d{2}-\d{2}$/.test(data.deadline_date)) {
+                        updatePayload["締切日"] = { date: { start: data.deadline_date } };
+                        await notion.pages.update({ page_id: pageId, properties: updatePayload });
+                    }
+                    
+                    console.log(` ├─ 🔄 更新: 新しい受付情報（${data.ticket_tier}）を追記し、締切日を延長しました！`);
                     processedCount++;
                 } else {
-                    console.log(" ├─ 🆗 スキップ: 新しい受付情報はありません（または既に登録済み）");
+                    console.log(" ├─ 🆗 スキップ: 新しい受付情報はありません");
                 }
             }
         }
