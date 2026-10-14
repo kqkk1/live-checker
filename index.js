@@ -4,7 +4,7 @@ const { Client } = require('@notionhq/client');
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 async function run() {
-    console.log("🚀 スナイパー起動（略称・開催日自動取得＆エラー修正版）");
+    console.log("🚀 スナイパー起動（略称・開催日自動取得＆429制限回避版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -48,6 +48,11 @@ async function run() {
             }
             
             console.log(" ├─ 🎯 情報検知！ Geminiに詳細解析と判定を依頼します...");
+            
+            // ★ ここに5秒の待機（ブレーキ）を追加しました！
+            console.log(" ├─ ⏳ API制限(429)回避のため、5秒間待機します...");
+            await page.waitForTimeout(5000);
+
             let data = null;
 
             const prompt = `以下のテキストからイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
@@ -88,7 +93,6 @@ ${text.substring(0, 5000)}`;
                     const result = await res.json();
                     if (result.candidates && result.candidates.length > 0) {
                         const rawText = result.candidates[0].content.parts[0].text;
-                        // 不自然な改行エラーを防ぐため、JSONの波括弧の中身だけを安全に抽出する処理に変更
                         const match = rawText.match(/\{[\s\S]*\}/);
                         if (match) {
                             data = JSON.parse(match[0]);
