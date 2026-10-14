@@ -4,7 +4,7 @@ const { Client } = require('@notionhq/client');
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 async function run() {
-    console.log("🚀 スナイパー起動（略称・開催日自動取得版）");
+    console.log("🚀 スナイパー起動（略称・開催日自動取得＆エラー修正版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -87,9 +87,12 @@ ${text.substring(0, 5000)}`;
                 if (res.ok) {
                     const result = await res.json();
                     if (result.candidates && result.candidates.length > 0) {
-                        const cleanJson = result.candidates[0].content.parts[0].text.replace(/^
-```(json)?/i, "").replace(/```$/, "").trim();
-                        data = JSON.parse(cleanJson);
+                        const rawText = result.candidates[0].content.parts[0].text;
+                        // 不自然な改行エラーを防ぐため、JSONの波括弧の中身だけを安全に抽出する処理に変更
+                        const match = rawText.match(/\{[\s\S]*\}/);
+                        if (match) {
+                            data = JSON.parse(match[0]);
+                        }
                     }
                 } else {
                     console.log(` ├─ ⚠️ Geminiエラー(${res.status})`);
