@@ -9,13 +9,12 @@ async function fetchWithRetry(url, options, maxRetries = 5) {
         if (res.ok) return res;
         
         if (res.status === 429 || res.status === 503) {
-            const waitTime = (i + 1) * 20000; 
+            const waitTime = (i + 1) * 30000; 
             console.log(` ├─ ⚠️ 通信混雑(${res.status})。${waitTime / 1000}秒待機して再試行します...(${i + 1}/${maxRetries})`);
             await new Promise(resolve => setTimeout(resolve, waitTime));
             continue;
         }
         
-        // ★修正: 429/503以外のエラー（400等）は瞬時にエラーの中身を解析して出力する
         const errorText = await res.text();
         console.log(` ├─ ❌ 致命的なAPIエラー発生 (HTTP ${res.status})`);
         console.log(` ├─ 🔍 エラー詳細: ${errorText}`);
@@ -26,14 +25,25 @@ async function fetchWithRetry(url, options, maxRetries = 5) {
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（真のエラー解析・セーフティ解除版）");
+    console.log("🚀 スナイパー起動（本番用・通信＆処理完全最適化版）");
     const browser = await chromium.launch();
-    const page = await browser.newPage();
+    const context = await browser.newContext();
+    const page = await context.newPage();
     
+    // ★ 最適化1: テキスト以外の不要なリソース（画像・フォント・CSS）を全て遮断して超高速化
+    await page.route('**/*', route => {
+        const type = route.request().resourceType();
+        if (['image', 'stylesheet', 'font', 'media'].includes(type)) {
+            route.abort();
+        } else {
+            route.continue();
+        }
+    });
+
     try {
         console.log("ニュース一覧にアクセス中...");
-        await page.goto('https://idolmaster-official.jp/news?category=live-event', { waitUntil: 'networkidle' });
-        await page.waitForTimeout(3000);
+        await page.goto('[https://idolmaster-official.jp/news?category=live-event](https://idolmaster-official.jp/news?category=live-event)', { waitUntil: 'domcontentloaded' });
+        await page.waitForTimeout(2000);
         
         const links = await page.$$eval('a', anchors => {
             return anchors.map(a => ({ url: a.href, title: a.innerText.trim() }))
@@ -48,6 +58,7 @@ async function run() {
         console.log(`抽出対象: ${articles.length}件`);
         
         let processedCount = 0;
+        
         for (const article of articles) {
             console.log(`\n▶ 対象: ${article.title || article.url}`);
             
@@ -57,7 +68,7 @@ async function run() {
                 continue;
             }
 
-            await page.goto(article.url, { waitUntil: 'networkidle' });
+            await page.goto(article.url, { waitUntil: 'domcontentloaded' });
             await page.waitForTimeout(2000);
             
             const text = await page.evaluate(() => document.body.innerText);
@@ -70,8 +81,7 @@ async function run() {
             }
             
             console.log(" ├─ 🎯 情報検知！ Geminiに詳細解析と判定を依頼します...");
-            await page.waitForTimeout(3000);
-
+            
             const prompt = `以下のテキストからイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
 【抽出フォーマット】
@@ -92,18 +102,17 @@ async function run() {
 【厳格な判定ルール】
 ・is_target_live: 現地開催のアイマス単独音楽ライブ、コンサート、ファンミ、オーケストラコンサートであれば true。「遊園地等のコラボ」「上映会」「オンライン限定」「外部フェスへの出展」は必ず false。
 【テキスト】
-${text.substring(0, 3000)}`;
+${text.substring(0, 5000)}`;
             
             let data = null;
             try {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`;
+                const url = `[https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=$](https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=$){process.env.GEMINI_API_KEY}`;
                 
                 const res = await fetchWithRetry(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         contents: [{ parts: [{ text: prompt }] }],
-                        // ★修正: セーフティフィルターをすべて無効化し、誤爆ブロックを回避
                         safetySettings: [
                             { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
                             { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
@@ -118,16 +127,21 @@ ${text.substring(0, 3000)}`;
                     const result = await res.json();
                     if (result.candidates && result.candidates.length > 0) {
                         const rawText = result.candidates[0].content.parts[0].text;
-                        const match = rawText.match(/\{[\s\S]*\}/);
-                        if (match) {
-                            data = JSON.parse(match[0]);
+                        
+                        // ★ 最適化2: AIの気まぐれによるJSONパースエラーを防ぐ安全装置
+                        try {
+                            const match = rawText.match(/\{[\s\S]*\}/);
+                            data = match ? JSON.parse(match[0]) : JSON.parse(rawText);
+                        } catch (parseErr) {
+                            console.log(" ├─ ⚠️ JSONの解析に失敗しました。スキップします。");
+                            continue;
                         }
+                        
                     } else if (result.promptFeedback) {
-                        // ブロックされた場合の詳細ログ
-                        console.log(` ├─ ❌ AIが回答を生成しませんでした。理由: ${JSON.stringify(result.promptFeedback)}`);
+                        console.log(` ├─ ❌ AIが回答をブロックしました: ${JSON.stringify(result.promptFeedback)}`);
                     }
                 } else {
-                    continue; // fetchWithRetry内でエラー表示済みのため次へ
+                    continue;
                 }
             } catch (e) {
                 console.log(` ├─ ⚠️ システムエラー: ${e.message}`);
