@@ -3,8 +3,25 @@ const { Client } = require('@notionhq/client');
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
+// ★ 追加：エラー時に自動で再チャレンジする「しぶとい」機能
+async function fetchWithRetry(url, options, maxRetries = 3) {
+    for (let i = 0; i < maxRetries; i++) {
+        const res = await fetch(url, options);
+        if (res.ok) return res;
+        
+        if (res.status === 429 || res.status === 503) {
+            const waitTime = (i + 1) * 10000; // 1回目は10秒、2回目は20秒、3回目は30秒待つ
+            console.log(` ├─ ⚠️ Gemini APIエラー(${res.status})。${waitTime / 1000}秒後に自動リトライします...(${i + 1}/${maxRetries})`);
+            await new Promise(resolve => setTimeout(resolve, waitTime));
+            continue;
+        }
+        return res; // それ以外のエラーはそのまま返す
+    }
+    return null;
+}
+
 async function run() {
-    console.log("🚀 スナイパー起動（略称・開催日自動取得＆429制限回避版）");
+    console.log("🚀 スナイパー起動（自動リトライ搭載・最強エラー耐性版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -48,10 +65,8 @@ async function run() {
             }
             
             console.log(" ├─ 🎯 情報検知！ Geminiに詳細解析と判定を依頼します...");
-            
-            // ★ ここに5秒の待機（ブレーキ）を追加しました！
-            console.log(" ├─ ⏳ API制限(429)回避のため、5秒間待機します...");
-            await page.waitForTimeout(5000);
+            // 基本の待機（3秒）
+            await page.waitForTimeout(3000);
 
             let data = null;
 
@@ -80,7 +95,9 @@ ${text.substring(0, 5000)}`;
             
             try {
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
-                const res = await fetch(url, {
+                
+                // ★ 通常のfetchの代わりに、自作のfetchWithRetryを使う
+                const res = await fetchWithRetry(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -89,7 +106,7 @@ ${text.substring(0, 5000)}`;
                     })
                 });
                 
-                if (res.ok) {
+                if (res && res.ok) {
                     const result = await res.json();
                     if (result.candidates && result.candidates.length > 0) {
                         const rawText = result.candidates[0].content.parts[0].text;
@@ -99,7 +116,7 @@ ${text.substring(0, 5000)}`;
                         }
                     }
                 } else {
-                    console.log(` ├─ ⚠️ Geminiエラー(${res.status})`);
+                    console.log(` ├─ ❌ スキップ: Geminiリトライ上限到達、またはエラー終了`);
                     continue;
                 }
             } catch (e) {
