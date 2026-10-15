@@ -20,7 +20,7 @@ async function fetchWithRetry(url, options, maxRetries = 3) {
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（受付枠の自動上書き更新対応版）");
+    console.log("🚀 スナイパー起動（ライブ期間2daysカレンダー対応版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -68,6 +68,7 @@ async function run() {
 
             let data = null;
 
+            // ★ 抽出フォーマットに "live_end_date" を追加し、期間を取得できるようにしました
             const prompt = `以下のテキストからイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
 【抽出フォーマット】
@@ -76,6 +77,7 @@ async function run() {
   "base_live_name": "ライブの基本名称（装飾を除外した正式名称）",
   "short_name": "カレンダー表示用の短い略称（例: デレ15周年オケコン、シャニ 6.5th など15文字以内）",
   "live_date": "ライブ開催初日の日付（YYYY-MM-DD形式。例: 2026-11-20。不明なら空文字）",
+  "live_end_date": "ライブ最終日の日付（YYYY-MM-DD形式。例: 2026-11-21。1日限りの場合はlive_dateと同じ日付。不明なら空文字）",
   "official_url": "特設サイトのURL（不明なら空文字）",
   "venues": "会場名（不明なら未定）",
   "schedules": ["Day1: 2月27日(土) 開場15:30 / 開演17:00"],
@@ -83,7 +85,8 @@ async function run() {
   "ticket_tier": "今回の記事で募集している受付名称（例: アソビストアプレミアム先行、二次先行など。不明なら空文字）",
   "apply_period": "受付期間（例: 10/12(月)〜10/20(火)23:59。不明なら空文字）",
   "deadline_date": "受付の最終締切日（YYYY-MM-DD形式。例: 2026-10-20）。記載がない場合は空文字",
-  "result_date": "当落発表日時（例: 10/24(木)13:00。不明なら空文字）"
+  "result_date": "当落発表日時（文字。例: 10/24(木)13:00。不明なら空文字）",
+  "result_date_notion": "当落発表日の日付（YYYY-MM-DD形式。例: 2026-10-24。不明なら空文字）"
 }
 
 【厳格な判定ルール】
@@ -136,15 +139,24 @@ ${text.substring(0, 5000)}`;
                 "略称": { rich_text: [{ text: { content: data.short_name || "" } }] }
             };
 
-            // ★ 新規作成時に「受付枠」をセット
             if (data.ticket_tier) {
                 notionPayload["受付枠"] = { rich_text: [{ text: { content: data.ticket_tier } }] };
             }
             if (data.deadline_date && /^\d{4}-\d{2}-\d{2}$/.test(data.deadline_date)) {
                 notionPayload["締切日"] = { date: { start: data.deadline_date } };
             }
+
+            // ★ ここでライブ開催日を「期間（初日〜最終日）」としてセットします
             if (data.live_date && /^\d{4}-\d{2}-\d{2}$/.test(data.live_date)) {
-                notionPayload["ライブ開催日"] = { date: { start: data.live_date } };
+                const dateObj = { start: data.live_date };
+                if (data.live_end_date && /^\d{4}-\d{2}-\d{2}$/.test(data.live_end_date) && data.live_date !== data.live_end_date) {
+                    dateObj.end = data.live_end_date;
+                }
+                notionPayload["ライブ開催日"] = { date: dateObj };
+            }
+
+            if (data.result_date_notion && /^\d{4}-\d{2}-\d{2}$/.test(data.result_date_notion)) {
+                notionPayload["当落発表日"] = { date: { start: data.result_date_notion } };
             }
             
             if (existing.results.length === 0) {
@@ -192,17 +204,27 @@ ${text.substring(0, 5000)}`;
                     updatePayload["締切日"] = { date: { start: data.deadline_date } };
                     updated = true;
                 }
+
+                // ★ 更新時にも「期間」として上書きセットします
                 if (data.live_date && /^\d{4}-\d{2}-\d{2}$/.test(data.live_date)) {
-                    updatePayload["ライブ開催日"] = { date: { start: data.live_date } };
+                    const dateObj = { start: data.live_date };
+                    if (data.live_end_date && /^\d{4}-\d{2}-\d{2}$/.test(data.live_end_date) && data.live_date !== data.live_end_date) {
+                        dateObj.end = data.live_end_date;
+                    }
+                    updatePayload["ライブ開催日"] = { date: dateObj };
                     updated = true;
                 }
+
                 if (data.short_name) {
                     updatePayload["略称"] = { rich_text: [{ text: { content: data.short_name } }] };
                     updated = true;
                 }
-                // ★ 更新時に「受付枠」を最新の名称で上書き
                 if (data.ticket_tier && data.ticket_tier !== "未定" && data.ticket_tier !== "") {
                     updatePayload["受付枠"] = { rich_text: [{ text: { content: data.ticket_tier } }] };
+                    updated = true;
+                }
+                if (data.result_date_notion && /^\d{4}-\d{2}-\d{2}$/.test(data.result_date_notion)) {
+                    updatePayload["当落発表日"] = { date: { start: data.result_date_notion } };
                     updated = true;
                 }
 
@@ -220,7 +242,7 @@ ${text.substring(0, 5000)}`;
                         { object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: "詳細ニュースを開く", link: { url: article.url } } }] } }
                     ];
                     await notion.blocks.children.append({ block_id: pageId, children: appendBlocks });
-                    console.log(` ├─ 🔄 更新: 新しい受付情報（${data.ticket_tier}）を追記し、受付枠を更新しました！`);
+                    console.log(` ├─ 🔄 更新: 新しい受付情報（${data.ticket_tier}）を追記し、当落発表日を更新しました！`);
                     processedCount++;
                 } else {
                     console.log(" ├─ 🆗 スキップ: 新しい受付情報はありません");
