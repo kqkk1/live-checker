@@ -9,7 +9,8 @@ async function fetchWithRetry(url, options, maxRetries = 3) {
         if (res.ok) return res;
         
         if (res.status === 429 || res.status === 503) {
-            const waitTime = (i + 1) * 10000;
+            // ★ 修正1: リトライまでの待機時間を長くする (20秒, 40秒, 60秒)
+            const waitTime = (i + 1) * 20000;
             console.log(` ├─ ⚠️ Gemini APIエラー(${res.status})。${waitTime / 1000}秒後に自動リトライします...(${i + 1}/${maxRetries})`);
             await new Promise(resolve => setTimeout(resolve, waitTime));
             continue;
@@ -20,7 +21,7 @@ async function fetchWithRetry(url, options, maxRetries = 3) {
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（進行ボード特化・サイドピーク最適化版）");
+    console.log("🚀 スナイパー起動（ボード特化・429エラー対策・サイドピーク最適化版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -68,7 +69,6 @@ async function run() {
 
             let data = null;
 
-            // プロンプトをスリム化し、不要な抽出項目を削減
             const prompt = `以下のテキストからイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
 【抽出フォーマット】
@@ -150,12 +150,11 @@ ${text.substring(0, 5000)}`;
                 notionPayload["ライブ開催日"] = { date: dateObj };
             }
             if (data.result_date_notion && /^\d{4}-\d{2}-\d{2}$/.test(data.result_date_notion)) {
-                // 前回エラーが出た「当落発表日」を「当落日」に変更した場合は、ここを書き換えてください
+                // ※Notion側で「当落日」に変更して解決した場合は、下の "当落発表日" を "当落日" に書き換えてください
                 notionPayload["当落発表日"] = { date: { start: data.result_date_notion } };
             }
             
             if (existing.results.length === 0) {
-                // 本文を「リンク」と「開催情報」だけに極限までスリム化
                 const childrenBlocks = [
                     { object: "block", type: "paragraph", paragraph: { rich_text: [{ type: "text", text: { content: `🔗 ${data.base_live_name} (公式サイトへ)`, link: { url: data.official_url || article.url } } }] } },
                     { object: "block", type: "paragraph", paragraph: { rich_text: [] } },
@@ -197,7 +196,7 @@ ${text.substring(0, 5000)}`;
                     updated = true;
                 }
                 if (data.result_date_notion && /^\d{4}-\d{2}-\d{2}$/.test(data.result_date_notion)) {
-                    // 前回エラーが出た「当落発表日」を「当落日」に変更した場合は、ここも書き換えてください
+                    // ※Notion側で「当落日」に変更して解決した場合は、下の "当落発表日" を "当落日" に書き換えてください
                     updatePayload["当落発表日"] = { date: { start: data.result_date_notion } };
                     updated = true;
                 }
@@ -209,8 +208,12 @@ ${text.substring(0, 5000)}`;
                 } else {
                     console.log(" ├─ 🆗 スキップ: 新しい情報はありません");
                 }
-                // ※本文への履歴追記処理は削除しました
             }
+            
+            // ★ 修正2: 429エラーを防ぐための5秒間のクールダウン
+            console.log(" ├─ ⏳ レートリミット(429)対策: 次の処理まで5秒待機します...");
+            await new Promise(resolve => setTimeout(resolve, 5000));
+            
         }
         console.log(`\n完了！ 新規・更新: ${processedCount}件`);
     } catch (error) {
