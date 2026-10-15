@@ -3,14 +3,14 @@ const { Client } = require('@notionhq/client');
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
-async function fetchWithRetry(url, options, maxRetries = 3) {
+// ★ リトライ回数を5回、待機時間を長め（30秒、60秒、90秒...）に設定してAPI制限を回避
+async function fetchWithRetry(url, options, maxRetries = 5) {
     for (let i = 0; i < maxRetries; i++) {
         const res = await fetch(url, options);
         if (res.ok) return res;
         
         if (res.status === 429 || res.status === 503) {
-            // ★ 修正1: リトライまでの待機時間を長くする (20秒, 40秒, 60秒)
-            const waitTime = (i + 1) * 20000;
+            const waitTime = (i + 1) * 30000; 
             console.log(` ├─ ⚠️ Gemini APIエラー(${res.status})。${waitTime / 1000}秒後に自動リトライします...(${i + 1}/${maxRetries})`);
             await new Promise(resolve => setTimeout(resolve, waitTime));
             continue;
@@ -21,7 +21,7 @@ async function fetchWithRetry(url, options, maxRetries = 3) {
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（ボード特化・429エラー対策・サイドピーク最適化版）");
+    console.log("🚀 スナイパー起動（最新モデル自動追従・超安全運転・ボード最適化版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -48,7 +48,7 @@ async function run() {
             
             const title = article.title || "";
             if (title.includes("グッズ") || title.includes("Blu-ray") || title.includes("CD") || title.includes("配信") || title.includes("上映会") || title.includes("コラボ") || title.includes("展示") || title.includes("出展")) {
-                console.log(" ├─ ⏩ スキップ: タイトルから対象外(グッズ/上映/コラボ等)と判定");
+                console.log(" ├─ ⏩ スキップ: タイトルから対象外と判定");
                 continue;
             }
 
@@ -92,7 +92,8 @@ async function run() {
 ${text.substring(0, 5000)}`;
             
             try {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
+                // ★ 自動で常に最新のFlashモデルを使用する設定
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`;
                 const res = await fetchWithRetry(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -112,7 +113,7 @@ ${text.substring(0, 5000)}`;
                         }
                     }
                 } else {
-                    console.log(` ├─ ❌ スキップ: Geminiリトライ上限到達`);
+                    console.log(` ├─ ❌ スキップ: Geminiリトライ上限（5回）到達`);
                     continue;
                 }
             } catch (e) {
@@ -150,7 +151,7 @@ ${text.substring(0, 5000)}`;
                 notionPayload["ライブ開催日"] = { date: dateObj };
             }
             if (data.result_date_notion && /^\d{4}-\d{2}-\d{2}$/.test(data.result_date_notion)) {
-                // ※Notion側で「当落日」に変更して解決した場合は、下の "当落発表日" を "当落日" に書き換えてください
+                // ※Notion側で「当落日」に変更した場合は "当落発表日" を "当落日" に書き換えてください
                 notionPayload["当落発表日"] = { date: { start: data.result_date_notion } };
             }
             
@@ -171,7 +172,6 @@ ${text.substring(0, 5000)}`;
                 processedCount++;
             } else {
                 const pageId = existing.results[0].id;
-                
                 let updated = false;
                 const updatePayload = {};
 
@@ -196,7 +196,7 @@ ${text.substring(0, 5000)}`;
                     updated = true;
                 }
                 if (data.result_date_notion && /^\d{4}-\d{2}-\d{2}$/.test(data.result_date_notion)) {
-                    // ※Notion側で「当落日」に変更して解決した場合は、下の "当落発表日" を "当落日" に書き換えてください
+                    // ※Notion側で「当落日」に変更した場合は "当落発表日" を "当落日" に書き換えてください
                     updatePayload["当落発表日"] = { date: { start: data.result_date_notion } };
                     updated = true;
                 }
@@ -210,9 +210,9 @@ ${text.substring(0, 5000)}`;
                 }
             }
             
-            // ★ 修正2: 429エラーを防ぐための5秒間のクールダウン
-            console.log(" ├─ ⏳ レートリミット(429)対策: 次の処理まで5秒待機します...");
-            await new Promise(resolve => setTimeout(resolve, 5000));
+            // ★ 待機時間を10秒に設定し、APIリクエストを1分間に最大6回までに抑え込む
+            console.log(" ├─ ⏳ レートリミット対策: 次の処理まで10秒待機します...");
+            await new Promise(resolve => setTimeout(resolve, 10000));
             
         }
         console.log(`\n完了！ 新規・更新: ${processedCount}件`);
