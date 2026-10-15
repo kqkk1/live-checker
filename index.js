@@ -3,25 +3,24 @@ const { Client } = require('@notionhq/client');
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
-// ★ 追加：エラー時に自動で再チャレンジする「しぶとい」機能
 async function fetchWithRetry(url, options, maxRetries = 3) {
     for (let i = 0; i < maxRetries; i++) {
         const res = await fetch(url, options);
         if (res.ok) return res;
         
         if (res.status === 429 || res.status === 503) {
-            const waitTime = (i + 1) * 10000; // 1回目は10秒、2回目は20秒、3回目は30秒待つ
+            const waitTime = (i + 1) * 10000;
             console.log(` ├─ ⚠️ Gemini APIエラー(${res.status})。${waitTime / 1000}秒後に自動リトライします...(${i + 1}/${maxRetries})`);
             await new Promise(resolve => setTimeout(resolve, waitTime));
             continue;
         }
-        return res; // それ以外のエラーはそのまま返す
+        return res;
     }
     return null;
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（自動リトライ搭載・最強エラー耐性版）");
+    console.log("🚀 スナイパー起動（受付枠の自動上書き更新対応版）");
     const browser = await chromium.launch();
     const page = await browser.newPage();
     
@@ -65,7 +64,6 @@ async function run() {
             }
             
             console.log(" ├─ 🎯 情報検知！ Geminiに詳細解析と判定を依頼します...");
-            // 基本の待機（3秒）
             await page.waitForTimeout(3000);
 
             let data = null;
@@ -82,7 +80,7 @@ async function run() {
   "venues": "会場名（不明なら未定）",
   "schedules": ["Day1: 2月27日(土) 開場15:30 / 開演17:00"],
   "performances": ["Day1", "Day2"],
-  "ticket_tier": "今回の記事で募集している受付名称（例: アソビストアプレミアム。不明なら空文字）",
+  "ticket_tier": "今回の記事で募集している受付名称（例: アソビストアプレミアム先行、二次先行など。不明なら空文字）",
   "apply_period": "受付期間（例: 10/12(月)〜10/20(火)23:59。不明なら空文字）",
   "deadline_date": "受付の最終締切日（YYYY-MM-DD形式。例: 2026-10-20）。記載がない場合は空文字",
   "result_date": "当落発表日時（例: 10/24(木)13:00。不明なら空文字）"
@@ -95,8 +93,6 @@ ${text.substring(0, 5000)}`;
             
             try {
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
-                
-                // ★ 通常のfetchの代わりに、自作のfetchWithRetryを使う
                 const res = await fetchWithRetry(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -140,6 +136,10 @@ ${text.substring(0, 5000)}`;
                 "略称": { rich_text: [{ text: { content: data.short_name || "" } }] }
             };
 
+            // ★ 新規作成時に「受付枠」をセット
+            if (data.ticket_tier) {
+                notionPayload["受付枠"] = { rich_text: [{ text: { content: data.ticket_tier } }] };
+            }
             if (data.deadline_date && /^\d{4}-\d{2}-\d{2}$/.test(data.deadline_date)) {
                 notionPayload["締切日"] = { date: { start: data.deadline_date } };
             }
@@ -200,6 +200,11 @@ ${text.substring(0, 5000)}`;
                     updatePayload["略称"] = { rich_text: [{ text: { content: data.short_name } }] };
                     updated = true;
                 }
+                // ★ 更新時に「受付枠」を最新の名称で上書き
+                if (data.ticket_tier && data.ticket_tier !== "未定" && data.ticket_tier !== "") {
+                    updatePayload["受付枠"] = { rich_text: [{ text: { content: data.ticket_tier } }] };
+                    updated = true;
+                }
 
                 if (updated) {
                     await notion.pages.update({ page_id: pageId, properties: updatePayload });
@@ -215,7 +220,7 @@ ${text.substring(0, 5000)}`;
                         { object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: "詳細ニュースを開く", link: { url: article.url } } }] } }
                     ];
                     await notion.blocks.children.append({ block_id: pageId, children: appendBlocks });
-                    console.log(` ├─ 🔄 更新: 新しい受付情報（${data.ticket_tier}）を追記しました！`);
+                    console.log(` ├─ 🔄 更新: 新しい受付情報（${data.ticket_tier}）を追記し、受付枠を更新しました！`);
                     processedCount++;
                 } else {
                     console.log(" ├─ 🆗 スキップ: 新しい受付情報はありません");
