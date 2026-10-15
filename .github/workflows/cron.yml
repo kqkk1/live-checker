@@ -1,7 +1,7 @@
 name: Imas Ticket Checker
 on:
   schedule:
-    - cron: '0 0,6,12,18 * * *' # 毎日6時間おき（日本時間9時,15時,21時,3時）に自動実行
+    - cron: '0 18 * * *'  # 日本時間の深夜3時に実行
   workflow_dispatch: # 手動実行用ボタン
 
 jobs:
