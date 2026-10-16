@@ -25,25 +25,16 @@ async function fetchWithRetry(url, options, maxRetries = 5) {
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（本番用・通信＆処理完全最適化版）");
+    console.log("🚀 スナイパー起動（安定第一・クリーンアップ版）");
     const browser = await chromium.launch();
-    const context = await browser.newContext();
-    const page = await context.newPage();
+    const page = await browser.newPage();
     
-    // ★ 最適化1: テキスト以外の不要なリソース（画像・フォント・CSS）を全て遮断して超高速化
-    await page.route('**/*', route => {
-        const type = route.request().resourceType();
-        if (['image', 'stylesheet', 'font', 'media'].includes(type)) {
-            route.abort();
-        } else {
-            route.continue();
-        }
-    });
+    // ※エラーの原因となった page.route によるURLブロック処理を完全に削除しました
 
     try {
         console.log("ニュース一覧にアクセス中...");
-        await page.goto('[https://idolmaster-official.jp/news?category=live-event](https://idolmaster-official.jp/news?category=live-event)', { waitUntil: 'domcontentloaded' });
-        await page.waitForTimeout(2000);
+        await page.goto('https://idolmaster-official.jp/news?category=live-event', { waitUntil: 'networkidle' });
+        await page.waitForTimeout(3000);
         
         const links = await page.$$eval('a', anchors => {
             return anchors.map(a => ({ url: a.href, title: a.innerText.trim() }))
@@ -68,7 +59,8 @@ async function run() {
                 continue;
             }
 
-            await page.goto(article.url, { waitUntil: 'domcontentloaded' });
+            // ※ waitUntil を元の安定した networkidle に戻しました
+            await page.goto(article.url, { waitUntil: 'networkidle' });
             await page.waitForTimeout(2000);
             
             const text = await page.evaluate(() => document.body.innerText);
@@ -102,11 +94,12 @@ async function run() {
 【厳格な判定ルール】
 ・is_target_live: 現地開催のアイマス単独音楽ライブ、コンサート、ファンミ、オーケストラコンサートであれば true。「遊園地等のコラボ」「上映会」「オンライン限定」「外部フェスへの出展」は必ず false。
 【テキスト】
-${text.substring(0, 5000)}`;
+${text.substring(0, 3000)}`;
             
             let data = null;
             try {
-                const url = `[https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=$](https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=$){process.env.GEMINI_API_KEY}`;
+                // ★ 正しい最新モデル（1.5-flash-latest）に修正
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`;
                 
                 const res = await fetchWithRetry(url, {
                     method: "POST",
@@ -128,7 +121,6 @@ ${text.substring(0, 5000)}`;
                     if (result.candidates && result.candidates.length > 0) {
                         const rawText = result.candidates[0].content.parts[0].text;
                         
-                        // ★ 最適化2: AIの気まぐれによるJSONパースエラーを防ぐ安全装置
                         try {
                             const match = rawText.match(/\{[\s\S]*\}/);
                             data = match ? JSON.parse(match[0]) : JSON.parse(rawText);
