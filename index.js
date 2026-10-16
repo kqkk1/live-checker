@@ -99,7 +99,7 @@ ${text.substring(0, 3000)}`;
             let data = null;
             try {
                 // ★ 正しい最新モデル（1.5-flash-latest）に修正
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`;
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`;
                 
                 const res = await fetchWithRetry(url, {
                     method: "POST",
