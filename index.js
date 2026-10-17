@@ -3,7 +3,6 @@ const { Client } = require('@notionhq/client');
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
-// 429/503エラー時のリトライ処理（待機時間を30秒ずつ増やす安全設計）
 async function fetchWithRetry(url, options, maxRetries = 4) {
     for (let i = 0; i < maxRetries; i++) {
         const res = await fetch(url, options);
@@ -25,7 +24,33 @@ async function fetchWithRetry(url, options, maxRetries = 4) {
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（API節約・完全安定版）");
+    console.log("🚀 スナイパー起動（429完全撲滅・表記揺れ防止・上書き保証版）");
+    
+    // ★ ステップ1: 起動時にNotionの既存データをすべて取得し、記憶する
+    console.log("Notionの既存データを読み込み中...");
+    let existingPages = [];
+    let processedUrls = new Set();
+    let existingLiveNames = [];
+
+    try {
+        const dbQuery = await notion.databases.query({ database_id: process.env.NOTION_DB_ID });
+        existingPages = dbQuery.results;
+
+        for (const page of existingPages) {
+            const nameProp = page.properties["名前"]?.title?.[0]?.plain_text;
+            if (nameProp) existingLiveNames.push(nameProp);
+
+            const urlsText = page.properties["処理済みURL"]?.rich_text?.[0]?.plain_text || "";
+            if (urlsText) {
+                urlsText.split(',').map(u => u.trim()).filter(Boolean).forEach(u => processedUrls.add(u));
+            }
+        }
+        console.log(` ├─ 登録済みライブ: ${existingLiveNames.length}件 / 処理済み記事URL: ${processedUrls.size}件`);
+    } catch (err) {
+        console.error("⚠️ Notionの初期読み込みに失敗しました（「処理済みURL」プロパティがあるか確認してください）:", err.message);
+        return;
+    }
+
     const browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
 
@@ -34,7 +59,6 @@ async function run() {
         await page.goto('https://idolmaster-official.jp/news?category=live-event', { waitUntil: 'networkidle', timeout: 60000 });
         await page.waitForTimeout(3000);
         
-        // ★ 最適化1: Invalid URLエラーを絶対に起こさない安全なリンク抽出
         const links = await page.$$eval('a', anchors => {
             return anchors
                 .map(a => ({ url: a.href ? a.href.trim() : "", title: a.innerText ? a.innerText.trim() : "" }))
@@ -42,11 +66,10 @@ async function run() {
                     a.url.startsWith('https://idolmaster-official.jp/news/') && 
                     !a.url.includes('category') && 
                     !a.url.includes('tag') &&
-                    a.url.length > 38 // トップページ単体を除外し、個別記事のみを対象にする
+                    a.url.length > 38
                 );
         });
         
-        // 重複URLの排除
         const uniqueUrls = new Map();
         for (const link of links) {
             if (!uniqueUrls.has(link.url)) {
@@ -61,6 +84,12 @@ async function run() {
         for (const article of articles) {
             console.log(`\n▶ 対象: ${article.title || article.url}`);
             
+            // ★ ステップ2: すでに処理済みのURLなら、ページを開くことすらせず0秒でスキップ！
+            if (processedUrls.has(article.url)) {
+                console.log(" ├─ ⏩ スキップ: 既にNotionへ処理・反映済みの記事URLです（API消費ゼロ）");
+                continue;
+            }
+
             const title = article.title || "";
             if (title.includes("グッズ") || title.includes("Blu-ray") || title.includes("CD") || title.includes("配信") || title.includes("上映会") || title.includes("コラボ") || title.includes("展示") || title.includes("出展")) {
                 console.log(" ├─ ⏩ スキップ: タイトルから対象外と判定");
@@ -84,14 +113,24 @@ async function run() {
                 continue;
             }
             
-            console.log(" ├─ 🎯 情報検知！ Geminiに詳細解析を依頼します...");
+            console.log(" ├─ 🎯 新着のチケット情報を検知！ Geminiに解析を依頼します...");
             
+            // ★ ステップ3: 既存のライブ名一覧をプロンプトに渡し、表記揺れを徹底的に防ぐ
+            const existingNamesListStr = existingLiveNames.length > 0 
+                ? existingLiveNames.map(n => `・${n}`).join('\n') 
+                : "（まだ登録なし）";
+
             const prompt = `以下のテキストからイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
+
+【重要：既存ライブとの名寄せルール】
+現在データベースには以下のライブが登録されています。
+${existingNamesListStr}
+もし今回の記事が上記リスト内のライブと同じイベント（続報や別先行など）である場合は、表記揺れを防ぐため、"base_live_name" には**上記リストにある文字列と一字一句まったく同じ名称**を出力してください。新規イベントの場合は新しく正式名称を作成してください。
 
 【抽出フォーマット】
 {
   "is_target_live": true, 
-  "base_live_name": "ライブの基本名称（装飾を除外した正式名称）",
+  "base_live_name": "ライブの基本名称（既存リストにあればその名称、なければ装飾を除外した正式名称）",
   "short_name": "カレンダー表示用の短い略称（例: デレ15周年オケコンなど15文字以内）",
   "live_date": "ライブ開催初日の日付（YYYY-MM-DD形式。不明なら空文字）",
   "live_end_date": "ライブ最終日の日付（YYYY-MM-DD形式。1日限りの場合はlive_dateと同じ日付。不明なら空文字）",
@@ -110,7 +149,6 @@ ${text.substring(0, 3000)}`;
             
             let data = null;
             try {
-                // ★ 確実に動く最新モデル（gemini-flash-latest）を使用（gemini-3.8-flash に書き換えてもOKです）
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`;
                 
                 const res = await fetchWithRetry(apiUrl, {
@@ -153,24 +191,34 @@ ${text.substring(0, 3000)}`;
 
             if (!data || data.is_target_live === false || !data.base_live_name) {
                 console.log(` ├─ ⏩ スキップ: AI判定により非対象`);
-                // 非対象でもAPIは消費したため、少し待機して次へ
                 await new Promise(resolve => setTimeout(resolve, 5000));
                 continue;
             }
             
-            // Notionデータベースの照会
-            const existing = await notion.databases.query({
-                database_id: process.env.NOTION_DB_ID,
-                filter: { property: "名前", title: { equals: data.base_live_name } }
-            });
-            
             const isValidDate = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d);
 
-            if (existing.results.length === 0) {
-                // 新規登録用のデータ構築
+            // ★ ステップ4: 既存データの検索（「名前の一致」または「開催初日の一致」で確実に名寄せする）
+            let targetPage = existingPages.find(p => {
+                const title = p.properties["名前"]?.title?.[0]?.plain_text || "";
+                return title === data.base_live_name;
+            });
+
+            if (!targetPage && isValidDate(data.live_date)) {
+                targetPage = existingPages.find(p => {
+                    const startDate = p.properties["ライブ開催日"]?.date?.start || "";
+                    return startDate === data.live_date;
+                });
+                if (targetPage) {
+                    console.log(` ├─ 💡 開催日(${data.live_date})の一致により、既存ライブと同定しました！`);
+                }
+            }
+
+            if (!targetPage) {
+                // 新規登録
                 const notionPayload = {
                     "名前": { title: [{ text: { content: data.base_live_name } }] },
-                    "略称": { rich_text: [{ text: { content: data.short_name || "" } }] }
+                    "略称": { rich_text: [{ text: { content: data.short_name || "" } }] },
+                    "処理済みURL": { rich_text: [{ text: { content: article.url } }] }
                 };
 
                 if (data.ticket_tier) notionPayload["受付枠"] = { rich_text: [{ text: { content: data.ticket_tier } }] };
@@ -198,51 +246,55 @@ ${text.substring(0, 3000)}`;
                     });
                 }
 
-                await notion.pages.create({ parent: { database_id: process.env.NOTION_DB_ID }, properties: notionPayload, children: childrenBlocks });
-                console.log(" ├─ ⭐ 成功: Notionに新規登録！");
+                const newPage = await notion.pages.create({ parent: { database_id: process.env.NOTION_DB_ID }, properties: notionPayload, children: childrenBlocks });
+                console.log(" ├─ ⭐ 成功: Notionに新規登録しました！");
+                
+                // メモリ上のリストにも追加して、同じループ内の別記事でも名寄せできるようにする
+                existingPages.push(newPage);
+                existingLiveNames.push(data.base_live_name);
+                processedUrls.add(article.url);
                 processedCount++;
             } else {
-                // ★ 最適化2: 既存データと内容が同じなら、Notionへの無駄な更新通信を行わない
-                const pageObj = existing.results[0];
-                const props = pageObj.properties;
+                // 既存ページの上書き更新 ＆ 処理済みURLの追記
+                const props = targetPage.properties;
                 const updatePayload = {};
-                let needsUpdate = false;
 
-                const currentDeadline = props["締切日"]?.date?.start || "";
-                if (isValidDate(data.deadline_date) && data.deadline_date !== currentDeadline) {
+                // 既存の「処理済みURL」に今回のURLを追記する
+                const currentUrlsText = props["処理済みURL"]?.rich_text?.[0]?.plain_text || "";
+                const urlList = currentUrlsText ? currentUrlsText.split(',').map(u => u.trim()).filter(Boolean) : [];
+                if (!urlList.includes(article.url)) {
+                    urlList.push(article.url);
+                }
+                // Notionのテキスト上限(2000文字)を超えないように最新15件程度を保持
+                const updatedUrlsText = urlList.slice(-15).join(', ');
+                updatePayload["処理済みURL"] = { rich_text: [{ text: { content: updatedUrlsText } }] };
+
+                // 新しい先行情報があれば上書き
+                if (isValidDate(data.deadline_date)) {
                     updatePayload["締切日"] = { date: { start: data.deadline_date } };
-                    needsUpdate = true;
                 }
-
-                const currentResultDate = props["当落発表日"]?.date?.start || "";
-                if (isValidDate(data.result_date_notion) && data.result_date_notion !== currentResultDate) {
+                if (isValidDate(data.result_date_notion)) {
                     updatePayload["当落発表日"] = { date: { start: data.result_date_notion } };
-                    needsUpdate = true;
                 }
-
-                const currentTier = props["受付枠"]?.rich_text?.[0]?.plain_text || "";
-                if (data.ticket_tier && data.ticket_tier !== currentTier) {
+                if (data.ticket_tier) {
                     updatePayload["受付枠"] = { rich_text: [{ text: { content: data.ticket_tier } }] };
-                    needsUpdate = true;
                 }
-
-                const currentLiveDate = props["ライブ開催日"]?.date?.start || "";
-                if (isValidDate(data.live_date) && data.live_date !== currentLiveDate) {
+                if (isValidDate(data.live_date)) {
                     const dateObj = { start: data.live_date };
                     if (isValidDate(data.live_end_date) && data.live_date !== data.live_end_date) {
                         dateObj.end = data.live_end_date;
                     }
                     updatePayload["ライブ開催日"] = { date: dateObj };
-                    needsUpdate = true;
                 }
 
-                if (needsUpdate) {
-                    await notion.pages.update({ page_id: pageObj.id, properties: updatePayload });
-                    console.log(` ├─ 🔄 更新: 新しい受付情報を反映しました！`);
-                    processedCount++;
-                } else {
-                    console.log(" ├─ 🆗 スキップ: 既に最新情報が登録済みです");
-                }
+                const updatedPage = await notion.pages.update({ page_id: targetPage.id, properties: updatePayload });
+                console.log(` ├─ 🔄 更新: 既存ライブに最新情報を上書き＆URLを記憶しました！`);
+                
+                // メモリ上のデータを更新
+                const idx = existingPages.findIndex(p => p.id === targetPage.id);
+                if (idx !== -1) existingPages[idx] = updatedPage;
+                processedUrls.add(article.url);
+                processedCount++;
             }
             
             console.log(" ├─ ⏳ APIレート制限回避のため12秒待機します...");
