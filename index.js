@@ -24,9 +24,8 @@ async function fetchWithRetry(url, options, maxRetries = 4) {
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（429完全撲滅・表記揺れ防止・上書き保証版）");
+    console.log("🚀 スナイパー起動（会場アクセス＆最寄り駅強化版）");
     
-    // ★ ステップ1: 起動時にNotionの既存データをすべて取得し、記憶する
     console.log("Notionの既存データを読み込み中...");
     let existingPages = [];
     let processedUrls = new Set();
@@ -47,7 +46,7 @@ async function run() {
         }
         console.log(` ├─ 登録済みライブ: ${existingLiveNames.length}件 / 処理済み記事URL: ${processedUrls.size}件`);
     } catch (err) {
-        console.error("⚠️ Notionの初期読み込みに失敗しました（「処理済みURL」プロパティがあるか確認してください）:", err.message);
+        console.error("⚠️ Notionの初期読み込みに失敗しました:", err.message);
         return;
     }
 
@@ -84,7 +83,6 @@ async function run() {
         for (const article of articles) {
             console.log(`\n▶ 対象: ${article.title || article.url}`);
             
-            // ★ ステップ2: すでに処理済みのURLなら、ページを開くことすらせず0秒でスキップ！
             if (processedUrls.has(article.url)) {
                 console.log(" ├─ ⏩ スキップ: 既にNotionへ処理・反映済みの記事URLです（API消費ゼロ）");
                 continue;
@@ -115,11 +113,11 @@ async function run() {
             
             console.log(" ├─ 🎯 新着のチケット情報を検知！ Geminiに解析を依頼します...");
             
-            // ★ ステップ3: 既存のライブ名一覧をプロンプトに渡し、表記揺れを徹底的に防ぐ
             const existingNamesListStr = existingLiveNames.length > 0 
                 ? existingLiveNames.map(n => `・${n}`).join('\n') 
                 : "（まだ登録なし）";
 
+            // ★ プロンプトに「最寄り駅（nearest_station）」の補完指示を追加
             const prompt = `以下のテキストからイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
 【重要：既存ライブとの名寄せルール】
@@ -134,8 +132,9 @@ ${existingNamesListStr}
   "short_name": "カレンダー表示用の短い略称（例: デレ15周年オケコンなど15文字以内）",
   "live_date": "ライブ開催初日の日付（YYYY-MM-DD形式。不明なら空文字）",
   "live_end_date": "ライブ最終日の日付（YYYY-MM-DD形式。1日限りの場合はlive_dateと同じ日付。不明なら空文字）",
-  "official_url": "特設サイトのURL（不明なら空文字）",
-  "venues": "会場名（不明なら未定）",
+  "official_url": "イベント特設サイトのURL（不明なら空文字）",
+  "venues": "会場名のみを簡潔に（例: Kアリーナ横浜、幕張メッセ 国際展示場 展示ホール9-11など。不明なら未定）",
+  "nearest_station": "会場の最寄り駅と所要時間（記事内に記載がなくても、あなたの一般知識から『〇〇駅（徒歩約〇分）』のように具体的に補完してください。会場未定なら『未定』）",
   "schedules": ["Day1: 2月27日(土) 開場15:30 / 開演17:00"],
   "ticket_tier": "今回の記事で募集している受付名称（例: アソビストアプレミアム先行。不明なら空文字）",
   "deadline_date": "受付の最終締切日（YYYY-MM-DD形式。不明なら空文字）",
@@ -197,7 +196,6 @@ ${text.substring(0, 3000)}`;
             
             const isValidDate = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d);
 
-            // ★ ステップ4: 既存データの検索（「名前の一致」または「開催初日の一致」で確実に名寄せする）
             let targetPage = existingPages.find(p => {
                 const title = p.properties["名前"]?.title?.[0]?.plain_text || "";
                 return title === data.base_live_name;
@@ -234,10 +232,48 @@ ${text.substring(0, 3000)}`;
                 }
 
                 const linkUrl = (data.official_url && data.official_url.startsWith('http')) ? data.official_url : article.url;
+                const venueName = data.venues || "未定";
+                const stationInfo = data.nearest_station || "情報なし";
+
+                // ★ 視認性抜群のコールアウト（枠組み）＆ リンク切れしないマップ・公式検索リンクを生成
+                let venueRichText = [];
+                if (venueName !== "未定") {
+                    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueName)}`;
+                    const officialSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(venueName + " 公式 アクセス")}`;
+                    
+                    venueRichText = [
+                        { type: "text", text: { content: "会場：" }, annotations: { bold: true } },
+                        { type: "text", text: { content: `${venueName} (🗺️マップ)`, link: { url: mapUrl } }, annotations: { bold: true } },
+                        { type: "text", text: { content: " ｜ " } },
+                        { type: "text", text: { content: "🌐公式アクセス情報", link: { url: officialSearchUrl } } },
+                        { type: "text", text: { content: `\n🚃 最寄り駅：${stationInfo}` } }
+                    ];
+                } else {
+                    venueRichText = [
+                        { type: "text", text: { content: "会場：未定" } }
+                    ];
+                }
+
                 const childrenBlocks = [
-                    { object: "block", type: "paragraph", paragraph: { rich_text: [{ type: "text", text: { content: `🔗 ${data.base_live_name}`, link: { url: linkUrl } } }] } },
-                    { object: "block", type: "heading_3", heading_3: { rich_text: [{ type: "text", text: { content: "📍 開催情報" } }] } },
-                    { object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: `会場: ${data.venues || "未定"}` } }] } }
+                    { 
+                        object: "block", 
+                        type: "callout", 
+                        callout: { 
+                            icon: { type: "emoji", emoji: "🔗" },
+                            color: "blue_background",
+                            rich_text: [{ type: "text", text: { content: `${data.base_live_name} (イベント特設・記事へ)`, link: { url: linkUrl } }, annotations: { bold: true } }] 
+                        } 
+                    },
+                    { object: "block", type: "heading_3", heading_3: { rich_text: [{ type: "text", text: { content: "📍 開催・アクセス情報" } }] } },
+                    { 
+                        object: "block", 
+                        type: "callout", 
+                        callout: { 
+                            icon: { type: "emoji", emoji: "🏟️" },
+                            color: "gray_background",
+                            rich_text: venueRichText
+                        } 
+                    }
                 ];
                 
                 if (Array.isArray(data.schedules)) {
@@ -247,9 +283,8 @@ ${text.substring(0, 3000)}`;
                 }
 
                 const newPage = await notion.pages.create({ parent: { database_id: process.env.NOTION_DB_ID }, properties: notionPayload, children: childrenBlocks });
-                console.log(" ├─ ⭐ 成功: Notionに新規登録しました！");
+                console.log(" ├─ ⭐ 成功: Notionに会場アクセス付きで新規登録しました！");
                 
-                // メモリ上のリストにも追加して、同じループ内の別記事でも名寄せできるようにする
                 existingPages.push(newPage);
                 existingLiveNames.push(data.base_live_name);
                 processedUrls.add(article.url);
@@ -259,17 +294,14 @@ ${text.substring(0, 3000)}`;
                 const props = targetPage.properties;
                 const updatePayload = {};
 
-                // 既存の「処理済みURL」に今回のURLを追記する
                 const currentUrlsText = props["処理済みURL"]?.rich_text?.[0]?.plain_text || "";
                 const urlList = currentUrlsText ? currentUrlsText.split(',').map(u => u.trim()).filter(Boolean) : [];
                 if (!urlList.includes(article.url)) {
                     urlList.push(article.url);
                 }
-                // Notionのテキスト上限(2000文字)を超えないように最新15件程度を保持
                 const updatedUrlsText = urlList.slice(-15).join(', ');
                 updatePayload["処理済みURL"] = { rich_text: [{ text: { content: updatedUrlsText } }] };
 
-                // 新しい先行情報があれば上書き
                 if (isValidDate(data.deadline_date)) {
                     updatePayload["締切日"] = { date: { start: data.deadline_date } };
                 }
@@ -290,7 +322,6 @@ ${text.substring(0, 3000)}`;
                 const updatedPage = await notion.pages.update({ page_id: targetPage.id, properties: updatePayload });
                 console.log(` ├─ 🔄 更新: 既存ライブに最新情報を上書き＆URLを記憶しました！`);
                 
-                // メモリ上のデータを更新
                 const idx = existingPages.findIndex(p => p.id === targetPage.id);
                 if (idx !== -1) existingPages[idx] = updatedPage;
                 processedUrls.add(article.url);
