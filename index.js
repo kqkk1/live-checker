@@ -24,7 +24,7 @@ async function fetchWithRetry(url, options, maxRetries = 4) {
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（会場アクセス＆最寄り駅強化版）");
+    console.log("🚀 スナイパー起動（全文解析・特設サイトURL抽出・アクセス強化版）");
     
     console.log("Notionの既存データを読み込み中...");
     let existingPages = [];
@@ -102,7 +102,27 @@ async function run() {
                 continue;
             }
             
-            const text = await page.evaluate(() => document.body ? document.body.innerText : "");
+            // ★ 改良1: 本文テキストだけでなく、ページ内に埋め込まれた「特設サイト等のリンクURL」も一緒に引っこ抜く
+            const pageData = await page.evaluate(() => {
+                const bodyText = document.body ? document.body.innerText : "";
+                const extractedLinks = Array.from(document.querySelectorAll('a'))
+                    .map(a => ({ text: (a.innerText || "").trim(), href: a.href || "" }))
+                    .filter(l => 
+                        l.href.startsWith('http') && 
+                        !l.href.includes('/news/') && 
+                        !l.href.includes('twitter.com') && 
+                        !l.href.includes('x.com') &&
+                        !l.href.includes('youtube.com') &&
+                        (l.href.includes('live_event') || l.href.includes('idolmaster-official.jp') || l.text.includes('特設') || l.text.includes('公式') || l.text.includes('詳細') || l.text.includes('サイト'))
+                    )
+                    .map(l => `[${l.text || 'リンク'}](${l.href})`);
+                
+                // 重複リンクを除去して最大20個まで取得
+                const uniqueLinks = Array.from(new Set(extractedLinks)).slice(0, 20);
+                return { text: bodyText, links: uniqueLinks.join('\n') };
+            });
+
+            const text = pageData.text;
             const hasTicket = text.includes("チケット") || text.includes("入場券") || text.includes("プロデューサーシート");
             const hasApply = text.includes("先行") || text.includes("抽選") || text.includes("一般発売") || text.includes("一般会員") || text.includes("受付");
             
@@ -111,14 +131,14 @@ async function run() {
                 continue;
             }
             
-            console.log(" ├─ 🎯 新着のチケット情報を検知！ Geminiに解析を依頼します...");
+            console.log(" ├─ 🎯 新着のチケット情報を検知！ Geminiに全文解析を依頼します...");
             
             const existingNamesListStr = existingLiveNames.length > 0 
                 ? existingLiveNames.map(n => `・${n}`).join('\n') 
                 : "（まだ登録なし）";
 
-            // ★ プロンプトに「最寄り駅（nearest_station）」の補完指示を追加
-            const prompt = `以下のテキストからイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
+            // ★ 改良2: 文字数を12,000文字に大幅拡張し、抽出したリンク一覧も渡して公式URLと当落日を確実に抜く
+            const prompt = `以下のテキストおよびページ内リンク一覧からイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
 【重要：既存ライブとの名寄せルール】
 現在データベースには以下のライブが登録されています。
@@ -132,19 +152,23 @@ ${existingNamesListStr}
   "short_name": "カレンダー表示用の短い略称（例: デレ15周年オケコンなど15文字以内）",
   "live_date": "ライブ開催初日の日付（YYYY-MM-DD形式。不明なら空文字）",
   "live_end_date": "ライブ最終日の日付（YYYY-MM-DD形式。1日限りの場合はlive_dateと同じ日付。不明なら空文字）",
-  "official_url": "イベント特設サイトのURL（不明なら空文字）",
+  "official_url": "イベント公式・特設サイトのURL（下の【ページ内の主なリンク一覧】や本文から、最も該当イベントの特設サイトらしいURLを選んで出力。どうしても無ければ空文字）",
   "venues": "会場名のみを簡潔に（例: Kアリーナ横浜、幕張メッセ 国際展示場 展示ホール9-11など。不明なら未定）",
   "nearest_station": "会場の最寄り駅と所要時間（記事内に記載がなくても、あなたの一般知識から『〇〇駅（徒歩約〇分）』のように具体的に補完してください。会場未定なら『未定』）",
   "schedules": ["Day1: 2月27日(土) 開場15:30 / 開演17:00"],
-  "ticket_tier": "今回の記事で募集している受付名称（例: アソビストアプレミアム先行。不明なら空文字）",
-  "deadline_date": "受付の最終締切日（YYYY-MM-DD形式。不明なら空文字）",
-  "result_date_notion": "当落発表日の日付（YYYY-MM-DD形式。不明なら空文字）"
+  "ticket_tier": "今回の記事で現在募集している現地チケットの受付名称（例: アソビストアプレミアム会員先行。複数ある場合は現在受付中または直近のもの）",
+  "deadline_date": "上記受付の最終締切日（YYYY-MM-DD形式。不明なら空文字）",
+  "result_date_notion": "上記受付の当落発表日（YYYY-MM-DD形式。『当落発表』『抽選結果発表』などの項目を記事の最後まで隅々まで探して抽出してください。不明なら空文字）"
 }
 
 【厳格な判定ルール】
-・is_target_live: 現地開催のアイマス単独音楽ライブ、コンサート、ファンミ、オーケストラコンサートであれば true。「遊園地等のコラボ」「上映会」「オンライン限定」「外部フェスへの出展」は必ず false。
-【テキスト】
-${text.substring(0, 3000)}`;
+・is_target_live: 現地開催（リアル会場）があるアイマス関連の単独音楽ライブ、xRライブ、コンサート、ファンミ、オーケストラであれば true。「遊園地等のコラボ」「上映会」「配信（オンライン）のみのイベント」「外部フェスへの出展」は必ず false。
+
+【ページ内の主なリンク一覧】
+${pageData.links}
+
+【本文テキスト】
+${text.substring(0, 12000)}`;
             
             let data = null;
             try {
@@ -235,7 +259,6 @@ ${text.substring(0, 3000)}`;
                 const venueName = data.venues || "未定";
                 const stationInfo = data.nearest_station || "情報なし";
 
-                // ★ 視認性抜群のコールアウト（枠組み）＆ リンク切れしないマップ・公式検索リンクを生成
                 let venueRichText = [];
                 if (venueName !== "未定") {
                     const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueName)}`;
@@ -261,7 +284,7 @@ ${text.substring(0, 3000)}`;
                         callout: { 
                             icon: { type: "emoji", emoji: "🔗" },
                             color: "blue_background",
-                            rich_text: [{ type: "text", text: { content: `${data.base_live_name} (イベント特設・記事へ)`, link: { url: linkUrl } }, annotations: { bold: true } }] 
+                            rich_text: [{ type: "text", text: { content: `${data.base_live_name} (イベント公式サイトへ)`, link: { url: linkUrl } }, annotations: { bold: true } }] 
                         } 
                     },
                     { object: "block", type: "heading_3", heading_3: { rich_text: [{ type: "text", text: { content: "📍 開催・アクセス情報" } }] } },
@@ -283,7 +306,7 @@ ${text.substring(0, 3000)}`;
                 }
 
                 const newPage = await notion.pages.create({ parent: { database_id: process.env.NOTION_DB_ID }, properties: notionPayload, children: childrenBlocks });
-                console.log(" ├─ ⭐ 成功: Notionに会場アクセス付きで新規登録しました！");
+                console.log(" ├─ ⭐ 成功: Notionに新規登録しました！");
                 
                 existingPages.push(newPage);
                 existingLiveNames.push(data.base_live_name);
