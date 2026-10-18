@@ -29,7 +29,7 @@ async function fetchWithRetry(url, options, maxRetries = 4) {
     return null;
 }
 
-// 処理済みURLを安全に追記・整形する関数（Notionの2000文字制限対策済み）
+// 処理済みURLを安全に追記・整形する関数
 function appendUrlToListString(currentUrlsText, newUrl) {
     const urlList = currentUrlsText ? currentUrlsText.split(',').map(u => u.trim()).filter(Boolean) : [];
     if (!urlList.includes(newUrl)) {
@@ -38,14 +38,13 @@ function appendUrlToListString(currentUrlsText, newUrl) {
     return urlList.slice(-20).join(', ');
 }
 
-// AIが万が一長い略称を出した場合でも、確実に短く整える安全フィルター
+// AIが出力した略称を整える安全フィルター
 function enforceShortName(shortName, fullName) {
     let target = (shortName && shortName.trim() !== "") ? shortName.trim() : fullName;
     
-    // もしフルネームにある「PRODUCER MEETING」や「PM」が略称から抜け落ちていた場合は補完する
-    const isPM = /PRODUCER\s*MEETING|プロデューサーミーティング|\bPM\b/i.test(fullName);
-    
     target = target
+        .replace(/PROJECT IM@S\s*/gi, '')
+        .replace(/vα-liv/gi, 'ヴイアラ')
         .replace(/THE IDOLM@STER\s*/gi, '')
         .replace(/アイドルマスター\s*/g, '')
         .replace(/CINDERELLA GIRLS/gi, 'デレ')
@@ -56,22 +55,20 @@ function enforceShortName(shortName, fullName) {
         .replace(/シャイニーカラーズ/g, 'シャニ')
         .replace(/SideM/gi, 'SideM')
         .replace(/学園アイドルマスター/g, '学マス')
-        .replace(/PRODUCER MEETING/gi, 'PM')
-        .replace(/プロデューサーミーティング/g, 'PM')
         .replace(/Anniversary/gi, '周年')
         .replace(/Memorial/gi, '')
         .replace(/Orchestra Concert/gi, 'オケコン')
         .replace(/\s+/g, ' ')
         .trim();
 
-    if (isPM && !target.includes('PM') && !target.includes('ファンミ')) {
-        target = target.replace(/^(ミリオン|デレ|シャニ|SideM|学マス|765)/, '$1PM ');
-    }
+    // 「3rdPM名古屋」のようにナンバリングの後ろにPMがくっついてしまった場合は「3rd名古屋」に自動修正
+    target = target.replace(/(\d+(?:st|nd|rd|th))\s*PM\s*/gi, '$1');
+
     return target;
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（最終完成版：略称プロパティ廃止・ツアー公演自動分割・PM表記保証）");
+    console.log("🚀 スナイパー起動（完全マスター版：昼夜別種別[PM/LIVE]対応・ツアー分割・略称最適化）");
     
     console.log("Notionの既存データを読み込み中...");
     let existingPages = [];
@@ -79,7 +76,6 @@ async function run() {
     let existingListForAI = [];
 
     try {
-        // ページ数が増えても全件確実に取得するページネーション対応
         let hasMore = true;
         let startCursor = undefined;
         while (hasMore) {
@@ -97,19 +93,16 @@ async function run() {
             const titleText = page.properties["名前"]?.title?.[0]?.plain_text || "";
             const startDate = page.properties["ライブ開催日"]?.date?.start || "";
             
-            // もし既存カード（手打ち以外）の「名前」に30文字以上の長い正式名称が残っていたら、自動で短縮修復する
-            if (titleText.length > 28 && /IDOLM@STER|アイドルマスター/i.test(titleText)) {
-                const autoShort = enforceShortName("", titleText);
-                if (autoShort !== titleText) {
-                    console.log(` ├─ 🔧 自動短縮: 既存カード『${titleText}』を『${autoShort}』へ修復します...`);
-                    try {
-                        const fixedPage = await notion.pages.update({
-                            page_id: page.id,
-                            properties: { "名前": { title: [{ text: { content: autoShort } }] } }
-                        });
-                        existingPages[i] = fixedPage;
-                    } catch (e) {}
-                }
+            const cleanedTitle = enforceShortName(titleText, titleText);
+            if (titleText && cleanedTitle !== titleText && (titleText.length > 28 || /\d+(?:st|nd|rd|th)\s*PM/i.test(titleText))) {
+                console.log(` ├─ 🔧 タイトル自動修復: 『${titleText}』→『${cleanedTitle}』`);
+                try {
+                    const fixedPage = await notion.pages.update({
+                        page_id: page.id,
+                        properties: { "名前": { title: [{ text: { content: cleanedTitle } }] } }
+                    });
+                    existingPages[i] = fixedPage;
+                } catch (e) {}
             }
 
             const currentTitle = existingPages[i].properties["名前"]?.title?.[0]?.plain_text || "";
@@ -153,7 +146,6 @@ async function run() {
                 uniqueUrls.set(link.url, link);
             }
         }
-        // 古い記事から順（下から上）に処理することで、Notionの「作成日時（降順）」ソート時に新しい記事が一番上に来るように最適化
         const articles = Array.from(uniqueUrls.values()).reverse();
         console.log(`抽出対象: ${articles.length}件`);
         
@@ -216,35 +208,43 @@ async function run() {
                 ? existingListForAI.join('\n') 
                 : "（まだ登録なし）";
 
-            // ★ 複数日程（名古屋公演・東京公演など）を自動的に別々のオブジェクトとして分割抽出させるプロンプト
             const prompt = `以下のテキストおよびページ内リンク一覧からイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
-【最重要①：複数公演（ツアーや別日程）の分割ルール】
-もし1つの記事内に「名古屋公演（1/30〜1/31）」と「東京公演（3/21〜3/22）」のように、**日程が離れた複数の公演（別会場・別週末）が含まれている場合は、カレンダー上で期間が繋がってしまうのを防ぐため、必ず公演（日程ブロック）ごとに別々の要素として "events" 配列に分割**して出力してください。
-（※連続する土日のDay1・Day2は1つの要素にまとめ、日程が数日以上離れている公演同士は必ず別要素に分けてください）
+【最重要①：複数公演（ツアー・別都市・別週末）の分割ルール】
+・もし1つの記事内に「名古屋公演（1/30〜1/31）」と「東京公演（3/21〜3/22）」のように、**日程が離れた複数の公演（別会場・別週末）が含まれている場合は、必ず公演（週末ブロック）ごとに別々の要素として "events" 配列に分割**して出力してください。
+・逆に、**同じ週末の連続するDay1とDay2は分割せず、1つの要素（例：1/30〜1/31）にまとめてください。**
 
-【最重要②：略称（short_name）の命名ルールと既存ライブとの名寄せ】
+【最重要②：略称（short_name）の命名ルール】
 現在データベースには以下のライブが登録されています。
 ${existingNamesListStr}
-・もし今回の記事が上記リスト内のライブと同じ公演（続報や別先行）である場合は、表記揺れを防ぐため、"short_name" には**上記リストにある略称と一字一句まったく同じ名称**を出力してください。
-・新規登録となる場合の "short_name" は、カレンダーの一番上に表示するため15文字以内で作成してください。
-・**PRODUCER MEETING（プロデューサーミーティング）の場合は、どの公演であっても絶対に「PM」という文字を略称から省かないでください**（例：「ミリオンPM名古屋」「ミリオンPM東京」のように、すべての分割公演に「PM」と「都市名」を入れること）。
+・既存リストと同じ公演（続報や別先行）であれば、表記揺れを防ぐため "short_name" は上記リストにある略称と一致させてください（ただし「3rdPM」のようにナンバリングとPMが混ざっている場合は「3rd」に修正して構いません）。
+・**PRODUCER MEETINGとLIVEの複合イベントや、1st/2nd/3rdなどのナンバリングライブの場合は、"short_name" に『PM』を入れず、ライブ名として『ヴイアラ3rd名古屋』『ヴイアラ3rd東京』のようにスッキリ命名してください。**（「PM」を略称に入れるのは、LIVEを含まない純粋なPRODUCER MEETING単独イベントの時だけにしてください）
+
+【最重要③：schedules（各日・各公演の詳細スケジュール）の記載ルール】
+サイドピークで詳細を見た際、どの日程・どの回が「PRODUCER MEETING」で、どれが「LIVE」なのか一目でわかるように記載してください。
+・**日によって種別が異なる場合：**
+  『Day1: 1月30日(土) [PRODUCER MEETING] 開場16:00 / 開演17:00』
+  『Day2: 1月31日(日) [LIVE] 開場15:00 / 開演16:00』のように記載。
+・**同じ日の昼公演（第1部）と夜公演（第2部）で種別が異なる場合（例：昼がPRODUCER MEETING、夜がLIVEなど）：**
+  『Day1: 1月30日(土) ①昼公演[PRODUCER MEETING] 開場12:00/開演13:00 ／ ②夜公演[LIVE] 開場16:30/開演17:30』のように、**各公演ごとに [PRODUCER MEETING] や [LIVE]（または固有のサブタイトル）を明記**してください。
+・**同じ日に同種別で2公演ある場合：**
+  『Day2: 1月31日(日) [LIVE] ①開場12:00/開演13:00 ／ ②開場16:30/開演17:30』のように、1日の全公演の開場・開演時間を絶対に省略せずすべて記載してください。
 
 【抽出フォーマット】
 {
   "is_target_live": true,
   "events": [
     {
-      "full_official_name": "イベントの正式フルタイトル（サイドピーク内の公式サイトリンク文字に使用します。複数公演ある場合は『正式名称 名古屋公演』のように公演名も補完してください）",
-      "short_name": "カレンダー表示用の略称（例: ミリオンPM名古屋、ミリオンPM東京、デレ15周年オケコン、Apple of my アイ など15文字以内）",
-      "live_date": "その公演の開催初日の日付（YYYY-MM-DD形式。不明なら空文字）",
-      "live_end_date": "その公演の最終日の日付（YYYY-MM-DD形式。1日限りの場合はlive_dateと同じ日付。3ヶ月先の別公演の日付と繋げるのは厳禁）",
+      "full_official_name": "イベントの正式フルタイトル（サイドピーク内の公式サイトリンク文字に使用します。複数都市ある場合は『正式名称 名古屋公演』のように都市名も補完してください）",
+      "short_name": "カレンダー表示用の略称（例: ヴイアラ3rd名古屋、ヴイアラ3rd東京、デレ15周年オケコン、Apple of my アイ など15文字以内）",
+      "live_date": "その公演ブロックの初日の日付（YYYY-MM-DD形式。不明なら空文字）",
+      "live_end_date": "その公演ブロックの最終日の日付（YYYY-MM-DD形式。1日限りの場合はlive_dateと同じ日付。別月の別都市公演と繋げるのは厳禁）",
       "official_url": "イベント公式・特設サイトのURL（下の【ページ内の主なリンク一覧】から最も該当イベントの特設サイトらしいURLを選択。無ければ空文字）",
-      "venues": "その公演の会場名のみを簡潔に（例: 愛知県芸術劇場 大ホール、Kアリーナ横浜 など。不明なら未定）",
-      "nearest_station": "会場の最寄り駅と所要時間（記事内に記載がなくても一般知識から『栄駅（徒歩約3分）』のように具体的に補完。会場未定なら『未定』）",
+      "venues": "その公演の会場名のみを簡潔に（例: COMTEC PORTBASE、Zepp DiverCity (TOKYO)、Kアリーナ横浜 など。不明なら未定）",
+      "nearest_station": "会場の最寄り駅と所要時間（記事内に記載がなくても一般知識から『港区役所駅（徒歩約5分）』のように具体的に補完。会場未定なら『未定』）",
       "schedules": [
-        "Day1: 1月30日(土) 開場16:00 / 開演17:00",
-        "Day2: 1月31日(日) ①開場12:00/開演13:00 ②開場16:30/開演17:30"
+        "Day1: 1月30日(土) ①[PRODUCER MEETING] 開場12:00/開演13:00 ／ ②[LIVE] 開場16:30/開演17:30",
+        "Day2: 1月31日(日) [LIVE] ①開場12:00/開演13:00 ／ ②開場16:30/開演17:30"
       ],
       "ticket_tier": "この公演に対して今回の記事で現在募集している現地チケットの受付名称（例: アソビストアプレミアム会員先行）",
       "deadline_date": "上記受付の最終締切日（YYYY-MM-DD形式。今回の記事でこの公演の募集がない場合は空文字）",
@@ -254,7 +254,7 @@ ${existingNamesListStr}
 }
 
 【厳格な判定ルール】
-・is_target_live: 現地開催（リアル会場）があるアイマス関連の単独音楽ライブ、xRライブ、コンサート、PM（プロデューサーミーティング）、ファンミ、オーケストラであれば true。「遊園地等のコラボ」「上映会」「配信（オンライン）のみのイベント」「外部フェスへの出展」は必ず false。
+・is_target_live: 現地開催（リアル会場）があるアイマス関連（vα-liv含む）の単独音楽ライブ、xRライブ、コンサート、PM（プロデューサーミーティング）、ファンミ、オーケストラであれば true。「遊園地等のコラボ」「上映会」「配信（オンライン）のみのイベント」「外部フェスへの出展」は必ず false。
 
 【ページ内の主なリンク一覧】
 ${pageData.links}
@@ -328,12 +328,11 @@ ${text.substring(0, 12000)}`;
             
             const isValidDate = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d);
 
-            // ★ 分割された各公演（例: 名古屋公演、東京公演）ごとにループしてNotionへ登録・更新
             for (const ev of eventsList) {
                 const fullOfficialName = ev.full_official_name || ev.base_live_name || article.title || "アイマスイベント";
                 const displayShortName = enforceShortName(ev.short_name, fullOfficialName);
 
-                // 名寄せ検索: ①開催初日の一致（最優先・確実） または ②名前（略称・正式名）の一致
+                // 名寄せ検索: ①開催初日の一致（最優先） または ②名前の一致
                 let targetPage = null;
                 if (isValidDate(ev.live_date)) {
                     targetPage = existingPages.find(p => {
@@ -349,7 +348,6 @@ ${text.substring(0, 12000)}`;
                 }
 
                 if (!targetPage) {
-                    // 新規登録（「略称」プロパティは完全に廃止し、「名前」に略称のみを入れる）
                     const notionPayload = {
                         "名前": { title: [{ text: { content: displayShortName } }] },
                         "処理済みURL": { rich_text: [{ text: { content: article.url } }] }
@@ -389,7 +387,6 @@ ${text.substring(0, 12000)}`;
                         ];
                     }
 
-                    // ★ サイドピーク内の公式サイトリンクには「フルタイトル（fullOfficialName）」を表示
                     const childrenBlocks = [
                         { 
                             object: "block", 
@@ -425,7 +422,6 @@ ${text.substring(0, 12000)}`;
                     existingListForAI.push(`・略称: "${displayShortName}" (開催初日: ${ev.live_date || "未定"})`);
                     processedCount++;
                 } else {
-                    // 既存ページの更新
                     const props = targetPage.properties;
                     const updatePayload = {
                         "名前": { title: [{ text: { content: displayShortName } }] }
