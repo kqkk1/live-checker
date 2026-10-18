@@ -23,8 +23,18 @@ async function fetchWithRetry(url, options, maxRetries = 4) {
     return null;
 }
 
+// ★ 最適化: 処理済みURLを安全に追記・整形する共通関数
+function appendUrlToListString(currentUrlsText, newUrl) {
+    const urlList = currentUrlsText ? currentUrlsText.split(',').map(u => u.trim()).filter(Boolean) : [];
+    if (!urlList.includes(newUrl)) {
+        urlList.push(newUrl);
+    }
+    // Notionの2000文字制限を超えないよう最新20件を保持
+    return urlList.slice(-20).join(', ');
+}
+
 async function run() {
-    console.log("🚀 スナイパー起動（全文解析・特設サイトURL抽出・アクセス強化版）");
+    console.log("🚀 スナイパー起動（タイトル略称化・全文解析・アクセス強化・完全最適化版）");
     
     console.log("Notionの既存データを読み込み中...");
     let existingPages = [];
@@ -36,15 +46,20 @@ async function run() {
         existingPages = dbQuery.results;
 
         for (const page of existingPages) {
-            const nameProp = page.properties["名前"]?.title?.[0]?.plain_text;
-            if (nameProp) existingLiveNames.push(nameProp);
+            // ★ 方法B対応: 「名前(タイトル)」には略称、「略称(テキスト)」には正式名称が入るため、両方から正式名称を回収して名寄せリストを作る
+            const titleText = page.properties["名前"]?.title?.[0]?.plain_text || "";
+            const subText = page.properties["略称"]?.rich_text?.[0]?.plain_text || "";
+            
+            // 文字数が長い方を「正式名称」としてAIのカンニングリストに登録（旧データとの互換性も維持）
+            const officialName = subText.length > titleText.length ? subText : titleText;
+            if (officialName) existingLiveNames.push(officialName);
 
             const urlsText = page.properties["処理済みURL"]?.rich_text?.[0]?.plain_text || "";
             if (urlsText) {
                 urlsText.split(',').map(u => u.trim()).filter(Boolean).forEach(u => processedUrls.add(u));
             }
         }
-        console.log(` ├─ 登録済みライブ: ${existingLiveNames.length}件 / 処理済み記事URL: ${processedUrls.size}件`);
+        console.log(` ├─ 登録済みライブ: ${existingPages.length}件 / 記憶済み記事URL: ${processedUrls.size}件`);
     } catch (err) {
         console.error("⚠️ Notionの初期読み込みに失敗しました:", err.message);
         return;
@@ -84,7 +99,7 @@ async function run() {
             console.log(`\n▶ 対象: ${article.title || article.url}`);
             
             if (processedUrls.has(article.url)) {
-                console.log(" ├─ ⏩ スキップ: 既にNotionへ処理・反映済みの記事URLです（API消費ゼロ）");
+                console.log(" ├─ ⏩ スキップ: 既にチェック済みの記事URLです（API消費ゼロ）");
                 continue;
             }
 
@@ -102,9 +117,11 @@ async function run() {
                 continue;
             }
             
-            // ★ 改良1: 本文テキストだけでなく、ページ内に埋め込まれた「特設サイト等のリンクURL」も一緒に引っこ抜く
+            // ★ 最適化: ヘッダー等のノイズを減らし、記事のメイン領域から優先的にテキストと特設サイトURLを抽出
             const pageData = await page.evaluate(() => {
-                const bodyText = document.body ? document.body.innerText : "";
+                const mainEl = document.querySelector('main, article, .news-detail, #main') || document.body;
+                const bodyText = mainEl ? mainEl.innerText : "";
+                
                 const extractedLinks = Array.from(document.querySelectorAll('a'))
                     .map(a => ({ text: (a.innerText || "").trim(), href: a.href || "" }))
                     .filter(l => 
@@ -117,7 +134,6 @@ async function run() {
                     )
                     .map(l => `[${l.text || 'リンク'}](${l.href})`);
                 
-                // 重複リンクを除去して最大20個まで取得
                 const uniqueLinks = Array.from(new Set(extractedLinks)).slice(0, 20);
                 return { text: bodyText, links: uniqueLinks.join('\n') };
             });
@@ -137,7 +153,6 @@ async function run() {
                 ? existingLiveNames.map(n => `・${n}`).join('\n') 
                 : "（まだ登録なし）";
 
-            // ★ 改良2: 文字数を12,000文字に大幅拡張し、抽出したリンク一覧も渡して公式URLと当落日を確実に抜く
             const prompt = `以下のテキストおよびページ内リンク一覧からイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
 【重要：既存ライブとの名寄せルール】
@@ -149,7 +164,7 @@ ${existingNamesListStr}
 {
   "is_target_live": true, 
   "base_live_name": "ライブの基本名称（既存リストにあればその名称、なければ装飾を除外した正式名称）",
-  "short_name": "カレンダー表示用の短い略称（例: デレ15周年オケコンなど15文字以内）",
+  "short_name": "カレンダーの一番上に表示するための分かりやすい略称（例: デレ15周年オケコン、シャニ7th愛知、Apple of my アイ など15文字以内。絶対に空欄にしないこと）",
   "live_date": "ライブ開催初日の日付（YYYY-MM-DD形式。不明なら空文字）",
   "live_end_date": "ライブ最終日の日付（YYYY-MM-DD形式。1日限りの場合はlive_dateと同じ日付。不明なら空文字）",
   "official_url": "イベント公式・特設サイトのURL（下の【ページ内の主なリンク一覧】や本文から、最も該当イベントの特設サイトらしいURLを選んで出力。どうしても無ければ空文字）",
@@ -212,19 +227,44 @@ ${text.substring(0, 12000)}`;
                 continue;
             }
 
+            // ★ 最適化: AIが「非対象」と判定した記事も、次回からAPIを消費しないよう既存カードの「処理済みURL」に相乗り記憶させる
             if (!data || data.is_target_live === false || !data.base_live_name) {
                 console.log(` ├─ ⏩ スキップ: AI判定により非対象`);
-                await new Promise(resolve => setTimeout(resolve, 5000));
+                if (existingPages.length > 0) {
+                    const memoPage = existingPages[0];
+                    const currentUrls = memoPage.properties["処理済みURL"]?.rich_text?.[0]?.plain_text || "";
+                    const updatedUrls = appendUrlToListString(currentUrls, article.url);
+                    try {
+                        const updatedMemoPage = await notion.pages.update({
+                            page_id: memoPage.id,
+                            properties: { "処理済みURL": { rich_text: [{ text: { content: updatedUrls } }] } }
+                        });
+                        existingPages[0] = updatedMemoPage;
+                        processedUrls.add(article.url);
+                        console.log(` ├─ 📝 非対象URLを記憶しました（次回から0秒スキップされます）`);
+                    } catch (e) {
+                        // 記憶失敗時は無視して続行
+                    }
+                }
+                await new Promise(resolve => setTimeout(resolve, 6000));
                 continue;
             }
             
             const isValidDate = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d);
+            const displayShortName = data.short_name || data.base_live_name;
 
+            // ★ 名寄せ検索: 「名前(タイトル)」と「略称(テキスト)」のどちらかに正式名称または略称が入っていれば一致とみなす
             let targetPage = existingPages.find(p => {
-                const title = p.properties["名前"]?.title?.[0]?.plain_text || "";
-                return title === data.base_live_name;
+                const titleText = p.properties["名前"]?.title?.[0]?.plain_text || "";
+                const subText = p.properties["略称"]?.rich_text?.[0]?.plain_text || "";
+                return (
+                    titleText === data.base_live_name || 
+                    subText === data.base_live_name || 
+                    titleText === displayShortName
+                );
             });
 
+            // 予備の名寄せ: 開催初日が一致していれば同一ライブとみなす
             if (!targetPage && isValidDate(data.live_date)) {
                 targetPage = existingPages.find(p => {
                     const startDate = p.properties["ライブ開催日"]?.date?.start || "";
@@ -236,10 +276,10 @@ ${text.substring(0, 12000)}`;
             }
 
             if (!targetPage) {
-                // 新規登録
+                // ★ 新規登録: 一番上のタイトル（「名前」）に『略称』を入れ、「略称」欄に『正式名称』を保存する
                 const notionPayload = {
-                    "名前": { title: [{ text: { content: data.base_live_name } }] },
-                    "略称": { rich_text: [{ text: { content: data.short_name || "" } }] },
+                    "名前": { title: [{ text: { content: displayShortName } }] },
+                    "略称": { rich_text: [{ text: { content: data.base_live_name } }] },
                     "処理済みURL": { rich_text: [{ text: { content: article.url } }] }
                 };
 
@@ -277,6 +317,7 @@ ${text.substring(0, 12000)}`;
                     ];
                 }
 
+                // サイドピーク内の青いコールアウトには、分かりやすく「正式名称」を表示
                 const childrenBlocks = [
                     { 
                         object: "block", 
@@ -306,7 +347,7 @@ ${text.substring(0, 12000)}`;
                 }
 
                 const newPage = await notion.pages.create({ parent: { database_id: process.env.NOTION_DB_ID }, properties: notionPayload, children: childrenBlocks });
-                console.log(" ├─ ⭐ 成功: Notionに新規登録しました！");
+                console.log(` ├─ ⭐ 成功: 『${displayShortName}』としてNotionに新規登録しました！`);
                 
                 existingPages.push(newPage);
                 existingLiveNames.push(data.base_live_name);
@@ -318,12 +359,15 @@ ${text.substring(0, 12000)}`;
                 const updatePayload = {};
 
                 const currentUrlsText = props["処理済みURL"]?.rich_text?.[0]?.plain_text || "";
-                const urlList = currentUrlsText ? currentUrlsText.split(',').map(u => u.trim()).filter(Boolean) : [];
-                if (!urlList.includes(article.url)) {
-                    urlList.push(article.url);
-                }
-                const updatedUrlsText = urlList.slice(-15).join(', ');
+                const updatedUrlsText = appendUrlToListString(currentUrlsText, article.url);
                 updatePayload["処理済みURL"] = { rich_text: [{ text: { content: updatedUrlsText } }] };
+
+                // もし既存カードのタイトルがまだ長い正式名称のままなら、自動的に略称へスイッチさせる
+                const currentTitle = props["名前"]?.title?.[0]?.plain_text || "";
+                if (currentTitle === data.base_live_name && displayShortName !== data.base_live_name) {
+                    updatePayload["名前"] = { title: [{ text: { content: displayShortName } }] };
+                    updatePayload["略称"] = { rich_text: [{ text: { content: data.base_live_name } }] };
+                }
 
                 if (isValidDate(data.deadline_date)) {
                     updatePayload["締切日"] = { date: { start: data.deadline_date } };
@@ -343,7 +387,7 @@ ${text.substring(0, 12000)}`;
                 }
 
                 const updatedPage = await notion.pages.update({ page_id: targetPage.id, properties: updatePayload });
-                console.log(` ├─ 🔄 更新: 既存ライブに最新情報を上書き＆URLを記憶しました！`);
+                console.log(` ├─ 🔄 更新: 既存ライブ『${displayShortName}』に最新情報を上書き＆URLを記憶しました！`);
                 
                 const idx = existingPages.findIndex(p => p.id === targetPage.id);
                 if (idx !== -1) existingPages[idx] = updatedPage;
