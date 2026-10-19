@@ -67,8 +67,34 @@ function enforceShortName(shortName, fullName) {
     return target;
 }
 
+// ★ 追加: 出演者リストからペンライト設定サイトの専用URLを安全に生成する関数
+function buildPenlightUrl(castArray) {
+    const baseUrl = "https://penlight-supporter.onrender.com/setlist";
+    if (!Array.isArray(castArray) || castArray.length === 0) {
+        return baseUrl;
+    }
+    // 名前の中の不要な空白や括弧を除去してカンマ区切りにする
+    const cleanedCast = castArray
+        .map(name => String(name).replace(/（.*?）|\(.*?\)/g, '').replace(/\s+/g, '').trim())
+        .filter(Boolean);
+    
+    if (cleanedCast.length === 0) return baseUrl;
+
+    // NotionのURL文字数制限（2000文字）を超えないよう安全にエンコードして組み立てる
+    let castStr = "";
+    for (const name of cleanedCast) {
+        const nextStr = castStr ? `${castStr},${name}` : name;
+        const encoded = encodeURIComponent(nextStr);
+        if ((baseUrl.length + 12 + encoded.length) > 1900) {
+            break; // 上限ギリギリになったら切り詰める
+        }
+        castStr = nextStr;
+    }
+    return `${baseUrl}?auto_cast=${encodeURIComponent(castStr)}`;
+}
+
 async function run() {
-    console.log("🚀 スナイパー起動（完全マスター版：昼夜別種別[PM/LIVE]対応・ツアー分割・略称最適化）");
+    console.log("🚀 スナイパー起動（ペンライト設定自動連携・昼夜種別対応・完全マスター版）");
     
     console.log("Notionの既存データを読み込み中...");
     let existingPages = [];
@@ -202,7 +228,7 @@ async function run() {
                 continue;
             }
             
-            console.log(" ├─ 🎯 新着のチケット情報を検知！ Geminiに全文解析を依頼します...");
+            console.log(" ├─ 🎯 新着のチケット情報を検知！ Geminiに全文解析＆出演者抽出を依頼します...");
             
             const existingNamesListStr = existingListForAI.length > 0 
                 ? existingListForAI.join('\n') 
@@ -218,43 +244,52 @@ async function run() {
 現在データベースには以下のライブが登録されています。
 ${existingNamesListStr}
 ・既存リストと同じ公演（続報や別先行）であれば、表記揺れを防ぐため "short_name" は上記リストにある略称と一致させてください（ただし「3rdPM」のようにナンバリングとPMが混ざっている場合は「3rd」に修正して構いません）。
-・**PRODUCER MEETINGとLIVEの複合イベントや、1st/2nd/3rdなどのナンバリングライブの場合は、"short_name" に『PM』を入れず、ライブ名として『ヴイアラ3rd名古屋』『ヴイアラ3rd東京』のようにスッキリ命名してください。**（「PM」を略称に入れるのは、LIVEを含まない純粋なPRODUCER MEETING単独イベントの時だけにしてください）
+・**PRODUCER MEETINGとLIVEの複合イベントや、1st/2nd/3rdなどのナンバリングライブの場合は、"short_name" に『PM』を入れず、ライブ名として『ヴイアラ3rd名古屋』『ヴイアラ3rd東京』のようにスッキリ命名してください。**
 
-【最重要③：schedules（各日・各公演の詳細スケジュール）の記載ルール】
-サイドピークで詳細を見た際、どの日程・どの回が「PRODUCER MEETING」で、どれが「LIVE」なのか一目でわかるように記載してください。
-・**日によって種別が異なる場合：**
-  『Day1: 1月30日(土) [PRODUCER MEETING] 開場16:00 / 開演17:00』
-  『Day2: 1月31日(日) [LIVE] 開場15:00 / 開演16:00』のように記載。
-・**同じ日の昼公演（第1部）と夜公演（第2部）で種別が異なる場合（例：昼がPRODUCER MEETING、夜がLIVEなど）：**
-  『Day1: 1月30日(土) ①昼公演[PRODUCER MEETING] 開場12:00/開演13:00 ／ ②夜公演[LIVE] 開場16:30/開演17:30』のように、**各公演ごとに [PRODUCER MEETING] や [LIVE]（または固有のサブタイトル）を明記**してください。
-・**同じ日に同種別で2公演ある場合：**
-  『Day2: 1月31日(日) [LIVE] ①開場12:00/開演13:00 ／ ②開場16:30/開演17:30』のように、1日の全公演の開場・開演時間を絶対に省略せずすべて記載してください。
+【最重要③：schedules（各日の詳細スケジュールと出演アイドルの抽出）の記載ルール】
+・"schedules" には、Day1、Day2などの各日程をオブジェクトの配列として出力してください。
+・"text": どの回が「PRODUCER MEETING」でどれが「LIVE」か一目でわかるように記載してください。
+  - 日によって種別が異なる場合：『Day1: 1月30日(土) [PRODUCER MEETING] 開場16:00 / 開演17:00』
+  - 同じ日の昼夜で種別が異なる場合：『Day1: 1月30日(土) ①昼公演[PRODUCER MEETING] 開場12:00/開演13:00 ／ ②夜公演[LIVE] 開場16:30/開演17:30』
+  - 同種別で1日2公演ある場合：『Day2: 1月31日(日) [LIVE] ①開場12:00/開演13:00 ／ ②開場16:30/開演17:30』
+・"label": 『Day1』『Day2』（1日開催なら『全公演』）などの短い日程ラベル。
+・"cast": **その日程に出演する「アイドル（キャラクター）のフルネーム（姓名の間のスペースなし）」の配列**を出力してください。
+  - 記事内に声優名（CV）しか書かれていない場合や、ユニット名しか書かれていない場合でも、あなたの知識から該当する**キャラクター名（例: "天海春香", "灯里愛夏", "有村麻央" など）**に変換・補完して出力してください。
+  - Day1とDay2で出演者が共通の場合は、両方の "cast" に同じリストを入れてください。記事内に出演者情報が一切ない場合は空配列 [] にしてください。
 
 【抽出フォーマット】
 {
   "is_target_live": true,
   "events": [
     {
-      "full_official_name": "イベントの正式フルタイトル（サイドピーク内の公式サイトリンク文字に使用します。複数都市ある場合は『正式名称 名古屋公演』のように都市名も補完してください）",
-      "short_name": "カレンダー表示用の略称（例: ヴイアラ3rd名古屋、ヴイアラ3rd東京、デレ15周年オケコン、Apple of my アイ など15文字以内）",
+      "full_official_name": "イベントの正式フルタイトル（複数都市ある場合は『正式名称 名古屋公演』のように都市名も補完）",
+      "short_name": "カレンダー表示用の略称（例: ヴイアラ3rd名古屋、デレ15周年オケコン、Apple of my アイ など15文字以内）",
       "live_date": "その公演ブロックの初日の日付（YYYY-MM-DD形式。不明なら空文字）",
-      "live_end_date": "その公演ブロックの最終日の日付（YYYY-MM-DD形式。1日限りの場合はlive_dateと同じ日付。別月の別都市公演と繋げるのは厳禁）",
-      "official_url": "イベント公式・特設サイトのURL（下の【ページ内の主なリンク一覧】から最も該当イベントの特設サイトらしいURLを選択。無ければ空文字）",
-      "venues": "その公演の会場名のみを簡潔に（例: COMTEC PORTBASE、Zepp DiverCity (TOKYO)、Kアリーナ横浜 など。不明なら未定）",
-      "nearest_station": "会場の最寄り駅と所要時間（記事内に記載がなくても一般知識から『港区役所駅（徒歩約5分）』のように具体的に補完。会場未定なら『未定』）",
+      "live_end_date": "その公演ブロックの最終日の日付（YYYY-MM-DD形式。1日限りの場合はlive_dateと同じ日付）",
+      "official_url": "イベント公式・特設サイトのURL（無ければ空文字）",
+      "venues": "会場名のみを簡潔に（不明なら未定）",
+      "nearest_station": "会場の最寄り駅と所要時間（一般知識から『〇〇駅（徒歩約〇分）』のように補完）",
       "schedules": [
-        "Day1: 1月30日(土) ①[PRODUCER MEETING] 開場12:00/開演13:00 ／ ②[LIVE] 開場16:30/開演17:30",
-        "Day2: 1月31日(日) [LIVE] ①開場12:00/開演13:00 ／ ②開場16:30/開演17:30"
+        {
+          "label": "Day1",
+          "text": "Day1: 1月30日(土) ①昼公演[PRODUCER MEETING] 開場12:00/開演13:00 ／ ②夜公演[LIVE] 開場16:30/開演17:30",
+          "cast": ["灯里愛夏", "上水流宇宙", "レトラ"]
+        },
+        {
+          "label": "Day2",
+          "text": "Day2: 1月31日(日) [LIVE] ①開場12:00/開演13:00 ／ ②開場16:30/開演17:30",
+          "cast": ["灯里愛夏", "上水流宇宙", "レトラ"]
+        }
       ],
-      "ticket_tier": "この公演に対して今回の記事で現在募集している現地チケットの受付名称（例: アソビストアプレミアム会員先行）",
-      "deadline_date": "上記受付の最終締切日（YYYY-MM-DD形式。今回の記事でこの公演の募集がない場合は空文字）",
-      "result_date_notion": "上記受付の当落発表日（YYYY-MM-DD形式。『当落発表』『抽選結果確認』などを記事の最後まで探して抽出。不明なら空文字）"
+      "ticket_tier": "現在募集している現地チケットの受付名称",
+      "deadline_date": "上記受付の最終締切日（YYYY-MM-DD形式。不明なら空文字）",
+      "result_date_notion": "上記受付の当落発表日（YYYY-MM-DD形式。不明なら空文字）"
     }
   ]
 }
 
 【厳格な判定ルール】
-・is_target_live: 現地開催（リアル会場）があるアイマス関連（vα-liv含む）の単独音楽ライブ、xRライブ、コンサート、PM（プロデューサーミーティング）、ファンミ、オーケストラであれば true。「遊園地等のコラボ」「上映会」「配信（オンライン）のみのイベント」「外部フェスへの出展」は必ず false。
+・is_target_live: 現地開催（リアル会場）があるアイマス関連（vα-liv含む）の単独音楽ライブ、xRライブ、コンサート、PM、ファンミ、オーケストラであれば true。「遊園地等のコラボ」「上映会」「配信のみ」「外部フェス出展」は必ず false。
 
 【ページ内の主なリンク一覧】
 ${pageData.links}
@@ -277,7 +312,8 @@ ${text.substring(0, 12000)}`;
                             { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
                             { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
                         ],
-                        generationConfig: { temperature: 0.1, responseMimeType: "application/json" }
+                        // ★ 出演者リストが入っても絶対に途切れないよう maxOutputTokens を 4096 に拡張
+                        generationConfig: { temperature: 0.1, responseMimeType: "application/json", maxOutputTokens: 4096 }
                     })
                 });
                 
@@ -332,7 +368,6 @@ ${text.substring(0, 12000)}`;
                 const fullOfficialName = ev.full_official_name || ev.base_live_name || article.title || "アイマスイベント";
                 const displayShortName = enforceShortName(ev.short_name, fullOfficialName);
 
-                // 名寄せ検索: ①開催初日の一致（最優先） または ②名前の一致
                 let targetPage = null;
                 if (isValidDate(ev.live_date)) {
                     targetPage = existingPages.find(p => {
@@ -397,7 +432,7 @@ ${text.substring(0, 12000)}`;
                                 rich_text: [{ type: "text", text: { content: `${fullOfficialName} (イベント公式サイトへ)`, link: { url: linkUrl } }, annotations: { bold: true } }] 
                             } 
                         },
-                        { object: "block", type: "heading_3", heading_3: { rich_text: [{ type: "text", text: { content: "📍 開催・アクセス情報" } }] } },
+                        { object: "block", type: "heading_3", heading_3: { rich_text: [{ type: "text", text: { content: "📍 開催・アクセス・ペンライト連携" } }] } },
                         { 
                             object: "block", 
                             type: "callout", 
@@ -409,9 +444,44 @@ ${text.substring(0, 12000)}`;
                         }
                     ];
                     
+                    // ★ 各日程の箇条書きと、その下にぶら下がる「ペンライト設定自動作成リンク」を生成
                     if (Array.isArray(ev.schedules)) {
-                        ev.schedules.forEach(sched => {
-                            childrenBlocks.push({ object: "block", type: "bulleted_list_item", bulleted_list_item: { rich_text: [{ type: "text", text: { content: String(sched) } }] } });
+                        ev.schedules.forEach((schedObj, idx) => {
+                            const isObject = typeof schedObj === 'object' && schedObj !== null;
+                            const schedText = isObject ? (schedObj.text || "") : String(schedObj);
+                            const schedLabel = isObject && schedObj.label ? schedObj.label : `Day${idx + 1}`;
+                            const castList = (isObject && Array.isArray(schedObj.cast)) ? schedObj.cast : [];
+
+                            const penlightUrl = buildPenlightUrl(castList);
+                            const castCountText = castList.length > 0 ? `（出演: ${castList.length}名 自動セット）` : `（手動セット画面へ）`;
+
+                            // スケジュールの箇条書き本体（子要素としてペンライト設定リンクをぶら下げる）
+                            childrenBlocks.push({
+                                object: "block",
+                                type: "bulleted_list_item",
+                                bulleted_list_item: {
+                                    rich_text: [{ type: "text", text: { content: schedText }, annotations: { bold: true } }],
+                                    children: [
+                                        {
+                                            object: "block",
+                                            type: "paragraph",
+                                            paragraph: {
+                                                rich_text: [
+                                                    { type: "text", text: { content: "🪄 " } },
+                                                    { 
+                                                        type: "text", 
+                                                        text: { 
+                                                            content: `${schedLabel} のペンライト設定を作成する${castCountText}`, 
+                                                            link: { url: penlightUrl } 
+                                                        },
+                                                        annotations: { bold: true, color: "purple" }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            });
                         });
                     }
 
