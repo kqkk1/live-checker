@@ -61,40 +61,176 @@ function enforceShortName(shortName, fullName) {
         .replace(/\s+/g, ' ')
         .trim();
 
-    // 「3rdPM名古屋」のようにナンバリングの後ろにPMがくっついてしまった場合は「3rd名古屋」に自動修正
     target = target.replace(/(\d+(?:st|nd|rd|th))\s*PM\s*/gi, '$1');
-
     return target;
 }
 
-// ★ 追加: 出演者リストからペンライト設定サイトの専用URLを安全に生成する関数
-function buildPenlightUrl(castArray) {
-    const baseUrl = "https://penlight-supporter.onrender.com/setlist";
-    if (!Array.isArray(castArray) || castArray.length === 0) {
-        return baseUrl;
-    }
-    // 名前の中の不要な空白や括弧を除去してカンマ区切りにする
-    const cleanedCast = castArray
+// 出演者名の配列を綺麗にクレンジング・重複排除する共通関数
+function cleanCastList(castArray) {
+    if (!Array.isArray(castArray)) return [];
+    const cleaned = castArray
         .map(name => String(name).replace(/（.*?）|\(.*?\)/g, '').replace(/\s+/g, '').trim())
         .filter(Boolean);
-    
+    return Array.from(new Set(cleaned));
+}
+
+// 出演者リストからペンライト設定サイトの専用URLを安全に生成する関数
+function buildPenlightUrl(castArray) {
+    const baseUrl = "https://penlight-supporter.onrender.com/setlist";
+    const cleanedCast = cleanCastList(castArray);
     if (cleanedCast.length === 0) return baseUrl;
 
-    // NotionのURL文字数制限（2000文字）を超えないよう安全にエンコードして組み立てる
     let castStr = "";
     for (const name of cleanedCast) {
         const nextStr = castStr ? `${castStr},${name}` : name;
         const encoded = encodeURIComponent(nextStr);
         if ((baseUrl.length + 12 + encoded.length) > 1900) {
-            break; // 上限ギリギリになったら切り詰める
+            break;
         }
         castStr = nextStr;
     }
     return `${baseUrl}?auto_cast=${encodeURIComponent(castStr)}`;
 }
 
+// スケジュール配列からNotionの箇条書き＋ペンライトURLブロック群を生成する共通関数
+function buildScheduleBlocks(schedules) {
+    const blocks = [];
+    if (!Array.isArray(schedules)) return blocks;
+
+    schedules.forEach((schedObj, idx) => {
+        const isObject = typeof schedObj === 'object' && schedObj !== null;
+        const schedText = isObject ? (schedObj.text || "") : String(schedObj);
+        const schedLabel = isObject && schedObj.label ? schedObj.label : `Day${idx + 1}`;
+        const castList = (isObject && Array.isArray(schedObj.cast)) ? cleanCastList(schedObj.cast) : [];
+
+        const penlightUrl = buildPenlightUrl(castList);
+        const castCountText = castList.length > 0 ? `（出演: ${castList.length}名 自動セット）` : `（手動セット画面へ）`;
+
+        blocks.push({
+            object: "block",
+            type: "bulleted_list_item",
+            bulleted_list_item: {
+                rich_text: [{ type: "text", text: { content: schedText }, annotations: { bold: true } }],
+                children: [
+                    {
+                        object: "block",
+                        type: "paragraph",
+                        paragraph: {
+                            rich_text: [
+                                { type: "text", text: { content: "🪄 " } },
+                                { 
+                                    type: "text", 
+                                    text: { 
+                                        content: `${schedLabel} のペンライト設定を作成する${castCountText}`, 
+                                        link: { url: penlightUrl } 
+                                    },
+                                    annotations: { bold: true, color: "purple" }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        });
+    });
+    return blocks;
+}
+
+// ★ 追加: 既存ページのサイドピーク内にあるスケジュール＆ペンライトURLを最新情報（既存＋追加出演者マージ）で更新する関数
+async function updatePageSchedulesAndCast(pageId, newSchedules) {
+    if (!Array.isArray(newSchedules) || newSchedules.length === 0) return false;
+
+    try {
+        const existingBlocksRes = await notion.blocks.children.list({ block_id: pageId });
+        const existingBullets = existingBlocksRes.results.filter(b => b.type === "bulleted_list_item");
+
+        // 既存の箇条書きブロックから、現在保存されている日程テキストと出演者リスト（URL内）を回収する
+        const oldSchedulesData = [];
+        for (const bullet of existingBullets) {
+            const oldText = bullet.bulleted_list_item?.rich_text?.map(r => r.plain_text).join("") || "";
+            let oldCast = [];
+            if (bullet.has_children) {
+                try {
+                    const childrenRes = await notion.blocks.children.list({ block_id: bullet.id });
+                    for (const child of childrenRes.results) {
+                        const richTexts = child.paragraph?.rich_text || [];
+                        for (const rt of richTexts) {
+                            const urlStr = rt.href || rt.text?.link?.url || "";
+                            if (urlStr.includes("auto_cast=")) {
+                                const urlObj = new URL(urlStr);
+                                const castParam = urlObj.searchParams.get("auto_cast");
+                                if (castParam) {
+                                    oldCast = castParam.split(",").map(s => s.trim()).filter(Boolean);
+                                }
+                            }
+                        }
+                    }
+                } catch (e) {}
+            }
+            oldSchedulesData.push({ id: bullet.id, text: oldText, cast: oldCast });
+        }
+
+        // 新しい記事に出演者やスケジュールが含まれているか確認し、既存データとマージする
+        const hasNewCast = newSchedules.some(s => Array.isArray(s.cast) && s.cast.length > 0);
+        const hasDetailedText = newSchedules.some(s => s.text && (s.text.includes("開場") || s.text.includes("開演") || s.text.includes("[")));
+
+        // もし続報記事にスケジュール詳細も出演者も書かれていなければ、既存のブロックを壊さないようスキップ
+        if (!hasNewCast && !hasDetailedText && oldSchedulesData.length > 0) {
+            return false;
+        }
+
+        const mergedSchedules = newSchedules.map((newSched, idx) => {
+            const isObj = typeof newSched === 'object' && newSched !== null;
+            const label = isObj && newSched.label ? newSched.label : `Day${idx + 1}`;
+            const newText = isObj ? (newSched.text || "") : String(newSched);
+            const newCast = isObj && Array.isArray(newSched.cast) ? cleanCastList(newSched.cast) : [];
+
+            // 対応する既存の日程データを探す（Day1/Day2の一致、または順番の一致）
+            const matchedOld = oldSchedulesData.find(old => old.text.includes(label)) || oldSchedulesData[idx];
+
+            // テキストの決定（今回の記事で開場・開演時間が省略されている場合は、既存の詳しいテキストを引き継ぐ）
+            let finalText = newText;
+            if (matchedOld && matchedOld.text) {
+                const isNewTextBrief = !newText.includes("開演") && matchedOld.text.includes("開演");
+                if (!newText || isNewTextBrief) {
+                    finalText = matchedOld.text;
+                }
+            }
+
+            // 出演者の決定（既存の出演者リスト ＋ 今回抽出された出演者リスト を合算して重複を除く）
+            const oldCast = matchedOld ? matchedOld.cast : [];
+            const finalCast = cleanCastList([...oldCast, ...newCast]);
+
+            return {
+                label: label,
+                text: finalText || `${label}`,
+                cast: finalCast
+            };
+        });
+
+        // 古い箇条書きブロックを削除し、マージ済みの最新ブロックを追加する
+        for (const oldItem of oldSchedulesData) {
+            try {
+                await notion.blocks.delete({ block_id: oldItem.id });
+            } catch (e) {}
+        }
+
+        const newBlocks = buildScheduleBlocks(mergedSchedules);
+        if (newBlocks.length > 0) {
+            await notion.blocks.children.append({
+                block_id: pageId,
+                children: newBlocks
+            });
+        }
+        return true;
+    } catch (err) {
+        console.log(` ├─ ⚠️ サイドピーク内のブロック更新中に軽微なエラー: ${err.message}`);
+        return false;
+    }
+}
+
 async function run() {
-    console.log("🚀 スナイパー起動（ペンライト設定自動連携・昼夜種別対応・完全マスター版）");
+    console.log("🚀 スナイパー起動（完全マスター版：追加出演者マージ・ペンライト自動連携・昼夜種別対応）");
     
     console.log("Notionの既存データを読み込み中...");
     let existingPages = [];
@@ -222,13 +358,15 @@ async function run() {
             const text = pageData.text;
             const hasTicket = text.includes("チケット") || text.includes("入場券") || text.includes("プロデューサーシート");
             const hasApply = text.includes("先行") || text.includes("抽選") || text.includes("一般発売") || text.includes("一般会員") || text.includes("受付");
+            // ★ 追加出演者のお知らせ記事も通過できるように条件を拡張
+            const hasAdditionalCast = title.includes("出演") || text.includes("追加出演") || text.includes("出演者追加") || text.includes("追加キャスト");
             
-            if (!(hasTicket && hasApply)) {
-                console.log(" ├─ ⏩ スキップ: チケット申込の決定的なキーワードなし");
+            if (!((hasTicket && hasApply) || hasAdditionalCast)) {
+                console.log(" ├─ ⏩ スキップ: チケット申込または追加出演者の決定的なキーワードなし");
                 continue;
             }
             
-            console.log(" ├─ 🎯 新着のチケット情報を検知！ Geminiに全文解析＆出演者抽出を依頼します...");
+            console.log(" ├─ 🎯 新着のライブ/出演者情報を検知！ Geminiに全文解析＆出演者抽出を依頼します...");
             
             const existingNamesListStr = existingListForAI.length > 0 
                 ? existingListForAI.join('\n') 
@@ -243,7 +381,7 @@ async function run() {
 【最重要②：略称（short_name）の命名ルール】
 現在データベースには以下のライブが登録されています。
 ${existingNamesListStr}
-・既存リストと同じ公演（続報や別先行）であれば、表記揺れを防ぐため "short_name" は上記リストにある略称と一致させてください（ただし「3rdPM」のようにナンバリングとPMが混ざっている場合は「3rd」に修正して構いません）。
+・既存リストと同じ公演（続報や別先行、追加出演者発表）であれば、表記揺れを防ぐため "short_name" は上記リストにある略称と一字一句一致させてください（ただし「3rdPM」のようにナンバリングとPMが混ざっている場合は「3rd」に修正して構いません）。
 ・**PRODUCER MEETINGとLIVEの複合イベントや、1st/2nd/3rdなどのナンバリングライブの場合は、"short_name" に『PM』を入れず、ライブ名として『ヴイアラ3rd名古屋』『ヴイアラ3rd東京』のようにスッキリ命名してください。**
 
 【最重要③：schedules（各日の詳細スケジュールと出演アイドルの抽出）の記載ルール】
@@ -254,7 +392,8 @@ ${existingNamesListStr}
   - 同種別で1日2公演ある場合：『Day2: 1月31日(日) [LIVE] ①開場12:00/開演13:00 ／ ②開場16:30/開演17:30』
 ・"label": 『Day1』『Day2』（1日開催なら『全公演』）などの短い日程ラベル。
 ・"cast": **その日程に出演する「アイドル（キャラクター）のフルネーム（姓名の間のスペースなし）」の配列**を出力してください。
-  - 記事内に声優名（CV）しか書かれていない場合や、ユニット名しか書かれていない場合でも、あなたの知識から該当する**キャラクター名（例: "天海春香", "灯里愛夏", "有村麻央" など）**に変換・補完して出力してください。
+  - 記事内に記載されている全出演者（既存の出演者＋今回追加された出演者の両方）を漏れなく抽出してください。
+  - 声優名（CV）しか書かれていない場合や、ユニット名しか書かれていない場合でも、あなたの知識から該当する**キャラクター名（例: "天海春香", "灯里愛夏", "有村麻央" など）**に変換・補完して出力してください。
   - Day1とDay2で出演者が共通の場合は、両方の "cast" に同じリストを入れてください。記事内に出演者情報が一切ない場合は空配列 [] にしてください。
 
 【抽出フォーマット】
@@ -281,7 +420,7 @@ ${existingNamesListStr}
           "cast": ["灯里愛夏", "上水流宇宙", "レトラ"]
         }
       ],
-      "ticket_tier": "現在募集している現地チケットの受付名称",
+      "ticket_tier": "現在募集している現地チケットの受付名称（今回の記事にチケット募集がない場合は空文字）",
       "deadline_date": "上記受付の最終締切日（YYYY-MM-DD形式。不明なら空文字）",
       "result_date_notion": "上記受付の当落発表日（YYYY-MM-DD形式。不明なら空文字）"
     }
@@ -312,7 +451,6 @@ ${text.substring(0, 12000)}`;
                             { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
                             { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
                         ],
-                        // ★ 出演者リストが入っても絶対に途切れないよう maxOutputTokens を 4096 に拡張
                         generationConfig: { temperature: 0.1, responseMimeType: "application/json", maxOutputTokens: 4096 }
                     })
                 });
@@ -441,49 +579,9 @@ ${text.substring(0, 12000)}`;
                                 color: "gray_background",
                                 rich_text: venueRichText
                             } 
-                        }
+                        },
+                        ...buildScheduleBlocks(ev.schedules)
                     ];
-                    
-                    // ★ 各日程の箇条書きと、その下にぶら下がる「ペンライト設定自動作成リンク」を生成
-                    if (Array.isArray(ev.schedules)) {
-                        ev.schedules.forEach((schedObj, idx) => {
-                            const isObject = typeof schedObj === 'object' && schedObj !== null;
-                            const schedText = isObject ? (schedObj.text || "") : String(schedObj);
-                            const schedLabel = isObject && schedObj.label ? schedObj.label : `Day${idx + 1}`;
-                            const castList = (isObject && Array.isArray(schedObj.cast)) ? schedObj.cast : [];
-
-                            const penlightUrl = buildPenlightUrl(castList);
-                            const castCountText = castList.length > 0 ? `（出演: ${castList.length}名 自動セット）` : `（手動セット画面へ）`;
-
-                            // スケジュールの箇条書き本体（子要素としてペンライト設定リンクをぶら下げる）
-                            childrenBlocks.push({
-                                object: "block",
-                                type: "bulleted_list_item",
-                                bulleted_list_item: {
-                                    rich_text: [{ type: "text", text: { content: schedText }, annotations: { bold: true } }],
-                                    children: [
-                                        {
-                                            object: "block",
-                                            type: "paragraph",
-                                            paragraph: {
-                                                rich_text: [
-                                                    { type: "text", text: { content: "🪄 " } },
-                                                    { 
-                                                        type: "text", 
-                                                        text: { 
-                                                            content: `${schedLabel} のペンライト設定を作成する${castCountText}`, 
-                                                            link: { url: penlightUrl } 
-                                                        },
-                                                        annotations: { bold: true, color: "purple" }
-                                                    }
-                                                ]
-                                            }
-                                        }
-                                    ]
-                                }
-                            });
-                        });
-                    }
 
                     const newPage = await notion.pages.create({ parent: { database_id: process.env.NOTION_DB_ID }, properties: notionPayload, children: childrenBlocks });
                     console.log(` ├─ ⭐ 新規登録: 『${displayShortName}』（期間: ${ev.live_date}〜${ev.live_end_date || ev.live_date}）`);
@@ -519,7 +617,10 @@ ${text.substring(0, 12000)}`;
                     }
 
                     const updatedPage = await notion.pages.update({ page_id: targetPage.id, properties: updatePayload });
-                    console.log(` ├─ 🔄 既存更新: 『${displayShortName}』（期間: ${ev.live_date}〜${ev.live_end_date || ev.live_date}）`);
+                    
+                    // ★ サイドピーク内のスケジュール＆ペンライトURL（出演者リスト）もマージして最新化！
+                    const isBodyUpdated = await updatePageSchedulesAndCast(targetPage.id, ev.schedules);
+                    console.log(` ├─ 🔄 既存更新: 『${displayShortName}』のプロパティ${isBodyUpdated ? "＆出演者ペンライトURL" : ""}を最新化しました！`);
                     
                     const idx = existingPages.findIndex(p => p.id === targetPage.id);
                     if (idx !== -1) existingPages[idx] = updatedPage;
