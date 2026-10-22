@@ -29,5 +29,6 @@ jobs:
         env:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
           NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+          PUBLIC_NOTION_DB_ID: ${{ secrets.PUBLIC_NOTION_DB_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node index.js
