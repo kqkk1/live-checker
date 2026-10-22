@@ -65,6 +65,42 @@ function enforceShortName(shortName, fullName) {
     return target;
 }
 
+// ★ 追加: イベント内容やタイトルから最適な絵文字アイコンを自動判定する関数
+function selectEventEmoji(ev, fullOfficialName) {
+    const validEmojis = ["🎤", "✨", "🎻", "🤝", "🎪"];
+    if (ev.icon_emoji && validEmojis.includes(ev.icon_emoji.trim())) {
+        return ev.icon_emoji.trim();
+    }
+    const target = `${fullOfficialName} ${ev.short_name || ""}`;
+    if (/オーケストラ|オケコン|Orchestra|音楽祭/i.test(target)) return "🎻";
+    if (/xR|MR|vα-liv|ヴイアラ|Streaming/i.test(target)) return "✨";
+    if ((/PRODUCER MEETING|プロミ|ファンミ|トーク|挨拶/i.test(target)) && !/LIVE/i.test(target)) return "🤝";
+    return "🎤";
+}
+
+// ★ 追加: ブランド名の表記揺れを統一してマルチセレクト用の配列にする関数
+function normalizeBrands(brandsArray, fullOfficialName) {
+    const rawList = Array.isArray(brandsArray) ? [...brandsArray] : [];
+    const normalized = new Set();
+
+    const checkAndAdd = (str) => {
+        if (/765|ALLSTARS|AS/i.test(str)) normalized.add("765AS");
+        if (/デレ|CINDERELLA|シンデレラ/i.test(str)) normalized.add("デレマス");
+        if (/ミリ|MILLION/i.test(str)) normalized.add("ミリオン");
+        if (/シャニ|SHINY/i.test(str)) normalized.add("シャニマス");
+        if (/SideM|サイドエム/i.test(str)) normalized.add("SideM");
+        if (/学マス|学園/i.test(str)) normalized.add("学マス");
+        if (/ヴイアラ|vα-liv/i.test(str)) normalized.add("ヴイアラ");
+        if (/876|ディアリースターズ/i.test(str)) normalized.add("876");
+    };
+
+    rawList.forEach(b => checkAndAdd(String(b)));
+    if (normalized.size === 0 && fullOfficialName) {
+        checkAndAdd(fullOfficialName);
+    }
+    return Array.from(normalized);
+}
+
 // 出演者名の配列をクレンジング・重複排除する関数
 function cleanCastList(castArray) {
     if (!Array.isArray(castArray)) return [];
@@ -222,10 +258,18 @@ async function updatePageSchedulesAndCast(pageId, newSchedules) {
     }
 }
 
-// ★ 指定されたNotionデータベースを読み込み＆初期修復する共通関数
+// ★ 指定されたNotionデータベースを読み込み＆スキーマ確認・初期修復する関数
 async function loadDatabaseState(dbId, label) {
-    const state = { id: dbId, label, pages: [], processedUrls: new Set(), listForAI: [] };
+    const state = { id: dbId, label, pages: [], processedUrls: new Set(), listForAI: [], hasBrandProp: false };
     if (!dbId) return null;
+
+    // DBに「ブランド」列（multi_select）が存在するか自動チェック
+    try {
+        const dbMeta = await notion.databases.retrieve({ database_id: dbId });
+        if (dbMeta.properties && dbMeta.properties["ブランド"]?.type === "multi_select") {
+            state.hasBrandProp = true;
+        }
+    } catch (e) {}
 
     let hasMore = true;
     let startCursor = undefined;
@@ -266,11 +310,11 @@ async function loadDatabaseState(dbId, label) {
             urlsText.split(',').map(u => u.trim()).filter(Boolean).forEach(u => state.processedUrls.add(u));
         }
     }
-    console.log(` ├─ [${label}] 登録済みライブ枠: ${state.pages.length}件 / 記憶済み記事URL: ${state.processedUrls.size}件`);
+    console.log(` ├─ [${label}] 登録済みライブ枠: ${state.pages.length}件 / 記憶済み記事URL: ${state.processedUrls.size}件 / ブランドタグ列: ${state.hasBrandProp ? "あり" : "なし"}`);
     return state;
 }
 
-// ★ 指定されたDBに対して非対象URLを記憶させる共通関数
+// 指定されたDBに対して非対象URLを記憶させる関数
 async function recordSkippedUrlToDb(dbState, url) {
     if (!dbState || dbState.pages.length === 0 || dbState.processedUrls.has(url)) return;
     const memoPage = dbState.pages[0];
@@ -286,7 +330,7 @@ async function recordSkippedUrlToDb(dbState, url) {
     } catch (e) {}
 }
 
-// ★ 抽出されたイベント群を指定されたDB（自分用 または 公開用）へ登録・更新する共通関数
+// 抽出されたイベント群を指定されたDB（自分用 または 公開用）へ登録・更新する関数
 async function applyEventsToDb(dbState, eventsList, article) {
     if (!dbState || dbState.processedUrls.has(article.url)) return 0;
     const isValidDate = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d);
@@ -295,6 +339,8 @@ async function applyEventsToDb(dbState, eventsList, article) {
     for (const ev of eventsList) {
         const fullOfficialName = ev.full_official_name || ev.base_live_name || article.title || "アイマスイベント";
         const displayShortName = enforceShortName(ev.short_name, fullOfficialName);
+        const emojiIcon = selectEventEmoji(ev, fullOfficialName);
+        const brandsList = normalizeBrands(ev.brands, fullOfficialName);
 
         let targetPage = null;
         if (isValidDate(ev.live_date)) {
@@ -316,6 +362,9 @@ async function applyEventsToDb(dbState, eventsList, article) {
                 "処理済みURL": { rich_text: [{ text: { content: article.url } }] }
             };
 
+            if (dbState.hasBrandProp && brandsList.length > 0) {
+                notionPayload["ブランド"] = { multi_select: brandsList.map(b => ({ name: b })) };
+            }
             if (ev.ticket_tier) notionPayload["受付枠"] = { rich_text: [{ text: { content: ev.ticket_tier } }] };
             if (isValidDate(ev.deadline_date)) notionPayload["締切日"] = { date: { start: ev.deadline_date } };
             if (isValidDate(ev.result_date_notion)) notionPayload["当落発表日"] = { date: { start: ev.result_date_notion } };
@@ -373,8 +422,13 @@ async function applyEventsToDb(dbState, eventsList, article) {
                 ...buildScheduleBlocks(ev.schedules)
             ];
 
-            const newPage = await notion.pages.create({ parent: { database_id: dbState.id }, properties: notionPayload, children: childrenBlocks });
-            console.log(` ├─ ⭐ [${dbState.label}] 新規登録: 『${displayShortName}』（期間: ${ev.live_date}〜${ev.live_end_date || ev.live_date}）`);
+            const newPage = await notion.pages.create({
+                parent: { database_id: dbState.id },
+                icon: { type: "emoji", emoji: emojiIcon },
+                properties: notionPayload,
+                children: childrenBlocks
+            });
+            console.log(` ├─ ⭐ [${dbState.label}] 新規登録: ${emojiIcon}『${displayShortName}』（期間: ${ev.live_date}〜${ev.live_end_date || ev.live_date}）`);
             
             dbState.pages.push(newPage);
             dbState.listForAI.push(`・略称: "${displayShortName}" (開催初日: ${ev.live_date || "未定"})`);
@@ -389,6 +443,9 @@ async function applyEventsToDb(dbState, eventsList, article) {
             const updatedUrlsText = appendUrlToListString(currentUrlsText, article.url);
             updatePayload["処理済みURL"] = { rich_text: [{ text: { content: updatedUrlsText } }] };
 
+            if (dbState.hasBrandProp && brandsList.length > 0) {
+                updatePayload["ブランド"] = { multi_select: brandsList.map(b => ({ name: b })) };
+            }
             if (isValidDate(ev.deadline_date)) {
                 updatePayload["締切日"] = { date: { start: ev.deadline_date } };
             }
@@ -406,9 +463,14 @@ async function applyEventsToDb(dbState, eventsList, article) {
                 updatePayload["ライブ開催日"] = { date: dateObj };
             }
 
-            const updatedPage = await notion.pages.update({ page_id: targetPage.id, properties: updatePayload });
+            const updateParams = { page_id: targetPage.id, properties: updatePayload };
+            if (!targetPage.icon) {
+                updateParams.icon = { type: "emoji", emoji: emojiIcon };
+            }
+
+            const updatedPage = await notion.pages.update(updateParams);
             const isBodyUpdated = await updatePageSchedulesAndCast(targetPage.id, ev.schedules);
-            console.log(` ├─ 🔄 [${dbState.label}] 既存更新: 『${displayShortName}』のプロパティ${isBodyUpdated ? "＆出演者ペンライトURL" : ""}を最新化！`);
+            console.log(` ├─ 🔄 [${dbState.label}] 既存更新: ${emojiIcon}『${displayShortName}』のプロパティ${isBodyUpdated ? "＆出演者ペンライトURL" : ""}を最新化！`);
             
             const idx = dbState.pages.findIndex(p => p.id === targetPage.id);
             if (idx !== -1) dbState.pages[idx] = updatedPage;
@@ -421,7 +483,7 @@ async function applyEventsToDb(dbState, eventsList, article) {
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（二刀流マスター版：自分用＆公開用DB同時配信・主要ターミナル駅併記・ペンライト連携）");
+    console.log("🚀 スナイパー起動（完全マスター版：二刀流DB配信・ブランド＆アイコン自動付与・主要駅併記・ペンライト連携）");
     
     const mainDbId = process.env.NOTION_DB_ID;
     const publicDbId = process.env.PUBLIC_NOTION_DB_ID;
@@ -444,6 +506,19 @@ async function run() {
 
     const activeDbs = [mainDb, publicDb].filter(Boolean);
     if (activeDbs.length === 0) return;
+
+    // ★ 最適化①: 「非対象記事（1行目のカードに記憶されているURL群）」を特定し、片方のDBが空っぽでも無駄に再解析しないよう共有する
+    const sharedNonTargetUrls = new Set();
+    activeDbs.forEach(db => {
+        if (db.pages.length > 0) {
+            const firstPageUrls = db.pages[0].properties["処理済みURL"]?.rich_text?.[0]?.plain_text || "";
+            const urlArr = firstPageUrls.split(',').map(u => u.trim()).filter(Boolean);
+            // 1行目のカードに複数URLが相乗りしている場合、2個目以降は非対象として記憶されたURL
+            if (urlArr.length > 1) {
+                urlArr.slice(1).forEach(u => sharedNonTargetUrls.add(u));
+            }
+        }
+    });
 
     const browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
@@ -478,10 +553,9 @@ async function run() {
         for (const article of articles) {
             console.log(`\n▶ 対象: ${article.title || article.url}`);
             
-            // 稼働中のすべてのDB（自分用・公開用）で処理済みの場合のみ0秒スキップ（片方が未処理なら解析して同期する）
             const isProcessedInAll = activeDbs.every(db => db.processedUrls.has(article.url));
-            if (isProcessedInAll) {
-                console.log(" ├─ ⏩ スキップ: 全DBで既にチェック済みの記事URLです（API消費ゼロ）");
+            if (isProcessedInAll || sharedNonTargetUrls.has(article.url)) {
+                console.log(" ├─ ⏩ スキップ: 既にチェック済みの記事URLです（API消費ゼロ）");
                 continue;
             }
 
@@ -575,6 +649,8 @@ ${existingNamesListStr}
     {
       "full_official_name": "イベントの正式フルタイトル（複数都市ある場合は『正式名称 名古屋公演』のように都市名も補完）",
       "short_name": "カレンダー表示用の略称（例: ヴイアラ3rd名古屋、デレ15周年オケコン、Apple of my アイ など15文字以内）",
+      "brands": ["対象ブランド名の配列。選択肢: '765AS', 'デレマス', 'ミリオン', 'シャニマス', 'SideM', '学マス', 'ヴイアラ', '876'。合同ライブの場合は複数指定"],
+      "icon_emoji": "イベント種別に応じた絵文字1文字（通常ライブは'🎤'、xRライブやヴイアラは'✨'、オーケストラは'🎻'、LIVEを含まない純粋なプロミやトークイベントは'🤝'）",
       "live_date": "その公演ブロックの初日の日付（YYYY-MM-DD形式。不明なら空文字）",
       "live_end_date": "その公演ブロックの最終日の日付（YYYY-MM-DD形式。1日限りの場合はlive_dateと同じ日付）",
       "official_url": "イベント公式・特設サイトのURL（無ければ空文字）",
@@ -654,6 +730,7 @@ ${text.substring(0, 12000)}`;
 
             if (!data || data.is_target_live === false || eventsList.length === 0) {
                 console.log(` ├─ ⏩ スキップ: AI判定により非対象`);
+                sharedNonTargetUrls.add(article.url);
                 for (const db of activeDbs) {
                     await recordSkippedUrlToDb(db, article.url);
                 }
@@ -662,7 +739,7 @@ ${text.substring(0, 12000)}`;
                 continue;
             }
             
-            // ★ 自分用DBと公開用DBの両方に連続で反映！
+            // 自分用DBと公開用DBの両方に連続で反映！
             for (const db of activeDbs) {
                 processedCount += await applyEventsToDb(db, eventsList, article);
             }
