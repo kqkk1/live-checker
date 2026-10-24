@@ -65,7 +65,7 @@ function enforceShortName(shortName, fullName) {
     return target;
 }
 
-// ★ 追加: イベント内容やタイトルから最適な絵文字アイコンを自動判定する関数
+// イベント内容やタイトルから最適な絵文字アイコンを自動判定する関数
 function selectEventEmoji(ev, fullOfficialName) {
     const validEmojis = ["🎤", "✨", "🎻", "🤝", "🎪"];
     if (ev.icon_emoji && validEmojis.includes(ev.icon_emoji.trim())) {
@@ -78,7 +78,7 @@ function selectEventEmoji(ev, fullOfficialName) {
     return "🎤";
 }
 
-// ★ 追加: ブランド名の表記揺れを統一してマルチセレクト用の配列にする関数
+// ブランド名の表記揺れを統一してマルチセレクト用の配列にする関数
 function normalizeBrands(brandsArray, fullOfficialName) {
     const rawList = Array.isArray(brandsArray) ? [...brandsArray] : [];
     const normalized = new Set();
@@ -101,6 +101,13 @@ function normalizeBrands(brandsArray, fullOfficialName) {
     return Array.from(normalized);
 }
 
+// ★ 追加: 特別カラー対象ライブ（REFRAC7IONS等）かどうかを自動判定する関数
+function isSpecialColorEvent(ev, fullOfficialName) {
+    if (ev.is_special_color === true) return true;
+    const target = `${fullOfficialName || ""} ${ev.short_name || ""}`;
+    return /REFRAC7IONS|リフラクションズ/i.test(target);
+}
+
 // 出演者名の配列をクレンジング・重複排除する関数
 function cleanCastList(castArray) {
     if (!Array.isArray(castArray)) return [];
@@ -110,26 +117,30 @@ function cleanCastList(castArray) {
     return Array.from(new Set(cleaned));
 }
 
-// 出演者リストからペンライト設定サイトの専用URLを生成する関数
-function buildPenlightUrl(castArray) {
+// ★ 更新: 出演者リストと特別カラーフラグからペンライト設定サイトの専用URLを生成する関数
+function buildPenlightUrl(castArray, isSpecial = false) {
     const baseUrl = "https://penlight-supporter.onrender.com/setlist";
     const cleanedCast = cleanCastList(castArray);
-    if (cleanedCast.length === 0) return baseUrl;
+    
+    if (cleanedCast.length === 0) {
+        return isSpecial ? `${baseUrl}?special=1` : baseUrl;
+    }
 
     let castStr = "";
     for (const name of cleanedCast) {
         const nextStr = castStr ? `${castStr},${name}` : name;
         const encoded = encodeURIComponent(nextStr);
-        if ((baseUrl.length + 12 + encoded.length) > 1900) {
+        if ((baseUrl.length + 25 + encoded.length) > 1900) {
             break;
         }
         castStr = nextStr;
     }
-    return `${baseUrl}?auto_cast=${encodeURIComponent(castStr)}`;
+    const query = `auto_cast=${encodeURIComponent(castStr)}${isSpecial ? "&special=1" : ""}`;
+    return `${baseUrl}?${query}`;
 }
 
-// スケジュール配列からNotionの箇条書き＋ペンライトURLブロック群を生成する関数
-function buildScheduleBlocks(schedules) {
+// ★ 更新: スケジュール配列からNotionの箇条書き＋ペンライトURLブロック群（通常/特別カラー自動切替）を生成する関数
+function buildScheduleBlocks(schedules, isSpecialColor = false) {
     const blocks = [];
     if (!Array.isArray(schedules)) return blocks;
 
@@ -139,8 +150,47 @@ function buildScheduleBlocks(schedules) {
         const schedLabel = isObject && schedObj.label ? schedObj.label : `Day${idx + 1}`;
         const castList = (isObject && Array.isArray(schedObj.cast)) ? cleanCastList(schedObj.cast) : [];
 
-        const penlightUrl = buildPenlightUrl(castList);
+        const normalUrl = buildPenlightUrl(castList, false);
+        const specialUrl = buildPenlightUrl(castList, true);
         const castCountText = castList.length > 0 ? `（出演: ${castList.length}名 自動セット）` : `（手動セット画面へ）`;
+
+        let paragraphRichText = [];
+        if (isSpecialColor) {
+            // 特別カラー対象ライブの時：メインを特別カラー版にし、右に小さく通常版リンクを添える
+            paragraphRichText = [
+                { type: "text", text: { content: "🎨 " } },
+                { 
+                    type: "text", 
+                    text: { 
+                        content: `${schedLabel} のペンライト設定を作成する【特別カラー対応】${castCountText}`, 
+                        link: { url: specialUrl } 
+                    },
+                    annotations: { bold: true, color: "purple" }
+                },
+                { type: "text", text: { content: " ｜ " }, annotations: { color: "gray" } },
+                { 
+                    type: "text", 
+                    text: { 
+                        content: "通常色で作成", 
+                        link: { url: normalUrl } 
+                    },
+                    annotations: { color: "gray" }
+                }
+            ];
+        } else {
+            // 普段のライブ（95%以上）：シンプルな1本リンクのみ
+            paragraphRichText = [
+                { type: "text", text: { content: "🪄 " } },
+                { 
+                    type: "text", 
+                    text: { 
+                        content: `${schedLabel} のペンライト設定を作成する${castCountText}`, 
+                        link: { url: normalUrl } 
+                    },
+                    annotations: { bold: true, color: "purple" }
+                }
+            ];
+        }
 
         blocks.push({
             object: "block",
@@ -152,17 +202,7 @@ function buildScheduleBlocks(schedules) {
                         object: "block",
                         type: "paragraph",
                         paragraph: {
-                            rich_text: [
-                                { type: "text", text: { content: "🪄 " } },
-                                { 
-                                    type: "text", 
-                                    text: { 
-                                        content: `${schedLabel} のペンライト設定を作成する${castCountText}`, 
-                                        link: { url: penlightUrl } 
-                                    },
-                                    annotations: { bold: true, color: "purple" }
-                                }
-                            ]
+                            rich_text: paragraphRichText
                         }
                     }
                 ]
@@ -172,8 +212,8 @@ function buildScheduleBlocks(schedules) {
     return blocks;
 }
 
-// 既存ページのサイドピーク内にあるスケジュール＆ペンライトURLを最新情報（既存＋追加出演者マージ）で更新する関数
-async function updatePageSchedulesAndCast(pageId, newSchedules) {
+// 既存ページのサイドピーク内にあるスケジュール＆ペンライトURLを最新情報で更新する関数
+async function updatePageSchedulesAndCast(pageId, newSchedules, isSpecialColor = false) {
     if (!Array.isArray(newSchedules) || newSchedules.length === 0) return false;
 
     try {
@@ -181,6 +221,8 @@ async function updatePageSchedulesAndCast(pageId, newSchedules) {
         const existingBullets = existingBlocksRes.results.filter(b => b.type === "bulleted_list_item");
 
         const oldSchedulesData = [];
+        let existingHadSpecial = false;
+
         for (const bullet of existingBullets) {
             const oldText = bullet.bulleted_list_item?.rich_text?.map(r => r.plain_text).join("") || "";
             let oldCast = [];
@@ -191,7 +233,10 @@ async function updatePageSchedulesAndCast(pageId, newSchedules) {
                         const richTexts = child.paragraph?.rich_text || [];
                         for (const rt of richTexts) {
                             const urlStr = rt.href || rt.text?.link?.url || "";
-                            if (urlStr.includes("auto_cast=")) {
+                            if (urlStr.includes("special=1")) {
+                                existingHadSpecial = true;
+                            }
+                            if (urlStr.includes("auto_cast=") && oldCast.length === 0) {
                                 const urlObj = new URL(urlStr);
                                 const castParam = urlObj.searchParams.get("auto_cast");
                                 if (castParam) {
@@ -244,7 +289,9 @@ async function updatePageSchedulesAndCast(pageId, newSchedules) {
             } catch (e) {}
         }
 
-        const newBlocks = buildScheduleBlocks(mergedSchedules);
+        // 既存ブロックがすでに特別カラーだった場合、または今回特別カラーと判定された場合は維持する
+        const finalSpecialFlag = isSpecialColor || existingHadSpecial;
+        const newBlocks = buildScheduleBlocks(mergedSchedules, finalSpecialFlag);
         if (newBlocks.length > 0) {
             await notion.blocks.children.append({
                 block_id: pageId,
@@ -258,12 +305,11 @@ async function updatePageSchedulesAndCast(pageId, newSchedules) {
     }
 }
 
-// ★ 指定されたNotionデータベースを読み込み＆スキーマ確認・初期修復する関数
+// 指定されたNotionデータベースを読み込み＆スキーマ確認・初期修復する関数
 async function loadDatabaseState(dbId, label) {
     const state = { id: dbId, label, pages: [], processedUrls: new Set(), listForAI: [], hasBrandProp: false };
     if (!dbId) return null;
 
-    // DBに「ブランド」列（multi_select）が存在するか自動チェック
     try {
         const dbMeta = await notion.databases.retrieve({ database_id: dbId });
         if (dbMeta.properties && dbMeta.properties["ブランド"]?.type === "multi_select") {
@@ -330,7 +376,7 @@ async function recordSkippedUrlToDb(dbState, url) {
     } catch (e) {}
 }
 
-// 抽出されたイベント群を指定されたDB（自分用 または 公開用）へ登録・更新する関数
+// 抽出されたイベント群を指定されたDBへ登録・更新する関数
 async function applyEventsToDb(dbState, eventsList, article) {
     if (!dbState || dbState.processedUrls.has(article.url)) return 0;
     const isValidDate = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d);
@@ -341,6 +387,7 @@ async function applyEventsToDb(dbState, eventsList, article) {
         const displayShortName = enforceShortName(ev.short_name, fullOfficialName);
         const emojiIcon = selectEventEmoji(ev, fullOfficialName);
         const brandsList = normalizeBrands(ev.brands, fullOfficialName);
+        const specialColorFlag = isSpecialColorEvent(ev, fullOfficialName);
 
         let targetPage = null;
         if (isValidDate(ev.live_date)) {
@@ -419,7 +466,7 @@ async function applyEventsToDb(dbState, eventsList, article) {
                         rich_text: venueRichText
                     } 
                 },
-                ...buildScheduleBlocks(ev.schedules)
+                ...buildScheduleBlocks(ev.schedules, specialColorFlag)
             ];
 
             const newPage = await notion.pages.create({
@@ -428,7 +475,7 @@ async function applyEventsToDb(dbState, eventsList, article) {
                 properties: notionPayload,
                 children: childrenBlocks
             });
-            console.log(` ├─ ⭐ [${dbState.label}] 新規登録: ${emojiIcon}『${displayShortName}』（期間: ${ev.live_date}〜${ev.live_end_date || ev.live_date}）`);
+            console.log(` ├─ ⭐ [${dbState.label}] 新規登録: ${emojiIcon}『${displayShortName}』（期間: ${ev.live_date}〜${ev.live_end_date || ev.live_date}${specialColorFlag ? " / 🎨特別カラー対応" : ""}）`);
             
             dbState.pages.push(newPage);
             dbState.listForAI.push(`・略称: "${displayShortName}" (開催初日: ${ev.live_date || "未定"})`);
@@ -460,7 +507,7 @@ async function applyEventsToDb(dbState, eventsList, article) {
                 if (isValidDate(ev.live_end_date) && ev.live_date !== ev.live_end_date) {
                     dateObj.end = ev.live_end_date;
                 }
-                updatePayload["ライブ開催日"] = { date: dateObj };
+                notionPayload["ライブ開催日"] = { date: dateObj };
             }
 
             const updateParams = { page_id: targetPage.id, properties: updatePayload };
@@ -469,7 +516,7 @@ async function applyEventsToDb(dbState, eventsList, article) {
             }
 
             const updatedPage = await notion.pages.update(updateParams);
-            const isBodyUpdated = await updatePageSchedulesAndCast(targetPage.id, ev.schedules);
+            const isBodyUpdated = await updatePageSchedulesAndCast(targetPage.id, ev.schedules, specialColorFlag);
             console.log(` ├─ 🔄 [${dbState.label}] 既存更新: ${emojiIcon}『${displayShortName}』のプロパティ${isBodyUpdated ? "＆出演者ペンライトURL" : ""}を最新化！`);
             
             const idx = dbState.pages.findIndex(p => p.id === targetPage.id);
@@ -483,7 +530,7 @@ async function applyEventsToDb(dbState, eventsList, article) {
 }
 
 async function run() {
-    console.log("🚀 スナイパー起動（完全マスター版：二刀流DB配信・ブランド＆アイコン自動付与・主要駅併記・ペンライト連携）");
+    console.log("🚀 スナイパー起動（完全マスター版：二刀流DB・ブランド＆アイコン・主要駅併記・特別カラー自動切替対応）");
     
     const mainDbId = process.env.NOTION_DB_ID;
     const publicDbId = process.env.PUBLIC_NOTION_DB_ID;
@@ -507,13 +554,11 @@ async function run() {
     const activeDbs = [mainDb, publicDb].filter(Boolean);
     if (activeDbs.length === 0) return;
 
-    // ★ 最適化①: 「非対象記事（1行目のカードに記憶されているURL群）」を特定し、片方のDBが空っぽでも無駄に再解析しないよう共有する
     const sharedNonTargetUrls = new Set();
     activeDbs.forEach(db => {
         if (db.pages.length > 0) {
             const firstPageUrls = db.pages[0].properties["処理済みURL"]?.rich_text?.[0]?.plain_text || "";
             const urlArr = firstPageUrls.split(',').map(u => u.trim()).filter(Boolean);
-            // 1行目のカードに複数URLが相乗りしている場合、2個目以降は非対象として記憶されたURL
             if (urlArr.length > 1) {
                 urlArr.slice(1).forEach(u => sharedNonTargetUrls.add(u));
             }
@@ -651,6 +696,7 @@ ${existingNamesListStr}
       "short_name": "カレンダー表示用の略称（例: ヴイアラ3rd名古屋、デレ15周年オケコン、Apple of my アイ など15文字以内）",
       "brands": ["対象ブランド名の配列。選択肢: '765AS', 'デレマス', 'ミリオン', 'シャニマス', 'SideM', '学マス', 'ヴイアラ', '876'。合同ライブの場合は複数指定"],
       "icon_emoji": "イベント種別に応じた絵文字1文字（通常ライブは'🎤'、xRライブやヴイアラは'✨'、オーケストラは'🎻'、LIVEを含まない純粋なプロミやトークイベントは'🤝'）",
+      "is_special_color": false,
       "live_date": "その公演ブロックの初日の日付（YYYY-MM-DD形式。不明なら空文字）",
       "live_end_date": "その公演ブロックの最終日の日付（YYYY-MM-DD形式。1日限りの場合はlive_dateと同じ日付）",
       "official_url": "イベント公式・特設サイトのURL（無ければ空文字）",
@@ -677,6 +723,7 @@ ${existingNamesListStr}
 
 【厳格な判定ルール】
 ・is_target_live: 現地開催（リアル会場）があるアイマス関連（vα-liv含む）の単独音楽ライブ、xRライブ、コンサート、PM、ファンミ、オーケストラであれば true。「遊園地等のコラボ」「上映会」「配信のみ」「外部フェス出展」は必ず false。
+・is_special_color: シャイニーカラーズの「REFRAC7IONS（リフラクションズ）」シリーズ、または既存のユニット枠を超えたシャッフル・特別カラー編成であることが明記されている特殊な公演のみ true にし、通常の周年ライブや他ブランドのライブはすべて false にしてください。
 
 【ページ内の主なリンク一覧】
 ${pageData.links}
