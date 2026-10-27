@@ -276,6 +276,47 @@
     ]
   },
   {
+    "id": "3ff17392-1f2b-8176-aeb2-f56310488ffe",
+    "icon": "🎤",
+    "title": "ヴイアラ3rd名古屋",
+    "brands": [
+      "ヴイアラ"
+    ],
+    "phase": "アソビストア一般会員先行",
+    "deadline": "2026-11-15",
+    "lotteryDate": "2026-11-28",
+    "eventDateStart": "2027-01-30",
+    "eventDateEnd": "2027-01-31",
+    "officialUrl": "https://idolmaster-official.jp/va-liv/event/3rd_live",
+    "venue": "愛知芸術劇場 大ホール",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%84%9B%E7%9F%A5%E8%8A%B8%E8%A1%93%E5%8A%87%E5%A0%B4%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/maps/search/?api=1&query=%E6%84%9B%E7%9F%A5%E8%8A%B8%E8%A1%93%E5%8A%87%E5%A0%B4%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB",
+    "nearestStation": "栄駅（徒歩約3分）",
+    "isSpecialColor": false,
+    "schedules": [
+      {
+        "label": "Day1: 2027年1月30日(土) [PRODUCER MEETING] 開場16:00 / 開演17:00",
+        "castCount": 3,
+        "castNames": [
+          "灯里愛夏",
+          "上水流宇宙",
+          "レトラ"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
+      },
+      {
+        "label": "Day2: 2027年1月31日(日) [LIVE] ①開場13:00/開演14:00 ／ ②開場17:00/開演18:00",
+        "castCount": 3,
+        "castNames": [
+          "灯里愛夏",
+          "上水流宇宙",
+          "レトラ"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
+      }
+    ]
+  },
+  {
     "id": "3fd17392-1f2b-81cc-8bf0-c1729b12df50",
     "icon": "🎤",
     "title": "Apple of my アイ",
