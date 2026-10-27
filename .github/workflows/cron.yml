@@ -7,6 +7,10 @@ on:
     - cron: '0 4 * * *'
   workflow_dispatch: # 手動実行用
 
+# ★追加①：GitHub Actions (ボット) がファイルをリポジトリに保存するための権限
+permissions:
+  contents: write
+
 jobs:
   run-checker:
     runs-on: ubuntu-latest
@@ -32,3 +36,13 @@ jobs:
           PUBLIC_NOTION_DB_ID: ${{ secrets.PUBLIC_NOTION_DB_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node index.js
+
+      # ★追加②：生成された events.json を自動でコミット＆プッシュ
+      - name: Commit and Push events.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add events.json
+          # 差分がある場合のみコミットしてプッシュする安全な書き方
+          git diff --staged --quiet || git commit -m "chore: update events.json from Notion DB"
+          git push
