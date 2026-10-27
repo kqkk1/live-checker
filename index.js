@@ -1,5 +1,7 @@
 const { chromium } = require('playwright');
 const { Client } = require('@notionhq/client');
+const fs = require('fs');
+const path = require('path');
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
@@ -101,7 +103,7 @@ function normalizeBrands(brandsArray, fullOfficialName) {
     return Array.from(normalized);
 }
 
-// ★ 追加: 特別カラー対象ライブ（REFRAC7IONS等）かどうかを自動判定する関数
+// 特別カラー対象ライブ（REFRAC7IONS等）かどうかを自動判定する関数
 function isSpecialColorEvent(ev, fullOfficialName) {
     if (ev.is_special_color === true) return true;
     const target = `${fullOfficialName || ""} ${ev.short_name || ""}`;
@@ -117,7 +119,7 @@ function cleanCastList(castArray) {
     return Array.from(new Set(cleaned));
 }
 
-// ★ 更新: 出演者リストと特別カラーフラグからペンライト設定サイトの専用URLを生成する関数
+// 出演者リストと特別カラーフラグからペンライト設定サイトの専用URLを生成する関数
 function buildPenlightUrl(castArray, isSpecial = false) {
     const baseUrl = "https://penlight-supporter.onrender.com/setlist";
     const cleanedCast = cleanCastList(castArray);
@@ -139,7 +141,7 @@ function buildPenlightUrl(castArray, isSpecial = false) {
     return `${baseUrl}?${query}`;
 }
 
-// ★ 更新: スケジュール配列からNotionの箇条書き＋ペンライトURLブロック群（通常/特別カラー自動切替）を生成する関数
+// スケジュール配列からNotionの箇条書き＋ペンライトURLブロック群（通常/特別カラー自動切替）を生成する関数
 function buildScheduleBlocks(schedules, isSpecialColor = false) {
     const blocks = [];
     if (!Array.isArray(schedules)) return blocks;
@@ -156,7 +158,6 @@ function buildScheduleBlocks(schedules, isSpecialColor = false) {
 
         let paragraphRichText = [];
         if (isSpecialColor) {
-            // 特別カラー対象ライブの時：メインを特別カラー版にし、右に小さく通常版リンクを添える
             paragraphRichText = [
                 { type: "text", text: { content: "🎨 " } },
                 { 
@@ -178,7 +179,6 @@ function buildScheduleBlocks(schedules, isSpecialColor = false) {
                 }
             ];
         } else {
-            // 普段のライブ（95%以上）：シンプルな1本リンクのみ
             paragraphRichText = [
                 { type: "text", text: { content: "🪄 " } },
                 { 
@@ -289,7 +289,6 @@ async function updatePageSchedulesAndCast(pageId, newSchedules, isSpecialColor =
             } catch (e) {}
         }
 
-        // 既存ブロックがすでに特別カラーだった場合、または今回特別カラーと判定された場合は維持する
         const finalSpecialFlag = isSpecialColor || existingHadSpecial;
         const newBlocks = buildScheduleBlocks(mergedSchedules, finalSpecialFlag);
         if (newBlocks.length > 0) {
@@ -507,7 +506,7 @@ async function applyEventsToDb(dbState, eventsList, article) {
                 if (isValidDate(ev.live_end_date) && ev.live_date !== ev.live_end_date) {
                     dateObj.end = ev.live_end_date;
                 }
-                notionPayload["ライブ開催日"] = { date: dateObj };
+                updatePayload["ライブ開催日"] = { date: dateObj };
             }
 
             const updateParams = { page_id: targetPage.id, properties: updatePayload };
@@ -529,6 +528,158 @@ async function applyEventsToDb(dbState, eventsList, article) {
     return count;
 }
 
+// =========================================================================
+// 新規追加: Notion全件から GitHub Pages 用の events.json を完全同期生成する関数
+// =========================================================================
+async function syncNotionToEventsJson(notionClient, targetDbId) {
+    if (!targetDbId) {
+        console.log('⚠️ events.json 出力用のDB IDが指定されていません。');
+        return;
+    }
+
+    console.log('\n🌐 Notionから全イベントデータを読み取って events.json を生成中...');
+    const pages = [];
+    let cursor = undefined;
+
+    // 1. データベース内の全ページを取得
+    do {
+        const res = await notionClient.databases.query({
+            database_id: targetDbId,
+            start_cursor: cursor,
+            page_size: 100,
+        });
+        pages.push(...res.results);
+        cursor = res.has_more ? res.next_cursor : undefined;
+    } while (cursor);
+
+    const getText = (richTextArr = []) => richTextArr.map(t => t.plain_text).join('').trim();
+    const findProp = (props, types, keywords) => {
+        for (const [key, val] of Object.entries(props)) {
+            if (types.includes(val.type) && keywords.some(k => key.includes(k))) return val;
+        }
+        return null;
+    };
+
+    const eventsList = [];
+
+    for (const page of pages) {
+        const props = page.properties || {};
+
+        const titleProp = Object.values(props).find(p => p.type === 'title');
+        const title = titleProp ? getText(titleProp.title) : '無題のイベント';
+        if (!title) continue;
+
+        const icon = page.icon?.type === 'emoji' ? page.icon.emoji : '🎤';
+
+        const brandProp = findProp(props, ['multi_select', 'select'], ['ブランド', 'Brand']);
+        let brands = [];
+        if (brandProp?.type === 'multi_select') {
+            brands = brandProp.multi_select.map(o => o.name);
+        } else if (brandProp?.type === 'select' && brandProp.select) {
+            brands = [brandProp.select.name];
+        }
+
+        const phaseProp = findProp(props, ['rich_text', 'select'], ['受付', '枠', '先行', 'ステータス']);
+        const phase = phaseProp?.type === 'rich_text'
+            ? getText(phaseProp.rich_text)
+            : (phaseProp?.select?.name || '');
+
+        const deadlineProp = findProp(props, ['date'], ['締切', '申込']);
+        const lotteryProp = findProp(props, ['date'], ['当落', '発表']);
+        const eventDateProp = findProp(props, ['date'], ['開催', '日程', '日時', '日付']);
+
+        const deadline = deadlineProp?.date?.start ? deadlineProp.date.start.slice(0, 10) : '';
+        const lotteryDate = lotteryProp?.date?.start ? lotteryProp.date.start.slice(0, 10) : '';
+        const eventDateStart = eventDateProp?.date?.start ? eventDateProp.date.start.slice(0, 10) : '';
+        const eventDateEnd = eventDateProp?.date?.end ? eventDateProp.date.end.slice(0, 10) : eventDateStart;
+
+        const urlProp = findProp(props, ['url'], ['公式', 'URL', 'リンク']);
+        let officialUrl = urlProp?.url || '';
+
+        // 2. ページ内のブロックを取得して会場・日程・URLを抽出
+        let venue = '';
+        let mapUrl = '';
+        let accessUrl = '';
+        let nearestStation = '';
+        let isSpecialColor = false;
+        const schedules = [];
+
+        try {
+            const blocksRes = await notionClient.blocks.children.list({
+                block_id: page.id,
+                page_size: 100,
+            });
+
+            for (const block of blocksRes.results) {
+                if (block.type === 'callout') {
+                    const text = getText(block.callout.rich_text);
+                    const links = block.callout.rich_text
+                        .filter(t => t.href)
+                        .map(t => ({ text: t.plain_text, href: t.href }));
+
+                    if (text.includes('会場：') || block.callout.icon?.emoji === '🏟️') {
+                        const lines = text.split('\n');
+                        const venueLine = lines.find(l => l.includes('会場：')) || lines[0] || '';
+                        venue = venueLine.replace(/.*会場：/, '').replace(/\(🗺️.*$/, '').replace(/｜.*$/, '').trim();
+
+                        const stLine = lines.find(l => l.includes('最寄り駅：'));
+                        if (stLine) nearestStation = stLine.replace(/.*最寄り駅：/, '').trim();
+
+                        const mLink = links.find(l => l.text.includes('マップ') || l.href.includes('maps'));
+                        const aLink = links.find(l => l.text.includes('アクセス') || l.href.includes('search'));
+                        if (mLink) mapUrl = mLink.href;
+                        if (aLink) accessUrl = aLink.href;
+                    } else if (!officialUrl && links.length > 0) {
+                        officialUrl = links[0].href;
+                    }
+                }
+
+                if (block.type === 'bulleted_list_item') {
+                    const richTexts = block.bulleted_list_item.rich_text || [];
+                    const fullText = getText(richTexts);
+                    const lines = fullText.split('\n').map(s => s.trim()).filter(Boolean);
+                    const label = lines[0] || fullText;
+
+                    const penLinkObj = richTexts.find(t => t.href && t.href.includes('penlight-supporter'));
+                    const penlightUrl = penLinkObj ? penLinkObj.href : '';
+
+                    let castNames = [];
+                    if (penlightUrl) {
+                        try {
+                            const u = new URL(penlightUrl);
+                            const castParam = u.searchParams.get('auto_cast') || u.searchParams.get('cast') || '';
+                            if (castParam) castNames = castParam.split(',').map(s => s.trim()).filter(Boolean);
+                            if (u.searchParams.get('special') === '1') isSpecialColor = true;
+                        } catch (e) {}
+                    }
+
+                    schedules.push({ label, castCount: castNames.length, castNames, penlightUrl });
+                }
+            }
+        } catch (err) {
+            console.warn(` ⚠️ ページ詳細の読み取りスキップ (${title}): ${err.message}`);
+        }
+
+        if (venue && !mapUrl) mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue)}`;
+        if (venue && !accessUrl) accessUrl = `https://www.google.com/search?q=${encodeURIComponent(venue + ' アクセス')}`;
+
+        eventsList.push({
+            id: page.id,
+            icon, title, brands, phase, deadline, lotteryDate, eventDateStart, eventDateEnd,
+            officialUrl, venue, mapUrl, accessUrl, nearestStation, isSpecialColor, schedules
+        });
+    }
+
+    eventsList.sort((a, b) => (a.eventDateStart || a.deadline || '9999').localeCompare(b.eventDateStart || b.deadline || '9999'));
+
+    const outPath = path.join(__dirname, 'events.json');
+    fs.writeFileSync(outPath, JSON.stringify(eventsList, null, 2), 'utf8');
+    console.log(`✅ events.json の同期完了！ (全 ${eventsList.length} 件のライブ情報を出力しました)`);
+}
+
+// -------------------------------------------------------------
+// メイン処理（スナイパー本体）
+// -------------------------------------------------------------
 async function run() {
     console.log("🚀 スナイパー起動（完全マスター版：二刀流DB・ブランド＆アイコン・主要駅併記・特別カラー自動切替対応）");
     
@@ -795,10 +946,21 @@ ${text.substring(0, 12000)}`;
             await new Promise(resolve => setTimeout(resolve, 12000));
         }
         console.log(`\n🎉 全処理完了！ 新規・更新枠（延べ件数）: ${processedCount}件`);
+        
+        // ==============================================================
+        // ★ 追加部分：最後に公開用DB（なければ自分用DB）から全件読み出して events.json を同期
+        // ==============================================================
+        const syncDbId = publicDbId || mainDbId;
+        if (syncDbId) {
+            await syncNotionToEventsJson(notion, syncDbId);
+        }
+
     } catch (error) {
         console.error("致命的なエラー:", error);
     } finally {
         await browser.close();
     }
 }
+
+// 実行
 run();
