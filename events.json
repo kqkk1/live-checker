@@ -1,11 +1,13 @@
 [
   {
-    "id": "5e217392-1f2b-82b3-b154-817d4716b0f9",
+    "id": "3fc17392-1f2b-8140-b7d2-d010e0ce7f7a",
     "icon": "🎤",
     "title": "標ツアー 千秋楽",
-    "brands": [],
-    "phase": "",
-    "deadline": "2026-06-21",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "公式リセール",
+    "deadline": "2026-10-28",
     "lotteryDate": "",
     "eventDateStart": "2026-11-07",
     "eventDateEnd": "2026-11-08",
@@ -59,10 +61,12 @@
     ]
   },
   {
-    "id": "e5f17392-1f2b-82f6-8452-8122781b9494",
+    "id": "3ff17392-1f2b-81ea-8b83-cc74cf8d6fcd",
     "icon": "🎤",
     "title": "デレ15thPARTY",
-    "brands": [],
+    "brands": [
+      "デレマス"
+    ],
     "phase": "アソビストア一般会員先行",
     "deadline": "2026-10-19",
     "lotteryDate": "2026-10-31",
@@ -90,13 +94,15 @@
     ]
   },
   {
-    "id": "c2217392-1f2b-8365-a5b9-81e9d03173be",
+    "id": "3fc17392-1f2b-814d-85d9-feaae3a8339e",
     "icon": "🎤",
     "title": "リフラクションズ",
-    "brands": [],
-    "phase": "",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "アソビストア一般会員先行",
     "deadline": "2026-09-23",
-    "lotteryDate": "",
+    "lotteryDate": "2026-10-08",
     "eventDateStart": "2026-12-19",
     "eventDateEnd": "2026-12-20",
     "officialUrl": "https://idolmaster-official.jp/live_event/REFRAC7IONS_Still_blue/",
@@ -178,10 +184,12 @@
     ]
   },
   {
-    "id": "6f917392-1f2b-82bc-b981-01eafa884fd2",
+    "id": "3fd17392-1f2b-81c3-933e-d8a5fa53cb24",
     "icon": "🎤",
     "title": "デレ15周年オケコン",
-    "brands": [],
+    "brands": [
+      "デレマス"
+    ],
     "phase": "アソビストアプレミアム会員2次先行",
     "deadline": "2026-10-25",
     "lotteryDate": "2026-11-07",
@@ -217,10 +225,12 @@
     ]
   },
   {
-    "id": "b4e17392-1f2b-82b2-aa78-817d2faecad3",
+    "id": "3ff17392-1f2b-8176-aeb2-f56310488ffe",
     "icon": "🎤",
     "title": "ヴイアラ3rd名古屋",
-    "brands": [],
+    "brands": [
+      "ヴイアラ"
+    ],
     "phase": "アソビストア一般会員先行",
     "deadline": "2026-11-15",
     "lotteryDate": "2026-11-28",
@@ -248,10 +258,12 @@
     ]
   },
   {
-    "id": "87f17392-1f2b-83ae-b4be-01c4e05dc6d3",
+    "id": "3fd17392-1f2b-81cc-8bf0-c1729b12df50",
     "icon": "🎤",
     "title": "Apple of my アイ",
-    "brands": [],
+    "brands": [
+      "デレマス"
+    ],
     "phase": "アソビストアプレミアム会員先行",
     "deadline": "2026-10-18",
     "lotteryDate": "2026-10-31",
@@ -291,10 +303,33 @@
     ]
   },
   {
-    "id": "28a17392-1f2b-83cc-b5d1-814022dc092b",
+    "id": "40317392-1f2b-8059-8c01-eb13b47dac3e",
+    "icon": "🎤",
+    "title": "デレ×ミリ",
+    "brands": [
+      "デレマス",
+      "ミリオン"
+    ],
+    "phase": "アソビストアプレミアム会員先行",
+    "deadline": "",
+    "lotteryDate": "2026-11-14",
+    "eventDateStart": "2027-02-27",
+    "eventDateEnd": "2027-02-28",
+    "officialUrl": "",
+    "venue": "",
+    "mapUrl": "",
+    "accessUrl": "",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "schedules": []
+  },
+  {
+    "id": "3ff17392-1f2b-8141-a1c4-ef05576e23b9",
     "icon": "🎤",
     "title": "ヴイアラ3rd東京",
-    "brands": [],
+    "brands": [
+      "ヴイアラ"
+    ],
     "phase": "アソビストア一般会員先行",
     "deadline": "2026-11-15",
     "lotteryDate": "2026-11-28",
@@ -320,5 +355,79 @@
         "penlightUrl": ""
       }
     ]
+  },
+  {
+    "id": "40317392-1f2b-8003-bcef-d2ad6a6a9d8c",
+    "icon": "🎤",
+    "title": "シャニオケコン",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "アソビストアプレミアム会員先行",
+    "deadline": "",
+    "lotteryDate": "2026-10-31",
+    "eventDateStart": "2027-03-22",
+    "eventDateEnd": "2027-03-22",
+    "officialUrl": "",
+    "venue": "",
+    "mapUrl": "",
+    "accessUrl": "",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "schedules": []
+  },
+  {
+    "id": "40317392-1f2b-8035-a390-c9790e2e057d",
+    "icon": "🎤",
+    "title": "SideM×シャニ",
+    "brands": [
+      "SideM",
+      "シャニマス"
+    ],
+    "phase": "アソビストアプレミアム会員先行",
+    "deadline": "",
+    "lotteryDate": "2026-10-24",
+    "eventDateStart": "2027-06-05",
+    "eventDateEnd": "2027-06-06",
+    "officialUrl": "https://idolmaster-official.jp/live_event/sidem_shinycolors_ss/information/",
+    "venue": "横浜アリーナ",
+    "mapUrl": "https://maps.app.goo.gl/huXkw4G2rn9Bk23C7",
+    "accessUrl": "https://www.yokohama-arena.co.jp/",
+    "nearestStation": "新横浜駅（徒歩約5分）",
+    "isSpecialColor": false,
+    "schedules": [
+      {
+        "label": "Day1: 6月5日(土) 開場16:00 / 開演17:30",
+        "castCount": 0,
+        "castNames": [],
+        "penlightUrl": ""
+      },
+      {
+        "label": "Day2: 6月6日(日) 開場16:00/開演17:30",
+        "castCount": 0,
+        "castNames": [],
+        "penlightUrl": ""
+      }
+    ]
+  },
+  {
+    "id": "40317392-1f2b-8014-b1d1-cdd6282351c6",
+    "icon": "🎤",
+    "title": "765×961",
+    "brands": [
+      "765AS"
+    ],
+    "phase": "アソビストアプレミアム会員先行",
+    "deadline": "",
+    "lotteryDate": "2026-11-16",
+    "eventDateStart": "2027-07-24",
+    "eventDateEnd": "2027-07-25",
+    "officialUrl": "",
+    "venue": "",
+    "mapUrl": "",
+    "accessUrl": "",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "schedules": []
   }
 ]
