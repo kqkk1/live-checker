@@ -164,7 +164,7 @@
     "isSpecialColor": true,
     "schedules": [
       {
-        "label": "Day1: 2026年12月19日(土) 開場17:00 / 開演18:00",
+        "label": "Day1: 2026年12月19日(土) 開場17:00 / 開演18:00 ",
         "castCount": 27,
         "castNames": [
           "黛冬優子",
@@ -276,39 +276,6 @@
     ]
   },
   {
-    "id": "3ff17392-1f2b-8176-aeb2-f56310488ffe",
-    "icon": "🎤",
-    "title": "ヴイアラ3rd名古屋",
-    "brands": [
-      "ヴイアラ"
-    ],
-    "phase": "アソビストア一般会員先行",
-    "deadline": "2026-11-15",
-    "lotteryDate": "2026-11-28",
-    "eventDateStart": "2027-01-30",
-    "eventDateEnd": "2027-01-31",
-    "officialUrl": "https://idolmaster-official.jp/va-liv/event/3rd_live",
-    "venue": "愛知芸術劇場 大ホール",
-    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%84%9B%E7%9F%A5%E8%8A%B8%E8%A1%93%E5%8A%87%E5%A0%B4%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB",
-    "accessUrl": "https://www.google.com/maps/search/?api=1&query=%E6%84%9B%E7%9F%A5%E8%8A%B8%E8%A1%93%E5%8A%87%E5%A0%B4%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB",
-    "nearestStation": "栄駅（徒歩約3分）",
-    "isSpecialColor": false,
-    "schedules": [
-      {
-        "label": "Day1: 2027年1月30日(土) [PRODUCER MEETING] 開場16:00 / 開演17:00",
-        "castCount": 0,
-        "castNames": [],
-        "penlightUrl": ""
-      },
-      {
-        "label": "Day2: 2027年1月31日(日) [LIVE] ①開場13:00/開演14:00 ／ ②開場17:00/開演18:00",
-        "castCount": 0,
-        "castNames": [],
-        "penlightUrl": ""
-      }
-    ]
-  },
-  {
     "id": "3fd17392-1f2b-81cc-8bf0-c1729b12df50",
     "icon": "🎤",
     "title": "Apple of my アイ",
@@ -362,7 +329,7 @@
       "ミリオン"
     ],
     "phase": "アソビストアプレミアム会員先行",
-    "deadline": "",
+    "deadline": "2026-11-01",
     "lotteryDate": "2026-11-14",
     "eventDateStart": "2027-02-27",
     "eventDateEnd": "2027-02-28",
@@ -375,15 +342,71 @@
     "schedules": [
       {
         "label": "Day1: 2027年6月5日(土) 開場16:00 / 開演17:30",
-        "castCount": 0,
-        "castNames": [],
-        "penlightUrl": ""
+        "castCount": 26,
+        "castNames": [
+          "渋谷凛",
+          "西園寺琴歌",
+          "辻野あかり",
+          "三村かな子",
+          "前川みく",
+          "多田李衣菜",
+          "速水奏",
+          "ナターリア",
+          "高森藍子",
+          "喜多見柚",
+          "的場梨沙",
+          "小関麗奈",
+          "向井拓海",
+          "最上静香",
+          "島原エレナ",
+          "佐竹美奈子",
+          "野々原茜",
+          "中谷育",
+          "木下ひなた",
+          "矢吹可奈",
+          "二階堂千鶴",
+          "宮尾美也",
+          "福田のり子",
+          "百瀬莉緒",
+          "周防桃子",
+          "ジュリア"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B8%8B%E8%B0%B7%E5%87%9B%2C%E8%A5%BF%E5%9C%92%E5%AF%BA%E7%90%B4%E6%AD%8C%2C%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E4%B8%89%E6%9D%91%E3%81%8B%E3%81%AA%E5%AD%90%2C%E5%89%8D%E5%B7%9D%E3%81%BF%E3%81%8F%2C%E5%A4%9A%E7%94%B0%E6%9D%8E%E8%A1%A3%E8%8F%9C%2C%E9%80%9F%E6%B0%B4%E5%A5%8F%2C%E3%83%8A%E3%82%BF%E3%83%BC%E3%83%AA%E3%82%A2%2C%E9%AB%98%E6%A3%AE%E8%97%8D%E5%AD%90%2C%E5%96%9C%E5%A4%9A%E8%A6%8B%E6%9F%9A%2C%E7%9A%84%E5%A0%B4%E6%A2%A8%E6%B2%99%2C%E5%B0%8F%E9%96%A2%E9%BA%97%E5%A5%88%2C%E5%90%91%E4%BA%95%E6%8B%93%E6%B5%B7%2C%E6%9C%80%E4%B8%8A%E9%9D%99%E9%A6%99%2C%E5%B3%B6%E5%8E%9F%E3%82%A8%E3%83%AC%E3%83%8A%2C%E4%BD%90%E7%AB%B9%E7%BE%8E%E5%A5%88%E5%AD%90%2C%E9%87%8E%E3%80%85%E5%8E%9F%E8%8C%9C%2C%E4%B8%AD%E8%B0%B7%E8%82%B2%2C%E6%9C%A8%E4%B8%8B%E3%81%B2%E3%81%AA%E3%81%9F%2C%E7%9F%A2%E5%90%B9%E5%8F%AF%E5%A5%88%2C%E4%BA%8C%E9%9A%8E%E5%A0%82%E5%8D%83%E9%B6%B4%2C%E5%AE%AE%E5%B0%BE%E7%BE%8E%E4%B9%9F%2C%E7%A6%8F%E7%94%B0%E3%81%AE%E3%82%8A%E5%AD%90%2C%E7%99%BE%E7%80%AC%E8%8E%89%E7%B7%92%2C%E5%91%A8%E9%98%B2%E6%A1%83%E5%AD%90%2C%E3%82%B8%E3%83%A5%E3%83%AA%E3%82%A2"
       },
       {
         "label": "Day2: 2027年6月6日(日) 開場16:00/開演17:30",
-        "castCount": 0,
-        "castNames": [],
-        "penlightUrl": ""
+        "castCount": 28,
+        "castNames": [
+          "島村卯月",
+          "黒埼ちとせ",
+          "宮本フレデリカ",
+          "小日向美穂",
+          "結城晴",
+          "松永涼",
+          "三船美優",
+          "神谷奈緒",
+          "日野茜",
+          "堀裕子",
+          "依田芳乃",
+          "久川凪",
+          "喜多日菜子",
+          "大槻唯",
+          "春日未来",
+          "伊吹翼",
+          "徳川まつり",
+          "ロコ",
+          "高山紗代子",
+          "天空橋朋花",
+          "横山奈緒",
+          "馬場このみ",
+          "豊川風花",
+          "真壁瑞希",
+          "永吉昴",
+          "北上麗花",
+          "白石紬",
+          "桜守歌織"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88%2C%E9%BB%92%E5%9F%BC%E3%81%A1%E3%81%A8%E3%81%9B%2C%E5%AE%AE%E6%9C%AC%E3%83%95%E3%83%AC%E3%83%87%E3%83%AA%E3%82%AB%2C%E5%B0%8F%E6%97%A5%E5%90%91%E7%BE%8E%E7%A9%82%2C%E7%B5%90%E5%9F%8E%E6%99%B4%2C%E6%9D%BE%E6%B0%B8%E6%B6%BC%2C%E4%B8%89%E8%88%B9%E7%BE%8E%E5%84%AA%2C%E7%A5%9E%E8%B0%B7%E5%A5%88%E7%B7%92%2C%E6%97%A5%E9%87%8E%E8%8C%9C%2C%E5%A0%80%E8%A3%95%E5%AD%90%2C%E4%BE%9D%E7%94%B0%E8%8A%B3%E4%B9%83%2C%E4%B9%85%E5%B7%9D%E5%87%AA%2C%E5%96%9C%E5%A4%9A%E6%97%A5%E8%8F%9C%E5%AD%90%2C%E5%A4%A7%E6%A7%BB%E5%94%AF%2C%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5%2C%E4%BC%8A%E5%90%B9%E7%BF%BC%2C%E5%BE%B3%E5%B7%9D%E3%81%BE%E3%81%A4%E3%82%8A%2C%E3%83%AD%E3%82%B3%2C%E9%AB%98%E5%B1%B1%E7%B4%97%E4%BB%A3%E5%AD%90%2C%E5%A4%A9%E7%A9%BA%E6%A9%8B%E6%9C%8B%E8%8A%B1%2C%E6%A8%AA%E5%B1%B1%E5%A5%88%E7%B7%92%2C%E9%A6%AC%E5%A0%B4%E3%81%93%E3%81%AE%E3%81%BF%2C%E8%B1%8A%E5%B7%9D%E9%A2%A8%E8%8A%B1%2C%E7%9C%9F%E5%A3%81%E7%91%9E%E5%B8%8C%2C%E6%B0%B8%E5%90%89%E6%98%B4%2C%E5%8C%97%E4%B8%8A%E9%BA%97%E8%8A%B1%2C%E7%99%BD%E7%9F%B3%E7%B4%AC%2C%E6%A1%9C%E5%AE%88%E6%AD%8C%E7%B9%94"
       }
     ]
   },
@@ -436,7 +459,7 @@
       "シャニマス"
     ],
     "phase": "アソビストアプレミアム会員先行",
-    "deadline": "",
+    "deadline": "2026-10-18",
     "lotteryDate": "2026-10-31",
     "eventDateStart": "2027-03-22",
     "eventDateEnd": "2027-03-22",
@@ -469,7 +492,7 @@
       "シャニマス"
     ],
     "phase": "アソビストアプレミアム会員先行",
-    "deadline": "",
+    "deadline": "2026-10-12",
     "lotteryDate": "2026-10-24",
     "eventDateStart": "2027-06-05",
     "eventDateEnd": "2027-06-06",
@@ -482,15 +505,70 @@
     "schedules": [
       {
         "label": "Day1: 2027年6月5日(土) 開場16:00 / 開演17:30",
-        "castCount": 0,
-        "castNames": [],
-        "penlightUrl": ""
+        "castCount": 24,
+        "castNames": [
+          "蒼井悠介",
+          "蒼井享介",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "冬美旬",
+          "榊夏来",
+          "若里春名",
+          "伊瀬谷四季",
+          "紅井朱雀",
+          "黒野玄武",
+          "天峰秀",
+          "花園百々人",
+          "小宮果穂",
+          "西城樹里",
+          "杜野凛世",
+          "有栖川夏葉",
+          "大崎甜花",
+          "桑山千雪",
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       },
       {
         "label": "Day2: 2027年6月6日(日) 開場16:00/開演17:30",
-        "castCount": 0,
-        "castNames": [],
-        "penlightUrl": ""
+        "castCount": 29,
+        "castNames": [
+          "都築圭",
+          "神楽麗",
+          "神谷幸広",
+          "卯月巻緒",
+          "水嶋咲",
+          "硲道夫",
+          "舞田類",
+          "山下次郎",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス",
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依",
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9%2C%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C"
       }
     ]
   },
@@ -502,8 +580,8 @@
       "765AS"
     ],
     "phase": "アソビストアプレミアム会員先行",
-    "deadline": "",
-    "lotteryDate": "2026-11-16",
+    "deadline": "2026-11-08",
+    "lotteryDate": "2026-11-25",
     "eventDateStart": "2027-07-24",
     "eventDateEnd": "2027-07-25",
     "officialUrl": "https://idolmaster-official.jp/live_event/IUOAFA/",
@@ -515,15 +593,36 @@
     "schedules": [
       {
         "label": "Day1: 2027年7月24日(土) [LIVE] 開場17:00 / 開演18:00",
-        "castCount": 0,
-        "castNames": [],
-        "penlightUrl": ""
+        "castCount": 10,
+        "castNames": [
+          "星井美希",
+          "四条貴音",
+          "我那覇響",
+          "奥空心白",
+          "神崎蘭子",
+          "春日未来",
+          "小宮果穂",
+          "玲音",
+          "詩花",
+          "亜夜"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%98%9F%E4%BA%95%E7%BE%8E%E5%B8%8C%2C%E5%9B%9B%E6%9D%A1%E8%B2%B4%E9%9F%B3%2C%E6%88%91%E9%82%A3%E8%A6%87%E9%9F%BF%2C%E5%A5%A5%E7%A9%BA%E5%BF%83%E7%99%BD%2C%E7%A5%9E%E5%B4%8E%E8%98%AD%E5%AD%90%2C%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E7%8E%B2%E9%9F%B3%2C%E8%A9%A9%E8%8A%B1%2C%E4%BA%9C%E5%A4%9C"
       },
       {
         "label": "Day2: 2027年7月25日(日) [LIVE] ①開場11:00/開演12:00 ／ ②開場17:00/開演18:00",
-        "castCount": 0,
-        "castNames": [],
-        "penlightUrl": ""
+        "castCount": 9,
+        "castNames": [
+          "如月千早",
+          "高槻やよい",
+          "秋月律子",
+          "三浦あずさ",
+          "水瀬伊織",
+          "菊地真",
+          "双海亜美・真美",
+          "玲音",
+          "詩花"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A6%82%E6%9C%88%E5%8D%83%E6%97%A9%2C%E9%AB%98%E6%A7%BB%E3%82%84%E3%82%88%E3%81%84%2C%E7%A7%8B%E6%9C%88%E5%BE%8B%E5%AD%90%2C%E4%B8%89%E6%B5%A6%E3%81%82%E3%81%9A%E3%81%95%2C%E6%B0%B4%E7%80%AC%E4%BC%8A%E7%B9%94%2C%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E5%8F%8C%E6%B5%B7%E4%BA%9C%E7%BE%8E%E3%83%BB%E7%9C%9F%E7%BE%8E%2C%E7%8E%B2%E9%9F%B3%2C%E8%A9%A9%E8%8A%B1"
       }
     ]
   }
