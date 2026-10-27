@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アイマス ライブ・イベント情報ポータル & ペンライト連携</title>
+  <style>
+    :root {
+      --bg-main: #191919;
+      --bg-sub: #202020;
+      --bg-hover: #2c2c2c;
+      --bg-panel: #202020;
+      --bg-callout: #252525;
+      --border: #2f2f2f;
+      --text-main: #ffffffcf;
+      --text-muted: #9b9b9b;
+      --accent: #7aa2f7;
+      --accent-bg: rgba(122, 162, 247, 0.15);
+      --special: #e0af68;
+      --special-bg: rgba(224, 175, 104, 0.15);
+      --danger: #f7768e;
+      --success: #9ece6a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* ── Header ── */
+    .header {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 36px 24px 16px;
+    }
+    .header-title {
+      font-size: 26px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .header-desc {
+      color: var(--text-muted);
+      font-size: 13px;
+      background: var(--bg-callout);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ── Toolbar / Filter ── */
+    .toolbar {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 8px 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .chip {
+      padding: 4px 11px;
+      border-radius: 16px;
+      font-size: 12px;
+      cursor: pointer;
+      background: var(--bg-sub);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      user-select: none;
+      transition: 0.15s;
+    }
+    .chip:hover { background: var(--bg-hover); color: var(--text-main); }
+    .chip.active {
+      background: var(--accent-bg);
+      color: var(--accent);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+    .search-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .search-input {
+      background: var(--bg-sub);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      width: 260px;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--accent); }
+    .toggle-filters {
+      display: flex;
+      gap: 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .toggle-filters label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* ── Notion-like Table ── */
+    .table-wrap {
+      max-width: 1280px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 860px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    th, td {
+      padding: 9px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      font-size: 13px;
+      vertical-align: middle;
+    }
+    th:last-child, td:last-child { border-right: none; }
+    th {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 12px;
+      background: var(--bg-main);
+      white-space: nowrap;
+      user-select: none;
+    }
+    tbody tr {
+      transition: background 0.1s;
+      cursor: pointer;
+    }
+    tbody tr:hover { background: var(--bg-hover); }
+    tbody tr.applied-row { background: rgba(122, 162, 247, 0.04); }
+    tbody tr.applied-row:hover { background: var(--bg-hover); }
+
+    /* Column Styles */
+    .col-check { width: 48px; text-align: center; }
+    .user-check {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--accent);
+    }
+    .col-status { width: 115px; }
+    .status-select {
+      background: var(--bg-sub);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 6px;
+      font-size: 12px;
+      width: 100%;
+      cursor: pointer;
+      outline: none;
+    }
+    .status-select[data-val="当選🎉"] { color: var(--success); border-color: rgba(158,206,106,0.4); background: rgba(158,206,106,0.1); font-weight: bold; }
+    .status-select[data-val="当落待ち⏳"] { color: var(--special); border-color: rgba(224,175,104,0.4); background: rgba(224,175,104,0.1); }
+    .status-select[data-val="申込予定📌"] { color: var(--accent); border-color: rgba(122,162,247,0.4); }
+    .status-select[data-val="落選💦"] { color: var(--danger); }
+
+    .col-title { min-width: 260px; font-weight: 600; position: relative; }
+    .title-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .open-peek-btn {
+      opacity: 0;
+      font-size: 11px;
+      padding: 2px 7px;
+      background: var(--bg-sub);
+      border: 1px solid #454545;
+      border-radius: 4px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      transition: 0.15s;
+      font-weight: normal;
+    }
+    tbody tr:hover .open-peek-btn { opacity: 1; }
+    .open-peek-btn:hover { color: #fff; border-color: var(--accent); }
+
+    /* Brand Tags */
+    .tag {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin: 2px 4px 2px 0;
+      white-space: nowrap;
+    }
+    .tag-765AS { background: rgba(243, 73, 73, 0.2); color: #ff7b7b; }
+    .tag-デレマス { background: rgba(38, 129, 200, 0.25); color: #6dbdff; }
+    .tag-ミリオン { background: rgba(255, 195, 11, 0.2); color: #ffd447; }
+    .tag-SideM { background: rgba(15, 190, 148, 0.2); color: #4de3be; }
+    .tag-シャニマス { background: rgba(141, 187, 255, 0.22); color: #a6cbff; }
+    .tag-学マス { background: rgba(243, 152, 0, 0.22); color: #ffb340; }
+    .tag-ヴイアラ { background: rgba(187, 154, 247, 0.22); color: #c8afff; }
+    .tag-default { background: #333; color: #ccc; }
+
+    .deadline-urgent { color: var(--danger); font-weight: bold; }
+    .deadline-passed { color: #555; text-decoration: line-through; }
+
+    /* ── Side Peek (Drawer) ── */
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .side-peek {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 580px;
+      max-width: 100vw;
+      height: 100dvh;
+      background: var(--bg-panel);
+      border-left: 1px solid #363636;
+      box-shadow: -12px 0 32px rgba(0, 0, 0, 0.7);
+      z-index: 101;
+      transform: translateX(100%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .side-peek.open { transform: translateX(0); }
+
+    .peek-topbar {
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .peek-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .peek-close:hover { background: var(--bg-hover); color: #fff; }
+
+    .peek-body {
+      padding: 24px 28px 48px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .peek-icon { font-size: 36px; margin-bottom: 8px; }
+    .peek-title { font-size: 22px; font-weight: 700; margin-bottom: 18px; line-height: 1.35; }
+
+    /* User Personal Box inside Side Peek */
+    .personal-box {
+      background: rgba(122, 162, 247, 0.08);
+      border: 1px solid rgba(122, 162, 247, 0.35);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+    .personal-box-header {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .personal-controls {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .personal-memo {
+      width: 100%;
+      background: var(--bg-main);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 13px;
+      resize: vertical;
+      min-height: 52px;
+      outline: none;
+    }
+    .personal-memo:focus { border-color: var(--accent); }
+
+    /* Notion Properties Grid */
+    .props-list {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      row-gap: 10px;
+      font-size: 13px;
+    }
+    .prop-label { color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+    .prop-val { color: var(--text-main); word-break: break-word; }
+
+    /* Notion Callouts & Schedules */
+    .callout {
+      background: var(--bg-callout);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .callout a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .callout a:hover { text-decoration: underline; }
+    .section-h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 22px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .schedule-card {
+      background: var(--bg-callout);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .schedule-date { font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+    .cast-details {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .cast-details summary { cursor: pointer; user-select: none; margin-bottom: 4px; }
+    .cast-list-box {
+      padding: 8px 10px;
+      background: var(--bg-main);
+      border-radius: 4px;
+      line-height: 1.6;
+      color: var(--text-main);
+      margin-top: 4px;
+    }
+
+    .penlight-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      transition: 0.15s;
+    }
+    .penlight-btn:hover { background: var(--accent); color: #15161e; }
+    .penlight-btn.special {
+      background: var(--special-bg);
+      color: var(--special);
+      border-color: var(--special);
+    }
+    .penlight-btn.special:hover { background: var(--special); color: #15161e; }
+
+    @media (max-width: 768px) {
+      .header { padding: 20px 14px 10px; }
+      .toolbar, .table-wrap { padding-left: 14px; padding-right: 14px; }
+      .side-peek {
+        top: auto;
+        bottom: 0;
+        width: 100vw;
+        height: 88dvh;
+        border-left: none;
+        border-top: 1px solid #444;
+        border-radius: 16px 16px 0 0;
+        transform: translateY(100%);
+      }
+      .side-peek.open { transform: translateY(0); }
+      .peek-body { padding: 18px 18px 40px; }
+      .open-peek-btn { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-title">🎤 アイマス ライブ・イベント情報ポータル</div>
+    <div class="header-desc">
+      <span>💡 行をクリックすると右側に詳細（会場マップ・出演者・🪄ペンライト自動セットURL）が開きます。</span>
+      <span>☑️「応募チェック」や「自分のメモ」はお使いのブラウザに自動保存されます。</span>
+    </div>
+  </header>
+
+  <section class="toolbar">
+    <div class="filter-row" id="brand-chips"></div>
+    <div class="search-row">
+      <input type="text" id="search-input" class="search-input" placeholder="ライブ名・会場・出演者で検索...">
+      <div class="toggle-filters">
+        <label><input type="checkbox" id="filter-applied"> ☑️ 応募済・予定のみ表示</label>
+        <label><input type="checkbox" id="filter-hide-past" checked> 📅 終了した公演を隠す</label>
+      </div>
+    </div>
+  </section>
+
+  <main class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="col-check">応募</th>
+          <th class="col-status">当落・状態</th>
+          <th class="col-title">イベント名</th>
+          <th>ブランド</th>
+          <th>現在受付中の枠</th>
+          <th>申込締切</th>
+          <th>当落発表</th>
+          <th>開催日程</th>
+          <th>メモ</th>
+        </tr>
+      </thead>
+      <tbody id="event-tbody"></tbody>
+    </table>
+  </main>
+
+  <!-- Side Peek (Drawer) -->
+  <div class="backdrop" id="backdrop"></div>
+  <aside class="side-peek" id="side-peek">
+    <div class="peek-topbar">
+      <span style="font-size:12px; color:var(--text-muted);">詳細ビュー（サイドピーク）</span>
+      <button class="peek-close" id="peek-close" title="閉じる (Esc)">✕</button>
+    </div>
+    <div class="peek-body" id="peek-body"></div>
+  </aside>
+
+  <script>
+    const STORAGE_KEY = 'imas_portal_user_state_v1';
+    const BRANDS = ['すべて', '765AS', 'デレマス', 'ミリオン', 'シャニマス', 'SideM', '学マス', 'ヴイアラ'];
+    const STATUS_OPTIONS = ['未申込', '申込予定📌', '当落待ち⏳', '当選🎉', '落選💦', '見送り'];
+
+    // events.json がまだ無い時の動作確認用デモデータ
+    const FALLBACK_EVENTS = [
+      {
+        id: "demo-shiny-refrac7ions",
+        icon: "🎨",
+        title: "シャニマス LIVE FUN!! -REFRAC7IONS- 横浜公演",
+        brands: ["シャニマス"],
+        phase: "アソビストアプレミアム会員先行",
+        deadline: "2026-11-15",
+        lotteryDate: "2026-11-22",
+        eventDateStart: "2027-01-30",
+        eventDateEnd: "2027-01-31",
+        officialUrl: "https://idolmaster-official.jp/shinycolors",
+        venue: "Kアリーナ横浜",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C",
+        accessUrl: "https://www.google.com/search?q=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C+%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+        nearestStation: "新高島駅（徒歩約5分） / 横浜駅（東口より徒歩約9〜11分）",
+        isSpecialColor: true,
+        schedules: [
+          {
+            label: "Day1: 2027年1月30日(土) 開場16:00 / 開演17:00",
+            castCount: 12,
+            castNames: ["櫻木真乃", "風野灯織", "八宮めぐる", "月岡恋鐘", "田中摩美々", "白瀬咲耶", "三峰結華", "幽谷霧子", "浅倉透", "樋口円香", "福丸小糸", "市川雛菜"],
+            penlightUrl: "https://penlight-supporter.onrender.com/?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83,%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94,%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B,%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98,%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85,%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6,%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF,%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90,%E6%B5%85%E5%80%89%E9%80%8F,%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99,%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8,%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C&special=1"
+          }
+        ]
+      },
+      {
+        id: "demo-dere-milli-ig",
+        icon: "🎤",
+        title: "シンデレラガールズ × ミリオンライブ！ 合同ライブ 名古屋公演",
+        brands: ["デレマス", "ミリオン"],
+        phase: "WEB優先先行抽選予約",
+        deadline: "2026-11-08",
+        lotteryDate: "2026-11-16",
+        eventDateStart: "2027-02-13",
+        eventDateEnd: "2027-02-14",
+        officialUrl: "https://idolmaster-official.jp/",
+        venue: "IGアリーナ（愛知国際アリーナ）",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=IG%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+        accessUrl: "https://www.google.com/search?q=IG%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A+%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+        nearestStation: "名城公園駅（徒歩すぐ） / 名古屋駅（地下鉄乗換約15分）",
+        isSpecialColor: false,
+        schedules: [
+          {
+            label: "Day1: 2027年2月13日(土) 開場15:30 / 開演17:00",
+            castCount: 10,
+            castNames: ["島村卯月", "渋谷凛", "本田未央", "春日未来", "最上静香", "伊吹翼"],
+            penlightUrl: "https://penlight-supporter.onrender.com/?auto_cast=%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88,%E6%B8%8B%E8%B0%B7%E5%87%9B,%E6%9C%AC%E7%94%B0%E6%9C%AA%E5%A4%AE,%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5,%E6%9C%80%E4%B8%8A%E9%9D%99%E9%A6%99,%E4%BC%8A%E5%90%B9%E7%BF%BC"
+          }
+        ]
+      }
+    ];
+
+    let eventsData = [];
+    let userState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    let selectedBrand = 'すべて';
+    let currentPeekId = null;
+
+    function saveUserState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userState));
+    }
+
+    function getUserEventState(id) {
+      if (!userState[id]) {
+        userState[id] = { applied: false, status: '未申込', memo: '' };
+      }
+      return userState[id];
+    }
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    function renderBrandChips() {
+      const container = document.getElementById('brand-chips');
+      container.innerHTML = BRANDS.map(b => `
+        <span class="chip ${selectedBrand === b ? 'active' : ''}" data-brand="${b}">${b}</span>
+      `).join('');
+      container.querySelectorAll('.chip').forEach(chip => {
+        chip.onclick = () => {
+          selectedBrand = chip.getAttribute('data-brand');
+          renderBrandChips();
+          renderTable();
+        };
+      });
+    }
+
+    function formatDeadline(dateStr) {
+      if (!dateStr) return '<span style="color:var(--text-muted)">未定</span>';
+      const today = new Date().toISOString().slice(0, 10);
+      const diff = (new Date(dateStr) - new Date(today)) / 86400000;
+      if (diff < 0) return `<span class="deadline-passed">${escapeHtml(dateStr)}</span>`;
+      if (diff <= 3) return `<span class="deadline-urgent">🔥 ${escapeHtml(dateStr)} (あと${Math.ceil(diff)}日)</span>`;
+      return escapeHtml(dateStr);
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('event-tbody');
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      const onlyApplied = document.getElementById('filter-applied').checked;
+      const hidePast = document.getElementById('filter-hide-past').checked;
+      const today = new Date().toISOString().slice(0, 10);
+
+      const filtered = eventsData.filter(ev => {
+        const st = getUserEventState(ev.id);
+        if (selectedBrand !== 'すべて' && !(ev.brands || []).includes(selectedBrand)) return false;
+        if (onlyApplied && !st.applied && st.status === '未申込') return false;
+        if (hidePast) {
+          const endDay = ev.eventDateEnd || ev.eventDateStart || '';
+          if (endDay && endDay < today) return false;
+        }
+        if (query) {
+          const hay = [
+            ev.title, ev.venue, ev.phase, st.memo,
+            ...(ev.brands || []),
+            ...((ev.schedules || []).flatMap(s => s.castNames || []))
+          ].join(' ').toLowerCase();
+          if (!hay.includes(query)) return false;
+        }
+        return true;
+      });
+
+      if (!filtered.length) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:32px; color:var(--text-muted);">条件に一致するイベントがありません</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(ev => {
+        const st = getUserEventState(ev.id);
+        const brandTags = (ev.brands || []).map(b => `<span class="tag tag-${escapeHtml(b)}">${escapeHtml(b)}</span>`).join('');
+        const dateRange = ev.eventDateStart
+          ? (ev.eventDateEnd && ev.eventDateEnd !== ev.eventDateStart ? `${ev.eventDateStart} 〜 ${ev.eventDateEnd.slice(5)}` : ev.eventDateStart)
+          : '未定';
+
+        const statusOpts = STATUS_OPTIONS.map(opt =>
+          `<option value="${opt}" ${st.status === opt ? 'selected' : ''}>${opt}</option>`
+        ).join('');
+
+        return `
+          <tr data-id="${escapeHtml(ev.id)}" class="${st.applied ? 'applied-row' : ''}">
+            <td class="col-check" onclick="event.stopPropagation()">
+              <input type="checkbox" class="user-check" data-check-id="${escapeHtml(ev.id)}" ${st.applied ? 'checked' : ''}>
+            </td>
+            <td class="col-status" onclick="event.stopPropagation()">
+              <select class="status-select" data-status-id="${escapeHtml(ev.id)}" data-val="${escapeHtml(st.status)}">
+                ${statusOpts}
+              </select>
+            </td>
+            <td class="col-title">
+              <div class="title-inner">
+                <span>${escapeHtml(ev.icon || '🎤')} ${escapeHtml(ev.title)}</span>
+                <span class="open-peek-btn">◧ 開く</span>
+              </div>
+            </td>
+            <td>${brandTags}</td>
+            <td>${escapeHtml(ev.phase || 'ー')}</td>
+            <td>${formatDeadline(ev.deadline)}</td>
+            <td>${escapeHtml(ev.lotteryDate || 'ー')}</td>
+            <td>${escapeHtml(dateRange)}</td>
+            <td style="color:var(--text-muted); max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+              ${escapeHtml(st.memo || '')}
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // Bind Table Events
+      tbody.querySelectorAll('tr[data-id]').forEach(tr => {
+        tr.onclick = () => openSidePeek(tr.getAttribute('data-id'));
+      });
+      tbody.querySelectorAll('.user-check').forEach(chk => {
+        chk.onchange = e => {
+          const id = e.target.getAttribute('data-check-id');
+          const st = getUserEventState(id);
+          st.applied = e.target.checked;
+          if (st.applied && st.status === '未申込') st.status = '当落待ち⏳';
+          saveUserState();
+          renderTable();
+          if (currentPeekId === id) renderSidePeekContent(id);
+        };
+      });
+      tbody.querySelectorAll('.status-select').forEach(sel => {
+        sel.onchange = e => {
+          const id = e.target.getAttribute('data-status-id');
+          const st = getUserEventState(id);
+          st.status = e.target.value;
+          if (['当落待ち⏳', '当選🎉', '落選💦'].includes(st.status)) st.applied = true;
+          saveUserState();
+          renderTable();
+          if (currentPeekId === id) renderSidePeekContent(id);
+        };
+      });
+    }
+
+    function openSidePeek(id) {
+      currentPeekId = id;
+      renderSidePeekContent(id);
+      document.getElementById('backdrop').classList.add('open');
+      document.getElementById('side-peek').classList.add('open');
+    }
+
+    function closeSidePeek() {
+      currentPeekId = null;
+      document.getElementById('backdrop').classList.remove('open');
+      document.getElementById('side-peek').classList.remove('open');
+    }
+
+    function renderSidePeekContent(id) {
+      const ev = eventsData.find(x => x.id === id);
+      if (!ev) return;
+      const st = getUserEventState(id);
+      const body = document.getElementById('peek-body');
+
+      const brandTags = (ev.brands || []).map(b => `<span class="tag tag-${escapeHtml(b)}">${escapeHtml(b)}</span>`).join('');
+      const statusOpts = STATUS_OPTIONS.map(opt =>
+        `<option value="${opt}" ${st.status === opt ? 'selected' : ''}>${opt}</option>`
+      ).join('');
+
+      const schedulesHtml = (ev.schedules || []).map(sc => {
+        const isSpecial = ev.isSpecialColor || (sc.penlightUrl && sc.penlightUrl.includes('special=1'));
+        const btnClass = isSpecial ? 'penlight-btn special' : 'penlight-btn';
+        const btnLabel = isSpecial
+          ? `🎨 ペンライト設定を作成【特別カラー対応】(${sc.castCount || (sc.castNames||[]).length}名)`
+          : `🪄 ペンライト設定を作成 (${sc.castCount || (sc.castNames||[]).length}名 自動セット)`;
+
+        return `
+          <div class="schedule-card">
+            <div class="schedule-date">📅 ${escapeHtml(sc.label)}</div>
+            ${(sc.castNames && sc.castNames.length) ? `
+              <details class="cast-details">
+                <summary>出演キャスト一覧を見る（${sc.castNames.length}名）</summary>
+                <div class="cast-list-box">${escapeHtml(sc.castNames.join(' / '))}</div>
+              </details>
+            ` : ''}
+            ${sc.penlightUrl ? `
+              <a href="${escapeHtml(sc.penlightUrl)}" target="_blank" rel="noopener" class="${btnClass}">
+                ${btnLabel} ↗
+              </a>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      body.innerHTML = `
+        <div class="peek-icon">${escapeHtml(ev.icon || '🎤')}</div>
+        <div class="peek-title">${escapeHtml(ev.title)}</div>
+
+        <!-- ユーザー個人の保存領域 -->
+        <div class="personal-box">
+          <div class="personal-box-header">
+            <span>👤 あなた専用の管理ステータス（このブラウザに自動保存）</span>
+          </div>
+          <div class="personal-controls">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-weight:bold;">
+              <input type="checkbox" id="peek-check" class="user-check" ${st.applied ? 'checked' : ''}>
+              応募済チェック
+            </label>
+            <select id="peek-status" class="status-select" style="width:150px;" data-val="${escapeHtml(st.status)}">
+              ${statusOpts}
+            </select>
+          </div>
+          <textarea id="peek-memo" class="personal-memo" placeholder="自分用のメモ（例：Day1連番・アソビストア先行申込済、ホテル予約済など）">${escapeHtml(st.memo || '')}</textarea>
+        </div>
+
+        <!-- Notion風プロパティ一覧 -->
+        <div class="props-list">
+          <div class="prop-label">🏷️ ブランド</div>
+          <div class="prop-val">${brandTags || 'ー'}</div>
+          <div class="prop-label">🎫 受付枠</div>
+          <div class="prop-val">${escapeHtml(ev.phase || 'ー')}</div>
+          <div class="prop-label">⏰ 申込締切</div>
+          <div class="prop-val">${formatDeadline(ev.deadline)}</div>
+          <div class="prop-label">🎉 当落発表</div>
+          <div class="prop-val">${escapeHtml(ev.lotteryDate || 'ー')}</div>
+        </div>
+
+        ${ev.officialUrl ? `
+          <div class="callout">
+            <span>🔗</span>
+            <div>
+              <a href="${escapeHtml(ev.officialUrl)}" target="_blank" rel="noopener">イベント公式情報・チケット申込ページを開く ↗</a>
+            </div>
+          </div>
+        ` : ''}
+
+        <div class="section-h3">📍 開催・アクセス・ペンライト連携</div>
+
+        <div class="callout">
+          <span>🏟️</span>
+          <div>
+            <div>
+              <b>会場：${escapeHtml(ev.venue || '未定')}</b>
+              ${ev.mapUrl ? ` (<a href="${escapeHtml(ev.mapUrl)}" target="_blank" rel="noopener">🗺️マップ</a>)` : ''}
+              ${ev.accessUrl ? ` ｜ <a href="${escapeHtml(ev.accessUrl)}" target="_blank" rel="noopener">🌐公式アクセス情報</a>` : ''}
+            </div>
+            ${ev.nearestStation ? `<div style="margin-top:4px; color:var(--text-muted); font-size:12px;">🚃 最寄り駅：${escapeHtml(ev.nearestStation)}</div>` : ''}
+          </div>
+        </div>
+
+        ${schedulesHtml || '<div style="color:var(--text-muted);">スケジュール詳細未定</div>'}
+      `;
+
+      // Bind Peek Events
+      document.getElementById('peek-check').onchange = e => {
+        st.applied = e.target.checked;
+        if (st.applied && st.status === '未申込') st.status = '当落待ち⏳';
+        saveUserState();
+        renderTable();
+        renderSidePeekContent(id);
+      };
+      document.getElementById('peek-status').onchange = e => {
+        st.status = e.target.value;
+        if (['当落待ち⏳', '当選🎉', '落選💦'].includes(st.status)) st.applied = true;
+        saveUserState();
+        renderTable();
+        renderSidePeekContent(id);
+      };
+      document.getElementById('peek-memo').oninput = e => {
+        st.memo = e.target.value;
+        saveUserState();
+        renderTable();
+      };
+    }
+
+    async function init() {
+      renderBrandChips();
+      document.getElementById('search-input').oninput = renderTable;
+      document.getElementById('filter-applied').onchange = renderTable;
+      document.getElementById('filter-hide-past').onchange = renderTable;
+      document.getElementById('backdrop').onclick = closeSidePeek;
+      document.getElementById('peek-close').onclick = closeSidePeek;
+      window.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidePeek(); });
+
+      try {
+        const res = await fetch(`./events.json?_=${Date.now()}`);
+        if (!res.ok) throw new Error('No events.json yet');
+        const json = await res.json();
+        eventsData = Array.isArray(json) && json.length ? json : FALLBACK_EVENTS;
+      } catch (e) {
+        eventsData = FALLBACK_EVENTS;
+      }
+      renderTable();
+    }
+
+    init();
+  </script>
+</body>
+</html>
