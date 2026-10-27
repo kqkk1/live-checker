@@ -528,9 +528,7 @@ async function applyEventsToDb(dbState, eventsList, article) {
     return count;
 }
 
-// =========================================================================
-// 新規追加: Notion全件から GitHub Pages 用の events.json を完全同期生成する関数
-// =========================================================================
+// Notion全件から GitHub Pages 用の events.json を同期生成する関数
 async function syncNotionToEventsJson(notionClient, targetDbId) {
     if (!targetDbId) {
         console.log('⚠️ events.json 出力用のDB IDが指定されていません。');
@@ -541,7 +539,6 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
     const pages = [];
     let cursor = undefined;
 
-    // 1. データベース内の全ページを取得
     do {
         const res = await notionClient.databases.query({
             database_id: targetDbId,
@@ -596,7 +593,6 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
         const urlProp = findProp(props, ['url'], ['公式', 'URL', 'リンク']);
         let officialUrl = urlProp?.url || '';
 
-        // 2. ページ内のブロックを取得して会場・日程・URLを抽出
         let venue = '';
         let mapUrl = '';
         let accessUrl = '';
@@ -681,40 +677,30 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
 // メイン処理（スナイパー本体）
 // -------------------------------------------------------------
 async function run() {
-    console.log("🚀 スナイパー起動（完全マスター版：二刀流DB・ブランド＆アイコン・主要駅併記・特別カラー自動切替対応）");
+    console.log("🚀 スナイパー起動（単一DB・ポータルサイト連動版：ブランド・主要駅併記・特別カラー対応）");
     
-    const mainDbId = process.env.NOTION_DB_ID;
-    const publicDbId = process.env.PUBLIC_NOTION_DB_ID;
+    const dbId = process.env.NOTION_DB_ID;
 
     console.log("Notionの既存データを読み込み中...");
-    let mainDb = null;
-    let publicDb = null;
+    let dbState = null;
 
     try {
-        mainDb = await loadDatabaseState(mainDbId, "🏠自分用DB");
-        if (publicDbId && publicDbId !== mainDbId) {
-            publicDb = await loadDatabaseState(publicDbId, "🌐公開用DB");
-        } else {
-            console.log(" ├─ ℹ️ PUBLIC_NOTION_DB_ID が未設定のため、自分用DBのみで稼働します。");
-        }
+        dbState = await loadDatabaseState(dbId, "📝アイマスライブ管理(自分用DB)");
     } catch (err) {
         console.error("⚠️ Notionの初期読み込みに失敗しました:", err.message);
         return;
     }
 
-    const activeDbs = [mainDb, publicDb].filter(Boolean);
-    if (activeDbs.length === 0) return;
+    if (!dbState) return;
 
     const sharedNonTargetUrls = new Set();
-    activeDbs.forEach(db => {
-        if (db.pages.length > 0) {
-            const firstPageUrls = db.pages[0].properties["処理済みURL"]?.rich_text?.[0]?.plain_text || "";
-            const urlArr = firstPageUrls.split(',').map(u => u.trim()).filter(Boolean);
-            if (urlArr.length > 1) {
-                urlArr.slice(1).forEach(u => sharedNonTargetUrls.add(u));
-            }
+    if (dbState.pages.length > 0) {
+        const firstPageUrls = dbState.pages[0].properties["処理済みURL"]?.rich_text?.[0]?.plain_text || "";
+        const urlArr = firstPageUrls.split(',').map(u => u.trim()).filter(Boolean);
+        if (urlArr.length > 1) {
+            urlArr.slice(1).forEach(u => sharedNonTargetUrls.add(u));
         }
-    });
+    }
 
     const browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
@@ -749,8 +735,8 @@ async function run() {
         for (const article of articles) {
             console.log(`\n▶ 対象: ${article.title || article.url}`);
             
-            const isProcessedInAll = activeDbs.every(db => db.processedUrls.has(article.url));
-            if (isProcessedInAll || sharedNonTargetUrls.has(article.url)) {
+            const isProcessed = dbState.processedUrls.has(article.url);
+            if (isProcessed || sharedNonTargetUrls.has(article.url)) {
                 console.log(" ├─ ⏩ スキップ: 既にチェック済みの記事URLです（API消費ゼロ）");
                 continue;
             }
@@ -799,12 +785,10 @@ async function run() {
                 continue;
             }
             
-            console.log(" ├─ 🎯 新着のライブ/出演者情報を検知！ Geminiに全文解析＆出演者抽出を依頼します...");
+            console.log(" ├─ 🎯 新着情報を検知！ Geminiに全文解析＆出演者抽出を依頼します...");
             
-            const combinedNamesSet = new Set();
-            activeDbs.forEach(db => db.listForAI.forEach(item => combinedNamesSet.add(item)));
-            const existingNamesListStr = combinedNamesSet.size > 0 
-                ? Array.from(combinedNamesSet).join('\n') 
+            const existingNamesListStr = dbState.listForAI.length > 0 
+                ? dbState.listForAI.join('\n') 
                 : "（まだ登録なし）";
 
             const prompt = `以下のテキストおよびページ内リンク一覧からイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
@@ -929,30 +913,23 @@ ${text.substring(0, 12000)}`;
             if (!data || data.is_target_live === false || eventsList.length === 0) {
                 console.log(` ├─ ⏩ スキップ: AI判定により非対象`);
                 sharedNonTargetUrls.add(article.url);
-                for (const db of activeDbs) {
-                    await recordSkippedUrlToDb(db, article.url);
-                }
+                await recordSkippedUrlToDb(dbState, article.url);
                 console.log(` ├─ 📝 非対象URLを記憶しました（次回から0秒スキップされます）`);
                 await new Promise(resolve => setTimeout(resolve, 6000));
                 continue;
             }
             
-            // 自分用DBと公開用DBの両方に連続で反映！
-            for (const db of activeDbs) {
-                processedCount += await applyEventsToDb(db, eventsList, article);
-            }
+            // 自分用DB1つのみを更新する
+            processedCount += await applyEventsToDb(dbState, eventsList, article);
 
             console.log(" ├─ ⏳ APIレート制限回避のため12秒待機します...");
             await new Promise(resolve => setTimeout(resolve, 12000));
         }
         console.log(`\n🎉 全処理完了！ 新規・更新枠（延べ件数）: ${processedCount}件`);
         
-        // ==============================================================
-        // ★ 追加部分：最後に公開用DB（なければ自分用DB）から全件読み出して events.json を同期
-        // ==============================================================
-        const syncDbId = publicDbId || mainDbId;
-        if (syncDbId) {
-            await syncNotionToEventsJson(notion, syncDbId);
+        // 最後に、自分用DBからポータル用の events.json を同期
+        if (dbId) {
+            await syncNotionToEventsJson(notion, dbId);
         }
 
     } catch (error) {
