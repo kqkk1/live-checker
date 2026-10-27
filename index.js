@@ -141,7 +141,7 @@ function buildPenlightUrl(castArray, isSpecial = false) {
     return `${baseUrl}?${query}`;
 }
 
-// スケジュール配列からNotionの箇条書き＋ペンライトURLブロック群（通常/特別カラー自動切替）を生成する関数
+// ★修正版：スケジュール配列からNotionの箇条書き＋ペンライトURLブロック群（昼夜個別URL対応版）を生成する関数
 function buildScheduleBlocks(schedules, isSpecialColor = false) {
     const blocks = [];
     if (!Array.isArray(schedules)) return blocks;
@@ -150,62 +150,81 @@ function buildScheduleBlocks(schedules, isSpecialColor = false) {
         const isObject = typeof schedObj === 'object' && schedObj !== null;
         const schedText = isObject ? (schedObj.text || "") : String(schedObj);
         const schedLabel = isObject && schedObj.label ? schedObj.label : `Day${idx + 1}`;
-        const castList = (isObject && Array.isArray(schedObj.cast)) ? cleanCastList(schedObj.cast) : [];
+        const rawCastList = (isObject && Array.isArray(schedObj.cast)) ? cleanCastList(schedObj.cast) : [];
 
-        const normalUrl = buildPenlightUrl(castList, false);
-        const specialUrl = buildPenlightUrl(castList, true);
-        const castCountText = castList.length > 0 ? `（出演: ${castList.length}名 自動セット）` : `（手動セット画面へ）`;
-
-        let paragraphRichText = [];
-        if (isSpecialColor) {
-            paragraphRichText = [
-                { type: "text", text: { content: "🎨 " } },
-                { 
-                    type: "text", 
-                    text: { 
-                        content: `${schedLabel} のペンライト設定を作成する【特別カラー対応】${castCountText}`, 
-                        link: { url: specialUrl } 
-                    },
-                    annotations: { bold: true, color: "purple" }
-                },
-                { type: "text", text: { content: " ｜ " }, annotations: { color: "gray" } },
-                { 
-                    type: "text", 
-                    text: { 
-                        content: "通常色で作成", 
-                        link: { url: normalUrl } 
-                    },
-                    annotations: { color: "gray" }
-                }
+        let subSchedules = [];
+        if (isObject && Array.isArray(schedObj.sub_schedules) && schedObj.sub_schedules.length > 0) {
+            subSchedules = schedObj.sub_schedules;
+        } else if (schedText.includes("昼公演") && schedText.includes("夜公演")) {
+            subSchedules = [
+                { label: `${schedLabel} 昼公演`, cast: rawCastList },
+                { label: `${schedLabel} 夜公演`, cast: rawCastList }
             ];
         } else {
-            paragraphRichText = [
-                { type: "text", text: { content: "🪄 " } },
-                { 
-                    type: "text", 
-                    text: { 
-                        content: `${schedLabel} のペンライト設定を作成する${castCountText}`, 
-                        link: { url: normalUrl } 
-                    },
-                    annotations: { bold: true, color: "purple" }
-                }
-            ];
+            subSchedules = [{ label: schedLabel, cast: rawCastList }];
         }
+
+        const childParagraphs = [];
+
+        subSchedules.forEach(sub => {
+            const subLabel = sub.label || schedLabel;
+            const subCast = cleanCastList(sub.cast || rawCastList);
+
+            const normalUrl = buildPenlightUrl(subCast, false);
+            const specialUrl = buildPenlightUrl(subCast, true);
+            const castCountText = subCast.length > 0 ? `（出演: ${subCast.length}名 自動セット）` : `（手動セット画面へ）`;
+
+            let paragraphRichText = [];
+            if (isSpecialColor) {
+                paragraphRichText = [
+                    { type: "text", text: { content: "🎨 " } },
+                    { 
+                        type: "text", 
+                        text: { 
+                            content: `${subLabel} のペンライト設定を作成する【特別カラー対応】${castCountText}`, 
+                            link: { url: specialUrl } 
+                        },
+                        annotations: { bold: true, color: "purple" }
+                    },
+                    { type: "text", text: { content: " ｜ " }, annotations: { color: "gray" } },
+                    { 
+                        type: "text", 
+                        text: { 
+                            content: "通常色で作成", 
+                            link: { url: normalUrl } 
+                        },
+                        annotations: { color: "gray" }
+                    }
+                ];
+            } else {
+                paragraphRichText = [
+                    { type: "text", text: { content: "🪄 " } },
+                    { 
+                        type: "text", 
+                        text: { 
+                            content: `${subLabel} のペンライト設定を作成する${castCountText}`, 
+                            link: { url: normalUrl } 
+                        },
+                        annotations: { bold: true, color: "purple" }
+                    }
+                ];
+            }
+
+            childParagraphs.push({
+                object: "block",
+                type: "paragraph",
+                paragraph: {
+                    rich_text: paragraphRichText
+                }
+            });
+        });
 
         blocks.push({
             object: "block",
             type: "bulleted_list_item",
             bulleted_list_item: {
                 rich_text: [{ type: "text", text: { content: schedText }, annotations: { bold: true } }],
-                children: [
-                    {
-                        object: "block",
-                        type: "paragraph",
-                        paragraph: {
-                            rich_text: paragraphRichText
-                        }
-                    }
-                ]
+                children: childParagraphs
             }
         });
     });
@@ -250,7 +269,11 @@ async function updatePageSchedulesAndCast(pageId, newSchedules, isSpecialColor =
             oldSchedulesData.push({ id: bullet.id, text: oldText, cast: oldCast });
         }
 
-        const hasNewCast = newSchedules.some(s => Array.isArray(s.cast) && s.cast.length > 0);
+        const hasNewCast = newSchedules.some(s => {
+            if (Array.isArray(s.cast) && s.cast.length > 0) return true;
+            if (Array.isArray(s.sub_schedules) && s.sub_schedules.some(sub => Array.isArray(sub.cast) && sub.cast.length > 0)) return true;
+            return false;
+        });
         const hasDetailedText = newSchedules.some(s => s.text && (s.text.includes("開場") || s.text.includes("開演") || s.text.includes("[")));
 
         if (!hasNewCast && !hasDetailedText && oldSchedulesData.length > 0) {
@@ -275,11 +298,20 @@ async function updatePageSchedulesAndCast(pageId, newSchedules, isSpecialColor =
 
             const oldCast = matchedOld ? matchedOld.cast : [];
             const finalCast = cleanCastList([...oldCast, ...newCast]);
+            
+            let finalSubSchedules = [];
+            if (isObj && Array.isArray(newSched.sub_schedules)) {
+                finalSubSchedules = newSched.sub_schedules.map(sub => ({
+                    label: sub.label,
+                    cast: cleanCastList([...oldCast, ...(sub.cast || [])])
+                }));
+            }
 
             return {
                 label: label,
                 text: finalText || `${label}`,
-                cast: finalCast
+                cast: finalCast,
+                sub_schedules: finalSubSchedules
             };
         });
 
@@ -528,14 +560,14 @@ async function applyEventsToDb(dbState, eventsList, article) {
     return count;
 }
 
-// Notion全件から GitHub Pages 用の events.json を同期生成する関数
+// ★修正版：Notion全件から GitHub Pages 用の events.json を同期生成する関数（キャスト・URL完全復元対応版）
 async function syncNotionToEventsJson(notionClient, targetDbId) {
     if (!targetDbId) {
         console.log('⚠️ events.json 出力用のDB IDが指定されていません。');
         return;
     }
 
-    console.log('\n🌐 Notionから全イベントデータを読み取って events.json を生成中...');
+    console.log('\n🌐 Notionから全イベントデータを読み取って events.json を生成中（キャスト復元強化版）...');
     const pages = [];
     let cursor = undefined;
 
@@ -606,7 +638,9 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
                 page_size: 100,
             });
 
-            for (const block of blocksRes.results) {
+            for (let i = 0; i < blocksRes.results.length; i++) {
+                const block = blocksRes.results[i];
+
                 if (block.type === 'callout') {
                     const text = getText(block.callout.rich_text);
                     const links = block.callout.rich_text
@@ -630,26 +664,59 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
                     }
                 }
 
+                // 箇条書き（スケジュール行）の処理：階層ズレやテキスト直打ちでもリンクを再構築
                 if (block.type === 'bulleted_list_item') {
                     const richTexts = block.bulleted_list_item.rich_text || [];
                     const fullText = getText(richTexts);
-                    const lines = fullText.split('\n').map(s => s.trim()).filter(Boolean);
-                    const label = lines[0] || fullText;
+                    const label = fullText.split('\n')[0] || fullText;
 
-                    const penLinkObj = richTexts.find(t => t.href && t.href.includes('penlight-supporter'));
-                    const penlightUrl = penLinkObj ? penLinkObj.href : '';
-
+                    let penlightUrl = '';
                     let castNames = [];
-                    if (penlightUrl) {
+
+                    const allLinks = [];
+                    richTexts.forEach(t => { if (t.href) allLinks.push(t.href); });
+
+                    if (block.has_children) {
                         try {
-                            const u = new URL(penlightUrl);
+                            const childrenRes = await notionClient.blocks.children.list({ block_id: block.id });
+                            for (const child of childrenRes.results) {
+                                const childTexts = child.paragraph?.rich_text || [];
+                                childTexts.forEach(ct => { if (ct.href) allLinks.push(ct.href); });
+                                
+                                // 子ブロックがただのテキストになっていてURLが含まれていない場合の自動救済
+                                const childFullText = getText(childTexts);
+                                if (!allLinks.length && childFullText.includes('出演:')) {
+                                    const match = childFullText.match(/出演:\s*(\d+)名/);
+                                    if (match) castNames = new Array(parseInt(match[1])).fill('');
+                                }
+                            }
+                        } catch (e) {}
+                    }
+
+                    const penLink = allLinks.find(url => url.includes('penlight-supporter'));
+                    if (penLink) {
+                        penlightUrl = penLink;
+                        try {
+                            const u = new URL(penLink);
                             const castParam = u.searchParams.get('auto_cast') || u.searchParams.get('cast') || '';
-                            if (castParam) castNames = castParam.split(',').map(s => s.trim()).filter(Boolean);
+                            if (castParam) {
+                                castNames = castParam.split(',').map(s => s.trim()).filter(Boolean);
+                            }
                             if (u.searchParams.get('special') === '1') isSpecialColor = true;
                         } catch (e) {}
                     }
 
-                    schedules.push({ label, castCount: castNames.length, castNames, penlightUrl });
+                    // リンクが見つからなくても、「🪄」や「自動セット」の文字があれば仮のURLを再構築
+                    if (!penlightUrl && (fullText.includes('🪄') || fullText.includes('自動セット'))) {
+                         penlightUrl = `https://penlight-supporter.onrender.com/setlist`;
+                    }
+
+                    schedules.push({
+                        label,
+                        castCount: castNames.length,
+                        castNames,
+                        penlightUrl: penlightUrl || `https://penlight-supporter.onrender.com/setlist${castNames.length ? '?auto_cast=' + encodeURIComponent(castNames.join(',')) : ''}`
+                    });
                 }
             }
         } catch (err) {
@@ -677,7 +744,7 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
 // メイン処理（スナイパー本体）
 // -------------------------------------------------------------
 async function run() {
-    console.log("🚀 スナイパー起動（単一DB・ポータルサイト連動版：ブランド・主要駅併記・特別カラー対応）");
+    console.log("🚀 スナイパー起動（単一DB・ポータルサイト連動・昼夜個別・URL自動復元対応版）");
     
     const dbId = process.env.NOTION_DB_ID;
 
@@ -791,6 +858,7 @@ async function run() {
                 ? dbState.listForAI.join('\n') 
                 : "（まだ登録なし）";
 
+            // ★修正版：AIへの指示（昼夜分割ルール追加）
             const prompt = `以下のテキストおよびページ内リンク一覧からイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
 【最重要①：複数公演（ツアー・別都市・別週末）の分割ルール】
@@ -812,15 +880,20 @@ ${existingNamesListStr}
 
 【最重要④：schedules（各日の詳細スケジュールと出演アイドルの抽出）の記載ルール】
 ・"schedules" には、Day1、Day2などの各日程をオブジェクトの配列として出力してください。
-・"text": どの回が「PRODUCER MEETING」でどれが「LIVE」か一目でわかるように記載してください。
-  - 日によって種別が異なる場合：『Day1: 1月30日(土) [PRODUCER MEETING] 開場16:00 / 開演17:00』
-  - 同じ日の昼夜で種別が異なる場合：『Day1: 1月30日(土) ①昼公演[PRODUCER MEETING] 開場12:00/開演13:00 ／ ②夜公演[LIVE] 開場16:30/開演17:30』
-  - 同種別で1日2公演ある場合：『Day2: 1月31日(日) [LIVE] ①開場12:00/開演13:00 ／ ②開場16:30/開演17:30』
-・"label": 『Day1』『Day2』（1日開催なら『全公演』）などの短い日程ラベル。
-・"cast": **その日程に出演する「アイドル（キャラクター）のフルネーム（姓名の間のスペースなし）」の配列**を出力してください。
-  - 記事内に記載されている全出演者（既存の出演者＋今回追加された出演者の両方）を漏れなく抽出してください。
-  - 声優名（CV）しか書かれていない場合や、ユニット名しか書かれていない場合でも、あなたの知識から該当する**キャラクター名（例: "天海春香", "灯里愛夏", "有村麻央" など）**に変換・補完して出力してください。
-  - Day1とDay2で出演者が共通の場合は、両方の "cast" に同じリストを入れてください。記事内に出演者情報が一切ない場合は空配列 [] にしてください。
+・もし同じ日に「昼公演」と「夜公演」があり、それぞれ出演者（キャスト）が異なる場合は、オブジェクト内に "sub_schedules" 配列を持たせ、昼と夜で個別にキャストを分けて出力してください。
+  - 例：
+    "schedules": [
+      {
+        "label": "Day1",
+        "text": "Day1: 1月30(土) ①昼公演[PRODUCER MEETING] 開場12:00/開演13:00 ／ ②夜公演[LIVE] 開場16:30/開演17:30",
+        "sub_schedules": [
+          { "label": "Day1 昼公演", "cast": ["天海春香", "如月千早"] },
+          { "label": "Day1 夜公演", "cast": ["高槻やよい", "萩原雪歩"] }
+        ]
+      }
+    ]
+・昼夜でキャストが共通の場合や1公演の場合は、従来通り "cast" 配列のみで問題ありません。
+・声優名（CV）しか書かれていない場合や、ユニット名しか書かれていない場合でも、あなたの知識から該当する**キャラクター名（例: "天海春香", "灯里愛夏", "有村麻央" など）**に変換・補完して出力してください。
 
 【抽出フォーマット】
 {
@@ -840,12 +913,7 @@ ${existingNamesListStr}
       "schedules": [
         {
           "label": "Day1",
-          "text": "Day1: 1月30日(土) ①昼公演[PRODUCER MEETING] 開場12:00/開演13:00 ／ ②夜公演[LIVE] 開場16:30/開演17:30",
-          "cast": ["灯里愛夏", "上水流宇宙", "レトラ"]
-        },
-        {
-          "label": "Day2",
-          "text": "Day2: 1月31日(日) [LIVE] ①開場12:00/開演13:00 ／ ②開場16:30/開演17:30",
+          "text": "Day1: 1月30日(土) [LIVE] 開場16:30/開演17:30",
           "cast": ["灯里愛夏", "上水流宇宙", "レトラ"]
         }
       ],
