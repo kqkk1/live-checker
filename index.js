@@ -141,7 +141,7 @@ function buildPenlightUrl(castArray, isSpecial = false) {
     return `${baseUrl}?${query}`;
 }
 
-// ★修正版：スケジュール配列からNotionの箇条書き＋ペンライトURLブロック群（昼夜個別URL対応版）を生成する関数
+// スケジュール配列からNotionの箇条書き＋ペンライトURLブロック群（昼夜個別URL対応版）を生成する関数
 function buildScheduleBlocks(schedules, isSpecialColor = false) {
     const blocks = [];
     if (!Array.isArray(schedules)) return blocks;
@@ -410,7 +410,15 @@ async function recordSkippedUrlToDb(dbState, url) {
 // 抽出されたイベント群を指定されたDBへ登録・更新する関数
 async function applyEventsToDb(dbState, eventsList, article) {
     if (!dbState || dbState.processedUrls.has(article.url)) return 0;
-    const isValidDate = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d);
+    
+    // ★締切時間対応：YYYY-MM-DDTHH:mm のような日時情報をNotion用に整形 (+09:00付与)
+    const isValidDate = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}/.test(d);
+    const formatNotionDate = (d) => {
+        if (!d) return null;
+        if (d.length === 16 && d.includes('T')) return `${d}:00+09:00`; // YYYY-MM-DDTHH:mm:00+09:00
+        return d; // 日付のみ(10桁)ならそのまま
+    };
+
     let count = 0;
 
     for (const ev of eventsList) {
@@ -444,13 +452,14 @@ async function applyEventsToDb(dbState, eventsList, article) {
                 notionPayload["ブランド"] = { multi_select: brandsList.map(b => ({ name: b })) };
             }
             if (ev.ticket_tier) notionPayload["受付枠"] = { rich_text: [{ text: { content: ev.ticket_tier } }] };
-            if (isValidDate(ev.deadline_date)) notionPayload["締切日"] = { date: { start: ev.deadline_date } };
-            if (isValidDate(ev.result_date_notion)) notionPayload["当落発表日"] = { date: { start: ev.result_date_notion } };
+            // ★締切日を時間付きで登録
+            if (isValidDate(ev.deadline_date)) notionPayload["締切日"] = { date: { start: formatNotionDate(ev.deadline_date) } };
+            if (isValidDate(ev.result_date_notion)) notionPayload["当落発表日"] = { date: { start: formatNotionDate(ev.result_date_notion) } };
             
             if (isValidDate(ev.live_date)) {
-                const dateObj = { start: ev.live_date };
+                const dateObj = { start: formatNotionDate(ev.live_date) };
                 if (isValidDate(ev.live_end_date) && ev.live_date !== ev.live_end_date) {
-                    dateObj.end = ev.live_end_date;
+                    dateObj.end = formatNotionDate(ev.live_end_date);
                 }
                 notionPayload["ライブ開催日"] = { date: dateObj };
             }
@@ -524,19 +533,20 @@ async function applyEventsToDb(dbState, eventsList, article) {
             if (dbState.hasBrandProp && brandsList.length > 0) {
                 updatePayload["ブランド"] = { multi_select: brandsList.map(b => ({ name: b })) };
             }
+            // ★締切日を時間付きで更新
             if (isValidDate(ev.deadline_date)) {
-                updatePayload["締切日"] = { date: { start: ev.deadline_date } };
+                updatePayload["締切日"] = { date: { start: formatNotionDate(ev.deadline_date) } };
             }
             if (isValidDate(ev.result_date_notion)) {
-                updatePayload["当落発表日"] = { date: { start: ev.result_date_notion } };
+                updatePayload["当落発表日"] = { date: { start: formatNotionDate(ev.result_date_notion) } };
             }
             if (ev.ticket_tier) {
                 updatePayload["受付枠"] = { rich_text: [{ text: { content: ev.ticket_tier } }] };
             }
             if (isValidDate(ev.live_date)) {
-                const dateObj = { start: ev.live_date };
+                const dateObj = { start: formatNotionDate(ev.live_date) };
                 if (isValidDate(ev.live_end_date) && ev.live_date !== ev.live_end_date) {
-                    dateObj.end = ev.live_end_date;
+                    dateObj.end = formatNotionDate(ev.live_end_date);
                 }
                 updatePayload["ライブ開催日"] = { date: dateObj };
             }
@@ -560,14 +570,14 @@ async function applyEventsToDb(dbState, eventsList, article) {
     return count;
 }
 
-// ★修正版：Notion全件から GitHub Pages 用の events.json を同期生成する関数（キャスト・URL完全復元対応版）
+// Notion全件から GitHub Pages 用の events.json を同期生成する関数（キャスト・URL完全復元対応・時間出力版）
 async function syncNotionToEventsJson(notionClient, targetDbId) {
     if (!targetDbId) {
         console.log('⚠️ events.json 出力用のDB IDが指定されていません。');
         return;
     }
 
-    console.log('\n🌐 Notionから全イベントデータを読み取って events.json を生成中（キャスト復元強化版）...');
+    console.log('\n🌐 Notionから全イベントデータを読み取って events.json を生成中（キャスト復元・時間対応強化版）...');
     const pages = [];
     let cursor = undefined;
 
@@ -617,7 +627,8 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
         const lotteryProp = findProp(props, ['date'], ['当落', '発表']);
         const eventDateProp = findProp(props, ['date'], ['開催', '日程', '日時', '日付']);
 
-        const deadline = deadlineProp?.date?.start ? deadlineProp.date.start.slice(0, 10) : '';
+        // ★時間（HH:mm）を含む形式もそのまま出力するように slice(0, 10) を削除し、フルデータを取得
+        const deadline = deadlineProp?.date?.start ? deadlineProp.date.start : '';
         const lotteryDate = lotteryProp?.date?.start ? lotteryProp.date.start.slice(0, 10) : '';
         const eventDateStart = eventDateProp?.date?.start ? eventDateProp.date.start.slice(0, 10) : '';
         const eventDateEnd = eventDateProp?.date?.end ? eventDateProp.date.end.slice(0, 10) : eventDateStart;
@@ -744,7 +755,7 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
 // メイン処理（スナイパー本体）
 // -------------------------------------------------------------
 async function run() {
-    console.log("🚀 スナイパー起動（単一DB・ポータルサイト連動・昼夜個別・URL自動復元対応版）");
+    console.log("🚀 スナイパー起動（単一DB・ポータル連動・昼夜個別・URL復元・締切時間対応版）");
     
     const dbId = process.env.NOTION_DB_ID;
 
@@ -858,7 +869,7 @@ async function run() {
                 ? dbState.listForAI.join('\n') 
                 : "（まだ登録なし）";
 
-            // ★修正版：AIへの指示（昼夜分割ルール追加）
+            // ★AIプロンプト修正：締切時間のフォーマット(T付き)と昼夜分割の指示を統合
             const prompt = `以下のテキストおよびページ内リンク一覧からイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
 【最重要①：複数公演（ツアー・別都市・別週末）の分割ルール】
@@ -876,7 +887,7 @@ ${existingNamesListStr}
 
 【最重要④：schedules（各日の詳細スケジュールと出演アイドルの抽出）の記載ルール】
 ・"schedules" には、各公演をオブジェクトの配列として出力してください。
-・★**もし同じ日に「昼公演」と「夜公演」がある場合は、必ず「昼公演」と「夜公演」で別々のオブジェクトとして2つに分割して出力してください。**（キャストが同じでも異なっていても必ず分けます）
+・★もし同じ日に「昼公演」と「夜公演」がある場合は、必ず「昼公演」と「夜公演」で別々のオブジェクトとして2つに分割して出力してください。（キャストが同じでも異なっていても必ず分けます）
   - 良い例（昼夜がある場合）：
     "schedules": [
       {
@@ -888,14 +899,6 @@ ${existingNamesListStr}
         "label": "Day2 夜公演",
         "text": "Day2 夜公演: 1月31日(日) [LIVE] 開場17:00/開演18:00",
         "cast": ["高槻やよい", "萩原雪歩"]
-      }
-    ]
-  - 良い例（1日1公演の場合）：
-    "schedules": [
-      {
-        "label": "Day1",
-        "text": "Day1: 1月30日(土) [PRODUCER MEETING] 開場16:00 / 開演17:00",
-        "cast": ["灯里愛夏", "上水流宇宙", "レトラ"]
       }
     ]
 ・声優名（CV）やユニット名しか書かれていない場合でも、あなたの知識から該当するキャラクター名に変換・補完して出力してください。
@@ -923,8 +926,8 @@ ${existingNamesListStr}
         }
       ],
       "ticket_tier": "現在募集している現地チケットの受付名称",
-      "deadline_date": "上記受付の最終締切日（YYYY-MM-DD形式）",
-      "result_date_notion": "上記受付の当落発表日（YYYY-MM-DD形式）"
+      "deadline_date": "上記受付の最終締切日時（時間指定がある場合は 'YYYY-MM-DDTHH:mm' 形式。例: 2027-01-30T09:59 や 23:59。日付のみなら 'YYYY-MM-DD' 形式。不明なら空文字）",
+      "result_date_notion": "上記受付の当落発表日（YYYY-MM-DD形式。不明なら空文字）"
     }
   ]
 }
