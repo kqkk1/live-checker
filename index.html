@@ -456,7 +456,7 @@
           <th class="col-title">イベント名</th>
           <th>ブランド</th>
           <th>現在受付中の枠</th>
-          <th>申込締切</th>
+          <th>受付期間 / 締切</th>
           <th>当落発表</th>
           <th>開催日程</th>
           <th>メモ</th>
@@ -481,7 +481,7 @@
     const BRANDS = ['すべて', '765AS', 'デレマス', 'ミリオン', 'シャニマス', 'SideM', '学マス', 'ヴイアラ'];
     const STATUS_OPTIONS = ['未申込', '申込予定📌', '当落待ち⏳', '当選🎉', '落選💦', '見送り'];
 
-    // events.json がまだ無い時の動作確認用デモデータ
+    // events.json がまだ無い時の動作確認用デモデータ（期間・先着デモを追加）
     const FALLBACK_EVENTS = [
       {
         id: "demo-shiny-refrac7ions",
@@ -489,7 +489,8 @@
         title: "シャニマス LIVE FUN!! -REFRAC7IONS- 横浜公演",
         brands: ["シャニマス"],
         phase: "アソビストアプレミアム会員先行",
-        deadline: "2026-11-15",
+        applyStartDate: "2026-10-28T10:00:00+09:00",
+        deadline: "2026-11-15T23:59:00+09:00",
         lotteryDate: "2026-11-22",
         eventDateStart: "2027-01-30",
         eventDateEnd: "2027-01-31",
@@ -513,9 +514,10 @@
         icon: "🎤",
         title: "シンデレラガールズ × ミリオンライブ！ 合同ライブ 名古屋公演",
         brands: ["デレマス", "ミリオン"],
-        phase: "WEB優先先行抽選予約",
-        deadline: "2026-11-08",
-        lotteryDate: "2026-11-16",
+        phase: "一般発売 (先着)",
+        applyStartDate: "2026-11-01T12:00:00+09:00",
+        deadline: "",
+        lotteryDate: "",
         eventDateStart: "2027-02-13",
         eventDateEnd: "2027-02-14",
         officialUrl: "https://idolmaster-official.jp/",
@@ -555,6 +557,62 @@
       return String(str || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     }
 
+    // ★新規追加：期間（開始・終了）を考慮して美しくフォーマットする関数
+    function getPeriodDisplay(startIso, endIso) {
+      function formatDT(iso) {
+        if (!iso) return "";
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return iso;
+        const MM = String(d.getMonth() + 1).padStart(2, '0');
+        const DD = String(d.getDate()).padStart(2, '0');
+        const HH = String(d.getHours()).padStart(2, '0');
+        const mm = String(d.getMinutes()).padStart(2, '0');
+        return iso.includes('T') ? `${MM}/${DD} ${HH}:${mm}` : `${MM}/${DD}`;
+      }
+
+      const fStart = formatDT(startIso);
+      const fEnd = formatDT(endIso);
+
+      let baseText = "";
+      let label = "⏰ 申込締切";
+
+      // 状態によるラベルとテキストの切り替え
+      if (fStart && fEnd && fStart !== fEnd) {
+        baseText = `${fStart} 〜 ${fEnd}`;
+        label = "⏰ 受付期間";
+      } else if (fStart && !fEnd) {
+        baseText = `${fStart} 〜`;
+        label = "⏰ 受付開始"; // 先着やリセール開始など
+      } else if (!fStart && fEnd) {
+        baseText = `${fEnd}`;
+      } else if (fStart && fStart === fEnd) {
+        baseText = `${fEnd}`;
+      } else {
+        return { html: '<span style="color:var(--text-muted)">未定</span>', label: "⏰ 申込締切" };
+      }
+
+      // 期限判定（分単位で正確に判定）
+      const targetIso = endIso || startIso;
+      const targetExact = new Date(targetIso);
+      const nowExact = new Date();
+      const isPassed = targetExact < nowExact; // 時間が過ぎたかどうか
+
+      // 日数差の計算（「あと〇日」用）
+      const todayDateOnly = new Date(nowExact.getFullYear(), nowExact.getMonth(), nowExact.getDate());
+      const targetDateOnly = new Date(targetExact.getFullYear(), targetExact.getMonth(), targetExact.getDate());
+      const diffDays = Math.floor((targetDateOnly - todayDateOnly) / 86400000);
+
+      let html = escapeHtml(baseText);
+      if (isPassed) {
+        html = `<span class="deadline-passed">${html}</span>`;
+      } else if (diffDays <= 3) {
+        const remainText = diffDays === 0 ? "今日" : `あと${diffDays}日`;
+        html = `<span class="deadline-urgent">🔥 ${html} (${remainText})</span>`;
+      }
+
+      return { html, label };
+    }
+
     function renderBrandChips() {
       const container = document.getElementById('brand-chips');
       container.innerHTML = BRANDS.map(b => `
@@ -567,15 +625,6 @@
           renderTable();
         };
       });
-    }
-
-    function formatDeadline(dateStr) {
-      if (!dateStr) return '<span style="color:var(--text-muted)">未定</span>';
-      const today = new Date().toISOString().slice(0, 10);
-      const diff = (new Date(dateStr) - new Date(today)) / 86400000;
-      if (diff < 0) return `<span class="deadline-passed">${escapeHtml(dateStr)}</span>`;
-      if (diff <= 3) return `<span class="deadline-urgent">🔥 ${escapeHtml(dateStr)} (あと${Math.ceil(diff)}日)</span>`;
-      return escapeHtml(dateStr);
     }
 
     function renderTable() {
@@ -620,6 +669,9 @@
           `<option value="${opt}" ${st.status === opt ? 'selected' : ''}>${opt}</option>`
         ).join('');
 
+        // ★ここで期間データを取得してHTMLに埋め込む
+        const periodObj = getPeriodDisplay(ev.applyStartDate, ev.deadline);
+
         return `
           <tr data-id="${escapeHtml(ev.id)}" class="${st.applied ? 'applied-row' : ''}">
             <td class="col-check" onclick="event.stopPropagation()">
@@ -638,7 +690,7 @@
             </td>
             <td>${brandTags}</td>
             <td>${escapeHtml(ev.phase || 'ー')}</td>
-            <td>${formatDeadline(ev.deadline)}</td>
+            <td>${periodObj.html}</td>
             <td>${escapeHtml(ev.lotteryDate || 'ー')}</td>
             <td>${escapeHtml(dateRange)}</td>
             <td style="color:var(--text-muted); max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
@@ -700,6 +752,9 @@
         `<option value="${opt}" ${st.status === opt ? 'selected' : ''}>${opt}</option>`
       ).join('');
 
+      // ★サイドピーク用にも期間データとラベルを取得
+      const periodObj = getPeriodDisplay(ev.applyStartDate, ev.deadline);
+
       const schedulesHtml = (ev.schedules || []).map(sc => {
         const isSpecial = ev.isSpecialColor || (sc.penlightUrl && sc.penlightUrl.includes('special=1'));
         const btnClass = isSpecial ? 'penlight-btn special' : 'penlight-btn';
@@ -752,8 +807,11 @@
           <div class="prop-val">${brandTags || 'ー'}</div>
           <div class="prop-label">🎫 受付枠</div>
           <div class="prop-val">${escapeHtml(ev.phase || 'ー')}</div>
-          <div class="prop-label">⏰ 申込締切</div>
-          <div class="prop-val">${formatDeadline(ev.deadline)}</div>
+          
+          <!-- ★ラベルと値を動的に表示 -->
+          <div class="prop-label">${periodObj.label}</div>
+          <div class="prop-val">${periodObj.html}</div>
+          
           <div class="prop-label">🎉 当落発表</div>
           <div class="prop-val">${escapeHtml(ev.lotteryDate || 'ー')}</div>
         </div>
