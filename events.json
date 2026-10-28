@@ -7,7 +7,8 @@
       "学マス"
     ],
     "phase": "公式リセール",
-    "deadline": "2026-10-28",
+    "deadline": "2026-10-28T09:59:00.000+09:00",
+    "applyStartDate": "2026-10-20T20:00:00.000+09:00",
     "lotteryDate": "",
     "eventDateStart": "2026-11-07",
     "eventDateEnd": "2026-11-08",
@@ -68,8 +69,9 @@
       "デレマス"
     ],
     "phase": "一般販売(先着)",
-    "deadline": "2026-11-22",
-    "lotteryDate": "2026-10-31",
+    "deadline": "2026-11-22T23:59:00.000+09:00",
+    "applyStartDate": "2026-11-07T12:00:00.000+09:00",
+    "lotteryDate": "",
     "eventDateStart": "2026-11-28",
     "eventDateEnd": "2026-11-29",
     "officialUrl": "https://idolmaster-official.jp/live_event/cg_15th_for_your_one/",
@@ -152,7 +154,8 @@
       "シャニマス"
     ],
     "phase": "アソビストア一般会員先行",
-    "deadline": "2026-09-23",
+    "deadline": "2026-09-23T23:59:00.000+09:00",
+    "applyStartDate": "2026-08-27T12:00:00.000+09:00",
     "lotteryDate": "2026-10-08",
     "eventDateStart": "2026-12-19",
     "eventDateEnd": "2026-12-20",
@@ -242,7 +245,8 @@
       "デレマス"
     ],
     "phase": "アソビストアプレミアム会員2次先行",
-    "deadline": "2026-10-25",
+    "deadline": "2026-10-25T23:59:00.000+09:00",
+    "applyStartDate": "2026-10-14T12:00:00.000+09:00",
     "lotteryDate": "2026-11-07",
     "eventDateStart": "2027-01-11",
     "eventDateEnd": "2027-01-12",
@@ -283,7 +287,8 @@
       "ヴイアラ"
     ],
     "phase": "アソビストア一般会員先行",
-    "deadline": "2026-11-15",
+    "deadline": "2026-11-15T23:59:00.000+09:00",
+    "applyStartDate": "2026-10-17T21:30:00.000+09:00",
     "lotteryDate": "2026-11-28",
     "eventDateStart": "2027-01-30",
     "eventDateEnd": "2027-01-31",
@@ -334,7 +339,8 @@
       "デレマス"
     ],
     "phase": "アソビストアプレミアム会員先行",
-    "deadline": "2026-10-18",
+    "deadline": "2026-10-18T23:59:00.000+09:00",
+    "applyStartDate": "2026-09-28T21:30:00.000+09:00",
     "lotteryDate": "2026-10-31",
     "eventDateStart": "2027-02-13",
     "eventDateEnd": "2027-02-14",
@@ -392,7 +398,8 @@
       "ミリオン"
     ],
     "phase": "アソビストアプレミアム会員先行",
-    "deadline": "2026-11-01",
+    "deadline": "2026-11-01T23:59:00.000+09:00",
+    "applyStartDate": "2026-10-07T12:00:00.000+09:00",
     "lotteryDate": "2026-11-14",
     "eventDateStart": "2027-02-27",
     "eventDateEnd": "2027-02-28",
@@ -481,7 +488,8 @@
       "ヴイアラ"
     ],
     "phase": "アソビストア一般会員先行",
-    "deadline": "2026-11-15",
+    "deadline": "2026-11-15T23:59:00.000+09:00",
+    "applyStartDate": "2026-10-17T21:30:00.000+09:00",
     "lotteryDate": "2026-11-28",
     "eventDateStart": "2027-03-21",
     "eventDateEnd": "2027-03-22",
@@ -532,7 +540,8 @@
       "シャニマス"
     ],
     "phase": "アソビストアプレミアム会員先行",
-    "deadline": "2026-10-18",
+    "deadline": "2026-10-18T23:59:00.000+09:00",
+    "applyStartDate": "2026-09-26T20:00:00.000+09:00",
     "lotteryDate": "2026-10-31",
     "eventDateStart": "2027-03-22",
     "eventDateEnd": "2027-03-22",
@@ -576,7 +585,8 @@
       "シャニマス"
     ],
     "phase": "アソビストアプレミアム会員先行",
-    "deadline": "2026-10-12",
+    "deadline": "2026-10-12T23:59:00.000+09:00",
+    "applyStartDate": "2026-09-12T21:00:00.000+09:00",
     "lotteryDate": "2026-10-24",
     "eventDateStart": "2027-06-05",
     "eventDateEnd": "2027-06-06",
@@ -668,7 +678,8 @@
       "シャニマス"
     ],
     "phase": "アソビストアプレミアム会員先行",
-    "deadline": "2026-11-08",
+    "deadline": "2026-11-08T23:59:00.000+09:00",
+    "applyStartDate": "2026-09-06T12:00:00.000+09:00",
     "lotteryDate": "2026-11-25",
     "eventDateStart": "2027-07-24",
     "eventDateEnd": "2027-07-25",
