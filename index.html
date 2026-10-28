@@ -113,6 +113,7 @@
     .search-input:focus { border-color: var(--accent); }
     .toggle-filters {
       display: flex;
+      flex-wrap: wrap;
       gap: 14px;
       font-size: 12px;
       color: var(--text-muted);
@@ -407,9 +408,42 @@
     }
     .penlight-btn.special:hover { background: var(--special); color: #15161e; }
 
+    /* ── 受付期間表示 ── */
+    .period { display: flex; flex-direction: column; gap: 3px; line-height: 1.4; }
+    .period-badge {
+      align-self: flex-start;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .period-badge.before { background: var(--accent-bg); color: var(--accent); }
+    .period-badge.open   { background: rgba(158,206,106,0.18); color: var(--success); }
+    .period-badge.urgent { background: rgba(247,118,142,0.2); color: var(--danger); }
+    .period-badge.closed { background: #2c2c2c; color: #777; }
+    .period-badge.tbd    { background: #2c2c2c; color: var(--text-muted); }
+    .period-range { font-size: 12px; white-space: nowrap; }
+    .period-range.closed { color: #666; }
+    .period-remain { font-size: 11px; color: var(--text-muted); }
+    .period-remain.urgent { color: var(--danger); font-weight: 700; }
+
+    /* ── サマリー・終了行 ── */
+    .summary {
+      max-width: 1280px; margin: 0 auto; padding: 0 24px 10px;
+      font-size: 12px; color: var(--text-muted);
+      display: flex; flex-wrap: wrap; gap: 14px;
+    }
+    .summary b { color: var(--text-main); font-size: 14px; margin-left: 3px; }
+    .summary .s-urgent b { color: var(--danger); }
+    .summary .s-open b { color: var(--success); }
+    .summary .s-before b { color: var(--accent); }
+    tbody tr.closed-row td:not(.col-check):not(.col-status) { opacity: 0.5; }
+
     @media (max-width: 768px) {
       .header { padding: 20px 14px 10px; }
       .toolbar, .table-wrap { padding-left: 14px; padding-right: 14px; }
+      .summary { padding-left: 14px; padding-right: 14px; }
       .side-peek {
         top: auto;
         bottom: 0;
@@ -442,10 +476,13 @@
       <input type="text" id="search-input" class="search-input" placeholder="ライブ名・会場・出演者で検索...">
       <div class="toggle-filters">
         <label><input type="checkbox" id="filter-applied"> ☑️ 応募済・予定のみ表示</label>
+        <label><input type="checkbox" id="filter-hide-closed" checked> ⏰ 受付終了の枠を隠す</label>
         <label><input type="checkbox" id="filter-hide-past" checked> 📅 終了した公演を隠す</label>
       </div>
     </div>
   </section>
+
+  <div class="summary" id="summary"></div>
 
   <main class="table-wrap">
     <table>
@@ -456,7 +493,7 @@
           <th class="col-title">イベント名</th>
           <th>ブランド</th>
           <th>現在受付中の枠</th>
-          <th>受付期間 / 締切</th>
+          <th>受付期間</th>
           <th>当落発表</th>
           <th>開催日程</th>
           <th>メモ</th>
@@ -557,58 +594,132 @@
       return String(str || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     }
 
-    // ★新規追加：期間（開始・終了）を考慮して美しくフォーマットする関数
+    // 受付状態の判定（並び替え・絞り込み・サマリー共通）
+    function getPhase(ev) {
+      const now = Date.now();
+      const s = ev.applyStartDate ? new Date(ev.applyStartDate).getTime() : null;
+      const e = ev.deadline ? new Date(ev.deadline).getTime() : null;
+      if (e && e < now) return 'closed';
+      if (s && s > now) return 'before';
+      if (e && e - now <= 3 * 86400000) return 'urgent';
+      if (s || e) return 'open';
+      return 'tbd';
+    }
+    const PHASE_RANK = { urgent: 0, open: 1, before: 2, tbd: 3, closed: 4 };
+
+    // 並び順: 状態 → (受付前は開始日の昇順 / 受付中は締切の昇順 / 終了は新しい順)
+    function sortKey(ev, phase) {
+      const s = ev.applyStartDate ? new Date(ev.applyStartDate).getTime() : 0;
+      const e = ev.deadline ? new Date(ev.deadline).getTime() : 0;
+      if (phase === 'before') return s;
+      if (phase === 'closed') return -e;
+      return e || 8.64e15;
+    }
+
+    // 締切をGoogleカレンダーに登録するURL（締切の30分前〜締切）
+    function calendarUrl(ev) {
+      const end = ev.deadline ? new Date(ev.deadline) : null;
+      if (!end || isNaN(end) || end < new Date()) return '';
+      const f = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+      const start = new Date(end.getTime() - 30 * 60000);
+      const p = new URLSearchParams({
+        action: 'TEMPLATE',
+        text: `【申込締切】${ev.title}${ev.phase ? `（${ev.phase}）` : ''}`,
+        dates: `${f(start)}/${f(end)}`,
+        details: ev.officialUrl || '',
+        location: ev.venue || ''
+      });
+      return `https://calendar.google.com/calendar/render?${p}`;
+    }
+
+    // 受付期間を状態バッジ・曜日・残り時間つきで表示
     function getPeriodDisplay(startIso, endIso) {
-      function formatDT(iso) {
-        if (!iso) return "";
-        const d = new Date(iso);
-        if (isNaN(d.getTime())) return iso;
-        const MM = String(d.getMonth() + 1).padStart(2, '0');
-        const DD = String(d.getDate()).padStart(2, '0');
-        const HH = String(d.getHours()).padStart(2, '0');
-        const mm = String(d.getMinutes()).padStart(2, '0');
-        return iso.includes('T') ? `${MM}/${DD} ${HH}:${mm}` : `${MM}/${DD}`;
+      const TZ = 'Asia/Tokyo';
+      const now = new Date();
+      const jstFmt = new Intl.DateTimeFormat('ja-JP', {
+        timeZone: TZ, year: 'numeric', month: 'numeric', day: 'numeric',
+        weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+      });
+      const nowYear = jstFmt.formatToParts(now).find(p => p.type === 'year').value;
+
+      // ISO文字列 → {d: Date, hasTime}（日付のみの場合、終了側は当日23:59:59扱い）
+      function parse(iso, isEnd) {
+        if (!iso) return null;
+        const hasTime = iso.includes('T');
+        const d = new Date(hasTime ? iso : `${iso}T${isEnd ? '23:59:59' : '00:00:00'}+09:00`);
+        return isNaN(d.getTime()) ? null : { d, hasTime };
       }
 
-      const fStart = formatDT(startIso);
-      const fEnd = formatDT(endIso);
+      function fmt(p) {
+        const parts = jstFmt.formatToParts(p.d);
+        const g = t => parts.find(x => x.type === t).value;
+        const year = g('year') !== nowYear ? `${g('year')}/` : '';
+        let text = `${year}${g('month')}/${g('day')}(${g('weekday')})`;
+        if (p.hasTime) text += ` ${g('hour')}:${g('minute')}`;
+        return text;
+      }
 
-      let baseText = "";
-      let label = "⏰ 申込締切";
+      function remain(target) {
+        const ms = target - now;
+        if (ms <= 0) return '';
+        const hours = ms / 3600000;
+        if (hours < 1) return 'あと1時間未満';
+        if (hours < 24) return `あと${Math.floor(hours)}時間`;
+        return `あと${Math.floor(ms / 86400000)}日`;
+      }
 
-      // 状態によるラベルとテキストの切り替え
-      if (fStart && fEnd && fStart !== fEnd) {
-        baseText = `${fStart} 〜 ${fEnd}`;
-        label = "⏰ 受付期間";
-      } else if (fStart && !fEnd) {
-        baseText = `${fStart} 〜`;
-        label = "⏰ 受付開始"; // 先着やリセール開始など
-      } else if (!fStart && fEnd) {
-        baseText = `${fEnd}`;
-      } else if (fStart && fStart === fEnd) {
-        baseText = `${fEnd}`;
+      const s = parse(startIso, false);
+      const e = parse(endIso, true);
+
+      if (!s && !e) {
+        return {
+          label: '⏰ 受付期間',
+          html: `<div class="period"><span class="period-badge tbd">未定</span></div>`
+        };
+      }
+
+      // 状態の判定
+      let state, badgeText, remainText = '', urgent = false;
+      const THREE_DAYS = 3 * 86400000;
+
+      if (s && now < s.d) {
+        state = 'before';
+        badgeText = '受付前';
+        remainText = `受付開始まで ${remain(s.d)}`;
+      } else if (e && now > e.d) {
+        state = 'closed';
+        badgeText = '受付終了';
+      } else if (e) {
+        urgent = (e.d - now) <= THREE_DAYS;
+        state = urgent ? 'urgent' : 'open';
+        badgeText = urgent ? '締切間近' : '受付中';
+        remainText = `締切まで ${remain(e.d)}`;
       } else {
-        return { html: '<span style="color:var(--text-muted)">未定</span>', label: "⏰ 申込締切" };
+        // 開始のみ（先着・リセールなど締切未定）
+        state = 'open';
+        badgeText = '随時受付';
+        remainText = '締切は公式をご確認ください';
       }
 
-      // 期限判定（分単位で正確に判定）
-      const targetIso = endIso || startIso;
-      const targetExact = new Date(targetIso);
-      const nowExact = new Date();
-      const isPassed = targetExact < nowExact; // 時間が過ぎたかどうか
-
-      // 日数差の計算（「あと〇日」用）
-      const todayDateOnly = new Date(nowExact.getFullYear(), nowExact.getMonth(), nowExact.getDate());
-      const targetDateOnly = new Date(targetExact.getFullYear(), targetExact.getMonth(), targetExact.getDate());
-      const diffDays = Math.floor((targetDateOnly - todayDateOnly) / 86400000);
-
-      let html = escapeHtml(baseText);
-      if (isPassed) {
-        html = `<span class="deadline-passed">${html}</span>`;
-      } else if (diffDays <= 3) {
-        const remainText = diffDays === 0 ? "今日" : `あと${diffDays}日`;
-        html = `<span class="deadline-urgent">🔥 ${html} (${remainText})</span>`;
+      // 期間テキスト
+      let rangeText, label;
+      if (s && e) {
+        rangeText = `${fmt(s)} 〜 ${fmt(e)}`;
+        label = '⏰ 受付期間';
+      } else if (s) {
+        rangeText = `${fmt(s)} 〜`;
+        label = '⏰ 受付開始';
+      } else {
+        rangeText = `〜 ${fmt(e)}`;
+        label = '⏰ 申込締切';
       }
+
+      const html = `
+        <div class="period">
+          <span class="period-badge ${state}">${badgeText}</span>
+          <div class="period-range ${state === 'closed' ? 'closed' : ''}">${escapeHtml(rangeText)}</div>
+          ${remainText ? `<div class="period-remain ${urgent ? 'urgent' : ''}">${escapeHtml(remainText)}</div>` : ''}
+        </div>`;
 
       return { html, label };
     }
@@ -632,16 +743,24 @@
       const query = document.getElementById('search-input').value.trim().toLowerCase();
       const onlyApplied = document.getElementById('filter-applied').checked;
       const hidePast = document.getElementById('filter-hide-past').checked;
-      const today = new Date().toISOString().slice(0, 10);
+      const hideClosed = document.getElementById('filter-hide-closed').checked;
+      const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
+
+      // サマリー用に、ブランド絞り込み後の全件で状態を集計
+      const counts = { urgent: 0, open: 0, before: 0, closed: 0 };
 
       const filtered = eventsData.filter(ev => {
         const st = getUserEventState(ev.id);
         if (selectedBrand !== 'すべて' && !(ev.brands || []).includes(selectedBrand)) return false;
+        const ph = getPhase(ev);
+        if (counts[ph] !== undefined) counts[ph]++;
         if (onlyApplied && !st.applied && st.status === '未申込') return false;
         if (hidePast) {
           const endDay = ev.eventDateEnd || ev.eventDateStart || '';
           if (endDay && endDay < today) return false;
         }
+        // 受付終了でも、自分が応募済み・当選のものは残す
+        if (hideClosed && ph === 'closed' && !st.applied && st.status === '未申込') return false;
         if (query) {
           const hay = [
             ev.title, ev.venue, ev.phase, st.memo,
@@ -651,7 +770,17 @@
           if (!hay.includes(query)) return false;
         }
         return true;
+      }).sort((a, b) => {
+        const pa = getPhase(a), pb = getPhase(b);
+        return PHASE_RANK[pa] - PHASE_RANK[pb] || sortKey(a, pa) - sortKey(b, pb);
       });
+
+      document.getElementById('summary').innerHTML = `
+        <span class="s-open">🟢 受付中<b>${counts.open}</b></span>
+        <span class="s-urgent">🔴 締切間近<b>${counts.urgent}</b></span>
+        <span class="s-before">🔵 受付前<b>${counts.before}</b></span>
+        <span>⚪ 受付終了<b>${counts.closed}</b></span>
+        <span>表示中 <b>${filtered.length}</b> 件</span>`;
 
       if (!filtered.length) {
         tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:32px; color:var(--text-muted);">条件に一致するイベントがありません</td></tr>`;
@@ -669,11 +798,10 @@
           `<option value="${opt}" ${st.status === opt ? 'selected' : ''}>${opt}</option>`
         ).join('');
 
-        // ★ここで期間データを取得してHTMLに埋め込む
         const periodObj = getPeriodDisplay(ev.applyStartDate, ev.deadline);
 
         return `
-          <tr data-id="${escapeHtml(ev.id)}" class="${st.applied ? 'applied-row' : ''}">
+          <tr data-id="${escapeHtml(ev.id)}" class="${st.applied ? 'applied-row' : ''} ${getPhase(ev) === 'closed' ? 'closed-row' : ''}">
             <td class="col-check" onclick="event.stopPropagation()">
               <input type="checkbox" class="user-check" data-check-id="${escapeHtml(ev.id)}" ${st.applied ? 'checked' : ''}>
             </td>
@@ -752,7 +880,6 @@
         `<option value="${opt}" ${st.status === opt ? 'selected' : ''}>${opt}</option>`
       ).join('');
 
-      // ★サイドピーク用にも期間データとラベルを取得
       const periodObj = getPeriodDisplay(ev.applyStartDate, ev.deadline);
 
       const schedulesHtml = (ev.schedules || []).map(sc => {
@@ -807,11 +934,10 @@
           <div class="prop-val">${brandTags || 'ー'}</div>
           <div class="prop-label">🎫 受付枠</div>
           <div class="prop-val">${escapeHtml(ev.phase || 'ー')}</div>
-          
-          <!-- ★ラベルと値を動的に表示 -->
+
           <div class="prop-label">${periodObj.label}</div>
           <div class="prop-val">${periodObj.html}</div>
-          
+
           <div class="prop-label">🎉 当落発表</div>
           <div class="prop-val">${escapeHtml(ev.lotteryDate || 'ー')}</div>
         </div>
@@ -822,6 +948,13 @@
             <div>
               <a href="${escapeHtml(ev.officialUrl)}" target="_blank" rel="noopener">イベント公式情報・チケット申込ページを開く ↗</a>
             </div>
+          </div>
+        ` : ''}
+
+        ${calendarUrl(ev) ? `
+          <div class="callout">
+            <span>📆</span>
+            <div><a href="${escapeHtml(calendarUrl(ev))}" target="_blank" rel="noopener">申込締切をGoogleカレンダーに登録 ↗</a></div>
           </div>
         ` : ''}
 
@@ -869,6 +1002,7 @@
       document.getElementById('search-input').oninput = renderTable;
       document.getElementById('filter-applied').onchange = renderTable;
       document.getElementById('filter-hide-past').onchange = renderTable;
+      document.getElementById('filter-hide-closed').onchange = renderTable;
       document.getElementById('backdrop').onclick = closeSidePeek;
       document.getElementById('peek-close').onclick = closeSidePeek;
       window.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidePeek(); });
