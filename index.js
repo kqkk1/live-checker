@@ -411,7 +411,7 @@ async function recordSkippedUrlToDb(dbState, url) {
 async function applyEventsToDb(dbState, eventsList, article) {
     if (!dbState || dbState.processedUrls.has(article.url)) return 0;
     
-    // ★締切時間対応：YYYY-MM-DDTHH:mm のような日時情報をNotion用に整形 (+09:00付与)
+    // 締切時間対応：YYYY-MM-DDTHH:mm のような日時情報をNotion用に整形 (+09:00付与)
     const isValidDate = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}/.test(d);
     const formatNotionDate = (d) => {
         if (!d) return null;
@@ -427,6 +427,19 @@ async function applyEventsToDb(dbState, eventsList, article) {
         const emojiIcon = selectEventEmoji(ev, fullOfficialName);
         const brandsList = normalizeBrands(ev.brands, fullOfficialName);
         const specialColorFlag = isSpecialColorEvent(ev, fullOfficialName);
+
+        // ★受付期間（開始日・終了日）のデータ構築
+        let applyDateObj = null;
+        const applyStartFormatted = formatNotionDate(ev.apply_start_date);
+        const applyEndFormatted = formatNotionDate(ev.deadline_date);
+
+        if (applyStartFormatted && applyEndFormatted) {
+            applyDateObj = { start: applyStartFormatted, end: applyEndFormatted }; // 両方あれば期間（開始→終了）
+        } else if (applyStartFormatted) {
+            applyDateObj = { start: applyStartFormatted }; // 開始のみ（先着など）
+        } else if (applyEndFormatted) {
+            applyDateObj = { start: applyEndFormatted }; // 締切のみ（今まで通り）
+        }
 
         let targetPage = null;
         if (isValidDate(ev.live_date)) {
@@ -452,10 +465,17 @@ async function applyEventsToDb(dbState, eventsList, article) {
                 notionPayload["ブランド"] = { multi_select: brandsList.map(b => ({ name: b })) };
             }
             if (ev.ticket_tier) notionPayload["受付枠"] = { rich_text: [{ text: { content: ev.ticket_tier } }] };
-            // ★締切日を時間付きで登録
-            if (isValidDate(ev.deadline_date)) notionPayload["締切日"] = { date: { start: formatNotionDate(ev.deadline_date) } };
-            if (isValidDate(ev.result_date_notion)) notionPayload["当落発表日"] = { date: { start: formatNotionDate(ev.result_date_notion) } };
             
+            // ★締切日（受付期間）をセット
+            if (applyDateObj) {
+                notionPayload["締切日"] = { date: applyDateObj };
+            }
+            
+            // ★当落発表日：日付があればセット。先着・リセール等の場合はセットしない（自動で空になる）
+            if (isValidDate(ev.result_date_notion)) {
+                notionPayload["当落発表日"] = { date: { start: formatNotionDate(ev.result_date_notion) } };
+            }
+
             if (isValidDate(ev.live_date)) {
                 const dateObj = { start: formatNotionDate(ev.live_date) };
                 if (isValidDate(ev.live_end_date) && ev.live_date !== ev.live_end_date) {
@@ -533,13 +553,19 @@ async function applyEventsToDb(dbState, eventsList, article) {
             if (dbState.hasBrandProp && brandsList.length > 0) {
                 updatePayload["ブランド"] = { multi_select: brandsList.map(b => ({ name: b })) };
             }
-            // ★締切日を時間付きで更新
-            if (isValidDate(ev.deadline_date)) {
-                updatePayload["締切日"] = { date: { start: formatNotionDate(ev.deadline_date) } };
+            
+            // ★締切日（受付期間）を更新
+            if (applyDateObj) {
+                updatePayload["締切日"] = { date: applyDateObj };
             }
+
+            // ★当落発表日の更新 または 先着/リセール時の自動消去
             if (isValidDate(ev.result_date_notion)) {
                 updatePayload["当落発表日"] = { date: { start: formatNotionDate(ev.result_date_notion) } };
+            } else if (ev.ticket_tier && /(先着|一般|リセール)/.test(ev.ticket_tier)) {
+                updatePayload["当落発表日"] = null; // Notion上から明示的に消去する
             }
+
             if (ev.ticket_tier) {
                 updatePayload["受付枠"] = { rich_text: [{ text: { content: ev.ticket_tier } }] };
             }
@@ -570,14 +596,14 @@ async function applyEventsToDb(dbState, eventsList, article) {
     return count;
 }
 
-// Notion全件から GitHub Pages 用の events.json を同期生成する関数（キャスト・URL完全復元対応・時間出力版）
+// Notion全件から GitHub Pages 用の events.json を同期生成する関数
 async function syncNotionToEventsJson(notionClient, targetDbId) {
     if (!targetDbId) {
         console.log('⚠️ events.json 出力用のDB IDが指定されていません。');
         return;
     }
 
-    console.log('\n🌐 Notionから全イベントデータを読み取って events.json を生成中（キャスト復元・時間対応強化版）...');
+    console.log('\n🌐 Notionから全イベントデータを読み取って events.json を生成中...');
     const pages = [];
     let cursor = undefined;
 
@@ -623,12 +649,15 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
             ? getText(phaseProp.rich_text)
             : (phaseProp?.select?.name || '');
 
-        const deadlineProp = findProp(props, ['date'], ['締切', '申込']);
+        const deadlineProp = findProp(props, ['date'], ['締切', '申込', '受付']);
         const lotteryProp = findProp(props, ['date'], ['当落', '発表']);
         const eventDateProp = findProp(props, ['date'], ['開催', '日程', '日時', '日付']);
 
-        // ★時間（HH:mm）を含む形式もそのまま出力するように slice(0, 10) を削除し、フルデータを取得
-        const deadline = deadlineProp?.date?.start ? deadlineProp.date.start : '';
+        // ★期間対応：start(開始) と end(締切) の両方をJSONに出力できるようにする
+        // ※Notion上では、期間の場合は start と end が両方入る。単一日付の場合は start のみ入る。
+        const applyStartDate = deadlineProp?.date?.start || '';
+        const deadline = deadlineProp?.date?.end || applyStartDate || '';
+        
         const lotteryDate = lotteryProp?.date?.start ? lotteryProp.date.start.slice(0, 10) : '';
         const eventDateStart = eventDateProp?.date?.start ? eventDateProp.date.start.slice(0, 10) : '';
         const eventDateEnd = eventDateProp?.date?.end ? eventDateProp.date.end.slice(0, 10) : eventDateStart;
@@ -675,7 +704,6 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
                     }
                 }
 
-                // 箇条書き（スケジュール行）の処理：階層ズレやテキスト直打ちでもリンクを再構築
                 if (block.type === 'bulleted_list_item') {
                     const richTexts = block.bulleted_list_item.rich_text || [];
                     const fullText = getText(richTexts);
@@ -694,7 +722,6 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
                                 const childTexts = child.paragraph?.rich_text || [];
                                 childTexts.forEach(ct => { if (ct.href) allLinks.push(ct.href); });
                                 
-                                // 子ブロックがただのテキストになっていてURLが含まれていない場合の自動救済
                                 const childFullText = getText(childTexts);
                                 if (!allLinks.length && childFullText.includes('出演:')) {
                                     const match = childFullText.match(/出演:\s*(\d+)名/);
@@ -717,7 +744,6 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
                         } catch (e) {}
                     }
 
-                    // リンクが見つからなくても、「🪄」や「自動セット」の文字があれば仮のURLを再構築
                     if (!penlightUrl && (fullText.includes('🪄') || fullText.includes('自動セット'))) {
                          penlightUrl = `https://penlight-supporter.onrender.com/setlist`;
                     }
@@ -739,7 +765,7 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
 
         eventsList.push({
             id: page.id,
-            icon, title, brands, phase, deadline, lotteryDate, eventDateStart, eventDateEnd,
+            icon, title, brands, phase, deadline, applyStartDate, lotteryDate, eventDateStart, eventDateEnd,
             officialUrl, venue, mapUrl, accessUrl, nearestStation, isSpecialColor, schedules
         });
     }
@@ -755,7 +781,7 @@ async function syncNotionToEventsJson(notionClient, targetDbId) {
 // メイン処理（スナイパー本体）
 // -------------------------------------------------------------
 async function run() {
-    console.log("🚀 スナイパー起動（単一DB・ポータル連動・昼夜個別・URL復元・締切時間対応版）");
+    console.log("🚀 スナイパー起動（期間・先着リセール当落消去対応版）");
     
     const dbId = process.env.NOTION_DB_ID;
 
@@ -869,12 +895,11 @@ async function run() {
                 ? dbState.listForAI.join('\n') 
                 : "（まだ登録なし）";
 
-            // ★AIプロンプト修正：締切時間のフォーマット(T付き)と昼夜分割の指示を統合
+            // ★AIプロンプト修正：受付開始日の追加と、当落日除外の厳格な指示
             const prompt = `以下のテキストおよびページ内リンク一覧からイベント情報を抽出し、指定されたJSONフォーマットのみを出力してください。Markdownブロックは不要です。
 
 【最重要①：複数公演（ツアー・別都市・別週末）の分割ルール】
-・もし1つの記事内に「名古屋公演（1/30〜1/31）」と「東京公演（3/21〜3/22）」のように、日程が離れた複数の公演（別会場・別週末）が含まれている場合は、必ず公演ごとに別々の要素として "events" 配列に分割して出力してください。
-・同じ週末の連続するDay1とDay2は分割せず、1つの要素にまとめてください。
+・もし1つの記事内に「名古屋公演（1/30〜1/31）」と「東京公演（3/21〜3/22）」のように、日程が離れた複数の公演が含まれている場合は、必ず公演ごとに別々の要素として "events" 配列に分割して出力してください。
 
 【最重要②：略称（short_name）の命名ルール】
 現在データベースには以下のライブが登録されています。
@@ -883,32 +908,22 @@ ${existingNamesListStr}
 ・複合イベントやナンバリングライブの場合は、"short_name" に『PM』を入れず『ヴイアラ3rd名古屋』のようにスッキリ命名してください。
 
 【最重要③：nearest_station（最寄り駅）の記載ルール】
-・会場から「距離が一番近い駅」と「多くの参加者が実際に利用する主要ターミナル駅」が異なる場合は、利便性のために必ずその2駅を併記してください。
+・会場から「距離が一番近い駅」と「多くの参加者が実際に利用する主要ターミナル駅」が異なる場合は必ずその2駅を併記してください。
 
 【最重要④：schedules（各日の詳細スケジュールと出演アイドルの抽出）の記載ルール】
-・"schedules" には、各公演をオブジェクトの配列として出力してください。
-・★もし同じ日に「昼公演」と「夜公演」がある場合は、必ず「昼公演」と「夜公演」で別々のオブジェクトとして2つに分割して出力してください。（キャストが同じでも異なっていても必ず分けます）
-  - 良い例（昼夜がある場合）：
-    "schedules": [
-      {
-        "label": "Day2 昼公演",
-        "text": "Day2 昼公演: 1月31日(日) [LIVE] 開場13:00/開演14:00",
-        "cast": ["天海春香", "如月千早"]
-      },
-      {
-        "label": "Day2 夜公演",
-        "text": "Day2 夜公演: 1月31日(日) [LIVE] 開場17:00/開演18:00",
-        "cast": ["高槻やよい", "萩原雪歩"]
-      }
-    ]
-・声優名（CV）やユニット名しか書かれていない場合でも、あなたの知識から該当するキャラクター名に変換・補完して出力してください。
+・★もし同じ日に「昼公演」と「夜公演」がある場合は、必ず「昼公演」と「夜公演」で別々のオブジェクトとして2つに分割して出力してください。
+・声優名やユニット名しか書かれていない場合でも、知識から該当するキャラクター名に変換して出力してください。
+
+【最重要⑤：先着・リセールの当落日除外と、受付開始日の取得】
+・「一般発売(先着)」や「リセール」の場合、当落発表はないため "result_date_notion" は必ず空文字("")にしてください。
+・申込受付には「開始日時」と「締切日時」があります。両方わかる場合は "apply_start_date" と "deadline_date" の両方を出力してください。先着などで開始日時しかわからない場合は "apply_start_date" に開始日時を入れ、"deadline_date" は空文字にしてください。
 
 【抽出フォーマット】
 {
   "is_target_live": true,
   "events": [
     {
-      "full_official_name": "イベントの正式フルタイトル（複数都市ある場合は都市名も補完）",
+      "full_official_name": "イベントの正式フルタイトル",
       "short_name": "カレンダー表示用の略称（例: ヴイアラ3rd名古屋）",
       "brands": ["対象ブランド名の配列。選択肢: '765AS', 'デレマス', 'ミリオン', 'シャニマス', 'SideM', '学マス', 'ヴイアラ', '876'"],
       "icon_emoji": "イベント種別に応じた絵文字1文字",
@@ -926,15 +941,16 @@ ${existingNamesListStr}
         }
       ],
       "ticket_tier": "現在募集している現地チケットの受付名称",
-      "deadline_date": "上記受付の最終締切日時（時間指定がある場合は 'YYYY-MM-DDTHH:mm' 形式。例: 2027-01-30T09:59 や 23:59。日付のみなら 'YYYY-MM-DD' 形式。不明なら空文字）",
-      "result_date_notion": "上記受付の当落発表日（YYYY-MM-DD形式。不明なら空文字）"
+      "apply_start_date": "上記受付の開始日時（'YYYY-MM-DDTHH:mm' または 'YYYY-MM-DD' 形式。不明なら空文字）",
+      "deadline_date": "上記受付の最終締切日時（'YYYY-MM-DDTHH:mm' または 'YYYY-MM-DD' 形式。不明なら空文字）",
+      "result_date_notion": "上記受付の当落発表日（YYYY-MM-DD形式。不明なら空文字。※先着・リセールは絶対に空文字）"
     }
   ]
 }
 
 【厳格な判定ルール】
 ・is_target_live: 現地開催（リアル会場）があるアイマス関連の単独音楽ライブ、xRライブ、コンサート、PM、ファンミ、オーケストラであれば true。「遊園地等のコラボ」「上映会」「配信のみ」「外部フェス出展」は false。
-・is_special_color: シャイニーカラーズの「REFRAC7IONS」シリーズ、または特別なシャッフル・特別カラー編成であることが明記されている特殊な公演のみ true。
+・is_special_color: シャイニーカラーズの「REFRAC7IONS」シリーズ等、特別カラー編成であることが明記されている特殊な公演のみ true。
 
 【ページ内の主なリンク一覧】
 ${pageData.links}
@@ -995,7 +1011,6 @@ ${text.substring(0, 12000)}`;
                 continue;
             }
             
-            // 自分用DB1つのみを更新する
             processedCount += await applyEventsToDb(dbState, eventsList, article);
 
             console.log(" ├─ ⏳ APIレート制限回避のため12秒待機します...");
@@ -1003,7 +1018,6 @@ ${text.substring(0, 12000)}`;
         }
         console.log(`\n🎉 全処理完了！ 新規・更新枠（延べ件数）: ${processedCount}件`);
         
-        // 最後に、自分用DBからポータル用の events.json を同期
         if (dbId) {
             await syncNotionToEventsJson(notion, dbId);
         }
