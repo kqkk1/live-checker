@@ -161,7 +161,7 @@
     "eventDateEnd": "2026-12-20",
     "officialUrl": "https://idolmaster-official.jp/live_event/REFRAC7IONS_Still_blue/",
     "venue": "代々木競技場第一体育館",
-    "mapUrl": "https://maps.app.goo.gl/4nTNVytD7XmQy1PX7",
+    "mapUrl": "https://maps.app.goo.gl/WoNjuyiA4KxjS46a6?g_st=ic",
     "accessUrl": "https://www.jpnsport.go.jp/yoyogi/access/tabid/88/Default.aspx",
     "nearestStation": "JR原宿駅（徒歩約5分）",
     "isSpecialColor": true,
@@ -411,7 +411,7 @@
     "isSpecialColor": false,
     "schedules": [
       {
-        "label": "Day1: 2027年6月5日(土) 開場16:00 / 開演17:30",
+        "label": "Day1: 2027年2月27日(土) 開場15:30 / 開演17:00",
         "castCount": 26,
         "castNames": [
           "渋谷凛",
@@ -444,7 +444,7 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B8%8B%E8%B0%B7%E5%87%9B%2C%E8%A5%BF%E5%9C%92%E5%AF%BA%E7%90%B4%E6%AD%8C%2C%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E4%B8%89%E6%9D%91%E3%81%8B%E3%81%AA%E5%AD%90%2C%E5%89%8D%E5%B7%9D%E3%81%BF%E3%81%8F%2C%E5%A4%9A%E7%94%B0%E6%9D%8E%E8%A1%A3%E8%8F%9C%2C%E9%80%9F%E6%B0%B4%E5%A5%8F%2C%E3%83%8A%E3%82%BF%E3%83%BC%E3%83%AA%E3%82%A2%2C%E9%AB%98%E6%A3%AE%E8%97%8D%E5%AD%90%2C%E5%96%9C%E5%A4%9A%E8%A6%8B%E6%9F%9A%2C%E7%9A%84%E5%A0%B4%E6%A2%A8%E6%B2%99%2C%E5%B0%8F%E9%96%A2%E9%BA%97%E5%A5%88%2C%E5%90%91%E4%BA%95%E6%8B%93%E6%B5%B7%2C%E6%9C%80%E4%B8%8A%E9%9D%99%E9%A6%99%2C%E5%B3%B6%E5%8E%9F%E3%82%A8%E3%83%AC%E3%83%8A%2C%E4%BD%90%E7%AB%B9%E7%BE%8E%E5%A5%88%E5%AD%90%2C%E9%87%8E%E3%80%85%E5%8E%9F%E8%8C%9C%2C%E4%B8%AD%E8%B0%B7%E8%82%B2%2C%E6%9C%A8%E4%B8%8B%E3%81%B2%E3%81%AA%E3%81%9F%2C%E7%9F%A2%E5%90%B9%E5%8F%AF%E5%A5%88%2C%E4%BA%8C%E9%9A%8E%E5%A0%82%E5%8D%83%E9%B6%B4%2C%E5%AE%AE%E5%B0%BE%E7%BE%8E%E4%B9%9F%2C%E7%A6%8F%E7%94%B0%E3%81%AE%E3%82%8A%E5%AD%90%2C%E7%99%BE%E7%80%AC%E8%8E%89%E7%B7%92%2C%E5%91%A8%E9%98%B2%E6%A1%83%E5%AD%90%2C%E3%82%B8%E3%83%A5%E3%83%AA%E3%82%A2"
       },
       {
-        "label": "Day2: 2027年6月6日(日) 開場16:00 / 開演17:30",
+        "label": "Day2: 2027年2月28日(日) 開場15:30 / 開演17:00",
         "castCount": 28,
         "castNames": [
           "島村卯月",
@@ -672,10 +672,10 @@
     "title": "765×961合同",
     "brands": [
       "765AS",
-      "SideM",
       "デレマス",
       "ミリオン",
-      "シャニマス"
+      "シャニマス",
+      "SideM"
     ],
     "phase": "アソビストアプレミアム会員先行",
     "deadline": "2026-11-08T23:59:00.000+09:00",
