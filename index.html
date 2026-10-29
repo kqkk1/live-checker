@@ -1,1024 +1,329 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>アイマス ライブ・イベント情報ポータル & ペンライト連携</title>
-  <style>
-    :root {
-      --bg-main: #191919;
-      --bg-sub: #202020;
-      --bg-hover: #2c2c2c;
-      --bg-panel: #202020;
-      --bg-callout: #252525;
-      --border: #2f2f2f;
-      --text-main: #ffffffcf;
-      --text-muted: #9b9b9b;
-      --accent: #7aa2f7;
-      --accent-bg: rgba(122, 162, 247, 0.15);
-      --special: #e0af68;
-      --special-bg: rgba(224, 175, 104, 0.15);
-      --danger: #f7768e;
-      --success: #9ece6a;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>アイマス ライブ・イベント情報ポータル</title>
+<style>
+:root{--bg:#191919;--surface:#202020;--surface2:#2c2c2c;--line:#2f2f2f;--text:#ffffffcf;--muted:#9b9b9b;--accent:#7aa2f7;--ok:#9ece6a;--warn:#f7768e;--gold:#e0af68;--r:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font:14px/1.55 "Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+a{color:var(--accent);text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header{padding:28px 0 12px}
+h1{font-size:22px;font-weight:800;letter-spacing:.02em}
+.sub{color:var(--muted);font-size:12px;margin-top:2px}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--bg-main);
-      color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-      font-size: 14px;
-      line-height: 1.5;
-      overflow-x: hidden;
-    }
+/* 今やること */
+.todo{margin:8px 0 14px;padding:14px;border-radius:var(--r);background:#252525;border:1px solid var(--line)}
+.todo h2{font-size:14px;margin-bottom:10px}
+.todo-list{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
+.todo-item{flex:0 0 min(260px,78%);scroll-snap-align:start;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.todo-item b{display:block;font-size:13px;line-height:1.4;margin-bottom:2px}
+.todo-item span{font-size:12px;color:var(--warn)}
+.todo-item.soon span{color:var(--accent)}
 
-    /* ── Header ── */
-    .header {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 36px 24px 16px;
-    }
-    .header-title {
-      font-size: 26px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-    .header-desc {
-      color: var(--text-muted);
-      font-size: 13px;
-      background: var(--bg-callout);
-      border: 1px solid var(--border);
-      padding: 10px 14px;
-      border-radius: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+/* 絞り込み */
+.tools{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 0 10px;margin-bottom:6px}
+.row{display:flex;gap:8px;overflow-x:auto;padding:2px 0;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
+.tab{flex:none;padding:8px 14px;border-radius:999px;background:var(--surface);color:var(--muted);font-weight:600;white-space:nowrap}
+.tab b{margin-left:5px;color:var(--text)}
+.tab.on{background:rgba(122,162,247,.15);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.tab.on b{color:var(--accent)}
+.chip{flex:none;padding:4px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-size:12px}
+.chip.on{border-color:var(--accent);color:var(--accent);font-weight:700}
+.search{width:100%;margin-top:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:14px}
 
-    /* ── Toolbar / Filter ── */
-    .toolbar {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 8px 24px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .filter-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      align-items: center;
-    }
-    .chip {
-      padding: 4px 11px;
-      border-radius: 16px;
-      font-size: 12px;
-      cursor: pointer;
-      background: var(--bg-sub);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      user-select: none;
-      transition: 0.15s;
-    }
-    .chip:hover { background: var(--bg-hover); color: var(--text-main); }
-    .chip.active {
-      background: var(--accent-bg);
-      color: var(--accent);
-      border-color: var(--accent);
-      font-weight: 600;
-    }
-    .search-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .search-input {
-      background: var(--bg-sub);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      width: 260px;
-      outline: none;
-    }
-    .search-input:focus { border-color: var(--accent); }
-    .toggle-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-    .toggle-filters label {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      cursor: pointer;
-      user-select: none;
-    }
+/* カード */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px;padding-bottom:60px}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 16px 14px 20px;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;gap:6px;transition:background .15s}
+.card:hover{background:var(--surface2)}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--b)}
+.card.closed .body{opacity:.5}
+.c-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tag{display:inline-block;padding:1px 8px;border-radius:6px;font-size:11px;font-weight:700;margin-right:4px;color:#0c1030}
+.badge{padding:2px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
+.badge.open{background:rgba(158,206,106,.18);color:var(--ok)}
+.badge.urgent{background:rgba(247,118,142,.2);color:var(--warn)}
+.badge.before{background:rgba(122,162,247,.15);color:var(--accent)}
+.badge.closed,.badge.tbd{background:#2c2c2c;color:var(--muted)}
+.card h2{font-size:17px;line-height:1.35;font-weight:800}
+.phase{color:var(--muted);font-size:12px}
+.range{font-size:14px;font-weight:600}
+.remain{font-size:12px;color:var(--muted)}
+.remain.urgent{color:var(--warn);font-weight:800}
+.meta{font-size:12px;color:var(--muted)}
+.seg{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:4px;margin-top:8px;background:var(--bg);padding:3px;border-radius:10px}
+.seg button{min-height:40px;border-radius:9px;font-size:12px;font-weight:700;color:var(--muted)}
+.seg button.on{background:rgba(122,162,247,.2);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.seg button.on[data-st^="当選"]{background:rgba(158,206,106,.18);color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
+.seg button.on[data-st^="落選"]{background:rgba(247,118,142,.15);color:var(--warn);box-shadow:inset 0 0 0 1px var(--warn)}
+.seg button.on[data-st="入手🎫"]{background:rgba(158,206,106,.18);color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
+.seg button.on[data-st="入手できず"]{background:rgba(247,118,142,.15);color:var(--warn);box-shadow:inset 0 0 0 1px var(--warn)}
+.seg button.on[data-st="見送り"]{background:#2c2c2c;color:var(--muted);box-shadow:inset 0 0 0 1px #555}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:48px 12px}
 
-    /* ── Notion-like Table ── */
-    .table-wrap {
-      max-width: 1280px;
-      margin: 0 auto 60px;
-      padding: 0 24px;
-      overflow-x: auto;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 860px;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    th, td {
-      padding: 9px 12px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-      border-right: 1px solid var(--border);
-      font-size: 13px;
-      vertical-align: middle;
-    }
-    th:last-child, td:last-child { border-right: none; }
-    th {
-      color: var(--text-muted);
-      font-weight: 500;
-      font-size: 12px;
-      background: var(--bg-main);
-      white-space: nowrap;
-      user-select: none;
-    }
-    tbody tr {
-      transition: background 0.1s;
-      cursor: pointer;
-    }
-    tbody tr:hover { background: var(--bg-hover); }
-    tbody tr.applied-row { background: rgba(122, 162, 247, 0.04); }
-    tbody tr.applied-row:hover { background: var(--bg-hover); }
-
-    /* Column Styles */
-    .col-check { width: 48px; text-align: center; }
-    .user-check {
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
-      accent-color: var(--accent);
-    }
-    .col-status { width: 115px; }
-    .status-select {
-      background: var(--bg-sub);
-      color: var(--text-main);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 3px 6px;
-      font-size: 12px;
-      width: 100%;
-      cursor: pointer;
-      outline: none;
-    }
-    .status-select[data-val="当選🎉"] { color: var(--success); border-color: rgba(158,206,106,0.4); background: rgba(158,206,106,0.1); font-weight: bold; }
-    .status-select[data-val="当落待ち⏳"] { color: var(--special); border-color: rgba(224,175,104,0.4); background: rgba(224,175,104,0.1); }
-    .status-select[data-val="申込予定📌"] { color: var(--accent); border-color: rgba(122,162,247,0.4); }
-    .status-select[data-val="落選💦"] { color: var(--danger); }
-
-    .col-title { min-width: 260px; font-weight: 600; position: relative; }
-    .title-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .open-peek-btn {
-      opacity: 0;
-      font-size: 11px;
-      padding: 2px 7px;
-      background: var(--bg-sub);
-      border: 1px solid #454545;
-      border-radius: 4px;
-      color: var(--text-muted);
-      white-space: nowrap;
-      transition: 0.15s;
-      font-weight: normal;
-    }
-    tbody tr:hover .open-peek-btn { opacity: 1; }
-    .open-peek-btn:hover { color: #fff; border-color: var(--accent); }
-
-    /* Brand Tags */
-    .tag {
-      display: inline-block;
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      margin: 2px 4px 2px 0;
-      white-space: nowrap;
-    }
-    .tag-765AS { background: rgba(243, 73, 73, 0.2); color: #ff7b7b; }
-    .tag-デレマス { background: rgba(38, 129, 200, 0.25); color: #6dbdff; }
-    .tag-ミリオン { background: rgba(255, 195, 11, 0.2); color: #ffd447; }
-    .tag-SideM { background: rgba(15, 190, 148, 0.2); color: #4de3be; }
-    .tag-シャニマス { background: rgba(141, 187, 255, 0.22); color: #a6cbff; }
-    .tag-学マス { background: rgba(243, 152, 0, 0.22); color: #ffb340; }
-    .tag-ヴイアラ { background: rgba(187, 154, 247, 0.22); color: #c8afff; }
-    .tag-default { background: #333; color: #ccc; }
-
-    .deadline-urgent { color: var(--danger); font-weight: bold; }
-    .deadline-passed { color: #555; text-decoration: line-through; }
-
-    /* ── Side Peek (Drawer) ── */
-    .backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-      z-index: 100;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.22s ease;
-    }
-    .backdrop.open { opacity: 1; pointer-events: auto; }
-
-    .side-peek {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 580px;
-      max-width: 100vw;
-      height: 100dvh;
-      background: var(--bg-panel);
-      border-left: 1px solid #363636;
-      box-shadow: -12px 0 32px rgba(0, 0, 0, 0.7);
-      z-index: 101;
-      transform: translateX(100%);
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .side-peek.open { transform: translateX(0); }
-
-    .peek-topbar {
-      padding: 12px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .peek-close {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 18px;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 4px;
-    }
-    .peek-close:hover { background: var(--bg-hover); color: #fff; }
-
-    .peek-body {
-      padding: 24px 28px 48px;
-      overflow-y: auto;
-      flex: 1;
-    }
-    .peek-icon { font-size: 36px; margin-bottom: 8px; }
-    .peek-title { font-size: 22px; font-weight: 700; margin-bottom: 18px; line-height: 1.35; }
-
-    /* User Personal Box inside Side Peek */
-    .personal-box {
-      background: rgba(122, 162, 247, 0.08);
-      border: 1px solid rgba(122, 162, 247, 0.35);
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin-bottom: 20px;
-    }
-    .personal-box-header {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-    }
-    .personal-controls {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-    }
-    .personal-memo {
-      width: 100%;
-      background: var(--bg-main);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 13px;
-      resize: vertical;
-      min-height: 52px;
-      outline: none;
-    }
-    .personal-memo:focus { border-color: var(--accent); }
-
-    /* Notion Properties Grid */
-    .props-list {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 0;
-      margin-bottom: 20px;
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      row-gap: 10px;
-      font-size: 13px;
-    }
-    .prop-label { color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
-    .prop-val { color: var(--text-main); word-break: break-word; }
-
-    /* Notion Callouts & Schedules */
-    .callout {
-      background: var(--bg-callout);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 12px 14px;
-      margin-bottom: 16px;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-    .callout a { color: var(--accent); text-decoration: none; font-weight: 600; }
-    .callout a:hover { text-decoration: underline; }
-    .section-h3 {
-      font-size: 15px;
-      font-weight: 700;
-      margin: 22px 0 10px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .schedule-card {
-      background: var(--bg-callout);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-    .schedule-date { font-weight: 700; font-size: 14px; margin-bottom: 8px; }
-    .cast-details {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-    .cast-details summary { cursor: pointer; user-select: none; margin-bottom: 4px; }
-    .cast-list-box {
-      padding: 8px 10px;
-      background: var(--bg-main);
-      border-radius: 4px;
-      line-height: 1.6;
-      color: var(--text-main);
-      margin-top: 4px;
-    }
-
-    .penlight-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 9px 14px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 13px;
-      background: var(--accent-bg);
-      color: var(--accent);
-      border: 1px solid var(--accent);
-      transition: 0.15s;
-    }
-    .penlight-btn:hover { background: var(--accent); color: #15161e; }
-    .penlight-btn.special {
-      background: var(--special-bg);
-      color: var(--special);
-      border-color: var(--special);
-    }
-    .penlight-btn.special:hover { background: var(--special); color: #15161e; }
-
-    /* ── 受付期間表示 ── */
-    .period { display: flex; flex-direction: column; gap: 3px; line-height: 1.4; }
-    .period-badge {
-      align-self: flex-start;
-      padding: 1px 8px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-    .period-badge.before { background: var(--accent-bg); color: var(--accent); }
-    .period-badge.open   { background: rgba(158,206,106,0.18); color: var(--success); }
-    .period-badge.urgent { background: rgba(247,118,142,0.2); color: var(--danger); }
-    .period-badge.closed { background: #2c2c2c; color: #777; }
-    .period-badge.tbd    { background: #2c2c2c; color: var(--text-muted); }
-    .period-range { font-size: 12px; white-space: nowrap; }
-    .period-range.closed { color: #666; }
-    .period-remain { font-size: 11px; color: var(--text-muted); }
-    .period-remain.urgent { color: var(--danger); font-weight: 700; }
-
-    /* ── サマリー・終了行 ── */
-    .summary {
-      max-width: 1280px; margin: 0 auto; padding: 0 24px 10px;
-      font-size: 12px; color: var(--text-muted);
-      display: flex; flex-wrap: wrap; gap: 14px;
-    }
-    .summary b { color: var(--text-main); font-size: 14px; margin-left: 3px; }
-    .summary .s-urgent b { color: var(--danger); }
-    .summary .s-open b { color: var(--success); }
-    .summary .s-before b { color: var(--accent); }
-    tbody tr.closed-row td:not(.col-check):not(.col-status) { opacity: 0.5; }
-
-    @media (max-width: 768px) {
-      .header { padding: 20px 14px 10px; }
-      .toolbar, .table-wrap { padding-left: 14px; padding-right: 14px; }
-      .summary { padding-left: 14px; padding-right: 14px; }
-      .side-peek {
-        top: auto;
-        bottom: 0;
-        width: 100vw;
-        height: 88dvh;
-        border-left: none;
-        border-top: 1px solid #444;
-        border-radius: 16px 16px 0 0;
-        transform: translateY(100%);
-      }
-      .side-peek.open { transform: translateY(0); }
-      .peek-body { padding: 18px 18px 40px; }
-      .open-peek-btn { opacity: 1; }
-    }
-  </style>
+/* 詳細シート */
+.back{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+.back.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:51;background:var(--surface);overflow-y:auto;transition:transform .25s;padding:18px 18px calc(32px + env(safe-area-inset-bottom))}
+.sheet h3{font-size:20px;line-height:1.35;margin:8px 0 12px}
+.sec{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.sec h4{font-size:13px;color:var(--muted);margin-bottom:8px}
+.kv{display:grid;grid-template-columns:84px 1fr;gap:6px 10px;font-size:13px}
+.kv dt{color:var(--muted)}
+.btn{display:block;text-align:center;padding:12px;border-radius:8px;font-weight:700;background:rgba(122,162,247,.15);border:1px solid var(--accent);color:var(--accent);margin-top:8px}
+.btn.sp{background:rgba(224,175,104,.15);color:var(--gold);border-color:var(--gold)}
+.sched{background:var(--bg);border-radius:12px;padding:12px;margin-top:10px}
+.sched summary{cursor:pointer;color:var(--muted);font-size:12px;margin:6px 0}
+.memo{width:100%;min-height:72px;margin-top:10px;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit}
+.x{position:absolute;top:10px;right:12px;font-size:20px;padding:6px 10px;color:var(--muted)}
+@media(max-width:767px){
+  .sheet{left:0;right:0;bottom:0;height:90dvh;border-radius:20px 20px 0 0;transform:translateY(100%)}
+  .sheet.on{transform:none}
+}
+@media(min-width:768px){
+  .sheet{top:0;right:0;bottom:0;width:520px;transform:translateX(100%);box-shadow:-12px 0 32px rgba(0,0,0,.5)}
+  .sheet.on{transform:none}
+  .search{max-width:380px;margin-top:0;position:absolute;right:0;top:8px}
+  .tools{position:sticky}
+  .tools .wrap-in{position:relative}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
-
-  <header class="header">
-    <div class="header-title">🎤 アイマス ライブ・イベント情報ポータル</div>
-    <div class="header-desc">
-      <span>💡 行をクリックすると右側に詳細（会場マップ・出演者・🪄ペンライト自動セットURL）が開きます。</span>
-      <span>☑️「応募チェック」や「自分のメモ」はお使いのブラウザに自動保存されます。</span>
-    </div>
+<div class="wrap">
+  <header>
+    <h1>🎤 アイマス ライブ・イベント情報ポータル</h1>
+    <p class="sub" id="note">応募状況とメモは、このブラウザに自動保存されます</p>
   </header>
+  <section class="todo" id="todo" hidden></section>
+  <div class="tools"><div class="wrap-in">
+    <div class="row" id="tabs"></div>
+    <div class="row" id="brands" style="margin-top:8px"></div>
+    <input class="search" id="q" type="search" placeholder="ライブ名・会場・出演者で検索">
+  </div></div>
+  <main class="grid" id="grid"></main>
+</div>
+<div class="back" id="back"></div>
+<aside class="sheet" id="sheet" aria-label="イベント詳細"></aside>
 
-  <section class="toolbar">
-    <div class="filter-row" id="brand-chips"></div>
-    <div class="search-row">
-      <input type="text" id="search-input" class="search-input" placeholder="ライブ名・会場・出演者で検索...">
-      <div class="toggle-filters">
-        <label><input type="checkbox" id="filter-applied"> ☑️ 応募済・予定のみ表示</label>
-        <label><input type="checkbox" id="filter-hide-closed" checked> ⏰ 受付終了の枠を隠す</label>
-        <label><input type="checkbox" id="filter-hide-past" checked> 📅 終了した公演を隠す</label>
+<script>
+const KEY = 'imas_portal_user_state_v1';
+const BR = {'765AS':'#ff6b6b','デレマス':'#4aa8ff','ミリオン':'#ffcb3d','シャニマス':'#8fb8ff','SideM':'#33d6b0','学マス':'#ff9f2e','ヴイアラ':'#b99cff'};
+const BRANDS = ['すべて', ...Object.keys(BR)];
+// 抽選系（先行・一般抽選・リセールなど）と先着で、ボタンの言葉を切り替える
+const ST_LOT  = [['当落待ち⏳','当落待ち'],['当選🎉','当選'],['落選💦','落選'],['見送り','見送り']];
+const ST_FCFS = [['入手🎫','入手'],['入手できず','入手できず'],['見送り','見送り']];
+const DONE = ['当落待ち⏳','当選🎉','落選💦','入手🎫','入手できず'];   // 応募・購入に動いたもの
+const isFcfs = ev => /先着/.test(ev.phase || '');
+const pending = st => !DONE.includes(st.status) && st.status !== '見送り';   // まだ動いていない
+
+const TABS = [['now','今応募できる'],['before','受付前'],['mine','応募済み'],['closed','終了'],['all','すべて']];
+const RANK = {urgent:0, open:1, before:2, tbd:3, closed:4};
+let events = [], brand = 'すべて', tab = 'now', openId = null;
+let us = JSON.parse(localStorage.getItem(KEY) || '{}');
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const me = id => us[id] || (us[id] = {applied:false, status:'未申込', memo:''});
+const save = () => localStorage.setItem(KEY, JSON.stringify(us));
+
+/* ---- 受付状態 ---- */
+const ms = v => v ? new Date(v).getTime() : null;
+function phase(ev) {
+  const n = Date.now(), s = ms(ev.applyStartDate), e = ms(ev.deadline);
+  if (e && e < n) return 'closed';
+  if (s && s > n) return 'before';
+  if (e && e - n <= 3*864e5) return 'urgent';
+  return (s || e) ? 'open' : 'tbd';
+}
+const fmtJ = new Intl.DateTimeFormat('ja-JP', {timeZone:'Asia/Tokyo', month:'numeric', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit', hourCycle:'h23'});
+function fmt(v) {
+  const p = Object.fromEntries(fmtJ.formatToParts(new Date(v)).map(x => [x.type, x.value]));
+  return `${p.month}/${p.day}(${p.weekday}) ${p.hour}:${p.minute}`;
+}
+function left(t) {
+  const d = t - Date.now();
+  if (d <= 0) return '';
+  const h = d / 36e5;
+  return h < 1 ? 'あと1時間未満' : h < 24 ? `あと${Math.floor(h)}時間` : `あと${Math.floor(d/864e5)}日`;
+}
+function period(ev) {
+  const ph = phase(ev), s = ms(ev.applyStartDate), e = ms(ev.deadline);
+  const txt = {open:'受付中', urgent:'締切間近', before:'受付前', closed:'受付終了', tbd:'未定'}[ph];
+  let range = '受付期間は未定', remain = '', urgent = ph === 'urgent';
+  if (s && e) range = `${fmt(s)} 〜 ${fmt(e)}`;
+  else if (s) range = `${fmt(s)} 〜`;
+  else if (e) range = `〜 ${fmt(e)}`;
+  if (ph === 'before') remain = `受付開始まで ${left(s)}`;
+  else if (ph === 'open' || ph === 'urgent') remain = e ? `締切まで ${left(e)}` : '締切は公式で確認';
+  return {ph, txt, range, remain, urgent};
+}
+function calUrl(ev) {
+  const end = ev.deadline ? new Date(ev.deadline) : null;
+  if (!end || isNaN(end) || end < new Date()) return '';
+  const f = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const p = new URLSearchParams({action:'TEMPLATE', text:`【申込締切】${ev.title}${ev.phase ? `（${ev.phase}）` : ''}`, dates:`${f(new Date(end - 18e5))}/${f(end)}`, details:ev.officialUrl || '', location:ev.venue || ''});
+  return 'https://calendar.google.com/calendar/render?' + p;
+}
+
+/* ---- 部品 ---- */
+const stripe = ev => {
+  const c = (ev.brands || []).map(b => BR[b]).filter(Boolean);
+  return c.length > 1 ? `linear-gradient(${c.join(',')})` : (c[0] || '#555a82');
+};
+const tags = ev => (ev.brands || []).map(b => `<span class="tag" style="background:${BR[b] || '#555a82'}">${esc(b)}</span>`).join('');
+const seg = (ev, cur) => { const set = isFcfs(ev) ? ST_FCFS : ST_LOT; return `<div class="seg" data-id="${esc(ev.id)}" style="--n:${set.length}">${set.map(([v, l]) => `<button data-st="${v}" class="${cur === v ? 'on' : ''}" aria-pressed="${cur === v}">${l}</button>`).join('')}</div>`; };
+
+function matchTab(ev, ph, st) {
+  if (tab === 'now') return (ph === 'open' || ph === 'urgent') && st.status !== '見送り';
+  if (tab === 'before') return ph === 'before' && st.status !== '見送り';
+  if (tab === 'mine') return DONE.includes(st.status);
+  if (tab === 'closed') return ph === 'closed';
+  return true;
+}
+
+/* ---- 描画 ---- */
+function render() {
+  const q = $('q').value.trim().toLowerCase();
+  const today = new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'});
+  const base = events.filter(ev => {
+    if (brand !== 'すべて' && !(ev.brands || []).includes(brand)) return false;
+    if (!q) return true;
+    return [ev.title, ev.venue, ev.phase, me(ev.id).memo, ...(ev.brands || []), ...(ev.schedules || []).flatMap(s => s.castNames || [])].join(' ').toLowerCase().includes(q);
+  });
+  const cnt = {};
+  TABS.forEach(([k]) => { const t = tab; tab = k; cnt[k] = base.filter(ev => matchTab(ev, phase(ev), me(ev.id))).length; tab = t; });
+  $('tabs').innerHTML = TABS.map(([k, l]) => `<button class="tab ${tab === k ? 'on' : ''}" data-tab="${k}">${l}<b>${cnt[k]}</b></button>`).join('');
+  $('brands').innerHTML = BRANDS.map(b => `<button class="chip ${brand === b ? 'on' : ''}" data-brand="${b}">${b}</button>`).join('');
+
+  const list = base.filter(ev => {
+    const ph = phase(ev), st = me(ev.id);
+    if (!matchTab(ev, ph, st)) return false;
+    const end = ev.eventDateEnd || ev.eventDateStart || '';
+    return !(end && end < today && tab !== 'all' && tab !== 'mine');
+  }).sort((a, b) => {
+    const pa = phase(a), pb = phase(b);
+    const k = (ev, p) => p === 'before' ? ms(ev.applyStartDate) : p === 'closed' ? -ms(ev.deadline) : (ms(ev.deadline) || 8.64e15);
+    return RANK[pa] - RANK[pb] || k(a, pa) - k(b, pb);
+  });
+
+  $('grid').innerHTML = list.length ? list.map(ev => {
+    const p = period(ev), st = me(ev.id);
+    const d = ev.eventDateStart ? (ev.eventDateEnd && ev.eventDateEnd !== ev.eventDateStart ? `${ev.eventDateStart} 〜 ${ev.eventDateEnd.slice(5)}` : ev.eventDateStart) : '未定';
+    return `<article class="card ${p.ph === 'closed' || st.status === '見送り' ? 'closed' : ''}" data-id="${esc(ev.id)}" style="--b:${stripe(ev)}">
+      <div class="body">
+        <div class="c-top"><div>${tags(ev)}</div><span class="badge ${p.ph}">${p.txt}</span></div>
+        <h2>${esc(ev.icon || '🎤')} ${esc(ev.title)}</h2>
+        <div class="phase">${esc(ev.phase || '')}</div>
+        <div class="range">${esc(p.range)}</div>
+        <div class="remain ${p.urgent ? 'urgent' : ''}">${esc(p.remain)}</div>
+        <div class="meta">📅 ${esc(d)}　🏟️ ${esc(ev.venue || '未定')}</div>
       </div>
+      ${seg(ev, st.status)}
+    </article>`;
+  }).join('') : `<div class="empty">${events.length ? 'この条件のイベントはありません' : 'events.json を読み込めませんでした。index.html と同じ場所に置いてあるか確認してください'}</div>`;
+
+  renderTodo();
+  if (openId) renderSheet(openId);
+}
+
+function renderTodo() {
+  const n = Date.now();
+  const items = events.map(ev => {
+    const ph = phase(ev), st = me(ev.id), s = ms(ev.applyStartDate);
+    if (ph === 'urgent' && pending(st)) return {ev, k:0, t:`締切 ${left(ms(ev.deadline))}`, c:''};
+    if (ph === 'before' && s - n <= 48*36e5 && pending(st)) return {ev, k:1, t:`受付開始 ${fmt(s)}`, c:'soon'};
+    return null;
+  }).filter(Boolean).sort((a, b) => a.k - b.k);
+  const el = $('todo');
+  el.hidden = !items.length;
+  if (items.length) el.innerHTML = `<h2>⏰ 今チェックしたいもの（${items.length}件）</h2><div class="todo-list">${items.map(i => `<button class="todo-item ${i.c}" data-open="${esc(i.ev.id)}"><b>${esc(i.ev.title)}</b><span>${esc(i.ev.phase || '')}　${esc(i.t)}</span></button>`).join('')}</div>`;
+}
+
+function renderSheet(id) {
+  const ev = events.find(x => x.id === id);
+  if (!ev) return;
+  const st = me(id), p = period(ev), cal = calUrl(ev);
+  $('sheet').innerHTML = `<button class="x" data-close aria-label="閉じる">✕</button>
+    <div>${tags(ev)}</div>
+    <h3>${esc(ev.icon || '🎤')} ${esc(ev.title)}</h3>
+    ${seg(ev, st.status)}
+    <textarea class="memo" id="memo" placeholder="自分用メモ（例：Day1申込済、ホテル確保）">${esc(st.memo)}</textarea>
+    <div class="sec"><h4>受付</h4><dl class="kv">
+      <dt>受付枠</dt><dd>${esc(ev.phase || 'ー')}</dd>
+      <dt>状態</dt><dd><span class="badge ${p.ph}">${p.txt}</span></dd>
+      <dt>受付期間</dt><dd>${esc(p.range)}<br><span class="remain ${p.urgent ? 'urgent' : ''}">${esc(p.remain)}</span></dd>
+      <dt>当落発表</dt><dd>${esc(ev.lotteryDate || 'ー')}</dd></dl>
+      ${ev.officialUrl ? `<a class="btn" href="${esc(ev.officialUrl)}" target="_blank" rel="noopener">公式ページを開く</a>` : ''}
+      ${cal ? `<a class="btn" href="${esc(cal)}" target="_blank" rel="noopener">締切をGoogleカレンダーに登録</a>` : ''}
     </div>
-  </section>
+    <div class="sec"><h4>会場</h4><dl class="kv">
+      <dt>会場</dt><dd>${esc(ev.venue || '未定')}</dd>
+      ${ev.nearestStation ? `<dt>最寄り駅</dt><dd>${esc(ev.nearestStation)}</dd>` : ''}
+      <dt>リンク</dt><dd>${ev.mapUrl ? `<a href="${esc(ev.mapUrl)}" target="_blank" rel="noopener">地図</a>` : ''}　${ev.accessUrl ? `<a href="${esc(ev.accessUrl)}" target="_blank" rel="noopener">アクセス</a>` : ''}</dd></dl></div>
+    <div class="sec"><h4>公演日程とペンライト</h4>${(ev.schedules || []).map(sc => {
+      const sp = ev.isSpecialColor || (sc.penlightUrl || '').includes('special=1'), n = sc.castCount || (sc.castNames || []).length;
+      return `<div class="sched"><b>${esc(sc.label)}</b>
+        ${(sc.castNames || []).length ? `<details><summary>出演キャスト（${sc.castNames.length}名）</summary>${esc(sc.castNames.join(' / '))}</details>` : ''}
+        ${sc.penlightUrl ? `<a class="btn ${sp ? 'sp' : ''}" href="${esc(sc.penlightUrl)}" target="_blank" rel="noopener">${sp ? '🎨 ペンライト設定を作成（特別カラー）' : '🪄 ペンライト設定を作成'}（${n}名）</a>` : ''}</div>`;
+    }).join('') || '<p class="sub">日程は未定です</p>'}</div>`;
+  $('memo').oninput = e => { me(id).memo = e.target.value; save(); };
+}
 
-  <div class="summary" id="summary"></div>
+/* ---- サンプルデータ（events.json が無い時だけ表示） ---- */
+function demo() {
+  const d = (h) => new Date(Date.now() + h * 36e5).toISOString();
+  const mk = (id, title, brands, phase, s, e, venue) => ({id, icon:'🎤', title, brands, phase, applyStartDate:d(s), deadline:e == null ? '' : d(e), lotteryDate:'', eventDateStart:'2027-02-13', eventDateEnd:'2027-02-14', officialUrl:'https://idolmaster-official.jp/', venue, mapUrl:'', accessUrl:'', nearestStation:'', isSpecialColor:false, schedules:[{label:'Day1: 2027年2月13日(土) 開場15:30 / 開演17:00', castCount:2, castNames:['サンプルA','サンプルB'], penlightUrl:''}]});
+  return [
+    mk('demo1', 'サンプル：シャニマス ライブ', ['シャニマス'], 'アソビストア会員先行', -240, 40, 'Kアリーナ横浜'),
+    mk('demo2', 'サンプル：デレ×ミリ合同', ['デレマス','ミリオン'], '一般発売（先着）', -24, 400, 'IGアリーナ'),
+    mk('demo3', 'サンプル：ヴイアラ ライブ', ['ヴイアラ'], 'アソビストア一般会員先行', 20, 300, '愛知芸術劇場'),
+    mk('demo4', 'サンプル：学マス ツアー', ['学マス'], '公式リセール', -500, -2, 'Kアリーナ横浜')
+  ];
+}
 
-  <main class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th class="col-check">応募</th>
-          <th class="col-status">当落・状態</th>
-          <th class="col-title">イベント名</th>
-          <th>ブランド</th>
-          <th>現在受付中の枠</th>
-          <th>受付期間</th>
-          <th>当落発表</th>
-          <th>開催日程</th>
-          <th>メモ</th>
-        </tr>
-      </thead>
-      <tbody id="event-tbody"></tbody>
-    </table>
-  </main>
+/* ---- 操作 ---- */
+function openSheet(id) { openId = id; renderSheet(id); $('sheet').scrollTop = 0; $('back').classList.add('on'); $('sheet').classList.add('on'); }
+function closeSheet() { openId = null; $('back').classList.remove('on'); $('sheet').classList.remove('on'); }
 
-  <!-- Side Peek (Drawer) -->
-  <div class="backdrop" id="backdrop"></div>
-  <aside class="side-peek" id="side-peek">
-    <div class="peek-topbar">
-      <span style="font-size:12px; color:var(--text-muted);">詳細ビュー（サイドピーク）</span>
-      <button class="peek-close" id="peek-close" title="閉じる (Esc)">✕</button>
-    </div>
-    <div class="peek-body" id="peek-body"></div>
-  </aside>
+document.addEventListener('click', e => {
+  const sb = e.target.closest('.seg button');
+  if (sb) {
+    e.stopPropagation();
+    const id = sb.parentElement.dataset.id, st = me(id), v = sb.dataset.st;
+    st.status = st.status === v ? '未申込' : v;   // もう一度押すと解除
+    st.applied = DONE.includes(st.status);
+    save(); render(); return;
+  }
+  const t = e.target.closest('[data-tab]'); if (t) { tab = t.dataset.tab; render(); return; }
+  const b = e.target.closest('[data-brand]'); if (b) { brand = b.dataset.brand; render(); return; }
+  if (e.target.closest('[data-close]') || e.target === $('back')) { closeSheet(); return; }
+  const o = e.target.closest('[data-open]') || e.target.closest('.card');
+  if (o) openSheet(o.dataset.open || o.dataset.id);
+});
+$('q').oninput = render;
+addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
 
-  <script>
-    const STORAGE_KEY = 'imas_portal_user_state_v1';
-    const BRANDS = ['すべて', '765AS', 'デレマス', 'ミリオン', 'シャニマス', 'SideM', '学マス', 'ヴイアラ'];
-    const STATUS_OPTIONS = ['未申込', '申込予定📌', '当落待ち⏳', '当選🎉', '落選💦', '見送り'];
-
-    // events.json がまだ無い時の動作確認用デモデータ（期間・先着デモを追加）
-    const FALLBACK_EVENTS = [
-      {
-        id: "demo-shiny-refrac7ions",
-        icon: "🎨",
-        title: "シャニマス LIVE FUN!! -REFRAC7IONS- 横浜公演",
-        brands: ["シャニマス"],
-        phase: "アソビストアプレミアム会員先行",
-        applyStartDate: "2026-10-28T10:00:00+09:00",
-        deadline: "2026-11-15T23:59:00+09:00",
-        lotteryDate: "2026-11-22",
-        eventDateStart: "2027-01-30",
-        eventDateEnd: "2027-01-31",
-        officialUrl: "https://idolmaster-official.jp/shinycolors",
-        venue: "Kアリーナ横浜",
-        mapUrl: "https://www.google.com/maps/search/?api=1&query=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C",
-        accessUrl: "https://www.google.com/search?q=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C+%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
-        nearestStation: "新高島駅（徒歩約5分） / 横浜駅（東口より徒歩約9〜11分）",
-        isSpecialColor: true,
-        schedules: [
-          {
-            label: "Day1: 2027年1月30日(土) 開場16:00 / 開演17:00",
-            castCount: 12,
-            castNames: ["櫻木真乃", "風野灯織", "八宮めぐる", "月岡恋鐘", "田中摩美々", "白瀬咲耶", "三峰結華", "幽谷霧子", "浅倉透", "樋口円香", "福丸小糸", "市川雛菜"],
-            penlightUrl: "https://penlight-supporter.onrender.com/?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83,%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94,%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B,%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98,%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85,%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6,%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF,%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90,%E6%B5%85%E5%80%89%E9%80%8F,%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99,%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8,%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C&special=1"
-          }
-        ]
-      },
-      {
-        id: "demo-dere-milli-ig",
-        icon: "🎤",
-        title: "シンデレラガールズ × ミリオンライブ！ 合同ライブ 名古屋公演",
-        brands: ["デレマス", "ミリオン"],
-        phase: "一般発売 (先着)",
-        applyStartDate: "2026-11-01T12:00:00+09:00",
-        deadline: "",
-        lotteryDate: "",
-        eventDateStart: "2027-02-13",
-        eventDateEnd: "2027-02-14",
-        officialUrl: "https://idolmaster-official.jp/",
-        venue: "IGアリーナ（愛知国際アリーナ）",
-        mapUrl: "https://www.google.com/maps/search/?api=1&query=IG%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
-        accessUrl: "https://www.google.com/search?q=IG%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A+%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
-        nearestStation: "名城公園駅（徒歩すぐ） / 名古屋駅（地下鉄乗換約15分）",
-        isSpecialColor: false,
-        schedules: [
-          {
-            label: "Day1: 2027年2月13日(土) 開場15:30 / 開演17:00",
-            castCount: 10,
-            castNames: ["島村卯月", "渋谷凛", "本田未央", "春日未来", "最上静香", "伊吹翼"],
-            penlightUrl: "https://penlight-supporter.onrender.com/?auto_cast=%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88,%E6%B8%8B%E8%B0%B7%E5%87%9B,%E6%9C%AC%E7%94%B0%E6%9C%AA%E5%A4%AE,%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5,%E6%9C%80%E4%B8%8A%E9%9D%99%E9%A6%99,%E4%BC%8A%E5%90%B9%E7%BF%BC"
-          }
-        ]
-      }
-    ];
-
-    let eventsData = [];
-    let userState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    let selectedBrand = 'すべて';
-    let currentPeekId = null;
-
-    function saveUserState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(userState));
-    }
-
-    function getUserEventState(id) {
-      if (!userState[id]) {
-        userState[id] = { applied: false, status: '未申込', memo: '' };
-      }
-      return userState[id];
-    }
-
-    function escapeHtml(str) {
-      return String(str || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-    }
-
-    // 受付状態の判定（並び替え・絞り込み・サマリー共通）
-    function getPhase(ev) {
-      const now = Date.now();
-      const s = ev.applyStartDate ? new Date(ev.applyStartDate).getTime() : null;
-      const e = ev.deadline ? new Date(ev.deadline).getTime() : null;
-      if (e && e < now) return 'closed';
-      if (s && s > now) return 'before';
-      if (e && e - now <= 3 * 86400000) return 'urgent';
-      if (s || e) return 'open';
-      return 'tbd';
-    }
-    const PHASE_RANK = { urgent: 0, open: 1, before: 2, tbd: 3, closed: 4 };
-
-    // 並び順: 状態 → (受付前は開始日の昇順 / 受付中は締切の昇順 / 終了は新しい順)
-    function sortKey(ev, phase) {
-      const s = ev.applyStartDate ? new Date(ev.applyStartDate).getTime() : 0;
-      const e = ev.deadline ? new Date(ev.deadline).getTime() : 0;
-      if (phase === 'before') return s;
-      if (phase === 'closed') return -e;
-      return e || 8.64e15;
-    }
-
-    // 締切をGoogleカレンダーに登録するURL（締切の30分前〜締切）
-    function calendarUrl(ev) {
-      const end = ev.deadline ? new Date(ev.deadline) : null;
-      if (!end || isNaN(end) || end < new Date()) return '';
-      const f = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-      const start = new Date(end.getTime() - 30 * 60000);
-      const p = new URLSearchParams({
-        action: 'TEMPLATE',
-        text: `【申込締切】${ev.title}${ev.phase ? `（${ev.phase}）` : ''}`,
-        dates: `${f(start)}/${f(end)}`,
-        details: ev.officialUrl || '',
-        location: ev.venue || ''
-      });
-      return `https://calendar.google.com/calendar/render?${p}`;
-    }
-
-    // 受付期間を状態バッジ・曜日・残り時間つきで表示
-    function getPeriodDisplay(startIso, endIso) {
-      const TZ = 'Asia/Tokyo';
-      const now = new Date();
-      const jstFmt = new Intl.DateTimeFormat('ja-JP', {
-        timeZone: TZ, year: 'numeric', month: 'numeric', day: 'numeric',
-        weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
-      });
-      const nowYear = jstFmt.formatToParts(now).find(p => p.type === 'year').value;
-
-      // ISO文字列 → {d: Date, hasTime}（日付のみの場合、終了側は当日23:59:59扱い）
-      function parse(iso, isEnd) {
-        if (!iso) return null;
-        const hasTime = iso.includes('T');
-        const d = new Date(hasTime ? iso : `${iso}T${isEnd ? '23:59:59' : '00:00:00'}+09:00`);
-        return isNaN(d.getTime()) ? null : { d, hasTime };
-      }
-
-      function fmt(p) {
-        const parts = jstFmt.formatToParts(p.d);
-        const g = t => parts.find(x => x.type === t).value;
-        const year = g('year') !== nowYear ? `${g('year')}/` : '';
-        let text = `${year}${g('month')}/${g('day')}(${g('weekday')})`;
-        if (p.hasTime) text += ` ${g('hour')}:${g('minute')}`;
-        return text;
-      }
-
-      function remain(target) {
-        const ms = target - now;
-        if (ms <= 0) return '';
-        const hours = ms / 3600000;
-        if (hours < 1) return 'あと1時間未満';
-        if (hours < 24) return `あと${Math.floor(hours)}時間`;
-        return `あと${Math.floor(ms / 86400000)}日`;
-      }
-
-      const s = parse(startIso, false);
-      const e = parse(endIso, true);
-
-      if (!s && !e) {
-        return {
-          label: '⏰ 受付期間',
-          html: `<div class="period"><span class="period-badge tbd">未定</span></div>`
-        };
-      }
-
-      // 状態の判定
-      let state, badgeText, remainText = '', urgent = false;
-      const THREE_DAYS = 3 * 86400000;
-
-      if (s && now < s.d) {
-        state = 'before';
-        badgeText = '受付前';
-        remainText = `受付開始まで ${remain(s.d)}`;
-      } else if (e && now > e.d) {
-        state = 'closed';
-        badgeText = '受付終了';
-      } else if (e) {
-        urgent = (e.d - now) <= THREE_DAYS;
-        state = urgent ? 'urgent' : 'open';
-        badgeText = urgent ? '締切間近' : '受付中';
-        remainText = `締切まで ${remain(e.d)}`;
-      } else {
-        // 開始のみ（先着・リセールなど締切未定）
-        state = 'open';
-        badgeText = '随時受付';
-        remainText = '締切は公式をご確認ください';
-      }
-
-      // 期間テキスト
-      let rangeText, label;
-      if (s && e) {
-        rangeText = `${fmt(s)} 〜 ${fmt(e)}`;
-        label = '⏰ 受付期間';
-      } else if (s) {
-        rangeText = `${fmt(s)} 〜`;
-        label = '⏰ 受付開始';
-      } else {
-        rangeText = `〜 ${fmt(e)}`;
-        label = '⏰ 申込締切';
-      }
-
-      const html = `
-        <div class="period">
-          <span class="period-badge ${state}">${badgeText}</span>
-          <div class="period-range ${state === 'closed' ? 'closed' : ''}">${escapeHtml(rangeText)}</div>
-          ${remainText ? `<div class="period-remain ${urgent ? 'urgent' : ''}">${escapeHtml(remainText)}</div>` : ''}
-        </div>`;
-
-      return { html, label };
-    }
-
-    function renderBrandChips() {
-      const container = document.getElementById('brand-chips');
-      container.innerHTML = BRANDS.map(b => `
-        <span class="chip ${selectedBrand === b ? 'active' : ''}" data-brand="${b}">${b}</span>
-      `).join('');
-      container.querySelectorAll('.chip').forEach(chip => {
-        chip.onclick = () => {
-          selectedBrand = chip.getAttribute('data-brand');
-          renderBrandChips();
-          renderTable();
-        };
-      });
-    }
-
-    function renderTable() {
-      const tbody = document.getElementById('event-tbody');
-      const query = document.getElementById('search-input').value.trim().toLowerCase();
-      const onlyApplied = document.getElementById('filter-applied').checked;
-      const hidePast = document.getElementById('filter-hide-past').checked;
-      const hideClosed = document.getElementById('filter-hide-closed').checked;
-      const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
-
-      // サマリー用に、ブランド絞り込み後の全件で状態を集計
-      const counts = { urgent: 0, open: 0, before: 0, closed: 0 };
-
-      const filtered = eventsData.filter(ev => {
-        const st = getUserEventState(ev.id);
-        if (selectedBrand !== 'すべて' && !(ev.brands || []).includes(selectedBrand)) return false;
-        const ph = getPhase(ev);
-        if (counts[ph] !== undefined) counts[ph]++;
-        if (onlyApplied && !st.applied && st.status === '未申込') return false;
-        if (hidePast) {
-          const endDay = ev.eventDateEnd || ev.eventDateStart || '';
-          if (endDay && endDay < today) return false;
-        }
-        // 受付終了でも、自分が応募済み・当選のものは残す
-        if (hideClosed && ph === 'closed' && !st.applied && st.status === '未申込') return false;
-        if (query) {
-          const hay = [
-            ev.title, ev.venue, ev.phase, st.memo,
-            ...(ev.brands || []),
-            ...((ev.schedules || []).flatMap(s => s.castNames || []))
-          ].join(' ').toLowerCase();
-          if (!hay.includes(query)) return false;
-        }
-        return true;
-      }).sort((a, b) => {
-        const pa = getPhase(a), pb = getPhase(b);
-        return PHASE_RANK[pa] - PHASE_RANK[pb] || sortKey(a, pa) - sortKey(b, pb);
-      });
-
-      document.getElementById('summary').innerHTML = `
-        <span class="s-open">🟢 受付中<b>${counts.open}</b></span>
-        <span class="s-urgent">🔴 締切間近<b>${counts.urgent}</b></span>
-        <span class="s-before">🔵 受付前<b>${counts.before}</b></span>
-        <span>⚪ 受付終了<b>${counts.closed}</b></span>
-        <span>表示中 <b>${filtered.length}</b> 件</span>`;
-
-      if (!filtered.length) {
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:32px; color:var(--text-muted);">条件に一致するイベントがありません</td></tr>`;
-        return;
-      }
-
-      tbody.innerHTML = filtered.map(ev => {
-        const st = getUserEventState(ev.id);
-        const brandTags = (ev.brands || []).map(b => `<span class="tag tag-${escapeHtml(b)}">${escapeHtml(b)}</span>`).join('');
-        const dateRange = ev.eventDateStart
-          ? (ev.eventDateEnd && ev.eventDateEnd !== ev.eventDateStart ? `${ev.eventDateStart} 〜 ${ev.eventDateEnd.slice(5)}` : ev.eventDateStart)
-          : '未定';
-
-        const statusOpts = STATUS_OPTIONS.map(opt =>
-          `<option value="${opt}" ${st.status === opt ? 'selected' : ''}>${opt}</option>`
-        ).join('');
-
-        const periodObj = getPeriodDisplay(ev.applyStartDate, ev.deadline);
-
-        return `
-          <tr data-id="${escapeHtml(ev.id)}" class="${st.applied ? 'applied-row' : ''} ${getPhase(ev) === 'closed' ? 'closed-row' : ''}">
-            <td class="col-check" onclick="event.stopPropagation()">
-              <input type="checkbox" class="user-check" data-check-id="${escapeHtml(ev.id)}" ${st.applied ? 'checked' : ''}>
-            </td>
-            <td class="col-status" onclick="event.stopPropagation()">
-              <select class="status-select" data-status-id="${escapeHtml(ev.id)}" data-val="${escapeHtml(st.status)}">
-                ${statusOpts}
-              </select>
-            </td>
-            <td class="col-title">
-              <div class="title-inner">
-                <span>${escapeHtml(ev.icon || '🎤')} ${escapeHtml(ev.title)}</span>
-                <span class="open-peek-btn">◧ 開く</span>
-              </div>
-            </td>
-            <td>${brandTags}</td>
-            <td>${escapeHtml(ev.phase || 'ー')}</td>
-            <td>${periodObj.html}</td>
-            <td>${escapeHtml(ev.lotteryDate || 'ー')}</td>
-            <td>${escapeHtml(dateRange)}</td>
-            <td style="color:var(--text-muted); max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-              ${escapeHtml(st.memo || '')}
-            </td>
-          </tr>
-        `;
-      }).join('');
-
-      // Bind Table Events
-      tbody.querySelectorAll('tr[data-id]').forEach(tr => {
-        tr.onclick = () => openSidePeek(tr.getAttribute('data-id'));
-      });
-      tbody.querySelectorAll('.user-check').forEach(chk => {
-        chk.onchange = e => {
-          const id = e.target.getAttribute('data-check-id');
-          const st = getUserEventState(id);
-          st.applied = e.target.checked;
-          if (st.applied && st.status === '未申込') st.status = '当落待ち⏳';
-          saveUserState();
-          renderTable();
-          if (currentPeekId === id) renderSidePeekContent(id);
-        };
-      });
-      tbody.querySelectorAll('.status-select').forEach(sel => {
-        sel.onchange = e => {
-          const id = e.target.getAttribute('data-status-id');
-          const st = getUserEventState(id);
-          st.status = e.target.value;
-          if (['当落待ち⏳', '当選🎉', '落選💦'].includes(st.status)) st.applied = true;
-          saveUserState();
-          renderTable();
-          if (currentPeekId === id) renderSidePeekContent(id);
-        };
-      });
-    }
-
-    function openSidePeek(id) {
-      currentPeekId = id;
-      renderSidePeekContent(id);
-      document.getElementById('backdrop').classList.add('open');
-      document.getElementById('side-peek').classList.add('open');
-    }
-
-    function closeSidePeek() {
-      currentPeekId = null;
-      document.getElementById('backdrop').classList.remove('open');
-      document.getElementById('side-peek').classList.remove('open');
-    }
-
-    function renderSidePeekContent(id) {
-      const ev = eventsData.find(x => x.id === id);
-      if (!ev) return;
-      const st = getUserEventState(id);
-      const body = document.getElementById('peek-body');
-
-      const brandTags = (ev.brands || []).map(b => `<span class="tag tag-${escapeHtml(b)}">${escapeHtml(b)}</span>`).join('');
-      const statusOpts = STATUS_OPTIONS.map(opt =>
-        `<option value="${opt}" ${st.status === opt ? 'selected' : ''}>${opt}</option>`
-      ).join('');
-
-      const periodObj = getPeriodDisplay(ev.applyStartDate, ev.deadline);
-
-      const schedulesHtml = (ev.schedules || []).map(sc => {
-        const isSpecial = ev.isSpecialColor || (sc.penlightUrl && sc.penlightUrl.includes('special=1'));
-        const btnClass = isSpecial ? 'penlight-btn special' : 'penlight-btn';
-        const btnLabel = isSpecial
-          ? `🎨 ペンライト設定を作成【特別カラー対応】(${sc.castCount || (sc.castNames||[]).length}名)`
-          : `🪄 ペンライト設定を作成 (${sc.castCount || (sc.castNames||[]).length}名 自動セット)`;
-
-        return `
-          <div class="schedule-card">
-            <div class="schedule-date">📅 ${escapeHtml(sc.label)}</div>
-            ${(sc.castNames && sc.castNames.length) ? `
-              <details class="cast-details">
-                <summary>出演キャスト一覧を見る（${sc.castNames.length}名）</summary>
-                <div class="cast-list-box">${escapeHtml(sc.castNames.join(' / '))}</div>
-              </details>
-            ` : ''}
-            ${sc.penlightUrl ? `
-              <a href="${escapeHtml(sc.penlightUrl)}" target="_blank" rel="noopener" class="${btnClass}">
-                ${btnLabel} ↗
-              </a>
-            ` : ''}
-          </div>
-        `;
-      }).join('');
-
-      body.innerHTML = `
-        <div class="peek-icon">${escapeHtml(ev.icon || '🎤')}</div>
-        <div class="peek-title">${escapeHtml(ev.title)}</div>
-
-        <!-- ユーザー個人の保存領域 -->
-        <div class="personal-box">
-          <div class="personal-box-header">
-            <span>👤 あなた専用の管理ステータス（このブラウザに自動保存）</span>
-          </div>
-          <div class="personal-controls">
-            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-weight:bold;">
-              <input type="checkbox" id="peek-check" class="user-check" ${st.applied ? 'checked' : ''}>
-              応募済チェック
-            </label>
-            <select id="peek-status" class="status-select" style="width:150px;" data-val="${escapeHtml(st.status)}">
-              ${statusOpts}
-            </select>
-          </div>
-          <textarea id="peek-memo" class="personal-memo" placeholder="自分用のメモ（例：Day1連番・アソビストア先行申込済、ホテル予約済など）">${escapeHtml(st.memo || '')}</textarea>
-        </div>
-
-        <!-- Notion風プロパティ一覧 -->
-        <div class="props-list">
-          <div class="prop-label">🏷️ ブランド</div>
-          <div class="prop-val">${brandTags || 'ー'}</div>
-          <div class="prop-label">🎫 受付枠</div>
-          <div class="prop-val">${escapeHtml(ev.phase || 'ー')}</div>
-
-          <div class="prop-label">${periodObj.label}</div>
-          <div class="prop-val">${periodObj.html}</div>
-
-          <div class="prop-label">🎉 当落発表</div>
-          <div class="prop-val">${escapeHtml(ev.lotteryDate || 'ー')}</div>
-        </div>
-
-        ${ev.officialUrl ? `
-          <div class="callout">
-            <span>🔗</span>
-            <div>
-              <a href="${escapeHtml(ev.officialUrl)}" target="_blank" rel="noopener">イベント公式情報・チケット申込ページを開く ↗</a>
-            </div>
-          </div>
-        ` : ''}
-
-        ${calendarUrl(ev) ? `
-          <div class="callout">
-            <span>📆</span>
-            <div><a href="${escapeHtml(calendarUrl(ev))}" target="_blank" rel="noopener">申込締切をGoogleカレンダーに登録 ↗</a></div>
-          </div>
-        ` : ''}
-
-        <div class="section-h3">📍 開催・アクセス・ペンライト連携</div>
-
-        <div class="callout">
-          <span>🏟️</span>
-          <div>
-            <div>
-              <b>会場：${escapeHtml(ev.venue || '未定')}</b>
-              ${ev.mapUrl ? ` (<a href="${escapeHtml(ev.mapUrl)}" target="_blank" rel="noopener">🗺️マップ</a>)` : ''}
-              ${ev.accessUrl ? ` ｜ <a href="${escapeHtml(ev.accessUrl)}" target="_blank" rel="noopener">🌐公式アクセス情報</a>` : ''}
-            </div>
-            ${ev.nearestStation ? `<div style="margin-top:4px; color:var(--text-muted); font-size:12px;">🚃 最寄り駅：${escapeHtml(ev.nearestStation)}</div>` : ''}
-          </div>
-        </div>
-
-        ${schedulesHtml || '<div style="color:var(--text-muted);">スケジュール詳細未定</div>'}
-      `;
-
-      // Bind Peek Events
-      document.getElementById('peek-check').onchange = e => {
-        st.applied = e.target.checked;
-        if (st.applied && st.status === '未申込') st.status = '当落待ち⏳';
-        saveUserState();
-        renderTable();
-        renderSidePeekContent(id);
-      };
-      document.getElementById('peek-status').onchange = e => {
-        st.status = e.target.value;
-        if (['当落待ち⏳', '当選🎉', '落選💦'].includes(st.status)) st.applied = true;
-        saveUserState();
-        renderTable();
-        renderSidePeekContent(id);
-      };
-      document.getElementById('peek-memo').oninput = e => {
-        st.memo = e.target.value;
-        saveUserState();
-        renderTable();
-      };
-    }
-
-    async function init() {
-      renderBrandChips();
-      document.getElementById('search-input').oninput = renderTable;
-      document.getElementById('filter-applied').onchange = renderTable;
-      document.getElementById('filter-hide-past').onchange = renderTable;
-      document.getElementById('filter-hide-closed').onchange = renderTable;
-      document.getElementById('backdrop').onclick = closeSidePeek;
-      document.getElementById('peek-close').onclick = closeSidePeek;
-      window.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidePeek(); });
-
-      try {
-        const res = await fetch(`./events.json?_=${Date.now()}`);
-        if (!res.ok) throw new Error('No events.json yet');
-        const json = await res.json();
-        eventsData = Array.isArray(json) && json.length ? json : FALLBACK_EVENTS;
-      } catch (e) {
-        eventsData = FALLBACK_EVENTS;
-      }
-      renderTable();
-    }
-
-    init();
-  </script>
+(async () => {
+  try {
+    const r = await fetch(`./events.json?_=${Date.now()}`);
+    if (!r.ok) throw 0;
+    const j = await r.json();
+    events = Array.isArray(j) ? j : [];
+  } catch (_) { events = []; }
+  if (!events.length) {
+    events = demo();
+    $('note').innerHTML = '⚠️ events.json を読み込めないため、サンプルを表示しています（index.html と同じフォルダに events.json を置くと本物のデータになります）';
+    $('note').style.color = 'var(--warn)';
+  }
+  render();
+})();
+</script>
 </body>
 </html>
