@@ -255,7 +255,7 @@ function renderSheet(id) {
     <h3>${esc(ev.icon || '🎤')} ${esc(ev.title)}</h3>
     ${seg(ev, st.status)}
     <textarea class="memo" id="memo" placeholder="自分用メモ（例：Day1申込済、ホテル確保）">${esc(st.memo)}</textarea>
-    <div class="sec"><h4>受付</h4><dl class="kv">
+    <div class="sec"><dl class="kv">
       <dt>受付枠</dt><dd>${esc(ev.phase || 'ー')}</dd>
       <dt>状態</dt><dd><span class="badge ${p.ph}">${p.txt}</span></dd>
       <dt>受付期間</dt><dd>${esc(p.range)}<br><span class="remain ${p.urgent ? 'urgent' : ''}">${esc(p.remain)}</span></dd>
@@ -263,7 +263,7 @@ function renderSheet(id) {
       ${ev.officialUrl ? `<a class="btn" href="${esc(ev.officialUrl)}" target="_blank" rel="noopener">公式ページを開く</a>` : ''}
       ${cal ? `<a class="btn" href="${esc(cal)}" target="_blank" rel="noopener">締切をGoogleカレンダーに登録</a>` : ''}
     </div>
-    <div class="sec"><h4>会場</h4><dl class="kv">
+    <div class="sec"><dl class="kv">
       <dt>会場</dt><dd>${esc(ev.venue || '未定')}</dd>
       ${ev.nearestStation ? `<dt>最寄り駅</dt><dd>${esc(ev.nearestStation)}</dd>` : ''}
       <dt>リンク</dt><dd>${ev.mapUrl ? `<a href="${esc(ev.mapUrl)}" target="_blank" rel="noopener">地図</a>` : ''}　${ev.accessUrl ? `<a href="${esc(ev.accessUrl)}" target="_blank" rel="noopener">アクセス</a>` : ''}</dd></dl></div>
