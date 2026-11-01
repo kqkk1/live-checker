@@ -468,7 +468,7 @@ async function applyEventsToDb(dbState, eventsList, article) {
             
             // ★締切日（受付期間）をセット
             if (applyDateObj) {
-                notionPayload["締切日"] = { date: applyDateObj };
+                notionPayload["受付期間"] = { date: applyDateObj };
             }
             
             // ★当落発表日：日付があればセット。先着・リセール等の場合はセットしない（自動で空になる）
@@ -556,7 +556,7 @@ async function applyEventsToDb(dbState, eventsList, article) {
             
             // ★締切日（受付期間）を更新
             if (applyDateObj) {
-                updatePayload["締切日"] = { date: applyDateObj };
+                updatePayload["受付期間"] = { date: applyDateObj };
             }
 
             // ★当落発表日の更新 または 先着/リセール時の自動消去
