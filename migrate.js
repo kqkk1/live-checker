@@ -269,7 +269,7 @@ async function main() {
           '名前': { title: rt(`${title} ${key}`) }, 'ライブ': { relation: [{ id: p.id }] }, 'Day': { rich_text: rt(key) },
           '出演者': { rich_text: rt(s.cast.join(',')) }, '順番': { number: i + 1 }, '表示ラベル': { rich_text: rt(s.label) },
         };
-        if (d) props['開演日時'] = { date: d.start.includes('T') ? { start: d.start, time_zone: 'Asia/Tokyo' } : { start: d.start } };
+        if (d) props['開演日時'] = { date: { start: d.start } };   // 例: 2026-12-19T18:00:00+09:00（time_zoneは指定しない）
         if (d?.open) props['開場時刻'] = { rich_text: rt(d.open) };
         const page = await api(() => notion.pages.create({ parent: { database_id: schedId }, properties: props }));
         schedMap.set(mk, page.id);
