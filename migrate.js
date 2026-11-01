@@ -193,7 +193,10 @@ async function main() {
     if (found) { schedId = found.id; console.log(`  既存の「公演日程」DBを使います（ID: ${schedId}）`); }
   }
   if (!schedId) {
-    if (!E.parent) throw new Error('公演日程DBを作るには NOTION_PARENT_PAGE_ID が必要です');
+    if (!E.parent) {
+      if (APPLY) throw new Error('公演日程DBを作るには NOTION_PARENT_PAGE_ID が必要です');
+      warns.push('NOTION_PARENT_PAGE_ID が未設定です。実行(--apply)の前に、公演日程DBを作るページのIDを設定してください');
+    }
     console.log('  公演日程DBを新規作成します');
     if (APPLY) {
       const db = await api(() => notion.databases.create({
