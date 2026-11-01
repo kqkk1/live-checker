@@ -1,0 +1,44 @@
+name: Notion移行（1回だけ手動実行）
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'dry-run は読み取りのみ（安全）。apply は実際に書き込みます'
+        type: choice
+        options:
+          - dry-run
+          - apply
+        default: dry-run
+      only:
+        description: '（任意）名前にこの文字を含むライブだけを対象にする。例: リフラク'
+        type: string
+        required: false
+        default: ''
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 依存パッケージを入れる
+        run: npm install --no-audit --no-fund
+      - name: 移行スクリプトを実行
+        env:
+          MODE: ${{ inputs.mode }}
+          ONLY: ${{ inputs.only }}
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+          NOTION_APPLICATION_DB_ID: ${{ secrets.NOTION_APPLICATION_DB_ID }}
+          NOTION_SLOT_DB_ID: ${{ secrets.NOTION_SLOT_DB_ID }}
+          NOTION_LOG_DB_ID: ${{ secrets.NOTION_LOG_DB_ID }}
+          NOTION_SCHEDULE_DB_ID: ${{ secrets.NOTION_SCHEDULE_DB_ID }}
+          NOTION_PARENT_PAGE_ID: ${{ secrets.NOTION_PARENT_PAGE_ID }}
+        run: |
+          args=()
+          if [ "$MODE" = "apply" ]; then args+=(--apply); fi
+          if [ -n "$ONLY" ]; then args+=("--only=$ONLY"); fi
+          node migrate.js "${args[@]}"
