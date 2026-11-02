@@ -674,6 +674,13 @@ async function run() {
     const articles = Array.from(uniqueUrls.values()).reverse();
     console.log(`抽出対象: ${articles.length}件`);
 
+    // 取得ログで「再処理」が入っている記事は、ニュース一覧(最新分)に出ていなくても、URLを直接読み込んで再判定する
+    const flagged = S.log.pages.filter(p => isOn(p.properties['再処理'])).map(p => propText(p.properties[titleName(S.log.meta)])).filter(u => /^https?:\/\//.test(u));
+    const inList = new Set(articles.map(a => a.url));
+    const extra = flagged.filter(u => !inList.has(u));
+    console.log(` ├─ 再処理の指定: ${flagged.length}件（一覧にない ${extra.length}件は、URLを直接読み込みます）`);
+    articles.unshift(...extra.map(u => ({ url: u, title: '' })));
+
     for (const article of articles) {
       console.log(`\n▶ 対象: ${article.title || article.url}`);
       if (isProcessed(article.url)) { console.log(' ├─ ⏩ スキップ: 取得ログに記録済みの記事です（API消費ゼロ）'); continue; }
