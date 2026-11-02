@@ -673,11 +673,11 @@ async function run() {
     for (const article of articles) {
       console.log(`\n▶ 対象: ${article.title || article.url}`);
       if (isProcessed(article.url)) { console.log(' ├─ ⏩ スキップ: 取得ログに記録済みの記事です（API消費ゼロ）'); continue; }
-      if (handled >= MAX) { console.log(` ├─ ⏹ --max=${MAX} に達したため、残りは次回に回します`); break; }
+      if (handled >= MAX) { console.log(` ├─ ⏹ AIで解析した記事が --max=${MAX} 件に達したため、残りは次回に回します`); break; }
       const title = article.title || '';
       if (/グッズ|Blu-ray|CD|配信|上映会|コラボ|展示|出展/.test(title)) {
         console.log(' ├─ ⏩ スキップ: タイトルから対象外と判定');
-        await recordLog(article.url, title, '非対象', null); handled++; continue;
+        await recordLog(article.url, title, '非対象', null); continue;   // AIを使わない判定は --max に数えない
       }
       try { await page.goto(article.url, { waitUntil: 'domcontentloaded', timeout: 30000 }); await page.waitForTimeout(2000); }
       catch (e) { console.log(` ├─ ⚠️ ページ読み込みスキップ: ${e.message}`); continue; }
@@ -696,7 +696,7 @@ async function run() {
       const hasAdditionalCast = /出演/.test(title) || /追加出演|出演者追加|追加キャスト/.test(text);
       if (!((hasTicket && hasApply) || hasAdditionalCast)) {
         console.log(' ├─ ⏩ スキップ: チケット申込または追加出演者の決定的なキーワードなし');
-        await recordLog(article.url, title, '非対象', null); handled++; continue;
+        await recordLog(article.url, title, '非対象', null); continue;   // AIを使わない判定は --max に数えない
       }
 
       console.log(' ├─ 🎯 新着情報を検知！ Geminiに全文解析＆出演者抽出を依頼します...');
@@ -733,7 +733,7 @@ async function run() {
       console.log(' ├─ ⏳ APIレート制限回避のため12秒待機します...');
       await sleep(12000);
     }
-    console.log(`\n🎉 全処理完了！ 反映したイベント（延べ件数）: ${processed}件`);
+    console.log(`\n🎉 全処理完了！ AIで解析した記事: ${handled}件 / 反映したイベント（延べ件数）: ${processed}件`);
     await syncEventsJson();
   } catch (error) {
     console.error('致命的なエラー:', error); process.exitCode = 1;
