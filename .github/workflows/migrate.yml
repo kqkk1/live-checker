@@ -1,8 +1,15 @@
-name: Notion移行（1回だけ手動実行）
+name: Notion移行・仕上げ（手動実行）
 
 on:
   workflow_dispatch:
     inputs:
+      script:
+        description: '実行するスクリプト。migrate.js = 公演日程の作成と紐づけ / finish.js = 仕上げ（金額列・空白行・列名の整理）'
+        type: choice
+        options:
+          - migrate.js
+          - finish.js
+        default: migrate.js
       mode:
         description: 'dry-run は読み取りのみ（安全）。apply は実際に書き込みます'
         type: choice
@@ -11,13 +18,13 @@ on:
           - apply
         default: dry-run
       only:
-        description: '（任意）名前にこの文字を含むライブだけを対象にする。例: リフラク'
+        description: '（migrate.js のみ・任意）名前にこの文字を含むライブだけを対象にする。例: リフラク'
         type: string
         required: false
         default: ''
 
 jobs:
-  migrate:
+  run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,8 +33,9 @@ jobs:
           node-version: 20
       - name: 依存パッケージを入れる
         run: npm install --no-audit --no-fund
-      - name: 移行スクリプトを実行
+      - name: スクリプトを実行
         env:
+          SCRIPT: ${{ inputs.script }}
           MODE: ${{ inputs.mode }}
           ONLY: ${{ inputs.only }}
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
@@ -40,5 +48,5 @@ jobs:
         run: |
           args=()
           if [ "$MODE" = "apply" ]; then args+=(--apply); fi
-          if [ -n "$ONLY" ]; then args+=("--only=$ONLY"); fi
-          node migrate.js "${args[@]}"
+          if [ "$SCRIPT" = "migrate.js" ] && [ -n "$ONLY" ]; then args+=("--only=$ONLY"); fi
+          node "$SCRIPT" "${args[@]}"
