@@ -86,6 +86,8 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 .toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,24px);opacity:0;pointer-events:none;z-index:70;display:flex;align-items:center;gap:8px;max-width:min(92vw,520px);padding:4px 6px 4px 16px;border-radius:12px;background:#333;border:1px solid #555;font-size:13px;transition:opacity .2s,transform .2s}
 .toast.on{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
 .toast button{min-height:44px;padding:0 12px;color:var(--accent);font-weight:800;white-space:nowrap}
+.slotrow{display:flex;gap:10px;align-items:flex-start;margin-top:10px}
+.slotrow .badge{flex:none;margin-top:2px}
 .lot{font-size:12px;color:var(--gold);font-weight:700}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .dchip{min-height:40px;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid var(--line);background:var(--bg);color:var(--muted)}
@@ -142,7 +144,7 @@ const BRANDS = ['すべて', ...Object.keys(BR)];
 const ST_LOT  = [['当落待ち⏳','当落待ち'],['当選🎉','当選'],['落選💦','落選'],['見送り','見送り']];
 const ST_FCFS = [['入手🎫','入手'],['入手できず','入手できず'],['見送り','見送り']];
 const DONE = ['当落待ち⏳','当選🎉','落選💦','入手🎫','入手できず'];   // 応募・購入に動いたもの
-const isFcfs = ev => /先着/.test(ev.phase || '');
+const isFcfs = ev => ev.phaseKind ? ev.phaseKind === '先着' : /先着/.test(ev.phase || '');
 const BY = ['自分','連番者'];
 const LBL = {...Object.fromEntries([...ST_LOT, ...ST_FCFS]), '未申込':'未'};
 
@@ -261,6 +263,19 @@ function dayBlock(ev) {
   return `<div class="sec"><h4>${pair ? '公演ごとの状況と名義' : '公演ごとの状況'}</h4>${ks.map(k => `<div class="dayrow"><b>${esc(shortK(k))}</b>${ks.length > 1 ? seg(ev, dget(st, k), k) : ''}${pair ? `<div class="by" data-id="${esc(ev.id)}" data-day="${esc(k)}">${BY.map(b => `<button data-by="${b}" class="${((st.days && st.days[k] && st.days[k].by) || '自分') === b ? 'on' : ''}">${b}</button>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
 }
 
+function slotBlock(ev) {   // 受付枠が2つ以上あるイベントだけ、履歴を出す
+  const ss = ev.slots || [];
+  if (ss.length < 2) return '';
+  const rows = ss.slice().sort((a, b) => (ms(a.start) || 0) - (ms(b.start) || 0)).map(sl => {
+    const ph = phase({applyStartDate: sl.start, deadline: sl.end});
+    const txt = {open:'受付中', urgent:'締切間近', before:'受付前', closed:'終了', tbd:'未定'}[ph];
+    const range = sl.start && sl.end ? `${fmt(ms(sl.start))} 〜 ${fmt(ms(sl.end))}` : sl.start ? `${fmt(ms(sl.start))} 〜` : sl.end ? `〜 ${fmt(ms(sl.end))}` : '日時は未定';
+    const lot = sl.lottery ? `　当落発表 ${sl.lottery.slice(5, 10).replace('-', '/')}` : '';
+    return `<div class="slotrow"><span class="badge ${ph}">${txt}</span><div><b>${esc(sl.name)}</b>${sl.kind ? ` <span class="sub">${esc(sl.kind)}</span>` : ''}<div class="sub">${esc(range)}${esc(lot)}</div></div></div>`;
+  }).join('');
+  return `<div class="sec"><h4>受付の流れ</h4>${rows}</div>`;
+}
+
 function matchTab(ev, ph, st) {
   if (tab === 'now') return (ph === 'open' || ph === 'urgent') && !allSkip(ev);
   if (tab === 'before') return ph === 'before' && !allSkip(ev);
@@ -362,6 +377,7 @@ function renderSheet(id) {
       ${cal ? `<a class="btn" href="${esc(cal)}" target="_blank" rel="noopener">締切をGoogleカレンダーに登録</a>` : ''}
       ${lotCal ? `<a class="btn" href="${esc(lotCal)}" target="_blank" rel="noopener">当落発表日をGoogleカレンダーに登録</a>` : ''}
     </div>
+    ${slotBlock(ev)}
     <div class="sec"><dl class="kv">
       <dt>会場</dt><dd>${esc(ev.venue || '未定')}</dd>
       ${ev.nearestStation ? `<dt>最寄り駅</dt><dd>${esc(ev.nearestStation)}</dd>` : ''}
@@ -386,7 +402,10 @@ function demo() {
     mk('demo2', 'サンプル：デレ×ミリ合同', ['デレマス','ミリオン'], '一般発売（先着）', -24, 400, 'IGアリーナ', 3),
     mk('demo3', 'サンプル：ヴイアラ ライブ', ['ヴイアラ'], 'アソビストア一般会員先行', 20, 300, '愛知芸術劇場', 1),
     mk('demo4', 'サンプル：学マス ツアー', ['学マス'], '公式リセール', -500, -2, 'Kアリーナ横浜', 2)
-  ];
+  ].map(e => e.id === 'demo1' ? {...e, phaseKind:'抽選', slots:[
+    {name:'アソビストアプレミアム会員先行', kind:'抽選', start:d(-1500), end:d(-900), lottery:'2026-09-30'},
+    {name:'アソビストア一般会員先行', kind:'抽選', start:d(-240), end:d(40), lottery:'2026-11-14'},
+    {name:'一般販売(先着)', kind:'先着', start:d(300), end:'', lottery:''}]} : e);
 }
 
 /* ---- 取り消し（トースト） ---- */
