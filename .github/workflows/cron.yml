@@ -6,8 +6,18 @@ on:
     # 毎日UTC 04:00 (日本時間 13:00) ＝ お昼の更新
     - cron: '0 4 * * *'
   workflow_dispatch: # 手動実行用
+    inputs:
+      dry:
+        description: 'ドライラン（Notionにもevents.jsonにも書き込まない。試運転用）'
+        type: boolean
+        default: false
+      max:
+        description: '（任意）新しい記事を最大この件数だけ処理する。空欄なら全件'
+        type: string
+        required: false
+        default: ''
 
-# ★追加①：GitHub Actions (ボット) がファイルをリポジトリに保存するための権限
+# GitHub Actions (ボット) がファイルをリポジトリに保存するための権限
 permissions:
   contents: write
 
@@ -17,27 +27,35 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-          
+
       - name: Install dependencies
         run: npm install
-        
+
       - name: Install Headless Browser
         run: npx playwright install chromium
-        
+
       - name: Run Script
         env:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
           NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
-          PUBLIC_NOTION_DB_ID: ${{ secrets.PUBLIC_NOTION_DB_ID }}
+          NOTION_SLOT_DB_ID: ${{ secrets.NOTION_SLOT_DB_ID }}
+          NOTION_SCHEDULE_DB_ID: ${{ secrets.NOTION_SCHEDULE_DB_ID }}
+          NOTION_LOG_DB_ID: ${{ secrets.NOTION_LOG_DB_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: node index.js
+          DRY: ${{ inputs.dry }}
+          MAX: ${{ inputs.max }}
+        run: |
+          args=()
+          if [ "$DRY" = "true" ]; then args+=(--dry); fi
+          if [ -n "$MAX" ]; then args+=("--max=$MAX"); fi
+          node index.js "${args[@]}"
 
-      # ★追加②：生成された events.json を自動でコミット＆プッシュ
+      # 生成された events.json を自動でコミット＆プッシュ（ドライランのときは変更なし）
       - name: Commit and Push events.json
         run: |
           git config user.name "github-actions[bot]"
