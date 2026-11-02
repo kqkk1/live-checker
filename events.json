@@ -409,15 +409,15 @@
   },
   {
     "id": "3fd17392-1f2b-81cc-8bf0-c1729b12df50",
-    "icon": "🎤",
+    "icon": "✨",
     "title": "Apple of my アイ",
     "brands": [
       "デレマス"
     ],
-    "phase": "アソビストアプレミアム会員先行",
-    "deadline": "2026-10-18T23:59:00.000+09:00",
-    "applyStartDate": "2026-09-28T21:30:00.000+09:00",
-    "lotteryDate": "2026-10-31",
+    "phase": "アソビストア一般会員先行",
+    "deadline": "2026-11-15T23:59:00.000+09:00",
+    "applyStartDate": "2026-11-02T12:00:00.000+09:00",
+    "lotteryDate": "2026-11-28",
     "eventDateStart": "2027-02-13",
     "eventDateEnd": "2027-02-14",
     "officialUrl": "https://idolmaster-official.jp/live_event/cg_apai/",
@@ -428,7 +428,7 @@
     "isSpecialColor": false,
     "schedules": [
       {
-        "label": "Day1: 2027年2月13日(土) 開場18:00 / 開演19:00",
+        "label": "Day1: 2月13日(土) 開場18:00/開演19:00",
         "castCount": 5,
         "castNames": [
           "辻野あかり",
@@ -440,7 +440,7 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E4%BD%90%E4%B9%85%E9%96%93%E3%81%BE%E3%82%86%2C%E6%A9%98%E3%81%82%E3%82%8A%E3%81%99"
       },
       {
-        "label": "Day2 昼公演: 2027年2月14日(日) 開場11:30 / 開演12:30",
+        "label": "Day2 昼公演: 2月14日(日) 開場11:30/開演12:30",
         "castCount": 5,
         "castNames": [
           "辻野あかり",
@@ -452,7 +452,7 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E4%BD%90%E4%B9%85%E9%96%93%E3%81%BE%E3%82%86%2C%E6%A9%98%E3%81%82%E3%82%8A%E3%81%99"
       },
       {
-        "label": "Day2 夜公演: 2027年2月14日(日) 開場16:30 / 開演17:30",
+        "label": "Day2 夜公演: 2月14日(日) 開場16:30/開演17:30",
         "castCount": 5,
         "castNames": [
           "辻野あかり",
