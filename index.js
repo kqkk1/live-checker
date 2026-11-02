@@ -94,7 +94,11 @@ const titleName = meta => Object.entries(meta.properties).find(([, v]) => v.type
 const titleOf = (page, meta) => propText(page.properties[titleName(meta)]);
 const dateStart = (page, name) => { const p = page.properties[name]; return p?.type === 'date' ? (p.date?.start || '') : ''; };
 const dateEnd = (page, name) => { const p = page.properties[name]; return p?.type === 'date' ? (p.date?.end || '') : ''; };
-const isLocked = page => !!page.properties['ロック']?.checkbox;
+// チェックボックス列のほか、CSV取り込みで「テキスト」「セレクト」のままの列でも、「入力あり」をオンとみなす
+const OFF_WORDS = ['', 'false', '0', 'no', 'off', 'いいえ', 'なし', '×', '未'];
+const isOn = p => !p ? false : p.type === 'checkbox' ? !!p.checkbox
+  : ['rich_text', 'select', 'title'].includes(p.type) ? !OFF_WORDS.includes(norm(propText(p))) : false;
+const isLocked = page => isOn(page.properties['ロック']);
 
 // CSV取り込みで「テキスト」のまま残っている列と、リレーション列の両方に対応する
 function relName(meta, base) {
@@ -398,7 +402,7 @@ async function applyEvent(ev, article) {
       if (!cur) { const d = { start: ev.live_date }; if (isValidDate(ev.live_end_date) && ev.live_end_date !== ev.live_date) d.end = ev.live_end_date; put(meta, props, 'ライブ開催日', d); bodyChanged = true; }
       else if (cur !== ev.live_date) warn(`『${titleOf(live, meta)}』: 記事の公演日(${ev.live_date})が登録済み(${cur})と異なります。変更が必要なら手で直してください`);
     }
-    if (special && !live.properties['特別カラー']?.checkbox && put(meta, props, '特別カラー', true)) bodyChanged = true;
+    if (special && !isOn(live.properties['特別カラー']) && put(meta, props, '特別カラー', true)) bodyChanged = true;
     if (Object.keys(props).length) { const u = await W.update({ page_id: live.id, properties: props }); if (u) { replacePage(S.live, u); live = u; } }
     console.log(` ├─ 🔄 既存: 『${titleOf(live, meta)}』を確認${Object.keys(props).length ? '（空欄を補完）' : ''}`);
   } else console.log(` ├─ 🔒 ロック中: 『${titleOf(live, meta)}』のライブ本体は更新しません`);
@@ -493,7 +497,7 @@ async function applyEvent(ev, article) {
       const info = { title: liveTitle, fullName: propText(live.properties['正式名称']) || full, venue: propText(live.properties['会場']), station: propText(live.properties['最寄り駅']),
         mapUrl: propText(live.properties['地図URL']), accessUrl: propText(live.properties['アクセスURL']), officialUrl: propText(live.properties['公式URL']) };
       const rows = schedPagesOfLive(live.id).map(p => ({ key: propText(p.properties['Day']), label: propText(p.properties['表示ラベル']), cast: cleanCastList(propText(p.properties['出演者']).split(',')) }));
-      await rebuildBody(live.id, buildBodyBlocks(info, rows, special || !!live.properties['特別カラー']?.checkbox));
+      await rebuildBody(live.id, buildBodyBlocks(info, rows, special || isOn(live.properties['特別カラー'])));
       console.log(' ├─ 📝 サイドピークを最新化しました');
     }
   }
@@ -518,7 +522,7 @@ async function recordLog(url, title, verdict, live) {
 }
 function isProcessed(url) {
   const p = logIndex().get(url);
-  if (p) return !p.properties['再処理']?.checkbox && ['対象', '非対象'].includes(propText(p.properties['判定']));
+  if (p) return !isOn(p.properties['再処理']) && ['対象', '非対象'].includes(propText(p.properties['判定']));
   // 旧方式（ライブ行の「処理済みURL」）の記録も引き続き有効にする
   return S.live.pages.some(l => (propText(l.properties['処理済みURL']) || '').split(',').map(u => u.trim()).includes(url));
 }
@@ -540,7 +544,7 @@ function buildEvents({ live, slot, sched }, now = Date.now()) {
       return { name, kind: propText(p.properties['種別']) || (/先着/.test(name) ? '先着' : '抽選'), start: dateStart(p, '受付開始'), end: dateStart(p, '締切'), lottery: dateStart(p, '当落発表日') };
     });
     const cur = pickCurrent(slots, now);
-    const special = !!page.properties['特別カラー']?.checkbox;
+    const special = isOn(page.properties['特別カラー']);
     const ds = dateStart(page, 'ライブ開催日').slice(0, 10), de = (dateEnd(page, 'ライブ開催日') || ds).slice(0, 10);
     const schedules = sched.pages.filter(p => relIds(p, schedRel).includes(page.id))
       .sort((a, b) => (a.properties['順番']?.number ?? 99) - (b.properties['順番']?.number ?? 99))
