@@ -146,7 +146,8 @@ async function linkByTitle(dbId, base, targetDbId, label, warns) {
     const txt = propText(row.properties[base]);
     if (!txt || row.properties[linkName]?.relation?.length) continue;
     const id = byTitle.get(txt);
-    if (!id) { miss++; warns.push(`${label}「${propText(Object.values(row.properties).find(v => v.type === 'title'))}」: ${base}「${txt}」に一致するページがありません`); continue; }
+    // 申込記録の行のタイトルには、ニックネームが入りうるため、ログには行IDの一部だけを出す
+    if (!id) { miss++; warns.push(`${label}の行(${row.id.slice(0, 8)}…): ${base}「${txt}」に一致するページがありません`); continue; }
     ok++; planned.set(`${row.id}|${base}`, id);
     if (APPLY) await api(() => notion.pages.update({ page_id: row.id, properties: { [linkName]: { relation: [{ id }] } } }));
   }
@@ -286,13 +287,13 @@ async function main() {
     else console.log('  申込記録: 「公演」列（リレーション）を追加予定');
     for (const a of await queryAll(E.app)) {
       const lid = relOf(a, 'ライブ'), day = propText(a.properties['Day']), nm = propText(a.properties['名前']);
-      if (!lid) { warns.push(`申込記録「${nm}」: ライブが紐づいていません（ライブ名がライブDBと一致しているか確認してください）`); continue; }
+      if (!lid) { warns.push(`申込記録の行(${a.id.slice(0, 8)}…): ライブが紐づいていません（ライブ名がライブDBと一致しているか確認してください）`); continue; }
       if (!touched.has(lid)) continue;
       if (a.properties['公演']?.relation?.length) continue;
       const exact = schedMap.get(`${lid}|${day}`);
       const loose = [...schedMap.entries()].filter(([k]) => k.startsWith(`${lid}|${day} `));
       const id = exact || (loose.length === 1 ? loose[0][1] : null);
-      if (!id) { warns.push(`申込記録「${nm}」: ${day} に一致する公演が${loose.length > 1 ? '複数あり（昼夜など）' : 'ありません'}。手で選んでください`); continue; }
+      if (!id) { warns.push(`申込記録の行(${a.id.slice(0, 8)}…): ${day} に一致する公演が${loose.length > 1 ? '複数あり（昼夜など）' : 'ありません'}。手で選んでください`); continue; }
       linked++;
       if (APPLY && schedId) await api(() => notion.pages.update({ page_id: a.id, properties: { '公演': { relation: [{ id }] } } }));
     }
