@@ -105,5 +105,5 @@ module.exports = { create };
  *
  * ④ GitHub Actions の env に追加
  *      NOTION_APPLICATION_DB_ID: ${{ secrets.NOTION_APPLICATION_DB_ID }}
- *      APPLICANTS: ${{ secrets.APPLICANTS }}      （例: ねこぷち,カッキ～）
+ *      APPLICANTS: ${{ secrets.APPLICANTS }}      （例: まる,カッキ～）
  * ===================================================================== */
