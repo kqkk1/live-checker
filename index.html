@@ -408,7 +408,7 @@ function demo() {
     {name:'一般販売(先着)', kind:'先着', start:d(300), end:'', lottery:''}]} : e);
 }
 
-/* ---- 取り消し（トースト） ---- */
+/* ---- 取り消し表示（トースト） ---- */
 let toastTimer, undoFn = null;
 function hideToast() { clearTimeout(toastTimer); const t = $('toast'); t.classList.remove('on'); t.innerHTML = ''; undoFn = null; }
 function toast(msg, undo, ms = 2500) {
