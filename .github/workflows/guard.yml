@@ -1,0 +1,20 @@
+name: 安全チェック（個人情報が入りうるファイルの誤アップロードを検知）
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: CSVや環境設定ファイルが、リポジトリに入っていないか確認
+        run: |
+          found=$(git ls-files | grep -Ei '\.(csv|tsv)$|(^|/)\.env(\.|$)|_import\.' || true)
+          if [ -n "$found" ]; then
+            echo "::error::公開してはいけない可能性のあるファイルがあります。内容を確認して、不要なら削除してください:"
+            echo "$found"
+            exit 1
+          fi
+          echo "問題ありません（CSV・環境設定ファイルは見つかりませんでした）"
