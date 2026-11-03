@@ -232,6 +232,40 @@ function parseLabelDate(label, anchorIso) {
 }
 
 /* =====================================================================
+ * 公演名の正規化：「第一公演 ～友藍～」のように、何日目か分からない名前を「Day1 昼」などに直す
+ *   - 同じ日に1公演 → Day1 / 2公演 → Day1 昼・Day1 夜 / 3公演 → 朝・昼・夜 / 4公演 → 朝・昼・夕・夜
+ *   - 元の公演名は、ラベルの末尾に（）で残す。日付が読めないときは、そのまま
+ * ===================================================================== */
+function normalizeScheduleKeys(rows, anchorIso) {
+  const same = rows.map(r => ({ ...r, title: '' }));
+  if (rows.every(r => /^day\s*\d/i.test(r.key.trim()))) return same;
+  const parsed = rows.map(r => ({ r, d: parseLabelDate(r.label, anchorIso), t: r.label.match(/開演\s*(\d{1,2}):(\d{2})/) }));
+  if (parsed.some(p => !p.d)) return same;
+  const dates = uniq(parsed.map(p => p.d.date)).sort();
+  const hourOf = p => (p.t ? +p.t[1] * 60 + +p.t[2] : 0);
+  const tod = m => (m < 11 * 60 ? '朝' : m < 16 * 60 ? '昼' : '夜');
+  const RANK = { 2: ['昼', '夜'], 3: ['朝', '昼', '夜'], 4: ['朝', '昼', '夕', '夜'] };
+  const out = new Array(rows.length);
+  dates.forEach((date, di) => {
+    const group = parsed.map((p, i) => ({ ...p, i })).filter(p => p.d.date === date).sort((a, b) => hourOf(a) - hourOf(b) || a.i - b.i);
+    let names;
+    if (group.length === 1) names = [''];
+    else {
+      const byHour = group.map(p => tod(hourOf(p)));
+      names = new Set(byHour).size === byHour.length ? byHour : (RANK[group.length] || group.map(p => (p.t ? `${p.t[1].padStart(2, '0')}:${p.t[2]}` : '')));
+    }
+    group.forEach((p, gi) => {
+      const key = `Day${di + 1}${names[gi] ? ' ' + names[gi] : ''}`;
+      const colon = p.r.label.search(/[:：]/);
+      const rest = (colon >= 0 ? p.r.label.slice(colon + 1) : p.r.label).trim();
+      const orig = p.r.key.trim();
+      out[p.i] = { ...p.r, key, label: `${key}: ${rest}${orig && orig !== key ? `（${orig}）` : ''}`, title: orig };
+    });
+  });
+  return out;
+}
+
+/* =====================================================================
  * 受付枠の「現在の枠」の選び方（Pages と同じ考え方）
  *   受付中（締切が近い順） → 受付前（開始が近い順） → 終了（締切が新しい順）
  * ===================================================================== */
@@ -561,15 +595,15 @@ function buildEvents({ live, slot, sched }, now = Date.now()) {
     const cur = pickCurrent(slots, now);
     const special = isOn(page.properties['特別カラー']);
     const ds = dateStart(page, 'ライブ開催日').slice(0, 10), de = (dateEnd(page, 'ライブ開催日') || ds).slice(0, 10);
-    const schedules = sched.pages.filter(p => relIds(p, schedRel).includes(page.id))
+    const rawSched = sched.pages.filter(p => relIds(p, schedRel).includes(page.id))
       .sort((a, b) => (a.properties['順番']?.number ?? 99) - (b.properties['順番']?.number ?? 99))
       .map(p => {
         const key = propText(p.properties['Day']);
         let label = propText(p.properties['表示ラベル']) || key;
         if (key && !label.startsWith(key)) label = `${key}: ${label}`;   // Pages は「:」より前を公演キーにする
-        const castNames = cleanCastList(propText(p.properties['出演者']).split(','));
-        return { label, castCount: castNames.length, castNames, penlightUrl: buildPenlightUrl(castNames, special) };
+        return { key, label, castNames: cleanCastList(propText(p.properties['出演者']).split(',')) };
       });
+    const schedules = normalizeScheduleKeys(rawSched, ds).map(x => ({ label: x.label, ...(x.title ? { title: x.title } : {}), castCount: x.castNames.length, castNames: x.castNames, penlightUrl: buildPenlightUrl(x.castNames, special) }));
     // 検査
     for (const s of schedules) { const d = parseLabelDate(s.label, ds); if (d && ds && (Date.parse(d.date) < Date.parse(ds) - 864e5 || Date.parse(d.date) > Date.parse(de) + 864e5)) issues.push(`${title} / ${dkey(s.label)}: 公演日(${d.date})がライブ開催日(${ds}〜${de})の範囲外`); }
     if (!g('会場')) issues.push(`${title}: 会場が未入力です`);
@@ -619,7 +653,7 @@ ${existingNames}
 
 【最重要④：schedules（各日の詳細スケジュールと出演アイドルの抽出）の記載ルール】
 ・★もし同じ日に「昼公演」と「夜公演」がある場合は、必ず「昼公演」と「夜公演」で別々のオブジェクトとして2つに分割して出力してください。
-・各 "text" は必ず「Day1: 」「Day2 昼公演: 」のように、公演名のあとに半角コロンを付けて始めてください。
+・各 "text" は必ず「Day1: 」「Day2 昼公演: 」のように、日付の順番（Day n）と、同じ日に複数あるときは「朝・昼・夕・夜」で始め、半角コロンを付けてください。公式の公演名（「第一公演 ～〇〇～」など）は text の末尾に（）で添えてください。
 ・声優名やユニット名しか書かれていない場合でも、知識から該当するキャラクター名に変換して出力してください。
 
 【最重要⑤：受付の種類・先着・リセールの扱い・受付開始日】
@@ -769,6 +803,6 @@ async function run() {
   if (warns.length) { console.log(`\n⚠️ 確認が必要な点 (${warns.length}件)`); warns.forEach(w => console.log(' - ' + w)); }
 }
 
-module.exports = { S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
+module.exports = { normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
   parseLabelDate, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
 if (require.main === module) run();
