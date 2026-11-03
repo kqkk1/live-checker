@@ -11,6 +11,7 @@
  *  2. 公演日程DBを作成（NOTION_SCHEDULE_DB_ID が未設定のとき。作成先は NOTION_PARENT_PAGE_ID）
  *  3. 各ライブの本文を読み、ライブDBの空欄を埋め、公演日程の行を作成（ロック済みのライブは触らない）
  *  4. 申込記録に「公演」列を追加し、ライブ + Day で紐づけ
+ *  5. 受付枠が1つもないライブ（旧方式で登録されたもの）に、ライブ行の旧列（受付枠／受付期間／当落発表日）から受付枠を作成
  *  0. （最初に実行）CSVから取り込んだ「ライブ」「受付枠」のテキスト列を、名前の一致でリレーションに変換
  *     → 元のテキスト列は消さずに残し、新しく「〇〇リンク」というリレーション列を作る（手で型変換しなくてよい）
  *
@@ -34,6 +35,7 @@ const E = {
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 /* ---------- 共通 ---------- */
+const DRY_NOTE = () => (APPLY ? '' : '（予定）');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 async function api(fn) {   // 呼び出し間隔の確保と、429/5xx の自動リトライ
   for (let i = 0; i < 5; i++) {
@@ -296,7 +298,42 @@ async function main() {
     }
   } else console.log('  NOTION_APPLICATION_DB_ID が未設定のためスキップ');
 
+  console.log('\n⑤ 受付枠がないライブに、旧列から受付枠を作成');
+  let madeSlots = 0;
+  if (E.slot) {
+    const smeta = await api(() => notion.databases.retrieve({ database_id: E.slot }));
+    const sRel = smeta.properties['ライブ']?.type === 'relation' ? 'ライブ' : (smeta.properties['ライブリンク']?.type === 'relation' ? 'ライブリンク' : null);
+    const stitle = Object.entries(smeta.properties).find(([, v]) => v.type === 'title')[0];
+    if (!sRel) warns.push('受付枠DBに、ライブへのリレーション列がないため、⑤をスキップしました');
+    else {
+      const slotPages = await queryAll(E.slot);
+      const has = new Set(slotPages.flatMap(sp => (sp.properties[sRel]?.relation || []).map(r => r.id)));
+      const set = (name, v) => {   // 列の種類に合わせて値を作る
+        const t = smeta.properties[name]?.type; if (!t || v === undefined || v === null || v === '') return null;
+        if (t === 'rich_text') return { rich_text: rt(v) }; if (t === 'title') return { title: rt(v) };
+        if (t === 'select') return { select: { name: v } }; if (t === 'date') return { date: typeof v === 'string' ? { start: v } : v };
+        return null;
+      };
+      for (const p of all.filter(x => !ONLY || propText(x.properties[titleName]).includes(ONLY))) {
+        if (has.has(p.id)) continue;
+        const title = propText(p.properties[titleName]);
+        const tier = propText(p.properties['受付枠']), per = p.properties['受付期間']?.date, lot = p.properties['当落発表日']?.date?.start;
+        if (!tier && !per?.start) continue;   // 旧列にも受付情報がないライブは、作るものがない
+        const name = tier || '（受付枠名なし）';
+        const props = { [stitle]: { title: rt(`${title}｜${name}`) }, [sRel]: { relation: [{ id: p.id }] } };
+        for (const [k, v] of [['枠名', name], ['ライブ', title], ['種別', /先着/.test(tier) ? '先着' : '抽選'], ['受付開始', per?.start], ['締切', per?.end], ['当落発表日', lot]]) {
+          if (k === 'ライブ' && smeta.properties['ライブ']?.type !== 'rich_text') continue;
+          const val = set(k, v); if (val) props[k] = val;
+        }
+        console.log(`- ${title}: 受付枠「${name}」を作成${DRY_NOTE()}`);
+        madeSlots++;
+        if (APPLY) await api(() => notion.pages.create({ parent: { database_id: E.slot }, properties: props }));
+      }
+    }
+  } else console.log('  NOTION_SLOT_DB_ID が未設定のためスキップ');
+
   console.log('\n========== 結果 ==========');
+  console.log(`旧列から作る受付枠: ${madeSlots}件`);
   console.log(`対象ライブ: ${filledLive}件 / 公演日程の新規行: ${createdRows}件 / 申込記録の紐づけ: ${linked}件`);
   if (warns.length) { console.log(`\n⚠️ 確認が必要な点 (${warns.length}件)`); warns.forEach(w => console.log(' - ' + w)); }
   if (!APPLY) console.log('\n※ドライランです。内容を確認して問題なければ --apply を付けて実行してください');
