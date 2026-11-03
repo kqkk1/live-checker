@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>アイマス ライブ・イベント情報ポータル(非公式)</title>
+<title>アイマス ライブ・イベント情報ポータル</title>
 <style>
 :root{--bg:#191919;--surface:#202020;--surface2:#2c2c2c;--line:#2f2f2f;--text:#ffffffcf;--muted:#9b9b9b;--accent:#7aa2f7;--ok:#9ece6a;--warn:#f7768e;--gold:#e0af68;--r:10px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -86,6 +86,18 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 .toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,24px);opacity:0;pointer-events:none;z-index:70;display:flex;align-items:center;gap:8px;max-width:min(92vw,520px);padding:4px 6px 4px 16px;border-radius:12px;background:#333;border:1px solid #555;font-size:13px;transition:opacity .2s,transform .2s}
 .toast.on{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
 .toast button{min-height:44px;padding:0 12px;color:var(--accent);font-weight:800;white-space:nowrap}
+.dlist{display:flex;flex-direction:column;gap:8px;padding-bottom:60px}
+.mh{font-size:13px;color:var(--muted);margin:14px 0 2px;padding-bottom:4px;border-bottom:1px solid var(--line)}
+.drow{position:relative;display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px 10px 18px;cursor:pointer;overflow:hidden}
+.drow::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--b)}
+.drow:hover{background:var(--surface2)}
+.ddate{font-weight:800;font-size:13px;line-height:1.35}
+.dmain b{display:block;font-size:14px;line-height:1.35}
+.dside{display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+.dstat{padding:2px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
+.dstat.ok{background:rgba(158,206,106,.18);color:var(--ok)}
+.dstat.w{background:rgba(224,175,104,.18);color:var(--gold)}
+@media(max-width:767px){.drow{grid-template-columns:1fr auto}.ddate{grid-column:1/-1}}
 .slotrow{display:flex;gap:10px;align-items:flex-start;margin-top:10px}
 .slotrow .badge{flex:none;margin-top:2px}
 .lot{font-size:12px;color:var(--gold);font-weight:700}
@@ -120,12 +132,13 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 <body>
 <div class="wrap">
   <header>
-    <h1>🎤 アイマス ライブ・イベント情報ポータル(非公式)</h1>
+    <h1>🎤 アイマス ライブ・イベント情報ポータル</h1>
     <p class="sub" id="note">応募状況とメモは、このブラウザに自動保存されます</p>
   </header>
   <section class="todo" id="todo" hidden></section>
   <div class="tools"><div class="wrap-in">
-    <div class="row" id="tabs"></div>
+    <div class="row" id="viewrow"></div>
+    <div class="row" id="tabs" style="margin-top:8px"></div>
     <div class="row" id="brands" style="margin-top:8px"></div>
     <div class="row" id="gmode" style="margin-top:8px"></div>
     <input class="search" id="q" type="search" placeholder="ライブ名・会場・出演者で検索">
@@ -164,9 +177,10 @@ function setDay(ev, k, v) { const st = mat(ev); st.days[k].status = st.days[k].s
 function cycleDay(ev, k) { const st = mat(ev), set = (isFcfs(ev) ? ST_FCFS : ST_LOT).map(a => a[0]), i = set.indexOf(st.days[k].status); st.days[k].status = i === set.length - 1 ? '未申込' : set[i + 1]; sync(ev, st); }
 /* ---- /Day別管理 ---- */
 
-const TABS = [['now','今応募できる'],['before','受付前'],['mine','応募済み'],['skip','見送り'],['closed','終了'],['all','すべて']];
+const TABS = [['now','今応募できる'],['before','受付前・未定'],['mine','応募済み'],['skip','見送り'],['closed','終了'],['all','すべて']];
 const RANK = {urgent:0, open:1, before:2, tbd:3, closed:4};
 let events = [], brand = 'すべて', tab = 'now', openId = null;
+let view = localStorage.getItem('imas_portal_view_v1') === 'dates' ? 'dates' : 'apply', dtab = 'upcoming';   // 表示: 受付状況 / 公演日順
 let gmode = localStorage.getItem('imas_portal_mode_v1') === 'pair' ? 'pair' : 'solo';   // 基本の参戦スタイル
 let us = JSON.parse(localStorage.getItem(KEY) || '{}');
 const $ = id => document.getElementById(id);
@@ -205,7 +219,18 @@ function period(ev) {
   else if (ph === 'open' || ph === 'urgent') remain = e ? `締切まで ${left(e)}` : '締切は公式で確認';
   return {ph, txt, range, remain, urgent};
 }
+const isStartType = ev => isFcfs(ev) || /リセール/.test(ev.phase || '');   // 先着・リセールは、締切より開始が大事
+const anyWon = ev => dstats(ev).some(v => v === '当選🎉' || v === '入手🎫');
+function startCalUrl(ev) {
+  if (!isStartType(ev)) return '';
+  const st = ev.applyStartDate ? new Date(ev.applyStartDate) : null;
+  if (!st || isNaN(st) || st < new Date()) return '';
+  const f = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const p = new URLSearchParams({action:'TEMPLATE', text:`【受付開始】${ev.title}${ev.phase ? `（${ev.phase}）` : ''}`, dates:`${f(st)}/${f(new Date(+st + 18e5))}`, details:ev.officialUrl || '', location:ev.venue || ''});
+  return 'https://calendar.google.com/calendar/render?' + p;
+}
 function calUrl(ev) {
+  if (isStartType(ev)) return '';
   const end = ev.deadline ? new Date(ev.deadline) : null;
   if (!end || isNaN(end) || end < new Date()) return '';
   const f = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
@@ -278,25 +303,68 @@ function slotBlock(ev) {   // 受付枠が2つ以上あるイベントだけ、�
 
 function matchTab(ev, ph, st) {
   if (tab === 'now') return (ph === 'open' || ph === 'urgent') && !allSkip(ev);
-  if (tab === 'before') return ph === 'before' && !allSkip(ev);
+  if (tab === 'before') return (ph === 'before' || ph === 'tbd') && !allSkip(ev);
   if (tab === 'mine') return anyDone(ev);
   if (tab === 'skip') return allSkip(ev);
   if (tab === 'closed') return ph === 'closed';
   return true;
 }
 
+/* ---- 公演日順ビュー ---- */
+const DTABS = [['upcoming', 'これから'], ['going', '参戦予定'], ['past', '終了']];
+const wd = d => new Date(d + 'T00:00:00+09:00').toLocaleDateString('ja-JP', {timeZone:'Asia/Tokyo', weekday:'short'});
+const md = d => `${+d.slice(5, 7)}/${+d.slice(8, 10)}`;
+function dateRange(ev) {
+  const a = (ev.eventDateStart || '').slice(0, 10), b = (ev.eventDateEnd || a).slice(0, 10);
+  if (!a) return '日程未定';
+  return b && b !== a ? `${md(a)}(${wd(a)}) 〜 ${md(b)}(${wd(b)})` : `${md(a)}(${wd(a)})`;
+}
+function drawView() {
+  $('viewrow').innerHTML = [['apply', '📋 受付状況'], ['dates', '📅 公演日順']].map(([v, l]) => `<button class="tab ${view === v ? 'on' : ''}" data-view="${v}" aria-pressed="${view === v}">${l}</button>`).join('');
+}
+function drawDates(q, today) {
+  const base = events.filter(ev => (brand === 'すべて' || (ev.brands || []).includes(brand)) && (!q ||
+    [ev.title, ev.venue, ev.phase, me(ev.id).memo, ...(ev.brands || []), ...(ev.schedules || []).flatMap(s => s.castNames || [])].join(' ').toLowerCase().includes(q)));
+  const endOf = ev => (ev.eventDateEnd || ev.eventDateStart || '').slice(0, 10);
+  const isPast = ev => endOf(ev) && endOf(ev) < today;
+  const match = (ev, k) => k === 'upcoming' ? !isPast(ev) : k === 'going' ? (!isPast(ev) && anyWon(ev)) : !!isPast(ev);
+  const cnt = Object.fromEntries(DTABS.map(([k]) => [k, base.filter(ev => match(ev, k)).length]));
+  $('tabs').innerHTML = DTABS.map(([k, l]) => `<button class="tab ${dtab === k ? 'on' : ''}" data-dtab="${k}" aria-pressed="${dtab === k}">${l}<b>${cnt[k]}</b></button>`).join('');
+  $('gmode').innerHTML = `<span class="sub" style="align-self:center">参戦スタイル</span>` + [['solo', 'ソロ'], ['pair', '連番']].map(([v, l]) => `<button class="chip ${gmode === v ? 'on' : ''}" data-gmode="${v}">${l}</button>`).join('');
+  $('brands').innerHTML = BRANDS.map(b => `<button class="chip ${brand === b ? 'on' : ''}" data-brand="${b}" aria-pressed="${brand === b}">${b}</button>`).join('');
+  const list = base.filter(ev => match(ev, dtab)).sort((a, b) => dtab === 'past' ? (b.eventDateStart || '').localeCompare(a.eventDateStart || '') : (a.eventDateStart || '9999').localeCompare(b.eventDateStart || '9999'));
+  let html = '', last = null;
+  for (const ev of list) {
+    const m = (ev.eventDateStart || '').slice(0, 7);
+    if (m !== last) { html += `<h3 class="mh">${m ? `${m.slice(0, 4)}年${+m.slice(5)}月` : '日程未定'}</h3>`; last = m; }
+    const p = period(ev), won = anyWon(ev), wait = dstats(ev).includes('当落待ち⏳');
+    const chips = (won ? '<span class="dstat ok">参戦予定</span>' : wait ? '<span class="dstat w">当落待ち</span>' : '')
+      + (!isPast(ev) && ['open', 'urgent', 'before'].includes(p.ph) && !won ? `<span class="badge ${p.ph}">${p.txt}</span>` : '');
+    html += `<article class="drow" data-id="${esc(ev.id)}" tabindex="0" aria-label="${esc(ev.title)}（Enterで詳細を開く）" style="--b:${stripe(ev)}">
+      <div class="ddate">${esc(dateRange(ev))}</div>
+      <div class="dmain"><b>${esc(ev.icon || '🎤')} ${esc(ev.title)}</b><div class="sub">${esc(ev.venue || '会場未定')}</div></div>
+      <div class="dside">${chips}</div></article>`;
+  }
+  $('grid').className = 'dlist';
+  $('grid').innerHTML = html || '<div class="empty">この条件の公演はありません</div>';
+  $('todo').hidden = true;
+  if (openId) renderSheet(openId);
+}
+
 /* ---- 描画 ---- */
 function keepFocus(fn) {   // 再描画してもキーボードのフォーカス位置を保つ
   const a = document.activeElement, sel = 'button,a,textarea,summary,[tabindex="0"]';
-  const box = a && ['tabs', 'brands', 'gmode', 'grid', 'sheet'].map($).find(b => b && b.contains(a));
+  const box = a && ['viewrow', 'tabs', 'brands', 'gmode', 'grid', 'sheet'].map($).find(b => b && b.contains(a));
   const idx = box ? [...box.querySelectorAll(sel)].indexOf(a) : -1;
   fn();
   if (box && idx >= 0) { const t = [...box.querySelectorAll(sel)][idx]; if (t) t.focus({preventScroll:true}); }
 }
-function render() { keepFocus(draw); }
+function render() { keepFocus(() => { drawView(); draw(); }); }
 function draw() {
   const q = $('q').value.trim().toLowerCase();
   const today = new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'});
+  if (view === 'dates') { drawDates(q, today); return; }
+  $('grid').className = 'grid';
   const base = events.filter(ev => {
     if (brand !== 'すべて' && !(ev.brands || []).includes(brand)) return false;
     if (!q) return true;
@@ -362,7 +430,7 @@ function renderTodo() {
 function renderSheet(id) {
   const ev = events.find(x => x.id === id);
   if (!ev) return;
-  const st = me(id), p = period(ev), cal = calUrl(ev), lotCal = lotCalUrl(ev), perfCal = perfCalUrl(ev);
+  const st = me(id), p = period(ev), won = anyWon(ev), cal = won ? '' : calUrl(ev), startCal = won ? '' : startCalUrl(ev), lotCal = won ? '' : lotCalUrl(ev), perfCal = perfCalUrl(ev);   // 当選済みなら受付系の登録は出さない
   $('sheet').innerHTML = `<button class="x" data-close aria-label="閉じる">✕</button>
     <div>${tags(ev)}</div>
     <h3>${esc(ev.icon || '🎤')} ${esc(ev.title)}</h3>
@@ -375,6 +443,7 @@ function renderSheet(id) {
       <dt>当落発表</dt><dd>${esc(ev.lotteryDate || 'ー')}${lotLine(ev) ? `<br><span class="lot">${esc(lotLine(ev))}</span>` : ''}</dd></dl>
       ${ev.officialUrl ? `<a class="btn" href="${esc(ev.officialUrl)}" target="_blank" rel="noopener">公式ページを開く</a>` : ''}
       ${cal ? `<a class="btn" href="${esc(cal)}" target="_blank" rel="noopener">締切をGoogleカレンダーに登録</a>` : ''}
+      ${startCal ? `<a class="btn" href="${esc(startCal)}" target="_blank" rel="noopener">受付開始をGoogleカレンダーに登録</a>` : ''}
       ${lotCal ? `<a class="btn" href="${esc(lotCal)}" target="_blank" rel="noopener">当落発表日をGoogleカレンダーに登録</a>` : ''}
     </div>
     ${slotBlock(ev)}
@@ -408,7 +477,7 @@ function demo() {
     {name:'一般販売(先着)', kind:'先着', start:d(300), end:'', lottery:''}]} : e);
 }
 
-/* ---- 取り消し表示（トースト） ---- */
+/* ---- 取り消し（トースト） ---- */
 let toastTimer, undoFn = null;
 function hideToast() { clearTimeout(toastTimer); const t = $('toast'); t.classList.remove('on'); t.innerHTML = ''; undoFn = null; }
 function toast(msg, undo, ms = 2500) {
@@ -439,7 +508,7 @@ function act(ev, fn, msgFn) {   // 変更 → 保存 → 再描画 → 取り消
 
 /* ---- 操作 ---- */
 function openSheet(id) { openId = id; renderSheet(id); const sh = $('sheet'); sh.inert = false; sh.scrollTop = 0; $('back').classList.add('on'); sh.classList.add('on'); setTimeout(() => { const x = sh.querySelector('[data-close]'); if (x) x.focus(); }, 60); }
-function closeSheet() { const id = openId; openId = null; $('back').classList.remove('on'); $('sheet').classList.remove('on'); $('sheet').inert = true; const el = [...document.querySelectorAll('.card,.todo-item')].find(x => (x.dataset.id || x.dataset.open) === id); if (el) el.focus(); }
+function closeSheet() { const id = openId; openId = null; $('back').classList.remove('on'); $('sheet').classList.remove('on'); $('sheet').inert = true; const el = [...document.querySelectorAll('.card,.todo-item,.drow')].find(x => (x.dataset.id || x.dataset.open) === id); if (el) el.focus(); }
 
 document.addEventListener('click', e => {
   if (e.target.closest('[data-undo]')) { const f = undoFn; hideToast(); if (f) f(); return; }
@@ -459,16 +528,18 @@ document.addEventListener('click', e => {
   if (gm) { gmode = gm.dataset.gmode; localStorage.setItem('imas_portal_mode_v1', gmode); render(); return; }
   const mb = e.target.closest('.mode button');
   if (mb) { const ev = events.find(x => x.id === mb.parentElement.dataset.id); if (ev) { const st = me(ev.id); if (mb.dataset.mode === gmode) delete st.mode; else st.mode = mb.dataset.mode; save(); render(); } return; }
+  const vw = e.target.closest('[data-view]'); if (vw) { view = vw.dataset.view; localStorage.setItem('imas_portal_view_v1', view); render(); return; }
+  const dt = e.target.closest('[data-dtab]'); if (dt) { dtab = dt.dataset.dtab; render(); return; }
   const t = e.target.closest('[data-tab]'); if (t) { tab = t.dataset.tab; render(); return; }
   const b = e.target.closest('[data-brand]'); if (b) { brand = b.dataset.brand; render(); return; }
   if (e.target.closest('[data-close]') || e.target === $('back')) { closeSheet(); return; }
-  const o = e.target.closest('[data-open]') || e.target.closest('.card');
+  const o = e.target.closest('[data-open]') || e.target.closest('.card') || e.target.closest('.drow');
   if (o) openSheet(o.dataset.open || o.dataset.id);
 });
 $('q').oninput = render;
 addEventListener('keydown', e => {
   if (e.key === 'Escape') closeSheet();
-  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('card')) { e.preventDefault(); openSheet(e.target.dataset.id); }
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && (e.target.classList.contains('card') || e.target.classList.contains('drow'))) { e.preventDefault(); openSheet(e.target.dataset.id); }
 });
 
 (async () => {
