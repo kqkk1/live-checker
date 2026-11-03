@@ -27,6 +27,10 @@ const ENV = {
   log: process.env.NOTION_LOG_DB_ID,
 };
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
+// （任意）新しい受付枠ができたら、申込記録の行を自動で作る。NOTION_APPLICATION_DB_ID と APPLICANTS が両方あるときだけ有効
+let appRows = null;
+try { appRows = require('./applications.js').create({ notion, appDbId: process.env.NOTION_APPLICATION_DB_ID, applicants: process.env.APPLICANTS, dryRun: DRY }); }
+catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e; }
 const warns = [];
 const warn = m => { warns.push(m); console.log(` ├─ ⚠️ ${m}`); };
 
@@ -410,6 +414,7 @@ async function applyEvent(ev, article) {
   const liveTitle = titleOf(live, meta) || short;
 
   /* --- 受付枠 --- */
+  let newSlot = null;
   const tier = (ev.ticket_tier || '').trim();
   if (tier) {
     const kind = (ev.ticket_kind === '先着' || ev.ticket_kind === '抽選') ? ev.ticket_kind : (/先着/.test(tier) ? '先着' : '抽選');
@@ -426,6 +431,7 @@ async function applyEvent(ev, article) {
       if (lot) put(sm, props, '当落発表日', lot);
       put(sm, props, '取得元記事URL', article.url); put(sm, props, '最終自動更新', new Date().toISOString());
       const pg = await W.create({ parent: { database_id: S.slot.id }, properties: props });
+      if (!pg.__dry) newSlot = { page: pg, tier };
       if (!pg.__dry) replacePage(S.slot, pg); else S.slot.pages.push({ id: pg.id, properties: Object.fromEntries(Object.entries(props).map(([k]) => [k, null])) , __dry: true });
       console.log(` ├─ 🎫 受付枠を追加: ${tier}（${kind}）`);
     } else if (!isLocked(existing)) {
@@ -479,6 +485,11 @@ async function applyEvent(ev, article) {
         schedChanged = true; console.log(` ├─ 📅 公演を更新: ${key}（${changes.join('・')}）`);
       }
     }
+  }
+
+  if (appRows && newSlot) {
+    try { await appRows.ensureRows({ live, liveTitle, slotPage: newSlot.page, slotTier: newSlot.tier, schedPages: schedPagesOfLive(live.id) }); }
+    catch (e) { warn(`申込記録の自動作成に失敗しました: ${e.message}`); }
   }
 
   /* --- 一覧表示用の列と、サイドピークを最新化 --- */
@@ -543,6 +554,10 @@ function buildEvents({ live, slot, sched }, now = Date.now()) {
       const name = propText(p.properties['枠名']) || propText(p.properties[titleName(slot.meta)]).split('｜').slice(1).join('｜');
       return { name, kind: propText(p.properties['種別']) || (/先着/.test(name) ? '先着' : '抽選'), start: dateStart(p, '受付開始'), end: dateStart(p, '締切'), lottery: dateStart(p, '当落発表日') };
     });
+    if (!slots.length) {   // 受付枠DBに行がないライブ（旧方式で登録されたもの）は、ライブ行の旧列から補って表示する
+      const tier = propText(page.properties['受付枠']), st = dateStart(page, '受付期間'), en = dateEnd(page, '受付期間');
+      if (tier || st) slots.push({ name: tier, kind: /先着/.test(tier) ? '先着' : '抽選', start: st, end: en, lottery: dateStart(page, '当落発表日') });
+    }
     const cur = pickCurrent(slots, now);
     const special = isOn(page.properties['特別カラー']);
     const ds = dateStart(page, 'ライブ開催日').slice(0, 10), de = (dateEnd(page, 'ライブ開催日') || ds).slice(0, 10);
