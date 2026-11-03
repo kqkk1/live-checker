@@ -74,7 +74,8 @@ function create({ notion, appDbId, applicants, dryRun = false, defaultTickets = 
         put(c.meta, props, c.liveRel, [live.id]); put(c.meta, props, c.slotRel, [slotPage.id]);
         if (sp && c.schedRel) put(c.meta, props, c.schedRel, [sp.id]);
         put(c.meta, props, '申込者', who); put(c.meta, props, '結果', '未申込'); put(c.meta, props, '枚数', defaultTickets);
-        if (dryRun) { console.log(` │ [DRY] 申込記録を作成: ${liveTitle} ${day} ${who}`); made++; continue; }
+        // Actionsのログは公開される場合があるため、申込者の名前はログに出さない
+        if (dryRun) { console.log(` │ [DRY] 申込記録を作成: ${liveTitle} ${day}（申込者名はログに出しません）`); made++; continue; }
         const pg = await notion.pages.create({ parent: { database_id: appDbId }, properties: props });
         await sleep(gapMs);
         c.pages.push(pg); made++;
