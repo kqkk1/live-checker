@@ -46,6 +46,8 @@ jobs:
           NOTION_SLOT_DB_ID: ${{ secrets.NOTION_SLOT_DB_ID }}
           NOTION_SCHEDULE_DB_ID: ${{ secrets.NOTION_SCHEDULE_DB_ID }}
           NOTION_LOG_DB_ID: ${{ secrets.NOTION_LOG_DB_ID }}
+          NOTION_APPLICATION_DB_ID: ${{ secrets.NOTION_APPLICATION_DB_ID }}
+          APPLICANTS: ${{ secrets.APPLICANTS }}   # 任意。未設定なら、申込記録の自動作成は行われません
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DRY: ${{ inputs.dry }}
           MAX: ${{ inputs.max }}
