@@ -8,7 +8,7 @@
  *
  * 使い方（index.js への組み込みは、一番下のコメントを参照）
  *   環境変数  NOTION_APPLICATION_DB_ID … 申込記録DBのID
- *             APPLICANTS               … 申込者の名前をカンマ区切りで（例: ねこぷち,カッキ～）
+ *             APPLICANTS               … 申込者の名前をカンマ区切りで（例: まる,カッキ～）
  *   どちらかが未設定なら、何もしない（今の動作は変わらない）
  */
 const sleep = ms => new Promise(r => setTimeout(r, ms));
