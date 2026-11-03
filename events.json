@@ -174,12 +174,20 @@
       "765AS",
       "デレマス"
     ],
-    "phase": "",
-    "phaseKind": "",
-    "applyStartDate": "",
-    "deadline": "",
-    "lotteryDate": "",
-    "slots": [],
+    "phase": "アソビストア一般会員先行",
+    "phaseKind": "抽選",
+    "applyStartDate": "2026-10-03T19:00:00.000+09:00",
+    "deadline": "2026-11-08T23:59:00.000+09:00",
+    "lotteryDate": "2026-11-14",
+    "slots": [
+      {
+        "name": "アソビストア一般会員先行",
+        "kind": "抽選",
+        "start": "2026-10-03T19:00:00.000+09:00",
+        "end": "2026-11-08T23:59:00.000+09:00",
+        "lottery": "2026-11-14"
+      }
+    ],
     "eventDateStart": "2026-12-12",
     "eventDateEnd": "2026-12-13",
     "officialUrl": "https://idolmaster-official.jp/live_events/xr_revival2026",
