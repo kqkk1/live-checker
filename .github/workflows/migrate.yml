@@ -4,11 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       script:
-        description: '実行するスクリプト。migrate.js = 公演日程の作成と紐づけ / finish.js = 仕上げ（金額列・空白行・列名の整理）'
+        description: '実行するスクリプト。migrate.js = 公演日程・受付枠の作成と紐づけ / finish.js = 仕上げ（金額列・空白行・列名の整理） / all = 続けて両方'
         type: choice
         options:
           - migrate.js
           - finish.js
+          - all
         default: migrate.js
       mode:
         description: 'dry-run は読み取りのみ（安全）。apply は実際に書き込みます'
@@ -46,7 +47,12 @@ jobs:
           NOTION_SCHEDULE_DB_ID: ${{ secrets.NOTION_SCHEDULE_DB_ID }}
           NOTION_PARENT_PAGE_ID: ${{ secrets.NOTION_PARENT_PAGE_ID }}
         run: |
-          args=()
-          if [ "$MODE" = "apply" ]; then args+=(--apply); fi
-          if [ "$SCRIPT" = "migrate.js" ] && [ -n "$ONLY" ]; then args+=("--only=$ONLY"); fi
-          node "$SCRIPT" "${args[@]}"
+          fargs=()
+          if [ "$MODE" = "apply" ]; then fargs+=(--apply); fi
+          margs=("${fargs[@]}")
+          if [ -n "$ONLY" ]; then margs+=("--only=$ONLY"); fi
+          case "$SCRIPT" in
+            migrate.js) node migrate.js "${margs[@]}" ;;
+            finish.js)  node finish.js "${fargs[@]}" ;;
+            all)        node migrate.js "${margs[@]}" && node finish.js "${fargs[@]}" ;;
+          esac
