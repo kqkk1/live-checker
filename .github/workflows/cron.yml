@@ -48,6 +48,7 @@ jobs:
           NOTION_LOG_DB_ID: ${{ secrets.NOTION_LOG_DB_ID }}
           NOTION_APPLICATION_DB_ID: ${{ secrets.NOTION_APPLICATION_DB_ID }}
           APPLICANTS: ${{ secrets.APPLICANTS }}   # 任意。未設定なら、申込記録の自動作成は行われません
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}   # 任意。未設定なら、通知は送られません
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DRY: ${{ inputs.dry }}
           MAX: ${{ inputs.max }}
@@ -62,7 +63,18 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add events.json
+          git add events.json meta.json
           # 差分がある場合のみコミットしてプッシュする安全な書き方
           git diff --staged --quiet || git commit -m "chore: update events.json from Notion DB"
           git push
+
+      # 失敗したときだけ、Discordに通知（DISCORD_WEBHOOK_URL が未設定なら何もしない）
+      - name: Notify failure
+        if: failure()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then echo "通知先が未設定のため、通知はスキップします"; exit 0; fi
+          payload=$(printf '{"content":"%s"}' "⚠️ スナイパーの実行が失敗しました。データが更新されていない可能性があります。ログ: $RUN_URL")
+          curl -sS -o /dev/null -X POST -H 'Content-Type: application/json' -d "$payload" "$DISCORD_WEBHOOK_URL"
