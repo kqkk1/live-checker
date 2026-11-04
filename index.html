@@ -86,6 +86,8 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 .toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,24px);opacity:0;pointer-events:none;z-index:70;display:flex;align-items:center;gap:8px;max-width:min(92vw,520px);padding:4px 6px 4px 16px;border-radius:12px;background:#333;border:1px solid #555;font-size:13px;transition:opacity .2s,transform .2s}
 .toast.on{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
 .toast button{min-height:44px;padding:0 12px;color:var(--accent);font-weight:800;white-space:nowrap}
+.stale{color:var(--warn)}
+.foot{max-width:1180px;margin:0 auto;padding:0 16px 40px}
 .dlist{display:flex;flex-direction:column;gap:8px;padding-bottom:60px}
 .mh{font-size:13px;color:var(--muted);margin:14px 0 2px;padding-bottom:4px;border-bottom:1px solid var(--line)}
 .drow{position:relative;display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px 10px 18px;cursor:pointer;overflow:hidden}
@@ -134,6 +136,7 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
   <header>
     <h1>🎤 アイマス ライブ・イベント情報ポータル</h1>
     <p class="sub" id="note">応募状況とメモは、このブラウザに自動保存されます</p>
+    <p class="sub" id="upd"></p>
   </header>
   <section class="todo" id="todo" hidden></section>
   <div class="tools"><div class="wrap-in">
@@ -144,6 +147,7 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
     <input class="search" id="q" type="search" placeholder="ライブ名・会場・出演者で検索">
   </div></div>
   <main class="grid" id="grid"></main>
+  <footer class="foot"><p class="sub">このサイトは非公式の情報まとめです。公式サイト・各チケット販売ページとは関係ありません。</p></footer>
 </div>
 <div class="back" id="back"></div>
 <aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="イベント詳細" inert></aside>
@@ -180,6 +184,7 @@ function cycleDay(ev, k) { const st = mat(ev), set = (isFcfs(ev) ? ST_FCFS : ST_
 const TABS = [['now','今応募できる'],['before','受付前・未定'],['mine','応募済み'],['skip','見送り'],['closed','終了'],['all','すべて']];
 const RANK = {urgent:0, open:1, before:2, tbd:3, closed:4};
 let events = [], brand = 'すべて', tab = 'now', openId = null;
+let meta = null;   // meta.json（スナイパーが最後に確認した日時）
 let view = localStorage.getItem('imas_portal_view_v1') === 'dates' ? 'dates' : 'apply', dtab = 'upcoming';   // 表示: 受付状況 / 公演日順
 let gmode = localStorage.getItem('imas_portal_mode_v1') === 'pair' ? 'pair' : 'solo';   // 基本の参戦スタイル
 let us = JSON.parse(localStorage.getItem(KEY) || '{}');
@@ -319,7 +324,20 @@ function dateRange(ev) {
   if (!a) return '日程未定';
   return b && b !== a ? `${md(a)}(${wd(a)}) 〜 ${md(b)}(${wd(b)})` : `${md(a)}(${wd(a)})`;
 }
+const DISCLAIMER = '情報はAIで自動収集しています。誤りや更新漏れがある場合があるため、申込前に必ず公式サイトでご確認ください。';
+function drawUpd() {
+  const el = $('upd'); if (!el) return;
+  let t = '', stale = false;
+  const d = meta && meta.checkedAt ? new Date(meta.checkedAt) : null;
+  if (d && !isNaN(d)) {
+    stale = Date.now() - d.getTime() > 36 * 36e5;   // 36時間以上更新されていなければ警告
+    t = `データ確認: ${d.toLocaleString('ja-JP', {timeZone:'Asia/Tokyo', month:'numeric', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit', hourCycle:'h23'})}${stale ? '（更新が止まっている可能性があります）' : ''}　`;
+  }
+  el.className = 'sub' + (stale ? ' stale' : '');
+  el.textContent = t + DISCLAIMER;
+}
 function drawView() {
+  drawUpd();
   $('viewrow').innerHTML = [['apply', '📋 受付状況'], ['dates', '📅 公演日順']].map(([v, l]) => `<button class="tab ${view === v ? 'on' : ''}" data-view="${v}" aria-pressed="${view === v}">${l}</button>`).join('');
 }
 function drawDates(q, today) {
@@ -442,6 +460,7 @@ function renderSheet(id) {
       <dt>受付期間</dt><dd>${esc(p.range)}<br><span class="remain ${p.urgent ? 'urgent' : ''}">${esc(p.remain)}</span></dd>
       <dt>当落発表</dt><dd>${esc(ev.lotteryDate || 'ー')}${lotLine(ev) ? `<br><span class="lot">${esc(lotLine(ev))}</span>` : ''}</dd></dl>
       ${ev.officialUrl ? `<a class="btn" href="${esc(ev.officialUrl)}" target="_blank" rel="noopener">公式ページを開く</a>` : ''}
+      <p class="sub" style="margin-top:8px">※ 日時・受付内容は、申込の前に必ず公式ページでご確認ください</p>
       ${cal ? `<a class="btn" href="${esc(cal)}" target="_blank" rel="noopener">締切をGoogleカレンダーに登録</a>` : ''}
       ${startCal ? `<a class="btn" href="${esc(startCal)}" target="_blank" rel="noopener">受付開始をGoogleカレンダーに登録</a>` : ''}
       ${lotCal ? `<a class="btn" href="${esc(lotCal)}" target="_blank" rel="noopener">当落発表日をGoogleカレンダーに登録</a>` : ''}
@@ -549,6 +568,7 @@ addEventListener('keydown', e => {
     const j = await r.json();
     events = Array.isArray(j) ? j : [];
   } catch (_) { events = []; }
+  try { const mr = await fetch(`./meta.json?_=${Date.now()}`); if (mr.ok) meta = await mr.json(); } catch (_) {}
   if (!events.length) {
     events = demo();
     $('note').innerHTML = '⚠️ events.json を読み込めないため、サンプルを表示しています（index.html と同じフォルダに events.json を置くと本物のデータになります）';
