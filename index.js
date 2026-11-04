@@ -17,6 +17,7 @@
 const { Client } = require('@notionhq/client');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const DRY = process.argv.includes('--dry');
 const MAX = Number((process.argv.find(a => a.startsWith('--max=')) || '').slice(6)) || Infinity;
@@ -111,6 +112,28 @@ function relName(meta, base) {
   return null;
 }
 const relIds = (page, name) => (name ? (page.properties[name]?.relation || []).map(r => r.id) : []);
+
+/* =====================================================================
+ * 更新日時（meta.json）と、Discord への通知
+ *   meta.json … Pages が「データ更新: 〇/〇 〇:〇〇」を表示するために読む。警告の内容のハッシュも持ち、同じ警告を毎回通知しないようにする
+ *   通知      … 環境変数 DISCORD_WEBHOOK_URL があるときだけ。実行の失敗は、GitHub Actions 側（sniper.yml）が通知する
+ * ===================================================================== */
+const META_PATH = path.join(__dirname, 'meta.json');
+const readMeta = () => { try { return JSON.parse(fs.readFileSync(META_PATH, 'utf8')); } catch (e) { return {}; } };
+async function notify(text) {
+  const url = process.env.DISCORD_WEBHOOK_URL;
+  if (!url || DRY) return;
+  try {
+    const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: text.slice(0, 1900) }) });
+    if (!res.ok) console.log(` ├─ ⚠️ 通知の送信に失敗しました (HTTP ${res.status})`);
+  } catch (e) { console.log(` ├─ ⚠️ 通知の送信に失敗しました: ${e.message}`); }
+}
+function warnMessage() {
+  const runUrl = process.env.GITHUB_RUN_ID ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}` : '';
+  let body = '', shown = 0;
+  for (const w of warns) { const line = `・${w}\n`; if (body.length + line.length > 1500) break; body += line; shown++; }
+  return `📝 スナイパーから確認のお願い（${warns.length}件）\n${body}${shown < warns.length ? `…ほか${warns.length - shown}件\n` : ''}${runUrl ? `ログ: ${runUrl}` : ''}`;
+}
 
 /* =====================================================================
  * Notion への書き込み（--dry のときは何も書かない）
@@ -628,9 +651,13 @@ async function syncEventsJson() {
   await loadAll();   // 最新の状態を読み直す
   const { events, issues } = buildEvents(S);
   issues.forEach(warn);
-  if (DRY) { console.log(`   [DRY] events.json は作りません（${events.length}件分を生成できました）`); return; }
+  if (DRY) { console.log(`   [DRY] events.json は作りません（${events.length}件分を生成できました）`); return { warnChanged: false }; }
   fs.writeFileSync(path.join(__dirname, 'events.json'), JSON.stringify(events, null, 2), 'utf8');
+  const warnHash = warns.length ? crypto.createHash('sha1').update(warns.join('\n')).digest('hex').slice(0, 12) : '';
+  const prev = readMeta().warnHash || '';
+  fs.writeFileSync(META_PATH, JSON.stringify({ checkedAt: new Date().toISOString(), count: events.length, warnHash }, null, 2), 'utf8');
   console.log(`✅ events.json の同期完了！ (全 ${events.length} 件)`);
+  return { warnChanged: warns.length > 0 && warnHash !== prev };   // 前回と同じ警告なら、通知しない
 }
 
 /* =====================================================================
@@ -722,6 +749,7 @@ async function run() {
     for (const l of links) if (!uniqueUrls.has(l.url)) uniqueUrls.set(l.url, l);
     const articles = Array.from(uniqueUrls.values()).reverse();
     console.log(`抽出対象: ${articles.length}件`);
+    if (!articles.length) { warn('公式サイトのニュース一覧から記事を1件も取得できませんでした（サイトの作りが変わった可能性があります）'); process.exitCode = 1; }
 
     // 取得ログで「再処理」が入っている記事は、ニュース一覧(最新分)に出ていなくても、URLを直接読み込んで再判定する
     const flagged = S.log.pages.filter(p => isOn(p.properties['再処理'])).map(p => propText(p.properties[titleName(S.log.meta)])).filter(u => /^https?:\/\//.test(u));
@@ -794,7 +822,8 @@ async function run() {
       await sleep(12000);
     }
     console.log(`\n🎉 全処理完了！ AIで解析した記事: ${handled}件 / 反映したイベント（延べ件数）: ${processed}件`);
-    await syncEventsJson();
+    const synced = await syncEventsJson();
+    if (synced?.warnChanged) { await notify(warnMessage()); console.log('📣 確認が必要な点を通知しました'); }
   } catch (error) {
     console.error('致命的なエラー:', error); process.exitCode = 1;
   } finally {
@@ -803,6 +832,6 @@ async function run() {
   if (warns.length) { console.log(`\n⚠️ 確認が必要な点 (${warns.length}件)`); warns.forEach(w => console.log(' - ' + w)); }
 }
 
-module.exports = { normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
+module.exports = { notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
   parseLabelDate, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
 if (require.main === module) run();
