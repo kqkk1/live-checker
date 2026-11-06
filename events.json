@@ -436,7 +436,7 @@
     "isSpecialColor": false,
     "schedules": [
       {
-        "label": "Day1: 2027年1月30日(土) [PRODUCER MEETING] 開場16:00 / 開演17:00",
+        "label": "Day1: 1月30日(土) 開場16:00/開演17:00（PRODUCER MEETING in NAGOYA）",
         "castCount": 3,
         "castNames": [
           "灯里愛夏",
@@ -446,17 +446,20 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
       },
       {
-        "label": "Day2 昼公演: 2027年1月31日(日) [LIVE] 開場13:00 / 開演14:00",
-        "castCount": 3,
+        "label": "Day2 昼公演: 1月31日(日) 開場13:00/開演14:00（3rdLIVE in NAGOYA 昼公演）",
+        "castCount": 6,
         "castNames": [
           "灯里愛夏",
           "上水流宇宙",
-          "レトラ"
+          "レトラ",
+          "日高零奈",
+          "東雲和音",
+          "茅野ふたば"
         ],
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9%2C%E6%97%A5%E9%AB%98%E9%9B%B6%E5%A5%88%2C%E6%9D%B1%E9%9B%B2%E5%92%8C%E9%9F%B3%2C%E8%8C%85%E9%87%8E%E3%81%B5%E3%81%9F%E3%81%B0"
       },
       {
-        "label": "Day2 夜公演: 2027年1月31日(日) [LIVE] 開場17:00 / 開演18:00",
+        "label": "Day2 夜公演: 1月31日(日) 開場17:00/開演18:00（3rdLIVE in NAGOYA 夜公演）",
         "castCount": 3,
         "castNames": [
           "灯里愛夏",
@@ -674,7 +677,21 @@
     "isSpecialColor": false,
     "schedules": [
       {
-        "label": "Day1 昼公演: 2027年3月21日(日) [PRODUCER MEETING] 開場13:30 / 開演14:30",
+        "label": "Day1 昼公演: 3月21日(日) 開場13:30/開演14:30（PRODUCER MEETING in TOKYO）",
+        "castCount": 7,
+        "castNames": [
+          "灯里愛夏",
+          "上水流宇宙",
+          "レトラ",
+          "姫乃みえる",
+          "真未夢メエ",
+          "和央パリン",
+          "凛堂たいむ"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9%2C%E5%A7%AB%E4%B9%83%E3%81%BF%E3%81%88%E3%82%8B%2C%E7%9C%9F%E6%9C%AA%E5%A4%A2%E3%83%A1%E3%82%A8%2C%E5%92%8C%E5%A4%AE%E3%83%91%E3%83%AA%E3%83%B3%2C%E5%87%9B%E5%A0%82%E3%81%9F%E3%81%84%E3%82%80"
+      },
+      {
+        "label": "Day1 夜公演: 3月21日(日) 開場17:30/開演18:30（3rdLIVE in TOKYO Day1）",
         "castCount": 3,
         "castNames": [
           "灯里愛夏",
@@ -684,17 +701,7 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
       },
       {
-        "label": "Day1 夜公演: 2027年3月21日(日) [LIVE] 開場17:30 / 開演18:30",
-        "castCount": 3,
-        "castNames": [
-          "灯里愛夏",
-          "上水流宇宙",
-          "レトラ"
-        ],
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
-      },
-      {
-        "label": "Day2: 2027年3月22日(月・祝) [LIVE] 開場15:30 / 開演16:30",
+        "label": "Day2: 3月22日(月・祝) 開場15:30/開演16:30（3rdLIVE in TOKYO Day2）",
         "castCount": 3,
         "castNames": [
           "灯里愛夏",
