@@ -69,6 +69,44 @@
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97%2C%E9%9B%A8%E5%A4%9C%E7%87%95"
       }
+    ],
+    "merch": [
+      {
+        "kind": "会場物販",
+        "name": "会場物販",
+        "url": "https://qo-kun.com/gkmas/",
+        "start": "",
+        "end": "",
+        "lottery": "",
+        "dates": "2026年11月7日(土) 10:00～17:00\n2026年11月8日(日) 10:00～17:00",
+        "place": "Kアリーナ横浜 物販特設テント",
+        "seiriken": "11/7(土) 10:00〜11:00頃\n11/8(日) 10:00〜11:00頃",
+        "free": "11/7(土) 11:00頃〜17:00\n11/8(日) 11:00頃〜17:00"
+      },
+      {
+        "kind": "整理券",
+        "name": "物販整理券",
+        "url": "https://asobiticket2.asobistore.jp/receptions/c46aa4c6-9e9f-46b8-ba12-1d536ec1d101",
+        "start": "2026-10-23T13:00:00.000+09:00",
+        "end": "2026-10-28T23:59:00.000+09:00",
+        "lottery": "2026-11-03T13:00:00.000+09:00",
+        "dates": "",
+        "place": "",
+        "seiriken": "",
+        "free": ""
+      },
+      {
+        "kind": "事前販売",
+        "name": "ファイナル公演 事前販売 ファイナル",
+        "url": "https://shop.asobistore.jp/feature/gkmas_livetourshirube_final/",
+        "start": "2026-08-06",
+        "end": "2026-08-16",
+        "lottery": "",
+        "dates": "",
+        "place": "",
+        "seiriken": "",
+        "free": ""
+      }
     ]
   },
   {
@@ -164,6 +202,32 @@
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B8%8B%E8%B0%B7%E5%87%9B%2C%E7%99%BD%E9%9B%AA%E5%8D%83%E5%A4%9C%2C%E4%BA%8C%E5%AE%AE%E9%A3%9B%E9%B3%A5%2C%E5%A4%9A%E7%94%B0%E6%9D%8E%E8%A1%A3%E8%8F%9C%2C%E9%80%9F%E6%B0%B4%E5%A5%8F%2C%E6%A1%90%E7%94%9F%E3%81%A4%E3%81%8B%E3%81%95%2C%E6%9D%BE%E6%B0%B8%E6%B6%BC%2C%E4%B8%89%E8%88%B9%E7%BE%8E%E5%84%AA%2C%E7%A5%9E%E8%B0%B7%E5%A5%88%E7%B7%92%2C%E5%A4%A7%E5%92%8C%E4%BA%9C%E5%AD%A3%2C%E5%8D%97%E6%9D%A1%E5%85%89%2C%E6%98%9F%E8%BC%9D%E5%AD%90%2C%E6%9C%A8%E6%9D%91%E5%A4%8F%E6%A8%B9%2C%E9%96%A2%E8%A3%95%E7%BE%8E%2C%E8%A5%BF%E5%9C%92%E5%AF%BA%E7%90%B4%E6%AD%8C%2C%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E5%AE%89%E9%83%A8%E8%8F%9C%E3%80%85%2C%E6%A3%AE%E4%B9%85%E4%BF%9D%E4%B9%83%E3%80%85%2C%E6%9C%9B%E6%9C%88%E8%81%96%2C%E5%8C%97%E6%9D%A1%E5%8A%A0%E8%93%AE%2C%E5%96%9C%E5%A4%9A%E8%A6%8B%E6%9F%9A%2C%E6%9D%91%E4%B8%8A%E5%B7%B4%2C%E5%90%91%E4%BA%95%E6%8B%93%E6%B5%B7%2C%E5%96%9C%E5%A4%9A%E6%97%A5%E8%8F%9C%E5%AD%90%2C%E3%82%A4%E3%83%B4%E3%83%BB%E3%82%B5%E3%83%B3%E3%82%BF%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B9"
       }
+    ],
+    "merch": [
+      {
+        "kind": "事前販売",
+        "name": "総選挙2026公式グッズ",
+        "url": "https://shop.asobistore.jp/feature/cg_vote2026_goods",
+        "start": "",
+        "end": "2026-09-13",
+        "lottery": "",
+        "dates": "",
+        "place": "",
+        "seiriken": "",
+        "free": ""
+      },
+      {
+        "kind": "事前販売",
+        "name": "イベントグッズ事前販売",
+        "url": "https://shop.asobistore.jp/feature/cg_15th_for_your_one",
+        "start": "",
+        "end": "2026-09-13",
+        "lottery": "",
+        "dates": "",
+        "place": "",
+        "seiriken": "",
+        "free": ""
+      }
     ]
   },
   {
@@ -250,7 +314,8 @@
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B8%82%E5%8E%9F%E4%BB%81%E5%A5%88%2C%E9%BE%8D%E5%B4%8E%E8%96%AB%2C%E8%B5%A4%E5%9F%8E%E3%81%BF%E3%82%8A%E3%81%82%2C%E6%A4%8E%E5%90%8D%E6%B3%95%E5%AD%90%2C%E6%B5%85%E5%88%A9%E4%B8%83%E6%B5%B7%2C%E4%BD%90%E5%9F%8E%E9%9B%AA%E7%BE%8E%2C%E5%B7%9D%E5%B3%B6%E7%91%9E%E6%A8%B9%2C%E4%BD%90%E8%97%A4%E5%BF%83%2C%E9%AB%98%E5%9E%A3%E6%A5%93%2C%E4%B8%89%E8%88%B9%E7%BE%8E%E5%84%AA%2C%E5%A4%A7%E5%92%8C%E4%BA%9C%E5%AD%A3%2C%E9%B7%B9%E5%AF%8C%E5%A3%AB%E8%8C%84%E5%AD%90%2C%E7%AF%A0%E5%8E%9F%E7%A4%BC%2C%E8%B2%A1%E5%89%8D%E6%99%82%E5%AD%90%2C%E9%AB%98%E6%A9%8B%E7%A4%BC%E5%AD%90%2C%E6%9F%8A%E5%BF%97%E4%B9%83%2C%E9%BB%92%E5%B7%9D%E5%8D%83%E7%A7%8B%2C%E6%9D%B1%E9%83%B7%E3%81%82%E3%81%84%2C%E6%B1%A0%E8%A2%8B%E6%99%B6%E8%91%89"
       }
-    ]
+    ],
+    "merch": []
   },
   {
     "id": "3fc17392-1f2b-814d-85d9-feaae3a8339e",
@@ -351,6 +416,32 @@
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%9C%92%E7%94%B0%E6%99%BA%E4%BB%A3%E5%AD%90%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D%2C%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF&special=1"
       }
+    ],
+    "merch": [
+      {
+        "kind": "事前販売",
+        "name": "協賛社グッズ 2026年9月17日(木)～10月4日(日)",
+        "url": "https://shop.asobistore.jp/feature/sc_refrac7ions_still_blue_p",
+        "start": "",
+        "end": "",
+        "lottery": "",
+        "dates": "",
+        "place": "",
+        "seiriken": "",
+        "free": ""
+      },
+      {
+        "kind": "事前販売",
+        "name": "イベントグッズ事前販売ファイナル 2026年9月17日(木)～10月4日(日)",
+        "url": "https://shop.asobistore.jp/feature/sc_refrac7ions_still_blue",
+        "start": "",
+        "end": "2026-10-04",
+        "lottery": "",
+        "dates": "",
+        "place": "",
+        "seiriken": "",
+        "free": ""
+      }
     ]
   },
   {
@@ -403,7 +494,8 @@
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%A5%BF%E5%9C%92%E5%AF%BA%E7%90%B4%E6%AD%8C%2C%E5%8C%97%E6%9D%A1%E5%8A%A0%E8%93%AE%2C%E7%9B%B8%E8%91%89%E5%A4%95%E7%BE%8E"
       }
-    ]
+    ],
+    "merch": []
   },
   {
     "id": "3ff17392-1f2b-8176-aeb2-f56310488ffe",
@@ -468,7 +560,8 @@
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
       }
-    ]
+    ],
+    "merch": []
   },
   {
     "id": "3fd17392-1f2b-81cc-8bf0-c1729b12df50",
@@ -542,6 +635,20 @@
           "橘ありす"
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E4%BD%90%E4%B9%85%E9%96%93%E3%81%BE%E3%82%86%2C%E6%A9%98%E3%81%82%E3%82%8A%E3%81%99"
+      }
+    ],
+    "merch": [
+      {
+        "kind": "事前販売",
+        "name": "公式グッズ事前販売はこちら",
+        "url": "https://shop.asobistore.jp/feature/cg_apai",
+        "start": "",
+        "end": "2026-11-29",
+        "lottery": "",
+        "dates": "",
+        "place": "",
+        "seiriken": "",
+        "free": ""
       }
     ]
   },
@@ -651,7 +758,53 @@
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88%2C%E9%BB%92%E5%9F%BC%E3%81%A1%E3%81%A8%E3%81%9B%2C%E5%AE%AE%E6%9C%AC%E3%83%95%E3%83%AC%E3%83%87%E3%83%AA%E3%82%AB%2C%E5%B0%8F%E6%97%A5%E5%90%91%E7%BE%8E%E7%A9%82%2C%E7%B5%90%E5%9F%8E%E6%99%B4%2C%E6%9D%BE%E6%B0%B8%E6%B6%BC%2C%E4%B8%89%E8%88%B9%E7%BE%8E%E5%84%AA%2C%E7%A5%9E%E8%B0%B7%E5%A5%88%E7%B7%92%2C%E6%97%A5%E9%87%8E%E8%8C%9C%2C%E5%A0%80%E8%A3%95%E5%AD%90%2C%E4%BE%9D%E7%94%B0%E8%8A%B3%E4%B9%83%2C%E4%B9%85%E5%B7%9D%E5%87%AA%2C%E5%96%9C%E5%A4%9A%E6%97%A5%E8%8F%9C%E5%AD%90%2C%E5%A4%A7%E6%A7%BB%E5%94%AF%2C%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5%2C%E4%BC%8A%E5%90%B9%E7%BF%BC%2C%E5%BE%B3%E5%B7%9D%E3%81%BE%E3%81%A4%E3%82%8A%2C%E3%83%AD%E3%82%B3%2C%E9%AB%98%E5%B1%B1%E7%B4%97%E4%BB%A3%E5%AD%90%2C%E5%A4%A9%E7%A9%BA%E6%A9%8B%E6%9C%8B%E8%8A%B1%2C%E6%A8%AA%E5%B1%B1%E5%A5%88%E7%B7%92%2C%E9%A6%AC%E5%A0%B4%E3%81%93%E3%81%AE%E3%81%BF%2C%E8%B1%8A%E5%B7%9D%E9%A2%A8%E8%8A%B1%2C%E7%9C%9F%E5%A3%81%E7%91%9E%E5%B8%8C%2C%E6%B0%B8%E5%90%89%E6%98%B4%2C%E5%8C%97%E4%B8%8A%E9%BA%97%E8%8A%B1%2C%E7%99%BD%E7%9F%B3%E7%B4%AC%2C%E6%A1%9C%E5%AE%88%E6%AD%8C%E7%B9%94"
       }
-    ]
+    ],
+    "merch": []
+  },
+  {
+    "id": "41117392-1f2b-81e9-81fd-ef04a146fb52",
+    "icon": "🤝",
+    "title": "SideMプロミ2027",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "アソビストアプレミアム会員2次先行",
+    "phaseKind": "抽選",
+    "applyStartDate": "2026-11-05T12:00:00.000+09:00",
+    "deadline": "2026-11-26T23:59:00.000+09:00",
+    "lotteryDate": "",
+    "slots": [
+      {
+        "name": "アソビストアプレミアム会員2次先行",
+        "kind": "抽選",
+        "start": "2026-11-05T12:00:00.000+09:00",
+        "end": "2026-11-26T23:59:00.000+09:00",
+        "lottery": ""
+      }
+    ],
+    "eventDateStart": "2027-03-13",
+    "eventDateEnd": "2027-03-14",
+    "officialUrl": "https://idolmaster-official.jp/live_event/sidem_pm2027/",
+    "venue": "京王アリーナTOKYO",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO",
+    "accessUrl": "https://www.google.com/search?q=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "飛田給駅（京王線）徒歩約5分、新宿駅より電車で約20〜25分",
+    "isSpecialColor": false,
+    "schedules": [
+      {
+        "label": "Day1: 3月13日(土) 開場16:00/開演17:00",
+        "castCount": 0,
+        "castNames": [],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 3月14日(日) 開場15:30/開演16:30",
+        "castCount": 0,
+        "castNames": [],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
   },
   {
     "id": "3ff17392-1f2b-8141-a1c4-ef05576e23b9",
@@ -717,7 +870,8 @@
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
       }
-    ]
+    ],
+    "merch": []
   },
   {
     "id": "40317392-1f2b-8003-bcef-d2ad6a6a9d8c",
@@ -771,7 +925,63 @@
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB"
       }
-    ]
+    ],
+    "merch": []
+  },
+  {
+    "id": "41117392-1f2b-8186-8916-f4cf788e5dce",
+    "icon": "🎤",
+    "title": "LP noctchill",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "アソビストア一般会員先行",
+    "phaseKind": "抽選",
+    "applyStartDate": "2026-11-07T12:00:00.000+09:00",
+    "deadline": "2026-12-01T23:59:00.000+09:00",
+    "lotteryDate": "2026-12-12",
+    "slots": [
+      {
+        "name": "アソビストア一般会員先行",
+        "kind": "抽選",
+        "start": "2026-11-07T12:00:00.000+09:00",
+        "end": "2026-12-01T23:59:00.000+09:00",
+        "lottery": "2026-12-12"
+      }
+    ],
+    "eventDateStart": "2027-03-27",
+    "eventDateEnd": "2027-03-28",
+    "officialUrl": "https://idolmaster-official.jp/live_event/283_noctchill/",
+    "venue": "ゼビオアリーナ仙台",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%82%BC%E3%83%93%E3%82%AA%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E4%BB%99%E5%8F%B0",
+    "accessUrl": "https://www.google.com/search?q=%E3%82%BC%E3%83%93%E3%82%AA%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E4%BB%99%E5%8F%B0%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "長町駅 徒歩約5分、仙台駅 電車+徒歩約10分",
+    "isSpecialColor": false,
+    "schedules": [
+      {
+        "label": "Day1: 2027年3月27日(土)",
+        "castCount": 4,
+        "castNames": [
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C"
+      },
+      {
+        "label": "Day2: 2027年3月28日(日)",
+        "castCount": 4,
+        "castNames": [
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C"
+      }
+    ],
+    "merch": []
   },
   {
     "id": "40317392-1f2b-8035-a390-c9790e2e057d",
@@ -871,7 +1081,8 @@
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9%2C%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C"
       }
-    ]
+    ],
+    "merch": []
   },
   {
     "id": "40317392-1f2b-8014-b1d1-cdd6282351c6",
@@ -957,6 +1168,7 @@
         ],
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E6%B5%B7%E6%98%A5%E9%A6%99%2C%E5%A6%82%E6%9C%88%E5%8D%83%E6%97%A9%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9%2C%E6%98%9F%E4%BA%95%E7%BE%8E%E5%B8%8C%2C%E5%9B%9B%E6%9D%A1%E8%B2%B4%E9%9F%B3%2C%E6%88%91%E9%82%A3%E8%A6%87%E9%9F%BF%2C%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E5%BE%A1%E6%89%8B%E6%B4%97%E7%BF%94%E5%A4%AA"
       }
-    ]
+    ],
+    "merch": []
   }
 ]
