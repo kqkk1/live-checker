@@ -87,6 +87,12 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 .toast.on{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
 .toast button{min-height:44px;padding:0 12px;color:var(--accent);font-weight:800;white-space:nowrap}
 .stale{color:var(--warn)}
+.mrow{display:flex;gap:10px;align-items:flex-start;margin-top:12px}
+.mrow .badge{flex:none;margin-top:2px}
+.mrow.done{opacity:.55}
+.mtime{margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--bg);font-size:13px;line-height:1.6}
+.mtime .mt{display:block;color:var(--muted);font-size:12px;font-weight:700;margin-bottom:2px}
+.btn.sm{display:inline-block;padding:8px 14px;margin-top:6px;font-size:13px}
 .foot{max-width:1180px;margin:0 auto;padding:0 16px 40px}
 .dlist{display:flex;flex-direction:column;gap:8px;padding-bottom:60px}
 .mh{font-size:13px;color:var(--muted);margin:14px 0 2px;padding-bottom:4px;border-bottom:1px solid var(--line)}
@@ -306,6 +312,27 @@ function slotBlock(ev) {   // 受付枠が2つ以上あるイベントだけ、�
   return `<div class="sec"><h4>受付の流れ</h4>${rows}</div>`;
 }
 
+/* ---- 物販（会場物販のデジタル注文書・整理券・事前販売）---- */
+function merchBlock(ev) {
+  const items = (ev.merch || []).filter(x => x && x.kind);
+  if (!items.length) return '';
+  const end = (ev.eventDateEnd || ev.eventDateStart || '').slice(0, 10);
+  if (end && end < new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'})) return '';   // 終わったライブでは出さない
+  const range = x => x.start && x.end ? `${fmt(ms(x.start))} 〜 ${fmt(ms(x.end))}` : x.start ? `${fmt(ms(x.start))} 〜` : x.end ? `〜 ${fmt(ms(x.end))}` : '';
+  const badge = x => { const ph = phase({applyStartDate: x.start, deadline: x.end}); return ph === 'tbd' ? '' : `<span class="badge ${ph}">${{open:'受付中', urgent:'締切間近', before:'受付前', closed:'終了'}[ph]}</span>`; };
+  const link = (x, label) => x.url ? `<a class="btn sm" href="${esc(x.url)}" target="_blank" rel="noopener">${label}</a>` : '';
+  const lines = t => (t || '').split('\n').map(l => l.trim()).filter(Boolean);
+  const site = items.filter(x => x.kind === '会場物販').map(x => `<div class="mrow"><div><b>会場物販</b>
+      ${lines(x.dates).map(l => `<div class="sub">${esc(l)}</div>`).join('')}${x.place ? `<div class="sub">📍 ${esc(x.place)}</div>` : ''}
+      ${lines(x.seiriken).length ? `<div class="mtime"><span class="mt">🎫 整理券の方（当選者）</span>${lines(x.seiriken).map(l => `<div>${esc(l)}</div>`).join('')}</div>` : ''}
+      ${lines(x.free).length ? `<div class="mtime"><span class="mt">🚶 フリー（整理券なし）</span>${lines(x.free).map(l => `<div>${esc(l)}</div>`).join('')}<div class="sub">※ 時間は予定・目安です。当日の状況により変わります</div></div>` : ''}
+      ${link(x, 'デジタル注文書を開く ↗')}</div></div>`).join('');
+  const sei = items.filter(x => x.kind === '整理券').map(x => `<div class="mrow">${badge(x)}<div><b>${esc(x.name || '物販整理券')}</b><div class="sub">${esc(range(x))}${x.lottery ? `　当落発表 ${esc(fmt(ms(x.lottery)))}` : ''}</div>${link(x, '整理券の受付ページ ↗')}</div></div>`).join('');
+  const pre = items.filter(x => x.kind === '事前販売').map(x => `<div class="mrow ${phase({applyStartDate: x.start, deadline: x.end}) === 'closed' ? 'done' : ''}">${badge(x)}<div><b>${esc(x.name || '事前販売')}</b>${range(x) ? `<div class="sub">${esc(range(x))}</div>` : '<div class="sub">期間は公式で確認</div>'}${link(x, '事前販売ページを開く ↗')}</div></div>`).join('');
+  if (!site && !sei && !pre) return '';
+  return `<div class="sec"><h4>物販</h4>${site}${sei}${pre}<p class="sub" style="margin-top:10px">※ 物販の日時・内容は変更されることがあります。公式サイトでご確認ください</p></div>`;
+}
+
 function matchTab(ev, ph, st) {
   if (tab === 'now') return (ph === 'open' || ph === 'urgent') && !allSkip(ev);
   if (tab === 'before') return (ph === 'before' || ph === 'tbd') && !allSkip(ev);
@@ -471,6 +498,7 @@ function renderSheet(id) {
       ${ev.nearestStation ? `<dt>最寄り駅</dt><dd>${esc(ev.nearestStation)}</dd>` : ''}
       <dt>リンク</dt><dd>${ev.mapUrl ? `<a href="${esc(ev.mapUrl)}" target="_blank" rel="noopener">地図</a>` : ''}　${ev.accessUrl ? `<a href="${esc(ev.accessUrl)}" target="_blank" rel="noopener">アクセス</a>` : ''}</dd></dl>
       ${perfCal ? `<a class="btn" href="${esc(perfCal)}" target="_blank" rel="noopener">公演日をGoogleカレンダーに登録</a>` : ''}</div>
+    ${merchBlock(ev)}
     <div class="sec"><h4>公演日程とペンライト</h4>${(ev.schedules || []).map(sc => {
       const sp = ev.isSpecialColor || (sc.penlightUrl || '').includes('special=1'), n = sc.castCount || (sc.castNames || []).length;
       return `<div class="sched"><b>${esc(sc.label)}</b>
