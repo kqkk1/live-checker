@@ -46,6 +46,7 @@ jobs:
           NOTION_SLOT_DB_ID: ${{ secrets.NOTION_SLOT_DB_ID }}
           NOTION_SCHEDULE_DB_ID: ${{ secrets.NOTION_SCHEDULE_DB_ID }}
           NOTION_LOG_DB_ID: ${{ secrets.NOTION_LOG_DB_ID }}
+          NOTION_MERCH_DB_ID: ${{ secrets.NOTION_MERCH_DB_ID }}   # 任意。未設定なら、物販情報の取得は行われません
           NOTION_APPLICATION_DB_ID: ${{ secrets.NOTION_APPLICATION_DB_ID }}
           APPLICANTS: ${{ secrets.APPLICANTS }}   # 任意。未設定なら、申込記録の自動作成は行われません
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}   # 任意。未設定なら、通知は送られません
