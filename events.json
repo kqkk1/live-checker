@@ -484,6 +484,13 @@
     "lotteryDate": "2026-10-31",
     "slots": [
       {
+        "name": "アソビストア一般会員先行",
+        "kind": "抽選",
+        "start": "",
+        "end": "",
+        "lottery": ""
+      },
+      {
         "name": "アソビストアプレミアム会員先行",
         "kind": "抽選",
         "start": "2026-09-28T21:30:00.000+09:00",
@@ -501,7 +508,7 @@
     "isSpecialColor": false,
     "schedules": [
       {
-        "label": "Day1: 2027年2月13日(土) 開場18:00 / 開演19:00",
+        "label": "Day1: 2月13日(土) 開場18:00/開演19:00（山形愛♡果物愛♡いろんな愛を産地直送♡）",
         "castCount": 5,
         "castNames": [
           "辻野あかり",
@@ -513,7 +520,7 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E4%BD%90%E4%B9%85%E9%96%93%E3%81%BE%E3%82%86%2C%E6%A9%98%E3%81%82%E3%82%8A%E3%81%99"
       },
       {
-        "label": "Day2 昼公演: 2027年2月14日(日) 開場11:30 / 開演12:30",
+        "label": "Day2 昼公演: 2月14日(日) 開場11:30/開演12:30（甘ずっぱーい♡愛♡でココロ高まれ♡）",
         "castCount": 5,
         "castNames": [
           "辻野あかり",
@@ -525,7 +532,7 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E4%BD%90%E4%B9%85%E9%96%93%E3%81%BE%E3%82%86%2C%E6%A9%98%E3%81%82%E3%82%8A%E3%81%99"
       },
       {
-        "label": "Day2 夜公演: 2027年2月14日(日) 開場16:30 / 開演17:30",
+        "label": "Day2 夜公演: 2月14日(日) 開場16:30/開演17:30（ハッピーバレンタイン♡珠玉の「大好き♡」狩り放題♡）",
         "castCount": 5,
         "castNames": [
           "辻野あかり",
