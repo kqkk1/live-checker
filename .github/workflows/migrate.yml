@@ -4,11 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       script:
-        description: '実行するスクリプト。migrate.js = 公演日程・受付枠の作成と紐づけ / finish.js = 仕上げ（金額列・空白行・列名の整理） / all = 続けて両方'
+        description: '実行するスクリプト。migrate.js = 公演日程・受付枠の作成と紐づけ / finish.js = 仕上げ（金額列・空白行・列名の整理） / setup-merch.js = 物販DBの作成 / all = migrate.js と finish.js を続けて'
         type: choice
         options:
           - migrate.js
           - finish.js
+          - setup-merch.js
           - all
         default: migrate.js
       mode:
@@ -46,6 +47,7 @@ jobs:
           NOTION_LOG_DB_ID: ${{ secrets.NOTION_LOG_DB_ID }}
           NOTION_SCHEDULE_DB_ID: ${{ secrets.NOTION_SCHEDULE_DB_ID }}
           NOTION_PARENT_PAGE_ID: ${{ secrets.NOTION_PARENT_PAGE_ID }}
+          NOTION_MERCH_DB_ID: ${{ secrets.NOTION_MERCH_DB_ID }}
         run: |
           fargs=()
           if [ "$MODE" = "apply" ]; then fargs+=(--apply); fi
@@ -54,5 +56,6 @@ jobs:
           case "$SCRIPT" in
             migrate.js) node migrate.js "${margs[@]}" ;;
             finish.js)  node finish.js "${fargs[@]}" ;;
+            setup-merch.js) node setup-merch.js "${fargs[@]}" ;;
             all)        node migrate.js "${margs[@]}" && node finish.js "${fargs[@]}" ;;
           esac
