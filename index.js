@@ -18,6 +18,7 @@ const { Client } = require('@notionhq/client');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const merch = require('./merch.js');
 
 const DRY = process.argv.includes('--dry');
 const MAX = Number((process.argv.find(a => a.startsWith('--max=')) || '').slice(6)) || Infinity;
@@ -26,6 +27,7 @@ const ENV = {
   slot: process.env.NOTION_SLOT_DB_ID,
   sched: process.env.NOTION_SCHEDULE_DB_ID,
   log: process.env.NOTION_LOG_DB_ID,
+  merch: process.env.NOTION_MERCH_DB_ID,   // 任意。未設定なら、物販情報の機能は動かない
 };
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 // （任意）新しい受付枠ができたら、申込記録の行を自動で作る。NOTION_APPLICATION_DB_ID と APPLICANTS が両方あるときだけ有効
@@ -127,6 +129,14 @@ async function notify(text) {
     const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: text.slice(0, 1900) }) });
     if (!res.ok) console.log(` ├─ ⚠️ 通知の送信に失敗しました (HTTP ${res.status})`);
   } catch (e) { console.log(` ├─ ⚠️ 通知の送信に失敗しました: ${e.message}`); }
+}
+const news = [];   // この実行で見つかった新着（新しいライブ・受付枠・日程の変更）。最後にまとめて通知する
+const fmtJ = iso => { if (!iso) return ''; const d = new Date(iso); if (isNaN(d)) return iso; const t = iso.includes('T');
+  return d.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', month: 'numeric', day: 'numeric', weekday: 'short', ...(t ? { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' } : {}) }); };
+function newsMessage() {
+  let body = '', shown = 0;
+  for (const n of news) { const line = `${n}\n`; if (body.length + line.length > 1700) break; body += line; shown++; }
+  return `🆕 新着情報（${news.length}件）\n${body}${shown < news.length ? `…ほか${news.length - shown}件` : ''}`;
 }
 function warnMessage() {
   const runUrl = process.env.GITHUB_RUN_ID ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}` : '';
@@ -314,7 +324,7 @@ function pickCurrent(slots, now = Date.now()) {
 /* =====================================================================
  * Notion 4DB の読み込み
  * ===================================================================== */
-const S = { live: null, slot: null, sched: null, log: null };
+const S = { live: null, slot: null, sched: null, log: null, merch: null };
 async function loadDb(id) {
   const meta = await api(() => notion.databases.retrieve({ database_id: id }));
   return { id, meta, pages: await queryAll(id), rel: {} };
@@ -323,6 +333,8 @@ async function loadAll() {
   for (const [k, v] of Object.entries({ NOTION_DB_ID: ENV.live, NOTION_SLOT_DB_ID: ENV.slot, NOTION_SCHEDULE_DB_ID: ENV.sched, NOTION_LOG_DB_ID: ENV.log }))
     if (!v) throw new Error(`${k} が未設定です（GitHubのSecretsと、ワークフローのenvを確認してください）`);
   S.live = await loadDb(ENV.live); S.slot = await loadDb(ENV.slot); S.sched = await loadDb(ENV.sched); S.log = await loadDb(ENV.log);
+  S.merch = ENV.merch ? await loadDb(ENV.merch) : null;
+  if (S.merch) { S.merch.rel.live = relName(S.merch.meta, 'ライブ'); if (!S.merch.rel.live) throw new Error('物販DBに、ライブへのリレーション列がありません'); }
   S.slot.rel.live = relName(S.slot.meta, 'ライブ');
   S.sched.rel.live = relName(S.sched.meta, 'ライブ');
   S.log.rel.live = relName(S.log.meta, 'ライブ');
@@ -446,6 +458,7 @@ async function applyEvent(ev, article) {
     put(meta, props, '最終自動更新', new Date().toISOString());
     live = await W.create({ parent: { database_id: S.live.id }, icon: { type: 'emoji', emoji }, properties: props });
     replacePage(S.live, live); created = true; bodyChanged = true;
+    news.push(`⭐ 新しいライブ: ${short}（${ev.live_date || '日付未定'}${venue && venue !== '未定' ? ` / ${venue}` : ''}）\n　記事: ${article.url}`);
     console.log(` ├─ ⭐ 新規登録: ${emoji}『${short}』（${ev.live_date || '日付未定'}〜${ev.live_end_date || ev.live_date || ''}${special ? ' / 🎨特別カラー' : ''}）`);
   } else if (!isLocked(live)) {
     const props = {};
@@ -491,6 +504,7 @@ async function applyEvent(ev, article) {
       if (!pg.__dry) newSlot = { page: pg, tier };
       if (!pg.__dry) replacePage(S.slot, pg); else S.slot.pages.push({ id: pg.id, properties: Object.fromEntries(Object.entries(props).map(([k]) => [k, null])) , __dry: true });
       console.log(` ├─ 🎫 受付枠を追加: ${tier}（${kind}）`);
+      news.push(`🎫 新しい受付: ${liveTitle}｜${tier}（${kind}）\n　受付: ${fmtJ(start) || '未定'}${end ? ` 〜 ${fmtJ(end)}` : ' 〜'}${lot ? `　当落発表 ${fmtJ(lot)}` : ''}\n　記事: ${article.url}`);
     } else if (!isLocked(existing)) {
       const props = {};
       const changes = [];
@@ -501,6 +515,7 @@ async function applyEvent(ev, article) {
         put(sm, props, '取得元記事URL', article.url); put(sm, props, '最終自動更新', new Date().toISOString());
         const u = await W.update({ page_id: existing.id, properties: props }); if (u) replacePage(S.slot, u);
         console.log(` ├─ 🎫 受付枠を更新: ${tier}（${changes.join('・')}）`);
+        news.push(`🔄 受付の日程が変わりました: ${liveTitle}｜${tier}（${changes.join('・')}）\n　受付: ${fmtJ(start || dateStart(existing, '受付開始')) || '未定'}${(end || dateStart(existing, '締切')) ? ` 〜 ${fmtJ(end || dateStart(existing, '締切'))}` : ' 〜'}\n　記事: ${article.url}`);
       } else console.log(` ├─ 🎫 受付枠は変更なし: ${tier}`);
     } else console.log(` ├─ 🔒 受付枠「${tier}」はロック中のため更新しません`);
   }
@@ -528,6 +543,7 @@ async function applyEvent(ev, article) {
       const pg = await W.create({ parent: { database_id: S.sched.id }, properties: props });
       replacePage(S.sched, pg.__dry ? { id: pg.id, properties: { 'ライブ': { relation: [{ id: live.id }] }, 'Day': { type: 'rich_text', rich_text: [{ plain_text: key }] }, '出演者': { type: 'rich_text', rich_text: [{ plain_text: cast.join(',') }] }, '表示ラベル': { type: 'rich_text', rich_text: [{ plain_text: text }] } } } : pg);
       schedChanged = true; console.log(` ├─ 📅 公演を追加: ${key}（出演 ${cast.length}名）`);
+      if (!created) news.push(`📅 公演が追加されました: ${liveTitle} ${key}${d ? `（${fmtJ(d.date)}）` : ''}`);
     } else {
       const props = {}, changes = [];
       const oldCast = cleanCastList(propText(row.properties['出演者']).split(','));
@@ -540,6 +556,7 @@ async function applyEvent(ev, article) {
       if (changes.length) {
         const u = await W.update({ page_id: row.id, properties: props }); if (u) replacePage(S.sched, u);
         schedChanged = true; console.log(` ├─ 📅 公演を更新: ${key}（${changes.join('・')}）`);
+        if (merged.length > oldCast.length) news.push(`🎤 出演者が追加されました: ${liveTitle} ${key}（${oldCast.length}名 → ${merged.length}名）`);
       }
     }
   }
@@ -573,6 +590,142 @@ async function applyEvent(ev, article) {
 }
 
 /* =====================================================================
+ * 物販情報（会場物販のデジタル注文書・整理券・事前販売）
+ *   公式特設サイトの GOODS ページを読み、物販DBに反映する。事前販売の期間は、販売ページを読んでAIで抽出する
+ * ===================================================================== */
+let _mh = null;
+const merchHashes = () => (_mh = _mh || (readMeta().merch || {}));   // 事前販売ページの内容のハッシュ（変わったときだけAIを呼ぶ）
+const sha = t => crypto.createHash('sha1').update(String(t)).digest('hex').slice(0, 12);
+async function askGemini(prompt) {
+  const res = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.1, responseMimeType: 'application/json', maxOutputTokens: 2048 } }) });
+  if (!res) return null;
+  const j = await res.json(); const raw = j.candidates?.[0]?.content?.parts?.[0]?.text; if (!raw) return null;
+  try { const m = raw.match(/\{[\s\S]*\}/); return JSON.parse(m ? m[0] : raw); } catch (e) { return null; }
+}
+let ai = askGemini;
+const setAI = f => { ai = f; };
+
+async function grab(page, url) {   // ページを開いて、本文・リンク一覧を取る（「リダイレクト中」のページは、移動先が開くまで待つ）
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await page.waitForTimeout(1500);
+  for (let i = 0; i < 3 && /リダイレクト中/.test(await page.title()); i++) await page.waitForTimeout(2000);
+  return page.evaluate(() => ({
+    title: document.title, url: location.href,
+    text: (document.querySelector('main, article, #main') || document.body).innerText,
+    anchors: Array.from(document.querySelectorAll('a')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })),
+  }));
+}
+const isNotFound = g => !g || /404|Not Found|見つかりません/i.test(g.title || '') || String(g.text || '').length < 200;
+
+const mKind = p => propText(p.properties['種別']);
+const mName = p => propText(p.properties['名称']);
+const merchRows = liveId => S.merch.pages.filter(p => relIds(p, S.merch.rel.live).includes(liveId));
+const nowJST = () => new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
+
+/** 物販DBに1件を反映（なければ追加、あれば変わった項目だけ更新）。ロック中の行は触らない */
+async function upsertMerch(live, item, sourceUrl, opts = {}) {
+  const mm = S.merch.meta, liveTitle = titleOf(live, S.live.meta);
+  const rows = merchRows(live.id).filter(p => mKind(p) === item.kind);
+  const byUrl = () => (item.url ? rows.find(p => propText(p.properties['URL']) === item.url) : null);
+  const byName = () => rows.find(p => merch.sameName(mName(p), item.name));
+  let row = opts.rowHint || null;
+  if (!row) row = item.kind !== '事前販売' ? (rows[0] || null) : (opts.order === 'name' ? (byName() || null) : (byUrl() || byName() || null));
+  const start = toNotionDate(item.start), end = toNotionDate(item.end), lot = toNotionDate(item.lottery);
+  const label = item.kind === '事前販売' ? ` ${item.name}` : '';
+  if (!row) {
+    const props = {};
+    put(mm, props, titleName(mm), `${liveTitle}｜${item.kind}${label}`); put(mm, props, S.merch.rel.live, [live.id]);
+    put(mm, props, '種別', item.kind); put(mm, props, '名称', item.name || item.kind); put(mm, props, 'URL', item.url || '');
+    if (start) put(mm, props, '開始', start); if (end) put(mm, props, '締切', end); if (lot) put(mm, props, '当落発表', lot);
+    if (item.dates) put(mm, props, '物販日時', item.dates); if (item.place) put(mm, props, '場所', item.place);
+    if (item.seiriken) put(mm, props, '整理券の時間帯', item.seiriken); if (item.free) put(mm, props, 'フリーの時間帯', item.free);
+    put(mm, props, '取得元', sourceUrl || ''); put(mm, props, '最終自動更新', new Date().toISOString());
+    const pg = await W.create({ parent: { database_id: S.merch.id }, properties: props });
+    if (!pg.__dry) replacePage(S.merch, pg);
+    console.log(` ├─ 🛍 物販を追加: ${liveTitle}｜${item.kind}${label}`);
+    news.push(`🛍 新しい物販情報: ${liveTitle}｜${item.kind}${label}${start || end ? `\n　${fmtJ(start) || ''}${end ? ` 〜 ${fmtJ(end)}` : ' 〜'}` : ''}${item.url ? `\n　${item.url}` : ''}`);
+    return;
+  }
+  if (isLocked(row)) return;
+  const props = {}, changes = [];
+  if (item.url && item.url !== propText(row.properties['URL']) && put(mm, props, 'URL', item.url)) changes.push('URL');
+  if (start && !sameDate(start, dateStart(row, '開始')) && put(mm, props, '開始', start)) changes.push('開始');
+  if (end && !sameDate(end, dateStart(row, '締切')) && put(mm, props, '締切', end)) changes.push('締切');
+  if (lot && !sameDate(lot, dateStart(row, '当落発表')) && put(mm, props, '当落発表', lot)) changes.push('当落発表');
+  if (item.dates && item.dates !== propText(row.properties['物販日時']) && put(mm, props, '物販日時', item.dates)) changes.push('物販日時');
+  if (item.place && item.place !== propText(row.properties['場所']) && put(mm, props, '場所', item.place)) changes.push('場所');
+  if (item.seiriken && item.seiriken !== propText(row.properties['整理券の時間帯']) && put(mm, props, '整理券の時間帯', item.seiriken)) changes.push('整理券の時間帯');
+  if (item.free && item.free !== propText(row.properties['フリーの時間帯']) && put(mm, props, 'フリーの時間帯', item.free)) changes.push('フリーの時間帯');
+  if (!changes.length) return;
+  put(mm, props, '取得元', sourceUrl || ''); put(mm, props, '最終自動更新', new Date().toISOString());
+  const u = await W.update({ page_id: row.id, properties: props }); if (u) replacePage(S.merch, u);
+  console.log(` ├─ 🛍 物販を更新: ${liveTitle}｜${item.kind}${item.kind === '事前販売' ? ` ${mName(row)}` : ''}（${changes.join('・')}）`);
+  news.push(`🔄 物販の情報が変わりました: ${liveTitle}｜${item.kind}${item.kind === '事前販売' ? ` ${mName(row)}` : ''}（${changes.join('・')}）${end ? `\n　締切 ${fmtJ(end)}` : ''}${item.url ? `\n　${item.url}` : ''}`);
+}
+
+/** これからのライブの公式GOODSページを読んで、デジタル注文書・整理券・事前販売リンクを反映する */
+async function scrapeMerch(page) {
+  if (!S.merch) return;
+  const today = nowJST();
+  for (const live of S.live.pages) {
+    const title = titleOf(live, S.live.meta);
+    if (!title) continue;
+    const end = (dateEnd(live, 'ライブ開催日') || dateStart(live, 'ライブ開催日')).slice(0, 10);
+    if (end && end < today) continue;   // 終わったライブは見ない
+    const official = propText(live.properties['公式URL']);
+    const cands = merch.deriveGoodsUrls(official);
+    if (!cands.length) continue;
+    console.log(`▶ 物販: ${title}`);
+    try {
+      let g = null;
+      for (const u of cands) { try { const x = await grab(page, u); if (!isNotFound(x)) { g = x; break; } } catch (e) { /* 次の候補へ */ } }
+      if (!g) {   // 公式ページのナビから GOODS のリンクを探す
+        try { const home = await grab(page, official); const link = merch.pickGoodsLink(home.anchors, official); if (link) { const x = await grab(page, link); if (!isNotFound(x)) g = x; } } catch (e) { /* なし */ }
+      }
+      if (!g) { console.log(' ├─ ⏩ 物販ページが見つかりません'); continue; }
+      const year = Number(dateStart(live, 'ライブ開催日').slice(0, 4)) || new Date().getFullYear();
+      const dig = merch.extractDigitalOrder(g.anchors), onsite = merch.extractOnsite(g.text);
+      if (dig || onsite) await upsertMerch(live, { kind: '会場物販', name: '会場物販', url: dig, dates: onsite?.dates || '', place: onsite?.place || '', seiriken: onsite?.seiriken || '', free: onsite?.free || '' }, g.url);
+      const sei = merch.extractSeiriken(g.text, year);
+      if (sei) await upsertMerch(live, sei, g.url);
+      for (const pl of merch.extractPresaleLinks(g.anchors)) await upsertMerch(live, pl, g.url, { order: 'url' });
+    } catch (e) { warn(`「${title}」の物販情報の取得に失敗: ${e.message}`); }
+    await sleep(Number(process.env.MERCH_GAP_MS ?? 800));
+  }
+}
+
+/** 事前販売ページ（アソビストア等）を読んで、販売の回と受付期間をAIで抽出する（ページの内容が変わったときだけ） */
+async function enrichPresale(page) {
+  if (!S.merch) return;
+  const mh = merchHashes(), today = nowJST();
+  const rows = S.merch.pages.filter(p => mKind(p) === '事前販売' && propText(p.properties['URL']) && !isLocked(p));
+  const seen = new Set();
+  for (const row of rows) {
+    const url = propText(row.properties['URL']);   // 回が終わっていても、ライブがこれからなら見に行く（同じページに「追加販売」が後から載ることがあるため）
+    const liveId = relIds(row, S.merch.rel.live)[0], live = S.live.pages.find(p => p.id === liveId);
+    if (!live) continue;
+    const le = (dateEnd(live, 'ライブ開催日') || dateStart(live, 'ライブ開催日')).slice(0, 10);
+    if (le && le < today) continue;
+    if (seen.has(url)) continue; seen.add(url);
+    try {
+      const g = await grab(page, url);
+      if (isNotFound(g)) { console.log(` ├─ ⏩ 事前販売ページを読めませんでした: ${titleOf(live, S.live.meta)}`); continue; }
+      const h = sha(merch.squash(g.text));
+      if (mh[url] === h) continue;   // 内容が変わっていない → AIを呼ばない
+      const data = await ai(merch.buildPresalePrompt(titleOf(live, S.live.meta), g.text));
+      if (!data) { console.log(' ├─ ⚠️ 事前販売の期間をAIで読み取れませんでした。次回に再試行します'); continue; }
+      const rounds = merch.cleanRounds(data);
+      const same = rows.filter(p => propText(p.properties['URL']) === url && relIds(p, S.merch.rel.live)[0] === liveId);
+      for (const rd of rounds) await upsertMerch(live, { kind: '事前販売', name: rd.name, url, start: rd.start, end: rd.end }, url, { order: 'name', rowHint: rounds.length === 1 && same.length === 1 ? same[0] : null });
+      mh[url] = h;
+      await sleep(Number(process.env.AI_GAP_MS ?? 6000));
+    } catch (e) { warn(`事前販売ページの取得に失敗: ${e.message}`); }
+  }
+}
+
+/* =====================================================================
  * 取得ログ
  * ===================================================================== */
 function logIndex() {
@@ -598,8 +751,10 @@ function isProcessed(url) {
 /* =====================================================================
  * events.json の生成（4つのDBから）
  * ===================================================================== */
-function buildEvents({ live, slot, sched }, now = Date.now()) {
+const merchKindRank = k => { const i = merch.KIND_ORDER.indexOf(k); return i < 0 ? 99 : i; };
+function buildEvents({ live, slot, sched, merch: mdb }, now = Date.now()) {
   const out = [], issues = [];
+  const mRel = mdb ? relName(mdb.meta, 'ライブ') : null;
   const slotRel = relName(slot.meta, 'ライブ'), schedRel = relName(sched.meta, 'ライブ');
   const lt = titleName(live.meta);
   const mapOwners = new Map();
@@ -641,6 +796,13 @@ function buildEvents({ live, slot, sched }, now = Date.now()) {
       eventDateStart: ds, eventDateEnd: de,
       officialUrl: g('公式URL'), venue, mapUrl, accessUrl: g('アクセスURL'), nearestStation: g('最寄り駅'),
       isSpecialColor: special, schedules,
+      merch: !mdb ? [] : mdb.pages.filter(p => relIds(p, mRel).includes(page.id)).map(p => ({
+        kind: propText(p.properties['種別']), name: propText(p.properties['名称']), url: propText(p.properties['URL']),
+        start: dateStart(p, '開始'), end: dateStart(p, '締切'), lottery: dateStart(p, '当落発表'),
+        dates: propText(p.properties['物販日時']), place: propText(p.properties['場所']),
+        seiriken: propText(p.properties['整理券の時間帯']), free: propText(p.properties['フリーの時間帯']) }))
+        .filter(x => x.kind && (x.url || x.dates))
+        .sort((a, b) => (merchKindRank(a.kind) - merchKindRank(b.kind)) || String(a.start).localeCompare(String(b.start))),
     });
   }
   out.sort((a, b) => (a.eventDateStart || a.deadline || '9999').localeCompare(b.eventDateStart || b.deadline || '9999'));
@@ -655,7 +817,7 @@ async function syncEventsJson() {
   fs.writeFileSync(path.join(__dirname, 'events.json'), JSON.stringify(events, null, 2), 'utf8');
   const warnHash = warns.length ? crypto.createHash('sha1').update(warns.join('\n')).digest('hex').slice(0, 12) : '';
   const prev = readMeta().warnHash || '';
-  fs.writeFileSync(META_PATH, JSON.stringify({ checkedAt: new Date().toISOString(), count: events.length, warnHash }, null, 2), 'utf8');
+  fs.writeFileSync(META_PATH, JSON.stringify({ checkedAt: new Date().toISOString(), count: events.length, warnHash, merch: merchHashes() }, null, 2), 'utf8');
   console.log(`✅ events.json の同期完了！ (全 ${events.length} 件)`);
   return { warnChanged: warns.length > 0 && warnHash !== prev };   // 前回と同じ警告なら、通知しない
 }
@@ -822,7 +984,11 @@ async function run() {
       await sleep(12000);
     }
     console.log(`\n🎉 全処理完了！ AIで解析した記事: ${handled}件 / 反映したイベント（延べ件数）: ${processed}件`);
+    if (S.merch) {   // 物販情報（任意。NOTION_MERCH_DB_ID があるときだけ）
+      try { await scrapeMerch(page); await enrichPresale(page); } catch (e) { warn(`物販情報の取得に失敗: ${e.message}`); }
+    }
     const synced = await syncEventsJson();
+    if (news.length) { await notify(newsMessage()); console.log(`📣 新着を${news.length}件、通知しました`); }
     if (synced?.warnChanged) { await notify(warnMessage()); console.log('📣 確認が必要な点を通知しました'); }
   } catch (error) {
     console.error('致命的なエラー:', error); process.exitCode = 1;
@@ -832,6 +998,6 @@ async function run() {
   if (warns.length) { console.log(`\n⚠️ 確認が必要な点 (${warns.length}件)`); warns.forEach(w => console.log(' - ' + w)); }
 }
 
-module.exports = { notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
+module.exports = { scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
   parseLabelDate, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
 if (require.main === module) run();
