@@ -72,6 +72,36 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 .back.on{opacity:1;pointer-events:auto}
 .sheet{position:fixed;z-index:51;background:var(--surface);overflow-y:auto;transition:transform .25s;padding:18px 18px calc(32px + env(safe-area-inset-bottom))}
 .sheet h3{font-size:20px;line-height:1.35;margin:8px 0 12px}
+.sheet{display:flex;flex-direction:column}
+.sheet>*{flex:none}
+.bar{position:sticky;top:0;z-index:3;display:flex;justify-content:flex-end;gap:2px;margin:-18px -18px 0;padding:6px 8px;background:var(--surface)}
+.bar .x{position:static}
+.meta2{color:var(--muted);font-size:13px;margin:-4px 0 12px}
+.next{margin-top:4px;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--bg)}
+.next .nt{font-size:17px;font-weight:800;line-height:1.35}
+.next .ns{margin-top:4px;color:var(--muted);font-size:13px;line-height:1.5}
+.next.go{border-color:var(--accent);background:rgba(122,162,247,.10)}
+.next.urgent{border-color:var(--warn);background:rgba(247,118,142,.10)}
+.next.wait{border-color:var(--gold);background:rgba(224,175,104,.10)}
+.next.ok{border-color:var(--ok);background:rgba(158,206,106,.10)}
+.next .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.next .acts .btn{margin-top:0;flex:1 1 200px;font-size:13px}
+.rec{margin-top:16px}
+.rh{font-size:13px;font-weight:800;margin-bottom:2px}
+.acc{margin-top:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.acc.mini{margin-top:10px}
+.acc>summary{list-style:none;display:flex;align-items:center;gap:10px;min-height:48px;padding:10px 14px;cursor:pointer}
+.acc>summary::-webkit-details-marker{display:none}
+.acc>summary::after{content:"＋";color:var(--muted);font-size:16px;flex:none}
+.acc[open]>summary::after{content:"－"}
+.at{font-weight:800;font-size:14px;flex:none}
+.ah{margin-left:auto;color:var(--muted);font-size:12px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.ab{padding:0 14px 14px}
+.acc .sched,.acc .mtime{background:var(--surface)}
+.acc .memo{margin-top:0}
+.sheet.hascta{padding-bottom:0}
+.cta{position:sticky;bottom:0;z-index:2;margin:auto -18px 0;padding:10px 18px calc(10px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line)}
+.cta .btn{margin-top:0;background:var(--accent);border-color:var(--accent);color:#0c1030}
 .sec{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
 .sec h4{font-size:13px;color:var(--muted);margin-bottom:8px}
 .kv{display:grid;grid-template-columns:84px 1fr;gap:6px 10px;font-size:13px}
@@ -299,7 +329,7 @@ function dayBlock(ev) {
   return `<div class="sec"><h4>${pair ? '公演ごとの状況と名義' : '公演ごとの状況'}</h4>${ks.map(k => `<div class="dayrow"><b>${esc(shortK(k))}</b>${ks.length > 1 ? seg(ev, dget(st, k), k) : ''}${pair ? `<div class="by" data-id="${esc(ev.id)}" data-day="${esc(k)}">${BY.map(b => `<button data-by="${b}" class="${((st.days && st.days[k] && st.days[k].by) || '自分') === b ? 'on' : ''}">${b}</button>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
 }
 
-function slotBlock(ev) {   // 受付枠が2つ以上あるイベントだけ、履歴を出す
+function slotInner(ev) {   // 受付枠が2つ以上あるイベントだけ、履歴を出す
   const ss = ev.slots || [];
   if (ss.length < 2) return '';
   const rows = ss.slice().sort((a, b) => (ms(a.start) || 0) - (ms(b.start) || 0)).map(sl => {
@@ -309,15 +339,15 @@ function slotBlock(ev) {   // 受付枠が2つ以上あるイベントだけ、�
     const lot = sl.lottery ? `　当落発表 ${sl.lottery.slice(5, 10).replace('-', '/')}` : '';
     return `<div class="slotrow"><span class="badge ${ph}">${txt}</span><div><b>${esc(sl.name)}</b>${sl.kind ? ` <span class="sub">${esc(sl.kind)}</span>` : ''}<div class="sub">${esc(range)}${esc(lot)}</div></div></div>`;
   }).join('');
-  return `<div class="sec"><h4>受付の流れ</h4>${rows}</div>`;
+  return `<div class="sub" style="margin:12px 0 2px;font-weight:700">受付の流れ</div>${rows}`;
 }
 
 /* ---- 物販（会場物販のデジタル注文書・整理券・事前販売）---- */
-function merchBlock(ev) {
+function merchInfo(ev) {   // { html, hint } を返す。物販情報がなければ null
   const items = (ev.merch || []).filter(x => x && x.kind);
-  if (!items.length) return '';
+  if (!items.length) return null;
   const end = (ev.eventDateEnd || ev.eventDateStart || '').slice(0, 10);
-  if (end && end < new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'})) return '';   // 終わったライブでは出さない
+  if (end && end < new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'})) return null;   // 終わったライブでは出さない
   const range = x => x.start && x.end ? `${fmt(ms(x.start))} 〜 ${fmt(ms(x.end))}` : x.start ? `${fmt(ms(x.start))} 〜` : x.end ? `〜 ${fmt(ms(x.end))}` : '';
   const badge = x => { const ph = phase({applyStartDate: x.start, deadline: x.end}); return ph === 'tbd' ? '' : `<span class="badge ${ph}">${{open:'受付中', urgent:'締切間近', before:'受付前', closed:'終了'}[ph]}</span>`; };
   const link = (x, label) => x.url ? `<a class="btn sm" href="${esc(x.url)}" target="_blank" rel="noopener">${label}</a>` : '';
@@ -329,8 +359,10 @@ function merchBlock(ev) {
       ${link(x, 'デジタル注文書を開く ↗')}</div></div>`).join('');
   const sei = items.filter(x => x.kind === '整理券').map(x => `<div class="mrow">${badge(x)}<div><b>${esc(x.name || '物販整理券')}</b><div class="sub">${esc(range(x))}${x.lottery ? `　当落発表 ${esc(fmt(ms(x.lottery)))}` : ''}</div>${link(x, '整理券の受付ページ ↗')}</div></div>`).join('');
   const pre = items.filter(x => x.kind === '事前販売').map(x => `<div class="mrow ${phase({applyStartDate: x.start, deadline: x.end}) === 'closed' ? 'done' : ''}">${badge(x)}<div><b>${esc(x.name || '事前販売')}</b>${range(x) ? `<div class="sub">${esc(range(x))}</div>` : '<div class="sub">期間は公式で確認</div>'}${link(x, '事前販売ページを開く ↗')}</div></div>`).join('');
-  if (!site && !sei && !pre) return '';
-  return `<div class="sec"><h4>物販</h4>${site}${sei}${pre}<p class="sub" style="margin-top:10px">※ 物販の日時・内容は変更されることがあります。公式サイトでご確認ください</p></div>`;
+  if (!site && !sei && !pre) return null;
+  const nPre = items.filter(x => x.kind === '事前販売').length;
+  const hint = [items.some(x => x.kind === '会場物販' && x.url) ? 'デジタル注文書' : (site ? '会場物販' : ''), sei ? '整理券' : '', nPre ? `事前販売 ${nPre}件` : ''].filter(Boolean).join(' ・ ');
+  return { hint, html: `${site}${sei}${pre}<p class="sub" style="margin-top:10px">※ 物販の日時・内容は変更されることがあります。公式サイトでご確認ください</p>` };
 }
 
 function matchTab(ev, ph, st) {
@@ -472,39 +504,110 @@ function renderTodo() {
   if (items.length) el.innerHTML = `<h2>⏰ 今チェックしたいもの（${items.length}件）</h2><div class="todo-list">${items.map(i => `<button class="todo-item ${i.c}" data-open="${esc(i.ev.id)}"><b>${esc(i.ev.title)}</b><span>${esc(i.ev.phase || '')}　${esc(i.t)}</span></button>`).join('')}</div>`;
 }
 
+/* ---- 詳細パネル：状況に合わせて、主役と並び順を変える ---- */
+const secOpen = {};   // `${id}|${section}` → 開閉（手で開閉した状態は、再描画しても保つ）
+const isPastEv = ev => { const e = (ev.eventDateEnd || ev.eventDateStart || '').slice(0, 10); return !!e && e < new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'}); };
+
+/** あなたの状況: won 参戦予定 / waiting 当落待ち / skipped 見送り / lost 落選 / ended 受付終了 / before 受付前 / apply 受付中 */
+function userMode(ev) {
+  const v = dstats(ev), ph = phase(ev);
+  if (anyWon(ev)) return 'won';
+  if (v.includes('当落待ち⏳')) return 'waiting';
+  if (allSkip(ev)) return 'skipped';
+  if (v.some(x => x === '落選💦' || x === '入手できず')) return 'lost';
+  if (ph === 'closed') return 'ended';
+  if (ph === 'before') return 'before';
+  return 'apply';
+}
+function nextSlot(ev) {   // まだ終わっていない受付枠のうち、いちばん早いもの
+  return (ev.slots || []).filter(s => phase({applyStartDate: s.start, deadline: s.end}) !== 'closed').sort((a, b) => (ms(a.start) || 0) - (ms(b.start) || 0))[0] || null;
+}
+function slotRange(sl) { return sl.start && sl.end ? `${fmt(ms(sl.start))} 〜 ${fmt(ms(sl.end))}` : sl.start ? `${fmt(ms(sl.start))} 〜` : sl.end ? `〜 ${fmt(ms(sl.end))}` : '日時は未定'; }
+
+/** 「次にやること」: 今の状況で、いちばん大事な1つを、大きく見せる */
+function nextCard(ev, mode, p, cals) {
+  const off = ev.officialUrl ? ev.officialUrl : '';
+  const act = (k, label) => cals[k] ? [{ label, href: cals[k] }] : [];
+  const go = (label) => off ? { label, href: off } : null;
+  const ns = (mode === 'lost' || mode === 'ended') ? nextSlot(ev) : null;
+  if (mode === 'won') {
+    const merchSite = !isPastEv(ev) && (ev.merch || []).find(m => m.kind === '会場物販' && m.url);
+    return { tone: 'ok', title: '🎉 参戦予定です', sub: `${dateRange(ev)}${ev.venue ? ' ・ ' + ev.venue : ''}`,
+      actions: [...act('perf', '公演日をGoogleカレンダーに登録'), ...(merchSite ? [{ label: 'デジタル注文書を開く ↗', href: merchSite.url }] : [])],
+      primary: ev.mapUrl ? { label: '🗺️ 会場の地図を開く', href: ev.mapUrl } : go('公式ページを開く') };
+  }
+  if (mode === 'waiting') return { tone: 'wait', title: '⏳ 当落発表を待っています', sub: lotLine(ev) || '発表日は公式ページで確認してください', actions: act('lottery', '当落発表日をGoogleカレンダーに登録'), primary: go('公式ページで結果を確認する') };
+  if (mode === 'skipped') return { tone: 'mute', title: '見送りにしています', sub: '気が変わったら、下の「あなたの記録」で戻せます', actions: [], primary: null };
+  if (ns) return { tone: 'go', title: '次の受付があります', sub: `${ns.name} ・ ${slotRange(ns)}`, actions: [], primary: go('公式ページを開く') };
+  if (mode === 'lost') return { tone: 'mute', title: '今回は残念でした', sub: '追加の受付があるかは、公式ページで確認できます', actions: [], primary: go('公式ページを開く') };
+  if (mode === 'ended') return { tone: 'mute', title: '受付は終了しました', sub: '追加の受付があるかは、公式ページで確認できます', actions: [], primary: go('公式ページを開く') };
+  if (mode === 'before') return { tone: 'go', title: `⏰ ${p.remain || '受付はこれから'}`, sub: `${ev.phase ? ev.phase + ' ・ ' : ''}${p.range}`, actions: [...act('start', '受付開始をGoogleカレンダーに登録'), ...act('deadline', '締切をGoogleカレンダーに登録')].slice(0, 1), primary: go('公式ページを開く') };
+  if (p.ph === 'tbd' && !ev.phase) return { tone: 'mute', title: '受付情報はまだありません', sub: '公式ページで最新情報を確認してください', actions: [], primary: go('公式ページを開く') };
+  return { tone: p.urgent ? 'urgent' : 'go', title: p.urgent ? `🔥 ${p.remain}` : (p.remain ? `受付中 ・ ${p.remain}` : '受付中'), sub: `${ev.phase ? ev.phase + ' ・ ' : ''}${p.range}`, actions: act('deadline', '締切をGoogleカレンダーに登録'), primary: go('公式ページで申し込む') };
+}
+
+/** 折りたたみの項目。開閉の初期値は状況で決め、手で開閉したら、その状態を覚える */
+function acc(ev, key, title, hint, inner, def) {
+  if (!inner) return '';
+  const k = `${ev.id}|${key}`, open = k in secOpen ? secOpen[k] : def;
+  return `<details class="acc" data-k="${esc(k)}" ${open ? 'open' : ''}><summary><span class="at">${title}</span><span class="ah">${esc(hint || '')}</span></summary><div class="ab">${inner}</div></details>`;
+}
+
 function renderSheet(id) {
   const ev = events.find(x => x.id === id);
   if (!ev) return;
-  const st = me(id), p = period(ev), won = anyWon(ev), cal = won ? '' : calUrl(ev), startCal = won ? '' : startCalUrl(ev), lotCal = won ? '' : lotCalUrl(ev), perfCal = perfCalUrl(ev);   // 当選済みなら受付系の登録は出さない
-  $('sheet').innerHTML = `<button class="x" data-close aria-label="閉じる">✕</button>
-    <div>${tags(ev)}</div>
-    <h3>${esc(ev.icon || '🎤')} ${esc(ev.title)}</h3>
-    ${modeBar(ev)}${seg(ev, common(ev))}${dayBlock(ev)}
-    <textarea class="memo" id="memo" placeholder="自分用メモ（例：Day1申込済、ホテル確保）">${esc(st.memo)}</textarea>
-    <div class="sec"><dl class="kv">
-      <dt>受付枠</dt><dd>${esc(ev.phase || 'ー')}</dd>
-      <dt>状態</dt><dd><span class="badge ${p.ph}">${p.txt}</span></dd>
-      <dt>受付期間</dt><dd>${esc(p.range)}<br><span class="remain ${p.urgent ? 'urgent' : ''}">${esc(p.remain)}</span></dd>
-      <dt>当落発表</dt><dd>${esc(ev.lotteryDate || 'ー')}${lotLine(ev) ? `<br><span class="lot">${esc(lotLine(ev))}</span>` : ''}</dd></dl>
-      ${ev.officialUrl ? `<a class="btn" href="${esc(ev.officialUrl)}" target="_blank" rel="noopener">公式ページを開く</a>` : ''}
-      <p class="sub" style="margin-top:8px">※ 日時・受付内容は、申込の前に必ず公式ページでご確認ください</p>
-      ${cal ? `<a class="btn" href="${esc(cal)}" target="_blank" rel="noopener">締切をGoogleカレンダーに登録</a>` : ''}
-      ${startCal ? `<a class="btn" href="${esc(startCal)}" target="_blank" rel="noopener">受付開始をGoogleカレンダーに登録</a>` : ''}
-      ${lotCal ? `<a class="btn" href="${esc(lotCal)}" target="_blank" rel="noopener">当落発表日をGoogleカレンダーに登録</a>` : ''}
-    </div>
-    ${slotBlock(ev)}
-    <div class="sec"><dl class="kv">
-      <dt>会場</dt><dd>${esc(ev.venue || '未定')}</dd>
-      ${ev.nearestStation ? `<dt>最寄り駅</dt><dd>${esc(ev.nearestStation)}</dd>` : ''}
-      <dt>リンク</dt><dd>${ev.mapUrl ? `<a href="${esc(ev.mapUrl)}" target="_blank" rel="noopener">地図</a>` : ''}　${ev.accessUrl ? `<a href="${esc(ev.accessUrl)}" target="_blank" rel="noopener">アクセス</a>` : ''}</dd></dl>
-      ${perfCal ? `<a class="btn" href="${esc(perfCal)}" target="_blank" rel="noopener">公演日をGoogleカレンダーに登録</a>` : ''}</div>
-    ${merchBlock(ev)}
-    <div class="sec"><h4>公演日程とペンライト</h4>${(ev.schedules || []).map(sc => {
-      const sp = ev.isSpecialColor || (sc.penlightUrl || '').includes('special=1'), n = sc.castCount || (sc.castNames || []).length;
+  const st = me(id), p = period(ev), mode = userMode(ev), won = anyWon(ev);
+  const cals = { deadline: won ? '' : calUrl(ev), start: won ? '' : startCalUrl(ev), lottery: won ? '' : lotCalUrl(ev), perf: perfCalUrl(ev) };   // 当選済みなら受付系の登録は出さない
+  const next = nextCard(ev, mode, p, cals);
+  const used = new Set(next.actions.map(a => a.href));
+  const extraCals = [['deadline', '締切をGoogleカレンダーに登録'], ['start', '受付開始をGoogleカレンダーに登録'], ['lottery', '当落発表日をGoogleカレンダーに登録']].filter(([k]) => cals[k] && !used.has(cals[k]));
+  const mi = merchInfo(ev), n = (ev.schedules || []).length;
+  const memoKey = `${id}|memo`, memoOpen = memoKey in secOpen ? secOpen[memoKey] : !!st.memo;
+
+  const OPEN = {
+    won:     { slots: false, merch: true,  venue: true,  sched: true  },
+    waiting: { slots: true,  merch: false, venue: false, sched: false },
+    before:  { slots: true,  merch: false, venue: false, sched: false },
+    apply:   { slots: true,  merch: false, venue: false, sched: false },
+  }[mode] || { slots: false, merch: false, venue: false, sched: false };
+  const ORDER = mode === 'won' ? ['sched', 'merch', 'venue', 'slots'] : ['slots', 'merch', 'venue', 'sched'];
+
+  const secs = {
+    slots: acc(ev, 'slots', '受付', `${p.txt}${p.remain && (p.ph === 'open' || p.ph === 'urgent' || p.ph === 'before') ? ' ・ ' + p.remain : ''}`, `
+      <dl class="kv">
+        <dt>受付枠</dt><dd>${esc(ev.phase || 'ー')}</dd>
+        <dt>受付期間</dt><dd>${esc(p.range)}</dd>
+        <dt>当落発表</dt><dd>${esc(ev.lotteryDate || 'ー')}${lotLine(ev) ? `<br><span class="lot">${esc(lotLine(ev))}</span>` : ''}</dd></dl>
+      ${slotInner(ev)}
+      ${extraCals.map(([k, l]) => `<a class="btn sm" href="${esc(cals[k])}" target="_blank" rel="noopener">${l}</a>`).join('')}
+      ${ev.officialUrl ? `<a class="btn sm" href="${esc(ev.officialUrl)}" target="_blank" rel="noopener">公式ページを開く ↗</a>` : ''}
+      <p class="sub" style="margin-top:8px">※ 日時・受付内容は、申込の前に必ず公式ページでご確認ください</p>`, OPEN.slots),
+    merch: mi ? acc(ev, 'merch', '物販', mi.hint, mi.html, OPEN.merch) : '',
+    venue: acc(ev, 'venue', '会場・アクセス', ev.venue || '未定', `
+      <dl class="kv">
+        <dt>会場</dt><dd>${esc(ev.venue || '未定')}</dd>
+        ${ev.nearestStation ? `<dt>最寄り駅</dt><dd>${esc(ev.nearestStation)}</dd>` : ''}
+        <dt>リンク</dt><dd>${ev.mapUrl ? `<a href="${esc(ev.mapUrl)}" target="_blank" rel="noopener">地図</a>` : ''}　${ev.accessUrl ? `<a href="${esc(ev.accessUrl)}" target="_blank" rel="noopener">アクセス</a>` : ''}</dd></dl>`, OPEN.venue),
+    sched: acc(ev, 'sched', '公演日程・ペンライト', n ? `${n}公演` : '未定', (ev.schedules || []).map(sc => {
+      const sp = ev.isSpecialColor || (sc.penlightUrl || '').includes('special=1'), c = sc.castCount || (sc.castNames || []).length;
       return `<div class="sched"><b>${esc(sc.label)}</b>
         ${(sc.castNames || []).length ? `<details><summary>出演キャスト（${sc.castNames.length}名）</summary>${esc(sc.castNames.join(' / '))}</details>` : ''}
-        ${sc.penlightUrl ? `<a class="btn ${sp ? 'sp' : ''}" href="${esc(sc.penlightUrl)}" target="_blank" rel="noopener">${sp ? '🎨 ペンライト設定を作成（特別カラー）' : '🪄 ペンライト設定を作成'}（${n}名）</a>` : ''}</div>`;
-    }).join('') || '<p class="sub">日程は未定です</p>'}</div>`;
+        ${sc.penlightUrl ? `<a class="btn ${sp ? 'sp' : ''}" href="${esc(sc.penlightUrl)}" target="_blank" rel="noopener">${sp ? '🎨 ペンライト設定を作成（特別カラー）' : '🪄 ペンライト設定を作成'}（${c}名）</a>` : ''}</div>`;
+    }).join('') || '<p class="sub">日程は未定です</p>', OPEN.sched),
+  };
+
+  $('sheet').innerHTML = `<div class="bar"><button class="x" data-share aria-label="このイベントのリンクをコピー">🔗</button><button class="x" data-close aria-label="閉じる">✕</button></div>
+    <div>${tags(ev)}</div>
+    <h3>${esc(ev.icon || '🎤')} ${esc(ev.title)}</h3>
+    <div class="meta2">📅 ${esc(dateRange(ev))}${ev.venue ? `　🏟️ ${esc(ev.venue)}` : ''}</div>
+    <div class="next ${next.tone}" role="status"><div class="nt">${esc(next.title)}</div><div class="ns">${esc(next.sub)}</div>
+      ${next.actions.length ? `<div class="acts">${next.actions.map(a => `<a class="btn" href="${esc(a.href)}" target="_blank" rel="noopener">${esc(a.label)}</a>`).join('')}</div>` : ''}</div>
+    <div class="rec"><div class="rh">あなたの記録<span class="sub">（このブラウザにだけ保存）</span></div>${modeBar(ev)}${seg(ev, common(ev))}${dayBlock(ev)}
+      <details class="acc mini" data-k="${esc(memoKey)}" ${memoOpen ? 'open' : ''}><summary><span class="at">メモ</span><span class="ah">${esc((st.memo || '').slice(0, 24))}</span></summary><div class="ab"><textarea class="memo" id="memo" placeholder="自分用メモ（例：Day1申込済、ホテル確保）">${esc(st.memo)}</textarea></div></details></div>
+    ${ORDER.map(k => secs[k]).join('')}
+    <div style="height:16px;flex:none"></div>
+    ${next.primary ? `<div class="cta"><a class="btn" href="${esc(next.primary.href)}" target="_blank" rel="noopener">${esc(next.primary.label)}</a></div>` : ''}`;
+  $('sheet').classList[next.primary ? 'add' : 'remove']('hascta');   // 下の固定ボタンがあるときは、余白をなくして、画面の下に密着させる
   $('memo').oninput = e => { me(id).memo = e.target.value; save(); };
 }
 
@@ -554,10 +657,33 @@ function act(ev, fn, msgFn) {   // 変更 → 保存 → 再描画 → 取り消
 }
 
 /* ---- 操作 ---- */
-function openSheet(id) { openId = id; renderSheet(id); const sh = $('sheet'); sh.inert = false; sh.scrollTop = 0; $('back').classList.add('on'); sh.classList.add('on'); setTimeout(() => { const x = sh.querySelector('[data-close]'); if (x) x.focus(); }, 60); }
-function closeSheet() { const id = openId; openId = null; $('back').classList.remove('on'); $('sheet').classList.remove('on'); $('sheet').inert = true; const el = [...document.querySelectorAll('.card,.todo-item,.drow')].find(x => (x.dataset.id || x.dataset.open) === id); if (el) el.focus(); }
+function openSheet(id, push = true) {
+  openId = id; renderSheet(id);
+  const sh = $('sheet'); sh.inert = false; sh.scrollTop = 0; $('back').classList.add('on'); sh.classList.add('on');
+  setTimeout(() => { const x = sh.querySelector('[data-close]'); if (x) x.focus(); }, 60);
+  if (push && typeof history !== 'undefined' && history.pushState) {   // 戻るボタンで、パネルを閉じられるようにする
+    const url = '#e=' + encodeURIComponent(id);
+    if (history.state && history.state.sheet) history.replaceState({ sheet: id }, '', url); else history.pushState({ sheet: id }, '', url);
+  }
+}
+function doClose() { const id = openId; openId = null; $('back').classList.remove('on'); $('sheet').classList.remove('on'); $('sheet').inert = true; const el = [...document.querySelectorAll('.card,.todo-item,.drow')].find(x => (x.dataset.id || x.dataset.open) === id); if (el) el.focus(); }
+function closeSheet() {
+  if (openId && typeof history !== 'undefined' && history.state && history.state.sheet) { history.back(); return; }   // 戻るボタンと同じ動き（popstateで閉じる）
+  doClose();
+  if (typeof history !== 'undefined' && history.replaceState && typeof location !== 'undefined' && /^#e=/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
+}
+addEventListener('popstate', () => { if (openId) doClose(); });
+function shareLink() {   // このイベントのURLをコピー
+  if (!openId) return;
+  const url = `${location.origin}${location.pathname}#e=${encodeURIComponent(openId)}`;
+  const done = () => toast('リンクをコピーしました', null, 2000), ask = () => prompt('このリンクをコピーしてください', url);
+  if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, ask); else ask();
+}
 
 document.addEventListener('click', e => {
+  const sm = e.target.closest('details.acc > summary');   // 折りたたみ：手で開閉した状態を覚える（ブラウザ標準の開閉は、そのまま動く）
+  if (sm) { const d = sm.parentElement; secOpen[d.dataset.k] = !d.open; return; }
+  if (e.target.closest('[data-share]')) { shareLink(); return; }
   if (e.target.closest('[data-undo]')) { const f = undoFn; hideToast(); if (f) f(); return; }
   if (e.target.closest('[data-reset]')) { brand = 'すべて'; $('q').value = ''; render(); return; }
   const sb = e.target.closest('.seg button');
@@ -603,6 +729,10 @@ addEventListener('keydown', e => {
     $('note').style.color = 'var(--warn)';
   }
   render();
+  if (typeof location !== 'undefined') {   // 共有リンク（#e=イベントID）で開いたとき
+    const hm = (location.hash || '').match(/^#e=(.+)$/);
+    if (hm) { const id = decodeURIComponent(hm[1]); if (events.some(x => x.id === id)) openSheet(id, false); }
+  }
 })();
 </script>
 </body>
