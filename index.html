@@ -72,9 +72,11 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 .back.on{opacity:1;pointer-events:auto}
 .sheet{position:fixed;z-index:51;background:var(--surface);overflow-y:auto;transition:transform .25s;padding:18px 18px calc(32px + env(safe-area-inset-bottom))}
 .sheet h3{font-size:20px;line-height:1.35;margin:8px 0 12px}
-.sheet{display:flex;flex-direction:column}
+.sheet{display:flex;flex-direction:column;padding:0}
 .sheet>*{flex:none}
-.bar{position:sticky;top:0;z-index:3;display:flex;justify-content:flex-end;gap:2px;margin:-18px -18px 0;padding:6px 8px;background:var(--surface)}
+.sbody{padding:4px 18px calc(32px + env(safe-area-inset-bottom))}
+.sheet.hascta .sbody{padding-bottom:20px}
+.bar{position:sticky;top:0;z-index:3;display:flex;justify-content:flex-end;gap:2px;padding:6px 8px;background:var(--surface)}
 .bar .x{position:static}
 .meta2{color:var(--muted);font-size:13px;margin:-4px 0 12px}
 .next{margin-top:4px;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--bg)}
@@ -99,8 +101,7 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 .ab{padding:0 14px 14px}
 .acc .sched,.acc .mtime{background:var(--surface)}
 .acc .memo{margin-top:0}
-.sheet.hascta{padding-bottom:0}
-.cta{position:sticky;bottom:0;z-index:2;margin:auto -18px 0;padding:10px 18px calc(10px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line)}
+.cta{position:sticky;bottom:0;z-index:2;margin:auto 0 0;padding:10px 18px calc(10px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line)}
 .cta .btn{margin-top:0;background:var(--accent);border-color:var(--accent);color:#0c1030}
 .sec{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
 .sec h4{font-size:13px;color:var(--muted);margin-bottom:8px}
@@ -113,7 +114,9 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 .memo{width:100%;min-height:72px;margin-top:10px;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit}
 .x{position:absolute;top:6px;right:8px;font-size:20px;min-width:44px;min-height:44px;color:var(--muted)}
 .hints{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
-.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,24px);opacity:0;pointer-events:none;z-index:70;display:flex;align-items:center;gap:8px;max-width:min(92vw,520px);padding:4px 6px 4px 16px;border-radius:12px;background:#333;border:1px solid #555;font-size:13px;transition:opacity .2s,transform .2s}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,24px);opacity:0;pointer-events:none;z-index:70;display:flex;align-items:center;gap:8px;width:max-content;max-width:min(92vw,520px);padding:4px 6px 4px 16px;border-radius:12px;background:#333;border:1px solid #555;font-size:13px;transition:opacity .2s,transform .2s}
+.sheet.on ~ .toast{bottom:calc(24px + env(safe-area-inset-bottom))}
+.sheet.on.hascta ~ .toast{bottom:calc(84px + env(safe-area-inset-bottom))}
 .toast.on{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
 .toast button{min-height:44px;padding:0 12px;color:var(--accent);font-weight:800;white-space:nowrap}
 .stale{color:var(--warn)}
@@ -326,7 +329,7 @@ function chips(ev) {
 function dayBlock(ev) {
   const ks = dkeys(ev), st = me(ev.id), pair = modeOf(ev) === 'pair';
   if (!ks.length || (ks.length < 2 && !pair)) return '';
-  return `<div class="sec"><h4>${pair ? '公演ごとの状況と名義' : '公演ごとの状況'}</h4>${ks.map(k => `<div class="dayrow"><b>${esc(shortK(k))}</b>${ks.length > 1 ? seg(ev, dget(st, k), k) : ''}${pair ? `<div class="by" data-id="${esc(ev.id)}" data-day="${esc(k)}">${BY.map(b => `<button data-by="${b}" class="${((st.days && st.days[k] && st.days[k].by) || '自分') === b ? 'on' : ''}">${b}</button>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
+  return `<div class="days">${ks.map(k => `<div class="dayrow"><b>${esc(shortK(k))}</b>${ks.length > 1 ? seg(ev, dget(st, k), k) : ''}${pair ? `<div class="by" data-id="${esc(ev.id)}" data-day="${esc(k)}">${BY.map(b => `<button data-by="${b}" class="${((st.days && st.days[k] && st.days[k].by) || '自分') === b ? 'on' : ''}">${b}</button>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
 }
 
 function slotInner(ev) {   // 受付枠が2つ以上あるイベントだけ、履歴を出す
@@ -563,6 +566,8 @@ function renderSheet(id) {
   const extraCals = [['deadline', '締切をGoogleカレンダーに登録'], ['start', '受付開始をGoogleカレンダーに登録'], ['lottery', '当落発表日をGoogleカレンダーに登録']].filter(([k]) => cals[k] && !used.has(cals[k]));
   const mi = merchInfo(ev), n = (ev.schedules || []).length;
   const memoKey = `${id}|memo`, memoOpen = memoKey in secOpen ? secOpen[memoKey] : !!st.memo;
+  const ks = dkeys(ev), mixed = common(ev) === null, perKey = `${id}|per`, perOpen = perKey in secOpen ? secOpen[perKey] : mixed;   // 公演ごとに違う記録があるときは、開いておく
+  const perHint = mixed ? ks.map(k => `${shortK(k)} ${LBL[dget(st, k)] || '未'}`).join(' ・ ') : (modeOf(ev) === 'pair' ? '連番' : '');
 
   const OPEN = {
     won:     { slots: false, merch: true,  venue: true,  sched: true  },
@@ -580,7 +585,7 @@ function renderSheet(id) {
         <dt>当落発表</dt><dd>${esc(ev.lotteryDate || 'ー')}${lotLine(ev) ? `<br><span class="lot">${esc(lotLine(ev))}</span>` : ''}</dd></dl>
       ${slotInner(ev)}
       ${extraCals.map(([k, l]) => `<a class="btn sm" href="${esc(cals[k])}" target="_blank" rel="noopener">${l}</a>`).join('')}
-      ${ev.officialUrl ? `<a class="btn sm" href="${esc(ev.officialUrl)}" target="_blank" rel="noopener">公式ページを開く ↗</a>` : ''}
+      ${ev.officialUrl && !(next.primary && next.primary.href === ev.officialUrl) ? `<a class="btn sm" href="${esc(ev.officialUrl)}" target="_blank" rel="noopener">公式ページを開く ↗</a>` : ''}
       <p class="sub" style="margin-top:8px">※ 日時・受付内容は、申込の前に必ず公式ページでご確認ください</p>`, OPEN.slots),
     merch: mi ? acc(ev, 'merch', '物販', mi.hint, mi.html, OPEN.merch) : '',
     venue: acc(ev, 'venue', '会場・アクセス', ev.venue || '未定', `
@@ -597,15 +602,17 @@ function renderSheet(id) {
   };
 
   $('sheet').innerHTML = `<div class="bar"><button class="x" data-share aria-label="このイベントのリンクをコピー">🔗</button><button class="x" data-close aria-label="閉じる">✕</button></div>
+    <div class="sbody">
     <div>${tags(ev)}</div>
     <h3>${esc(ev.icon || '🎤')} ${esc(ev.title)}</h3>
     <div class="meta2">📅 ${esc(dateRange(ev))}${ev.venue ? `　🏟️ ${esc(ev.venue)}` : ''}</div>
     <div class="next ${next.tone}" role="status"><div class="nt">${esc(next.title)}</div><div class="ns">${esc(next.sub)}</div>
       ${next.actions.length ? `<div class="acts">${next.actions.map(a => `<a class="btn" href="${esc(a.href)}" target="_blank" rel="noopener">${esc(a.label)}</a>`).join('')}</div>` : ''}</div>
-    <div class="rec"><div class="rh">あなたの記録<span class="sub">（このブラウザにだけ保存）</span></div>${modeBar(ev)}${seg(ev, common(ev))}${dayBlock(ev)}
+    <div class="rec"><div class="rh">あなたの記録<span class="sub">（このブラウザにだけ保存）</span></div>${seg(ev, common(ev))}
+      <details class="acc mini" data-k="${esc(perKey)}" ${perOpen ? 'open' : ''}><summary><span class="at">${ks.length > 1 ? '公演ごとの記録' : '連番の設定'}</span><span class="ah">${esc(perHint)}</span></summary><div class="ab">${modeBar(ev)}${dayBlock(ev)}</div></details>
       <details class="acc mini" data-k="${esc(memoKey)}" ${memoOpen ? 'open' : ''}><summary><span class="at">メモ</span><span class="ah">${esc((st.memo || '').slice(0, 24))}</span></summary><div class="ab"><textarea class="memo" id="memo" placeholder="自分用メモ（例：Day1申込済、ホテル確保）">${esc(st.memo)}</textarea></div></details></div>
     ${ORDER.map(k => secs[k]).join('')}
-    <div style="height:16px;flex:none"></div>
+    </div>
     ${next.primary ? `<div class="cta"><a class="btn" href="${esc(next.primary.href)}" target="_blank" rel="noopener">${esc(next.primary.label)}</a></div>` : ''}`;
   $('sheet').classList[next.primary ? 'add' : 'remove']('hascta');   // 下の固定ボタンがあるときは、余白をなくして、画面の下に密着させる
   $('memo').oninput = e => { me(id).memo = e.target.value; save(); };
