@@ -391,7 +391,11 @@ function merchInfo(ev) {   // { html, hint } を返す。物販情報がなけ�
       ${lines(x.seiriken).length ? `<div class="mtime"><span class="mt">🎫 整理券の方（当選者）</span>${lines(x.seiriken).map(l => `<div>${esc(l)}</div>`).join('')}</div>` : ''}
       ${lines(x.free).length ? `<div class="mtime"><span class="mt">🚶 フリー（整理券なし）</span>${lines(x.free).map(l => `<div>${esc(l)}</div>`).join('')}<div class="sub">※ 時間は予定・目安です。当日の状況により変わります</div></div>` : ''}
       ${link(x, 'デジタル注文書を開く ↗')}</div></div>`).join('');
-  const sei = items.filter(x => x.kind === '整理券').map(x => `<div class="mrow">${badge(x)}<div><b>${esc(x.name || '物販整理券')}</b><div class="sub">${esc(range(x))}${x.lottery ? `　当落発表 ${esc(fmt(ms(x.lottery)))}` : ''}</div>${link(x, '整理券の受付ページ ↗')}</div></div>`).join('');
+  const sei = items.filter(x => x.kind === '整理券').map(x => {
+  const ph = phase({applyStartDate: x.start, deadline: x.end});
+  const isClosed = ph === 'closed';
+  return `<div class="mrow ${isClosed ? 'done' : ''}">${badge(x)}<div><b>${esc(x.name || '物販整理券')}</b><div class="sub">${esc(range(x))}${x.lottery ? ` 当落発表 ${esc(fmt(ms(x.lottery)))}` : ''}</div>${isClosed ? '<div class="sub" style="margin-top:6px">受付は終了しました。上のデジタル注文書をご利用ください。</div>' : link(x, '整理券の受付ページ ↗')}</div></div>`;
+}).join('');
   const pre = items.filter(x => x.kind === '事前販売').map(x => `<div class="mrow ${phase({applyStartDate: x.start, deadline: x.end}) === 'closed' ? 'done' : ''}">${badge(x)}<div><b>${esc(x.name || '事前販売')}</b>${range(x) ? `<div class="sub">${esc(range(x))}</div>` : '<div class="sub">期間は公式で確認</div>'}${link(x, '事前販売ページを開く ↗')}</div></div>`).join('');
   if (!site && !sei && !pre) return null;
   const nPre = items.filter(x => x.kind === '事前販売').length;
