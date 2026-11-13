@@ -13,8 +13,13 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 a{color:var(--accent);text-decoration:none}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px}
-header{padding:28px 0 12px}
-h1{font-size:22px;font-weight:800;letter-spacing:.02em}
+header{padding:18px 0 2px}
+h1{font-size:20px;font-weight:800;letter-spacing:.02em}
+.info>summary{list-style:none;cursor:pointer;color:var(--muted);font-size:12px;min-height:34px;display:flex;align-items:center}
+.info>summary::-webkit-details-marker{display:none}
+.info>summary.stale{color:var(--warn);font-weight:700}
+.info .ib{font-size:12px;color:var(--muted);line-height:1.7;padding:2px 0 8px}
+.info .ib p+p{margin-top:4px}
 .sub{color:var(--muted);font-size:12px;margin-top:2px}
 
 /* 今やること */
@@ -27,7 +32,20 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 .todo-item.soon span{color:var(--accent)}
 
 /* 絞り込み */
-.tools{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 0 10px;margin-bottom:6px}
+.tools{position:sticky;top:0;z-index:20;background:var(--bg);padding:6px 0 8px;margin-bottom:6px}
+.wrap-in{position:relative}
+.crow{display:flex;gap:8px;align-items:center;margin-top:8px}
+.seg2{display:flex;flex:none;gap:2px;padding:3px;border-radius:12px;background:var(--surface)}
+.vb{min-width:44px;min-height:40px;padding:0 10px;border-radius:9px;color:var(--muted);display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:700;font-size:13px}
+.vb.on{background:rgba(122,162,247,.18);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.vl{display:none}
+.fbtn{flex:none;min-height:46px;max-width:42vw;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fbtn.on{color:var(--accent);border-color:var(--accent)}
+.fpanel{position:absolute;left:0;right:0;top:100%;z-index:30;margin-top:6px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.fpanel[hidden]{display:none}
+.fl{font-size:12px;font-weight:700;color:var(--muted);margin:2px 0 6px}
+.fl+.row{margin-bottom:10px}
+.wrapr{flex-wrap:wrap;overflow:visible}
 .row{display:flex;gap:8px;overflow-x:auto;padding:2px 0;scrollbar-width:none}
 .row::-webkit-scrollbar{display:none}
 .tab{flex:none;min-height:44px;padding:8px 14px;border-radius:999px;background:var(--surface);color:var(--muted);font-weight:600;white-space:nowrap}
@@ -36,7 +54,7 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 .tab.on b{color:var(--accent)}
 .chip{flex:none;min-height:40px;padding:4px 14px;display:inline-flex;align-items:center;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-size:12px}
 .chip.on{border-color:var(--accent);color:var(--accent);font-weight:700}
-.search{width:100%;margin-top:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:14px}
+.search{flex:1;min-width:0;min-height:46px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:14px}
 
 /* カード */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px;padding-bottom:60px}
@@ -163,7 +181,14 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 @media(min-width:768px){
   .sheet{top:0;right:0;bottom:0;width:520px;transform:translateX(100%);box-shadow:-12px 0 32px rgba(0,0,0,.5)}
   .sheet.on{transform:none}
-  .search{max-width:380px;margin-top:0;position:absolute;right:0;top:8px}
+  h1{font-size:24px}
+  header{padding:28px 0 4px}
+  .vl{display:inline}
+  .fbtn{display:none}
+  .search{max-width:420px}
+  .fpanel{display:flex!important;flex-wrap:wrap;align-items:center;gap:8px 20px;position:static;margin-top:8px;padding:0;border:0;background:none;box-shadow:none}
+  .fpanel .fl{display:none}
+  .fpanel .row,.fpanel .fl+.row{margin:0}
   .tools{position:sticky}
   .tools .wrap-in{position:relative}
 }
@@ -173,20 +198,25 @@ h1{font-size:22px;font-weight:800;letter-spacing:.02em}
 <body>
 <div class="wrap">
   <header>
-    <h1>🎤 アイマス ライブ・イベント情報ポータル</h1>
-    <p class="sub" id="note">応募状況とメモは、このブラウザに自動保存されます</p>
-    <p class="sub" id="upd"></p>
+    <h1>🎤 アイマス ライブ情報ポータル</h1>
+    <details class="info"><summary id="infosum"></summary><div class="ib" id="infob"></div></details>
+    <p class="sub" id="note" hidden></p>
   </header>
   <section class="todo" id="todo" hidden></section>
   <div class="tools"><div class="wrap-in">
-    <div class="row" id="viewrow"></div>
-    <div class="row" id="tabs" style="margin-top:8px"></div>
-    <div class="row" id="brands" style="margin-top:8px"></div>
-    <div class="row" id="gmode" style="margin-top:8px"></div>
-    <input class="search" id="q" type="search" placeholder="ライブ名・会場・出演者で検索">
+    <div class="row" id="tabs"></div>
+    <div class="crow">
+      <div class="seg2" id="viewrow" role="group" aria-label="表示の切り替え"></div>
+      <input class="search" id="q" type="search" placeholder="検索" aria-label="ライブ名・会場・出演者で検索">
+      <button class="fbtn" id="fbtn" aria-expanded="false" aria-controls="fpanel">絞り込み ▾</button>
+    </div>
+    <div class="fpanel" id="fpanel" hidden>
+      <div class="fl">ブランド</div><div class="row wrapr" id="brands"></div>
+      <div class="fl">参戦スタイル<span class="sub">（連番の管理）</span></div><div class="row" id="gmode"></div>
+    </div>
   </div></div>
   <main class="grid" id="grid"></main>
-  <footer class="foot"><p class="sub">このサイトは非公式の情報まとめです。公式サイト・各チケット販売ページとは関係ありません。</p></footer>
+  <footer class="foot"><p class="sub">情報はAIで自動収集しています。誤りや更新漏れがある場合があるため、申込前に必ず公式サイトでご確認ください。</p><p class="sub">このサイトは非公式の情報まとめです。公式サイト・各チケット販売ページとは関係ありません。</p></footer>
 </div>
 <div class="back" id="back"></div>
 <aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="イベント詳細" inert></aside>
@@ -223,6 +253,7 @@ function cycleDay(ev, k) { const st = mat(ev), set = (isFcfs(ev) ? ST_FCFS : ST_
 const TABS = [['now','今応募できる'],['before','受付前・未定'],['mine','応募済み'],['skip','見送り'],['closed','終了'],['all','すべて']];
 const RANK = {urgent:0, open:1, before:2, tbd:3, closed:4};
 let events = [], brand = 'すべて', tab = 'now', openId = null;
+let fOpen = false;   // 絞り込みパネルの開閉（スマホ）
 let meta = null;   // meta.json（スナイパーが最後に確認した日時）
 let view = localStorage.getItem('imas_portal_view_v1') === 'dates' ? 'dates' : 'apply', dtab = 'upcoming';   // 表示: 受付状況 / 公演日順
 let gmode = localStorage.getItem('imas_portal_mode_v1') === 'pair' ? 'pair' : 'solo';   // 基本の参戦スタイル
@@ -387,20 +418,31 @@ function dateRange(ev) {
   return b && b !== a ? `${md(a)}(${wd(a)}) 〜 ${md(b)}(${wd(b)})` : `${md(a)}(${wd(a)})`;
 }
 const DISCLAIMER = '情報はAIで自動収集しています。誤りや更新漏れがある場合があるため、申込前に必ず公式サイトでご確認ください。';
-function drawUpd() {
-  const el = $('upd'); if (!el) return;
-  let t = '', stale = false;
+function drawUpd() {   // 「データ確認」の日時は1行で見せ、注意書きは ⓘ をタップしたときに開く
+  const sum = $('infosum'), body = $('infob');
+  if (!sum || !body) return;
   const d = meta && meta.checkedAt ? new Date(meta.checkedAt) : null;
+  let t = '', stale = false;
   if (d && !isNaN(d)) {
     stale = Date.now() - d.getTime() > 36 * 36e5;   // 36時間以上更新されていなければ警告
-    t = `データ確認: ${d.toLocaleString('ja-JP', {timeZone:'Asia/Tokyo', month:'numeric', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit', hourCycle:'h23'})}${stale ? '（更新が止まっている可能性があります）' : ''}　`;
+    t = `データ確認: ${d.toLocaleString('ja-JP', {timeZone:'Asia/Tokyo', month:'numeric', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit', hourCycle:'h23'})}${stale ? '（更新が止まっている可能性があります）' : ''}`;
   }
-  el.className = 'sub' + (stale ? ' stale' : '');
-  el.textContent = t + DISCLAIMER;
+  sum.className = stale ? 'stale' : '';
+  sum.textContent = (t ? t + '　' : '') + 'ⓘ ご利用にあたって';
+  body.innerHTML = `<p>応募状況とメモは、このブラウザにだけ保存されます（他の人には見えません）。</p><p>${DISCLAIMER}</p>`;
+}
+function drawFilter() {
+  const fb = $('fbtn'), fp = $('fpanel');
+  if (!fb || !fp) return;
+  fb.textContent = `${brand !== 'すべて' ? brand : '絞り込み'} ▾`;   // 絞り込み中は、ブランド名を見せる
+  fb.className = 'fbtn' + (brand !== 'すべて' ? ' on' : '');
+  if (fb.setAttribute) fb.setAttribute('aria-expanded', String(fOpen));
+  fp.hidden = !fOpen;
 }
 function drawView() {
   drawUpd();
-  $('viewrow').innerHTML = [['apply', '📋 受付状況'], ['dates', '📅 公演日順']].map(([v, l]) => `<button class="tab ${view === v ? 'on' : ''}" data-view="${v}" aria-pressed="${view === v}">${l}</button>`).join('');
+  $('viewrow').innerHTML = [['apply', '📋', '受付状況'], ['dates', '📅', '公演日順']].map(([v, ic, l]) => `<button class="vb ${view === v ? 'on' : ''}" data-view="${v}" aria-pressed="${view === v}" aria-label="${l}" title="${l}"><span class="vi">${ic}</span><span class="vl">${l}</span></button>`).join('');
+  drawFilter();
 }
 function drawDates(q, today) {
   const base = events.filter(ev => (brand === 'すべて' || (ev.brands || []).includes(brand)) && (!q ||
@@ -410,7 +452,7 @@ function drawDates(q, today) {
   const match = (ev, k) => k === 'upcoming' ? !isPast(ev) : k === 'going' ? (!isPast(ev) && anyWon(ev)) : !!isPast(ev);
   const cnt = Object.fromEntries(DTABS.map(([k]) => [k, base.filter(ev => match(ev, k)).length]));
   $('tabs').innerHTML = DTABS.map(([k, l]) => `<button class="tab ${dtab === k ? 'on' : ''}" data-dtab="${k}" aria-pressed="${dtab === k}">${l}<b>${cnt[k]}</b></button>`).join('');
-  $('gmode').innerHTML = `<span class="sub" style="align-self:center">参戦スタイル</span>` + [['solo', 'ソロ'], ['pair', '連番']].map(([v, l]) => `<button class="chip ${gmode === v ? 'on' : ''}" data-gmode="${v}">${l}</button>`).join('');
+  $('gmode').innerHTML = [['solo', 'ソロ'], ['pair', '連番']].map(([v, l]) => `<button class="chip ${gmode === v ? 'on' : ''}" data-gmode="${v}">${l}</button>`).join('');
   $('brands').innerHTML = BRANDS.map(b => `<button class="chip ${brand === b ? 'on' : ''}" data-brand="${b}" aria-pressed="${brand === b}">${b}</button>`).join('');
   const list = base.filter(ev => match(ev, dtab)).sort((a, b) => dtab === 'past' ? (b.eventDateStart || '').localeCompare(a.eventDateStart || '') : (a.eventDateStart || '9999').localeCompare(b.eventDateStart || '9999'));
   let html = '', last = null;
@@ -453,7 +495,7 @@ function draw() {
   const cnt = {};
   TABS.forEach(([k]) => { const t = tab; tab = k; cnt[k] = base.filter(ev => matchTab(ev, phase(ev), me(ev.id))).length; tab = t; });
   $('tabs').innerHTML = TABS.map(([k, l]) => `<button class="tab ${tab === k ? 'on' : ''}" data-tab="${k}" aria-pressed="${tab === k}">${l}<b>${cnt[k]}</b></button>`).join('');
-  $('gmode').innerHTML = `<span class="sub" style="align-self:center">参戦スタイル</span>` + [['solo','ソロ'],['pair','連番']].map(([v, l]) => `<button class="chip ${gmode === v ? 'on' : ''}" data-gmode="${v}">${l}</button>`).join('');
+  $('gmode').innerHTML = [['solo','ソロ'],['pair','連番']].map(([v, l]) => `<button class="chip ${gmode === v ? 'on' : ''}" data-gmode="${v}">${l}</button>`).join('');
   $('brands').innerHTML = BRANDS.map(b => `<button class="chip ${brand === b ? 'on' : ''}" data-brand="${b}" aria-pressed="${brand === b}">${b}</button>`).join('');
 
   const list = base.filter(ev => {
@@ -665,6 +707,7 @@ function act(ev, fn, msgFn) {   // 変更 → 保存 → 再描画 → 取り消
 
 /* ---- 操作 ---- */
 function openSheet(id, push = true) {
+  fOpen = false; drawFilter();
   openId = id; renderSheet(id);
   const sh = $('sheet'); sh.inert = false; sh.scrollTop = 0; $('back').classList.add('on'); sh.classList.add('on');
   setTimeout(() => { const x = sh.querySelector('[data-close]'); if (x) x.focus(); }, 60);
@@ -688,6 +731,8 @@ function shareLink() {   // このイベントのURLをコピー
 }
 
 document.addEventListener('click', e => {
+  if (e.target.closest('#fbtn')) { fOpen = !fOpen; drawFilter(); return; }
+  if (fOpen && !e.target.closest('#fpanel')) { fOpen = false; drawFilter(); }   // パネルの外をタップしたら閉じる（そのタップの操作は、そのまま行う）
   const sm = e.target.closest('details.acc > summary');   // 折りたたみ：手で開閉した状態を覚える（ブラウザ標準の開閉は、そのまま動く）
   if (sm) { const d = sm.parentElement; secOpen[d.dataset.k] = !d.open; return; }
   if (e.target.closest('[data-share]')) { shareLink(); return; }
@@ -711,14 +756,14 @@ document.addEventListener('click', e => {
   const vw = e.target.closest('[data-view]'); if (vw) { view = vw.dataset.view; localStorage.setItem('imas_portal_view_v1', view); render(); return; }
   const dt = e.target.closest('[data-dtab]'); if (dt) { dtab = dt.dataset.dtab; render(); return; }
   const t = e.target.closest('[data-tab]'); if (t) { tab = t.dataset.tab; render(); return; }
-  const b = e.target.closest('[data-brand]'); if (b) { brand = b.dataset.brand; render(); return; }
+  const b = e.target.closest('[data-brand]'); if (b) { brand = b.dataset.brand; fOpen = false; render(); return; }
   if (e.target.closest('[data-close]') || e.target === $('back')) { closeSheet(); return; }
   const o = e.target.closest('[data-open]') || e.target.closest('.card') || e.target.closest('.drow');
   if (o) openSheet(o.dataset.open || o.dataset.id);
 });
 $('q').oninput = render;
 addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeSheet();
+  if (e.key === 'Escape') { if (fOpen) { fOpen = false; drawFilter(); const fb = $('fbtn'); if (fb) fb.focus(); return; } closeSheet(); }
   if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && (e.target.classList.contains('card') || e.target.classList.contains('drow'))) { e.preventDefault(); openSheet(e.target.dataset.id); }
 });
 
@@ -732,7 +777,8 @@ addEventListener('keydown', e => {
   try { const mr = await fetch(`./meta.json?_=${Date.now()}`); if (mr.ok) meta = await mr.json(); } catch (_) {}
   if (!events.length) {
     events = demo();
-    $('note').innerHTML = '⚠️ events.json を読み込めないため、サンプルを表示しています（index.html と同じフォルダに events.json を置くと本物のデータになります）';
+    $('note').hidden = false;
+    $('note').textContent = '⚠️ events.json を読み込めないため、サンプルを表示しています（index.html と同じフォルダに events.json を置くと本物のデータになります）';
     $('note').style.color = 'var(--warn)';
   }
   render();
