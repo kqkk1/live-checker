@@ -359,18 +359,18 @@
     "brands": [
       "シャニマス"
     ],
-    "phase": "アソビストア一般会員先行",
-    "phaseKind": "抽選",
-    "applyStartDate": "2026-08-27T12:00:00.000+09:00",
-    "deadline": "2026-09-23T23:59:00.000+09:00",
-    "lotteryDate": "2026-10-08",
+    "phase": "一般販売(先着)",
+    "phaseKind": "先着",
+    "applyStartDate": "2026-11-21T12:00:00.000+09:00",
+    "deadline": "2026-12-12T23:59:00.000+09:00",
+    "lotteryDate": "",
     "slots": [
       {
-        "name": "アソビストア一般会員先行",
-        "kind": "抽選",
-        "start": "2026-08-27T12:00:00.000+09:00",
-        "end": "2026-09-23T23:59:00.000+09:00",
-        "lottery": "2026-10-08"
+        "name": "一般販売(先着)",
+        "kind": "先着",
+        "start": "2026-11-21T12:00:00.000+09:00",
+        "end": "2026-12-12T23:59:00.000+09:00",
+        "lottery": ""
       }
     ],
     "eventDateStart": "2026-12-19",
@@ -859,17 +859,55 @@
     "schedules": [
       {
         "label": "Day1: 3月13日(土) 開場16:00/開演17:00",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 19,
+        "castNames": [
+          "天道輝",
+          "渡辺みのり",
+          "紅井朱雀",
+          "橘志狼",
+          "牙崎漣",
+          "伊集院北斗",
+          "神楽麗",
+          "蒼井享介",
+          "握野英雄",
+          "冬美旬",
+          "榊夏来",
+          "黒野玄武",
+          "岡村直央",
+          "信玄誠司",
+          "清澄九郎",
+          "若里春名",
+          "卯月巻緒",
+          "姫野かのん",
+          "北村想楽"
+        ],
+        "penlightCastCount": 19,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD"
       },
       {
         "label": "Day2: 3月14日(日) 開場15:30/開演16:30",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 17,
+        "castNames": [
+          "木村龍",
+          "伊瀬谷四季",
+          "水嶋咲",
+          "円城寺道流",
+          "兜大吾",
+          "岡村直央",
+          "硲道夫",
+          "山下次郎",
+          "九十九一希",
+          "葛之葉雨彦",
+          "古論クリス",
+          "天峰秀",
+          "蒼井悠介",
+          "華村翔真",
+          "神谷幸広",
+          "姫野かのん",
+          "花園百々人"
+        ],
+        "penlightCastCount": 17,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA"
       }
     ],
     "merch": []
@@ -1042,7 +1080,7 @@
     "accessUrl": "https://www.google.com/search?q=%E3%82%BC%E3%83%93%E3%82%AA%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E4%BB%99%E5%8F%B0%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
     "nearestStation": "長町駅 徒歩約5分、仙台駅 電車+徒歩約10分",
     "isSpecialColor": false,
-    "isXR": false,
+    "isXR": true,
     "schedules": [
       {
         "label": "Day1 昼公演: 2027年3月27日(土) 開場12:00 / 開演13:00「ただ眩しかった」",
