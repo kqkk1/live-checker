@@ -657,6 +657,7 @@
       },
       {
         "label": "Day2 夜公演: 2月14日(日) 開場16:30/開演17:30（ハッピーバレンタイン♡珠玉の「大好き♡」狩り放題♡）",
+        "name": "大好き♡",
         "castCount": 5,
         "castNames": [
           "辻野あかり",
@@ -803,14 +804,14 @@
     "phaseKind": "抽選",
     "applyStartDate": "2026-11-05T12:00:00.000+09:00",
     "deadline": "2026-11-26T23:59:00.000+09:00",
-    "lotteryDate": "",
+    "lotteryDate": "2026-12-10",
     "slots": [
       {
         "name": "アソビストアプレミアム会員2次先行",
         "kind": "抽選",
         "start": "2026-11-05T12:00:00.000+09:00",
         "end": "2026-11-26T23:59:00.000+09:00",
-        "lottery": ""
+        "lottery": "2026-12-10"
       }
     ],
     "eventDateStart": "2027-03-13",
@@ -997,7 +998,8 @@
     "isSpecialColor": false,
     "schedules": [
       {
-        "label": "Day1: 2027年3月27日(土)",
+        "label": "Day1 昼公演: 2027年3月27日(土) 開場12:00 / 開演13:00「ただ眩しかった」",
+        "name": "ただ眩しかった",
         "castCount": 4,
         "castNames": [
           "浅倉透",
@@ -1008,7 +1010,32 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C"
       },
       {
-        "label": "Day2: 2027年3月28日(日)",
+        "label": "Day1 夜公演: 2027年3月27日(土) 開場16:00 / 開演17:00「きみと一緒だったら」",
+        "name": "きみと一緒だったら",
+        "castCount": 4,
+        "castNames": [
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C"
+      },
+      {
+        "label": "Day2 昼公演: 2027年3月28日(日) 開場12:00 / 開演13:00「きっと忘れない」",
+        "name": "きっと忘れない",
+        "castCount": 4,
+        "castNames": [
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜"
+        ],
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C"
+      },
+      {
+        "label": "Day2 夜公演: 2027年3月28日(日) 開場16:00 / 開演17:00「さよなら」",
+        "name": "さよなら",
         "castCount": 4,
         "castNames": [
           "浅倉透",
