@@ -1,0 +1,37 @@
+name: sync
+# 手動実行。公式サイトもAIも使わず、Notionの今の内容から events.json だけ作り直して反映する（画面の確認・手入力の反映用）
+on:
+  workflow_dispatch:
+concurrency:
+  group: sniper-write      # チェッカー本体と同時に動かさない（同じグループ名を cron.yml にも付けると、完全に重なりを防げます）
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 同期（Notion → events.json）
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+          NOTION_SLOT_DB_ID: ${{ secrets.NOTION_SLOT_DB_ID }}
+          NOTION_SCHEDULE_DB_ID: ${{ secrets.NOTION_SCHEDULE_DB_ID }}
+          NOTION_LOG_DB_ID: ${{ secrets.NOTION_LOG_DB_ID }}
+          NOTION_MERCH_DB_ID: ${{ secrets.NOTION_MERCH_DB_ID }}
+        run: |
+          DIR=$(dirname "$(find . -name index.js -path '*sniper*' -not -path './node_modules/*' | head -1)")
+          echo "DIR=$DIR" >> "$GITHUB_ENV"
+          cd "$DIR"
+          npm install @notionhq/client --no-save --no-audit --no-fund
+          node index.js --sync-only
+      - name: 変更を保存（コミット）
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$DIR/events.json" "$DIR/meta.json" 2>/dev/null || true
+          if git diff --cached --quiet; then echo "変更なし"; else git commit -m "sync: Notionから events.json を更新" && git pull --rebase && git push; fi
