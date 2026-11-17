@@ -1,6 +1,6 @@
 'use strict';
 /**
- * アイマス ライブ情報スナイパー（新構成版）
+ * アイマスチケットチェッカー（新構成版）
  *
  * 公式サイトの新着記事 → Gemini で抽出 → Notion の4つのDBに反映 → events.json を生成
  *
@@ -13,12 +13,14 @@
  *   node index.js              通常実行
  *   node index.js --dry        Notion に書き込まない（events.json も作らない）
  *   node index.js --max=3      新しい記事を最大3件だけ処理する（試運転用）
+ *   node index.js --sync-only  公式サイト・AIを使わず、Notionの今の内容から events.json だけ作り直す
  */
 const { Client } = require('@notionhq/client');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const merch = require('./merch.js');
+const penlightCheck = require('./penlight-check.js');
 
 const DRY = process.argv.includes('--dry');
 const SYNC_ONLY = process.argv.includes('--sync-only');   // 公式サイト・AIを使わず、Notionから events.json だけ作り直す
@@ -119,7 +121,7 @@ const relIds = (page, name) => (name ? (page.properties[name]?.relation || []).m
 /* =====================================================================
  * 更新日時（meta.json）と、Discord への通知
  *   meta.json … Pages が「データ更新: 〇/〇 〇:〇〇」を表示するために読む。警告の内容のハッシュも持ち、同じ警告を毎回通知しないようにする
- *   通知      … 環境変数 DISCORD_WEBHOOK_URL があるときだけ。実行の失敗は、GitHub Actions 側（sniper.yml）が通知する
+ *   通知      … 環境変数 DISCORD_WEBHOOK_URL があるときだけ。実行の失敗は、GitHub Actions 側（cron.yml）が通知する
  * ===================================================================== */
 const META_PATH = path.join(__dirname, 'meta.json');
 const readMeta = () => { try { return JSON.parse(fs.readFileSync(META_PATH, 'utf8')); } catch (e) { return {}; } };
@@ -143,7 +145,7 @@ function warnMessage() {
   const runUrl = process.env.GITHUB_RUN_ID ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}` : '';
   let body = '', shown = 0;
   for (const w of warns) { const line = `・${w}\n`; if (body.length + line.length > 1500) break; body += line; shown++; }
-  return `📝 スナイパーから確認のお願い（${warns.length}件）\n${body}${shown < warns.length ? `…ほか${warns.length - shown}件\n` : ''}${runUrl ? `ログ: ${runUrl}` : ''}`;
+  return `📝 アイマスチケットチェッカーから確認のお願い（${warns.length}件）\n${body}${shown < warns.length ? `…ほか${warns.length - shown}件\n` : ''}${runUrl ? `ログ: ${runUrl}` : ''}`;
 }
 
 /* =====================================================================
@@ -1054,6 +1056,10 @@ async function syncEventsJson() {
   await loadAll();   // 最新の状態を読み直す
   const { events, issues } = buildEvents(S);
   issues.forEach(warn);
+  // ペンライト設定URLの出演者名が、拡張機能のカラーデータで見つかるか（見つからない名前は「確認のお願い」で通知）
+  const pc = await penlightCheck.check(events);
+  pc.issues.forEach(warn);
+  if (pc.checked && !pc.issues.length) console.log(' ├─ 🪄 ペンライト: これから開催のライブの出演者は、すべてカラーデータで見つかりました');
   if (DRY) { console.log(`   [DRY] events.json は作りません（${events.length}件分を生成できました）`); return { warnChanged: false, aiChanged: false, aiRecovered: false }; }
   fs.writeFileSync(path.join(__dirname, 'events.json'), JSON.stringify(events, null, 2), 'utf8');
   const warnHash = warns.length ? crypto.createHash('sha1').update(warns.join('\n')).digest('hex').slice(0, 12) : '';
@@ -1148,7 +1154,7 @@ async function syncOnly() {
 async function run() {
   if (SYNC_ONLY) return syncOnly();
   const { chromium } = require('playwright');   // テスト時に不要なため、ここで読み込む
-  console.log(`🚀 スナイパー起動（新構成版${DRY ? ' / ドライラン' : ''}${MAX < Infinity ? ` / 最大${MAX}件` : ''}）`);
+  console.log(`🚀 アイマスチケットチェッカー起動（新構成版${DRY ? ' / ドライラン' : ''}${MAX < Infinity ? ` / 最大${MAX}件` : ''}）`);
   console.log('Notionの既存データを読み込み中...');
   try { await loadAll(); } catch (err) { console.error('⚠️ Notionの初期読み込みに失敗しました:', err.message); process.exitCode = 1; return; }
   console.log(` ├─ ライブ ${S.live.pages.length}件 / 受付枠 ${S.slot.pages.length}件 / 公演日程 ${S.sched.pages.length}件 / 取得ログ ${S.log.pages.length}件`);
