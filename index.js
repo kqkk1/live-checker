@@ -697,9 +697,9 @@ async function grab(page, url) {   // ページを開いて、本文・リンク
     title: document.title, url: location.href,
     text: (document.querySelector('main, article, #main') || document.body).innerText,
     anchors: Array.from(document.querySelectorAll('a')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })),
-    // GOODS欄（#goodsCol）だけの本文とリンク。物販の情報は、ここだけから読む（チケット欄など、ほかの欄の値が混ざらないようにする）
+    // GOODS欄だけの本文とリンク（通常は #goodsCol。1ページ型のサイトは section#goods、物販専用ページは body#goods）。物販の情報は、ここだけから読む（チケット欄など、ほかの欄の値が混ざらないようにする）
     goodsIds: Array.from(document.querySelectorAll('[id*="goods" i], [class*="goods" i]')).slice(0, 8).map(e => `${e.tagName.toLowerCase()}${e.id ? '#' + e.id : ''}${e.className && typeof e.className === 'string' ? '.' + e.className.trim().split(/\s+/).slice(0, 2).join('.') : ''}`),   // #goodsCol が無いページの調査用
-    goods: (() => { const el = document.querySelector('#goodsCol'); return el ? { text: el.innerText || '', anchors: Array.from(el.querySelectorAll('a')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })) } : null; })(),
+    goods: (() => { const el = document.querySelector('#goodsCol') || document.querySelector('section#goods') || (document.body.id === 'goods' ? (document.querySelector('main, article, #main') || document.body) : null); return el ? { text: el.innerText || '', anchors: Array.from(el.querySelectorAll('a')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })) } : null; })(),
   }));
 }
 const isNotFound = g => !g || /404|Not Found|見つかりません/i.test(g.title || '') || String(g.text || '').length < 200;
