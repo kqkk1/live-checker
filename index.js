@@ -21,6 +21,7 @@ const crypto = require('crypto');
 const merch = require('./merch.js');
 
 const DRY = process.argv.includes('--dry');
+const SYNC_ONLY = process.argv.includes('--sync-only');   // 公式サイト・AIを使わず、Notionから events.json だけ作り直す
 const MAX = Number((process.argv.find(a => a.startsWith('--max=')) || '').slice(6)) || Infinity;
 const ENV = {
   live: process.env.NOTION_DB_ID,
@@ -1135,7 +1136,16 @@ ${text.substring(0, 12000)}`;
 /* =====================================================================
  * メイン処理
  * ===================================================================== */
+async function syncOnly() {
+  console.log('🔄 同期のみモード（公式サイト・AIは使いません。Notionの現在の内容から events.json を作り直します）');
+  const prevWarn = readMeta().warnHash || '';
+  try { await syncEventsJson(); } catch (err) { console.error('⚠️ Notionからの同期に失敗しました:', err.message); process.exitCode = 1; return; }   // 内部でNotionを読み込む
+  // 通知していない警告を、次の通常実行で「新しい警告」として通知できるよう、警告の記録は前回のまま残す
+  if (!DRY) { try { fs.writeFileSync(META_PATH, JSON.stringify({ ...readMeta(), warnHash: prevWarn }, null, 2), 'utf8'); } catch (e) { /* 失敗しても同期自体は完了している */ } }
+  if (warns.length) { console.log(`\n⚠️ 確認が必要な点 (${warns.length}件)`); warns.forEach(w => console.log(' - ' + w)); }
+}
 async function run() {
+  if (SYNC_ONLY) return syncOnly();
   const { chromium } = require('playwright');   // テスト時に不要なため、ここで読み込む
   console.log(`🚀 スナイパー起動（新構成版${DRY ? ' / ドライラン' : ''}${MAX < Infinity ? ` / 最大${MAX}件` : ''}）`);
   console.log('Notionの既存データを読み込み中...');
@@ -1238,6 +1248,6 @@ async function run() {
   if (warns.length) { console.log(`\n⚠️ 確認が必要な点 (${warns.length}件)`); warns.forEach(w => console.log(' - ' + w)); }
 }
 
-module.exports = { geminiJson, pickFallbacks, aiMessage, buildAiReport, aiState, resetAI: () => { aiDownStreak = 0; }, scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
+module.exports = { geminiJson, pickFallbacks, aiMessage, buildAiReport, aiState, resetAI: () => { aiDownStreak = 0; }, scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson, syncOnly,
   parseLabelDate, nameFromRemainder, penlightCast, isXRLive, effectiveLottery, composeSchedLabel, splitDuplicateKeys, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
 if (require.main === module) run();
