@@ -99,16 +99,70 @@ function parseJpPoints(str, baseYear) {
   return pts;
 }
 
-/** 物販整理券（ASOBI TICKET等の受付URL・期間・当落発表） */
-function extractSeiriken(text, baseYear) {
-  const t = String(text);
-  if (!/整理券/.test(t)) return null;
-  const url = (t.match(/受付URL\s*(https?:\/\/[^\s)\]]+)/) || [])[1] || '';
-  const period = (t.match(/受付期間\s*([^\n]+)/) || [])[1] || '';
-  const lot = (t.match(/当落発表\s*([^\n]+)/) || [])[1] || '';
+/**
+ * 物販整理券（ASOBI TICKET等の受付URL・期間・当落発表）
+ *
+ * 【混入防止の方針】
+ *  ・読む範囲は、公式ページの GOODS 欄（#goodsCol）の本文だけ。呼び出し側が渡した本文を、ここでさらにページ全体へ広げない
+ *  ・その中の「物販整理券受付」のブロックを1つだけ切り出し、URL・受付期間・当落発表を「同じブロックの中から」まとめて取る
+ *  ・ブロックの中に無い項目は空のまま返す（ほかの場所の値や、ライブ行・受付枠の値で補わない）。足りない項目は missing に入れる
+ */
+const SEIRIKEN_HEAD = /物販整理券(?:受付)?/g;
+const SEIRIKEN_STOP = /\n\s*(?:会場物販|事前販売|物販日時|物販場所|デジタル注文書|注意事項|【)/;
+
+/** GOODS 欄の本文から「物販整理券受付」のブロックだけを切り出す（なければ ''） */
+function findSeirikenBlock(goodsText) {
+  const t = String(goodsText || '');
+  const heads = [...t.matchAll(SEIRIKEN_HEAD)].map(m => ({ i: m.index, len: m[0].length }));
+  for (let k = 0; k < heads.length; k++) {
+    const from = heads[k].i + heads[k].len;
+    let to = Math.min(t.length, from + 900);
+    if (heads[k + 1]) to = Math.min(to, heads[k + 1].i);
+    let seg = t.slice(from, to);
+    const stop = seg.slice(20).search(SEIRIKEN_STOP);
+    if (stop >= 0) seg = seg.slice(0, stop + 20);
+    const second = seg.indexOf('受付URL', seg.indexOf('受付URL') + 1);   // 2つ目の「受付URL」から先は、別のブロック
+    if (seg.indexOf('受付URL') >= 0 && second > 0) seg = seg.slice(0, second);
+    if (/受付URL|受付期間/.test(seg)) return seg;
+  }
+  return '';
+}
+
+function extractSeiriken(goodsText, baseYear) {
+  const block = findSeirikenBlock(goodsText);
+  if (!block) return null;
+  const url = (block.match(/受付URL\s*(https?:\/\/[^\s)\]]+)/) || [])[1] || '';
+  const period = (block.match(/受付期間\s*([\s\S]{0,120}?)(?=受付URL|当落発表|※|$)/) || [])[1] || '';
+  const lot = (block.match(/当落発表\s*([\s\S]{0,60}?)(?=受付URL|受付期間|※|\n\s*\n|$)/) || [])[1] || '';
   const [start, end] = parseJpPoints(period, baseYear);
-  if (!url && !start) return null;
-  return { kind: '整理券', name: '物販整理券', url, start: start || '', end: end || '', lottery: parseJpPoints(lot, baseYear)[0] || '' };
+  const lottery = parseJpPoints(lot, baseYear)[0] || '';
+  const missing = [];
+  if (!url) missing.push('URL'); if (!start) missing.push('開始'); if (!end) missing.push('締切'); if (!lottery) missing.push('当落発表');
+  if (missing.length === 4) return null;
+  return { kind: '整理券', name: '物販整理券', url, start: start || '', end: end || '', lottery, missing };
+}
+
+/** URLの比較用に整える（#・?以降と、末尾の / を除く） */
+const urlKey = u => String(u || '').trim().replace(/[?#].*$/, '').replace(/\/+$/, '').toLowerCase();
+
+/**
+ * 書き込み前の確認（整理券）
+ *  ・URL が、同じライブのチケット受付のURLと同じ → URL・期間・当落を書かない（混入の疑い）
+ *  ・開始・締切の両方が、チケット受付の期間とまったく同じ → 開始・締切を書かない（混入の疑い）
+ * ticket = { urls: [チケット受付のURL], periods: [{start, end}] }（同じライブのもの）。sameDate は日時の比較関数
+ */
+function guardSeiriken(item, ticket, sameDate) {
+  const out = { ...item }, notes = [];
+  const bad = new Set((ticket?.urls || []).map(urlKey).filter(Boolean));
+  if (out.url && bad.has(urlKey(out.url))) {
+    notes.push(`整理券のURLが、同じライブのチケット受付のURLと同じです（${out.url}）。混入の疑いがあるため、この回は整理券を書き込みません`);
+    return { item: null, notes };
+  }
+  if (out.start && out.end && (ticket?.periods || []).some(p => p.start && p.end && sameDate(out.start, p.start) && sameDate(out.end, p.end))) {
+    notes.push(`整理券の開始・締切が、同じライブのチケット受付の期間とまったく同じです（${out.start} 〜 ${out.end}）。混入の疑いがあるため、開始・締切は書き込みません`);
+    out.start = ''; out.end = '';
+  }
+  return { item: out, notes };
 }
 
 /** 事前販売（アソビストア等の特集ページ）へのリンク */
@@ -159,4 +213,4 @@ function cleanRounds(data) {
     .filter(r => r.start || r.end);
 }
 
-module.exports = { parseOnsiteDays, extractFreeTimes, KIND_ORDER, deriveGoodsUrls, pickGoodsLink, extractDigitalOrder, extractOnsite, parseJpPoints, extractSeiriken, extractPresaleLinks, sameName, squash, buildPresalePrompt, cleanRounds, norm };
+module.exports = { findSeirikenBlock, urlKey, guardSeiriken, parseOnsiteDays, extractFreeTimes, KIND_ORDER, deriveGoodsUrls, pickGoodsLink, extractDigitalOrder, extractOnsite, parseJpPoints, extractSeiriken, extractPresaleLinks, sameName, squash, buildPresalePrompt, cleanRounds, norm };
