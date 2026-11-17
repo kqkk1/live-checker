@@ -173,6 +173,10 @@ async function fetchWithRetry(url, options, maxRetries = 4, waitUnit = 30000) {
       const res = await fetch(url, options);
       if (res.ok) return res;
       if (res.status === 429 || res.status === 500 || res.status === 502 || res.status === 503 || res.status === 504) {
+        if (res.status === 429) {   // 無料枠のないモデル（上限が0）は、待っても使えないので、すぐ次のモデルへ
+          const body = await res.text().catch(() => '');
+          if (/"limit"\s*:\s*0\b|limit: 0\b/.test(body)) { console.log(' ├─ ⚠️ このモデルは、いまのAPIキーでは使えません（無料枠の上限が0）'); return null; }
+        }
         const waitTime = (i + 1) * waitUnit * WAIT_SCALE;
         console.log(` ├─ ⚠️ API制限/混雑(${res.status})。${last ? '' : `${Math.round(waitTime / 1000)}秒待機して再試行します`}...(${i + 1}/${maxRetries})`);
         if (!last) await sleep(waitTime);
@@ -197,7 +201,30 @@ async function fetchWithRetry(url, options, maxRetries = 4, waitUnit = 30000) {
  *   ・全モデルが連続で通信に失敗したら（Google側の障害）、その実行ではAIを呼ぶのをやめ、残りは次回に回す
  *   ・取れなかった記事と、代替モデルで解析した記事は aiReport に残し、最後にまとめて通知する（前回と同じ内容なら通知しない）
  * ===================================================================== */
-const GEMINI_MODELS = (process.env.GEMINI_MODELS || 'gemini-flash-latest,gemini-2.5-pro,gemini-2.5-flash').split(',').map(x => x.trim()).filter(Boolean);
+const GEMINI_PRIMARY = (process.env.GEMINI_PRIMARY || 'gemini-flash-latest').trim();
+const GEMINI_MODELS_ENV = (process.env.GEMINI_MODELS || '').split(',').map(x => x.trim()).filter(Boolean);   // 指定すると、この順番だけを使う（自動選びをしない）
+const GEMINI_STATIC_FALLBACK = ['gemini-pro-latest'];
+/** 使えるモデルの一覧（ListModels）から、代替モデルを選ぶ。Proの新しいもの2つ → Flashの新しいもの1つ。軽量(lite)・画像・音声などは除く。名前が変わっても、廃止されても、自動で追いつく */
+function pickFallbacks(list, primary) {
+  const names = [...new Set((list || []).filter(m => (m.supportedGenerationMethods || []).includes('generateContent')).map(m => String(m.name || '').replace(/^models\//, ''))
+    .filter(n => /^gemini-/.test(n) && n !== primary && !/lite|image|tts|live|embed|audio|robot|computer|vision|customtools|-exp/.test(n)))];
+  const ver = n => { const m = n.match(/gemini-(\d+(?:\.\d+)?)/); return m ? parseFloat(m[1]) : 0; };
+  const rank = arr => arr.sort((a, b) => (/-latest$/.test(b) - /-latest$/.test(a)) || ver(b) - ver(a) || (/preview/.test(a) - /preview/.test(b)));
+  return [...rank(names.filter(n => /-pro/.test(n))).slice(0, 2), ...rank(names.filter(n => /-flash/.test(n))).slice(0, 1)];
+}
+let _fallbacks = null;
+async function geminiFallbacks() {
+  if (GEMINI_MODELS_ENV.length) return GEMINI_MODELS_ENV.filter(n => n !== GEMINI_PRIMARY);
+  if (_fallbacks) return _fallbacks;
+  try {
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?pageSize=200&key=${process.env.GEMINI_API_KEY}`);
+    const j = r.ok ? await r.json() : null;
+    const picked = j ? pickFallbacks(j.models, GEMINI_PRIMARY) : [];
+    _fallbacks = picked.length ? picked : GEMINI_STATIC_FALLBACK;
+    console.log(` ├─ 🔎 代替モデルの候補: ${_fallbacks.join(' → ')}`);
+  } catch (e) { _fallbacks = GEMINI_STATIC_FALLBACK; }
+  return _fallbacks;
+}
 const AI_DOWN_LIMIT = 2;
 let aiDownStreak = 0;
 const aiReport = [];   // 通知用の行
@@ -205,21 +232,25 @@ const aiState = { failed: [], fallback: [], deferred: [], ok: 0 };
 async function geminiJson(body, check = d => !!d) {
   if (aiDownStreak >= AI_DOWN_LIMIT) return null;
   let responded = false;
-  for (let i = 0; i < GEMINI_MODELS.length; i++) {
-    const model = GEMINI_MODELS[i];
+  const models = [GEMINI_PRIMARY];
+  for (let i = 0; i < models.length; i++) {
+    const model = models[i];
     if (i > 0) console.log(` ├─ 🔁 代替モデル「${model}」で、同じ依頼をやり直します`);
     const res = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`,
       { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }, i === 0 ? 3 : 2, i === 0 ? 20000 : 15000);
-    if (!res) continue;
-    responded = true;
-    let j; try { j = await res.json(); } catch (e) { console.log(' ├─ ⚠️ AIの応答を読めませんでした'); continue; }
-    const raw = j.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!raw) { console.log(` ├─ ⚠️ AIの応答が空です（${JSON.stringify(j.promptFeedback || {})}）`); continue; }
     let data = null;
-    try { const m = raw.match(/\{[\s\S]*\}/); data = JSON.parse(m ? m[0] : raw); } catch (e) { console.log(' ├─ ⚠️ JSONの解析に失敗しました'); continue; }
-    if (!check(data)) { console.log(' ├─ ⚠️ AIの応答が、期待した形ではありませんでした'); continue; }
-    aiDownStreak = 0; aiState.ok++;
-    return { data, model, fallback: i > 0 };
+    if (res) {
+      responded = true;
+      let j = null; try { j = await res.json(); } catch (e) { console.log(' ├─ ⚠️ AIの応答を読めませんでした'); }
+      const raw = j?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (j && !raw) console.log(` ├─ ⚠️ AIの応答が空です（${JSON.stringify(j.promptFeedback || {})}）`);
+      if (raw) {
+        try { const m = raw.match(/\{[\s\S]*\}/); data = JSON.parse(m ? m[0] : raw); } catch (e) { console.log(' ├─ ⚠️ JSONの解析に失敗しました'); }
+        if (data && !check(data)) { console.log(' ├─ ⚠️ AIの応答が、期待した形ではありませんでした'); data = null; }
+      }
+    }
+    if (data) { aiDownStreak = 0; aiState.ok++; return { data, model, fallback: i > 0 }; }
+    if (i === 0) models.push(...await geminiFallbacks());   // 1つ目で取れなかったときに、はじめて代替モデルを選ぶ
   }
   aiDownStreak = responded ? 0 : aiDownStreak + 1;   // 1度でも応答があれば、障害ではなく内容の問題
   return null;
@@ -1207,6 +1238,6 @@ async function run() {
   if (warns.length) { console.log(`\n⚠️ 確認が必要な点 (${warns.length}件)`); warns.forEach(w => console.log(' - ' + w)); }
 }
 
-module.exports = { geminiJson, aiMessage, buildAiReport, aiState, resetAI: () => { aiDownStreak = 0; }, scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
+module.exports = { geminiJson, pickFallbacks, aiMessage, buildAiReport, aiState, resetAI: () => { aiDownStreak = 0; }, scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
   parseLabelDate, nameFromRemainder, penlightCast, isXRLive, effectiveLottery, composeSchedLabel, splitDuplicateKeys, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
 if (require.main === module) run();
