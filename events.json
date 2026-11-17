@@ -525,7 +525,7 @@
     "isXR": false,
     "schedules": [
       {
-        "label": "DAY1: 2027年1月11日(月･祝) 開場 17:00 / 開演 18:00",
+        "label": "Day1: 2027年1月11日(月･祝) 開場 17:00 / 開演 18:00",
         "castCount": 3,
         "castNames": [
           "一ノ瀬志希",
@@ -536,7 +536,7 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B8%80%E3%83%8E%E7%80%AC%E5%BF%97%E5%B8%8C%2C%E6%9C%9B%E6%9C%88%E8%81%96%2C%E6%9D%91%E4%B8%8A%E5%B7%B4"
       },
       {
-        "label": "DAY2: 2027年1月12日(火) 開場 18:00 / 開演 19:00",
+        "label": "Day2: 2027年1月12日(火) 開場 18:00 / 開演 19:00",
         "castCount": 3,
         "castNames": [
           "西園寺琴歌",
