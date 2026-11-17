@@ -165,25 +165,75 @@ const W = {
 /* =====================================================================
  * 表記の整形（以前のものをそのまま引き継ぎ）
  * ===================================================================== */
-async function fetchWithRetry(url, options, maxRetries = 4) {
+const WAIT_SCALE = Number(process.env.AI_WAIT_SCALE ?? 1);   // 待ち時間の倍率（テストでは 0）
+async function fetchWithRetry(url, options, maxRetries = 4, waitUnit = 30000) {
   for (let i = 0; i < maxRetries; i++) {
+    const last = i === maxRetries - 1;
     try {
       const res = await fetch(url, options);
       if (res.ok) return res;
-      if (res.status === 429 || res.status === 503) {
-        const waitTime = (i + 1) * 30000;
-        console.log(` ├─ ⚠️ API制限/混雑(${res.status})。${waitTime / 1000}秒待機して再試行します...(${i + 1}/${maxRetries})`);
-        await sleep(waitTime); continue;
+      if (res.status === 429 || res.status === 500 || res.status === 502 || res.status === 503 || res.status === 504) {
+        const waitTime = (i + 1) * waitUnit * WAIT_SCALE;
+        console.log(` ├─ ⚠️ API制限/混雑(${res.status})。${last ? '' : `${Math.round(waitTime / 1000)}秒待機して再試行します`}...(${i + 1}/${maxRetries})`);
+        if (!last) await sleep(waitTime);
+        continue;
       }
-      console.log(` ├─ ❌ APIエラー発生 (HTTP ${res.status}): ${await res.text()}`);
+      console.log(` ├─ ❌ APIエラー発生 (HTTP ${res.status}): ${String(await res.text()).slice(0, 300)}`);
       return null;
     } catch (err) {
-      console.log(` ├─ ⚠️ 通信エラー: ${err.message}。再試行します...(${i + 1}/${maxRetries})`);
-      await sleep(15000);
+      console.log(` ├─ ⚠️ 通信エラー: ${err.message}。${last ? '' : '再試行します'}...(${i + 1}/${maxRetries})`);
+      if (!last) await sleep(15000 * WAIT_SCALE);
     }
   }
-  console.log(` ├─ ❌ リトライ上限（${maxRetries}回）に到達しました。次の記事へ進みます。`);
+  console.log(` ├─ ❌ このモデルでは、リトライ上限（${maxRetries}回）に到達しました`);
   return null;
+}
+
+/* =====================================================================
+ * AI（Gemini）の呼び出し
+ *   ・1つ目のモデルが混雑・障害のときは、代替モデルに切り替えて同じ依頼をやり直す。
+ *     代替は、同等以上の性能のモデルだけ（軽量モデルは使わない）。順番は環境変数 GEMINI_MODELS（カンマ区切り）で変えられる
+ *   ・応答が空・ブロック・JSONとして読めないときも、次のモデルで試す
+ *   ・全モデルが連続で通信に失敗したら（Google側の障害）、その実行ではAIを呼ぶのをやめ、残りは次回に回す
+ *   ・取れなかった記事と、代替モデルで解析した記事は aiReport に残し、最後にまとめて通知する（前回と同じ内容なら通知しない）
+ * ===================================================================== */
+const GEMINI_MODELS = (process.env.GEMINI_MODELS || 'gemini-flash-latest,gemini-2.5-pro,gemini-2.5-flash').split(',').map(x => x.trim()).filter(Boolean);
+const AI_DOWN_LIMIT = 2;
+let aiDownStreak = 0;
+const aiReport = [];   // 通知用の行
+const aiState = { failed: [], fallback: [], deferred: [], ok: 0 };
+async function geminiJson(body, check = d => !!d) {
+  if (aiDownStreak >= AI_DOWN_LIMIT) return null;
+  let responded = false;
+  for (let i = 0; i < GEMINI_MODELS.length; i++) {
+    const model = GEMINI_MODELS[i];
+    if (i > 0) console.log(` ├─ 🔁 代替モデル「${model}」で、同じ依頼をやり直します`);
+    const res = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }, i === 0 ? 3 : 2, i === 0 ? 20000 : 15000);
+    if (!res) continue;
+    responded = true;
+    let j; try { j = await res.json(); } catch (e) { console.log(' ├─ ⚠️ AIの応答を読めませんでした'); continue; }
+    const raw = j.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!raw) { console.log(` ├─ ⚠️ AIの応答が空です（${JSON.stringify(j.promptFeedback || {})}）`); continue; }
+    let data = null;
+    try { const m = raw.match(/\{[\s\S]*\}/); data = JSON.parse(m ? m[0] : raw); } catch (e) { console.log(' ├─ ⚠️ JSONの解析に失敗しました'); continue; }
+    if (!check(data)) { console.log(' ├─ ⚠️ AIの応答が、期待した形ではありませんでした'); continue; }
+    aiDownStreak = 0; aiState.ok++;
+    return { data, model, fallback: i > 0 };
+  }
+  aiDownStreak = responded ? 0 : aiDownStreak + 1;   // 1度でも応答があれば、障害ではなく内容の問題
+  return null;
+}
+function aiMessage() {
+  const runUrl = process.env.GITHUB_RUN_ID ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}` : '';
+  return `🤖 AI解析のお知らせ\n${aiReport.join('\n').slice(0, 1600)}${runUrl ? `\nログ: ${runUrl}` : ''}`;
+}
+function buildAiReport() {
+  aiReport.length = 0;
+  if (aiState.failed.length) aiReport.push(`⚠️ 取得できなかった記事 ${aiState.failed.length}件（AIが混雑中。次回の実行で自動的にやり直します）`, ...aiState.failed.map(f => `・${f.title || f.url}\n  ${f.url}`));
+  if (aiState.deferred.length) aiReport.push(`⏳ 混雑のため見送った記事 ${aiState.deferred.length}件（次回に回します）`, ...aiState.deferred.map(f => `・${f.title || f.url}`));
+  if (aiState.fallback.length) aiReport.push(`🔁 代替モデルで解析した記事 ${aiState.fallback.length}件（念のため内容をご確認ください）`, ...aiState.fallback.map(f => `・${f.title || f.url}（${f.model}）`));
+  return aiReport;
 }
 
 function enforceShortName(shortName, fullName) {
@@ -696,12 +746,8 @@ let _mh = null;
 const merchHashes = () => (_mh = _mh || (readMeta().merch || {}));   // 事前販売ページの内容のハッシュ（変わったときだけAIを呼ぶ）
 const sha = t => crypto.createHash('sha1').update(String(t)).digest('hex').slice(0, 12);
 async function askGemini(prompt) {
-  const res = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.1, responseMimeType: 'application/json', maxOutputTokens: 2048 } }) });
-  if (!res) return null;
-  const j = await res.json(); const raw = j.candidates?.[0]?.content?.parts?.[0]?.text; if (!raw) return null;
-  try { const m = raw.match(/\{[\s\S]*\}/); return JSON.parse(m ? m[0] : raw); } catch (e) { return null; }
+  const r = await geminiJson({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.1, responseMimeType: 'application/json', maxOutputTokens: 2048 } });
+  return r ? r.data : null;
 }
 let ai = askGemini;
 const setAI = f => { ai = f; };
@@ -956,13 +1002,16 @@ async function syncEventsJson() {
   await loadAll();   // 最新の状態を読み直す
   const { events, issues } = buildEvents(S);
   issues.forEach(warn);
-  if (DRY) { console.log(`   [DRY] events.json は作りません（${events.length}件分を生成できました）`); return { warnChanged: false }; }
+  if (DRY) { console.log(`   [DRY] events.json は作りません（${events.length}件分を生成できました）`); return { warnChanged: false, aiChanged: false, aiRecovered: false }; }
   fs.writeFileSync(path.join(__dirname, 'events.json'), JSON.stringify(events, null, 2), 'utf8');
   const warnHash = warns.length ? crypto.createHash('sha1').update(warns.join('\n')).digest('hex').slice(0, 12) : '';
   const prev = readMeta().warnHash || '';
-  fs.writeFileSync(META_PATH, JSON.stringify({ checkedAt: new Date().toISOString(), count: events.length, warnHash, merch: merchHashes() }, null, 2), 'utf8');
+  const prevAi = readMeta().aiHash || '';
+  // 今回AIを1度も使わなかった（記録も変わらない）ときは、前回の記録を残す（「復旧」を、取り込めていないのに知らせないため）
+  const aiHash = buildAiReport().length ? crypto.createHash('sha1').update(aiReport.join('\n')).digest('hex').slice(0, 12) : (aiState.ok > 0 ? '' : prevAi);
+  fs.writeFileSync(META_PATH, JSON.stringify({ checkedAt: new Date().toISOString(), count: events.length, warnHash, aiHash, merch: merchHashes() }, null, 2), 'utf8');
   console.log(`✅ events.json の同期完了！ (全 ${events.length} 件)`);
-  return { warnChanged: warns.length > 0 && warnHash !== prev };   // 前回と同じ警告なら、通知しない
+  return { warnChanged: warns.length > 0 && warnHash !== prev, aiChanged: aiReport.length > 0 && aiHash !== prevAi, aiRecovered: !!prevAi && !aiHash && aiState.ok > 0 };   // 前回と同じ警告なら、通知しない
 }
 
 /* =====================================================================
@@ -1096,21 +1145,15 @@ async function run() {
 
       console.log(' ├─ 🎯 新着情報を検知！ Geminiに全文解析＆出演者抽出を依頼します...');
       const existingNames = S.live.pages.map(p => ({ t: titleOf(p, S.live.meta), d: startOf(p).slice(0, 10) })).filter(x => x.t).map(x => `・略称: "${x.t}" (開催初日: ${x.d || '未定'})`).join('\n') || '（まだ登録なし）';
+      if (aiDownStreak >= AI_DOWN_LIMIT) { console.log(' ├─ ⏳ AIが混雑しているため、この記事は次回に回します'); aiState.deferred.push({ url: article.url, title }); continue; }
       let data = null;
       try {
-        const res = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ text: buildPrompt(existingNames, pageData.links, text) }] }],
-            safetySettings: ['HARASSMENT', 'HATE_SPEECH', 'SEXUALLY_EXPLICIT', 'DANGEROUS_CONTENT'].map(c => ({ category: `HARM_CATEGORY_${c}`, threshold: 'BLOCK_NONE' })),
-            generationConfig: { temperature: 0.1, responseMimeType: 'application/json', maxOutputTokens: 4096 } }),
-        });
-        if (!res) { await recordLog(article.url, title, 'エラー', null); continue; }
-        const result = await res.json();
-        if (result.candidates?.length) {
-          const raw = result.candidates[0].content.parts[0].text;
-          try { const m = raw.match(/\{[\s\S]*\}/); data = m ? JSON.parse(m[0]) : JSON.parse(raw); }
-          catch (e) { console.log(' ├─ ⚠️ JSONの解析に失敗しました。次回に再試行します。'); await recordLog(article.url, title, 'エラー', null); continue; }
-        } else { console.log(` ├─ ❌ AIブロック: ${JSON.stringify(result.promptFeedback || {})}`); await recordLog(article.url, title, 'エラー', null); continue; }
+        const gen = await geminiJson({ contents: [{ parts: [{ text: buildPrompt(existingNames, pageData.links, text) }] }],
+          safetySettings: ['HARASSMENT', 'HATE_SPEECH', 'SEXUALLY_EXPLICIT', 'DANGEROUS_CONTENT'].map(c => ({ category: `HARM_CATEGORY_${c}`, threshold: 'BLOCK_NONE' })),
+          generationConfig: { temperature: 0.1, responseMimeType: 'application/json', maxOutputTokens: 4096 } }, d => d && typeof d === 'object');
+        if (!gen) { console.log(' ├─ ❌ どのモデルでも解析できませんでした。次回に再試行します'); aiState.failed.push({ url: article.url, title }); await recordLog(article.url, title, 'エラー', null); continue; }
+        data = gen.data;
+        if (gen.fallback) { console.log(` ├─ ✅ 代替モデル（${gen.model}）で解析できました`); aiState.fallback.push({ url: article.url, title, model: gen.model }); }
       } catch (e) { console.log(` ├─ ⚠️ 通信処理エラー: ${e.message}`); continue; }
 
       const evs = Array.isArray(data?.events) ? data.events : [];
@@ -1135,6 +1178,8 @@ async function run() {
     const synced = await syncEventsJson();
     if (news.length) { await notify(newsMessage()); console.log(`📣 新着を${news.length}件、通知しました`); }
     if (synced?.warnChanged) { await notify(warnMessage()); console.log('📣 確認が必要な点を通知しました'); }
+    if (synced?.aiChanged) { await notify(aiMessage()); console.log('📣 AI解析のお知らせを通知しました'); }
+    else if (synced?.aiRecovered) { await notify('✅ 前回取得できなかった記事は、すべて取り込めました'); console.log('📣 復旧を通知しました'); }
   } catch (error) {
     console.error('致命的なエラー:', error); process.exitCode = 1;
   } finally {
@@ -1143,6 +1188,6 @@ async function run() {
   if (warns.length) { console.log(`\n⚠️ 確認が必要な点 (${warns.length}件)`); warns.forEach(w => console.log(' - ' + w)); }
 }
 
-module.exports = { scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
+module.exports = { geminiJson, aiMessage, buildAiReport, aiState, resetAI: () => { aiDownStreak = 0; }, scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
   parseLabelDate, penlightCast, isXRLive, effectiveLottery, composeSchedLabel, splitDuplicateKeys, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
 if (require.main === module) run();
