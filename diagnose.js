@@ -29,9 +29,12 @@ const title = (page, meta) => pt(page.properties[Object.entries(meta.properties)
     const orphan = S.sched.pages.filter(p => !(p.properties[rel(S.sched, 'ライブ')]?.relation || []).length);
     if (orphan.length) console.log(`  ⚠️ ライブへのリンクが空の公演行が ${orphan.length}件あります（events.json には出ません）: ` + orphan.map(p => title(p, S.sched.meta)).join(' / '));
     if (S.merch) { const ms = S.merch.pages.filter(p => (p.properties[rel(S.merch, 'ライブ')]?.relation || []).some(r => r.id === live.id)); console.log(`■ 物販DB（${ms.length}件）`); ms.forEach(p => console.log('  -', ['種別', '名称', 'URL', '開始', '締切', '当落発表', 'ロック'].map(k => `${k}=${pt(p.properties[k])}`).join(' / '))); }
+    const logs = S.log.pages.filter(p => (p.properties[rel(S.log, 'ライブ')]?.relation || []).some(r => r.id === live.id));
+    console.log(`■ 取得ログDB（このライブに紐づく記事 ${logs.length}件）`); logs.forEach(p => console.log('  -', title(p, S.log.meta), '/ 判定=' + pt(p.properties['判定']), '/ 再処理=' + (pt(p.properties['再処理']) || '□')));
+    console.log('■ 列の有無: ライブDBの「XR」=' + (S.live.meta.properties['XR'] ? 'あり' : 'なし') + ' / 公演日程DBの「ペンライト対象外」=' + (S.sched.meta.properties['ペンライト対象外'] ? 'あり' : 'なし') + ' / 「公演名」=' + (S.sched.meta.properties['公演名'] ? 'あり' : 'なし'));
     const ev = events.find(e => e.id === live.id);
-    console.log('■ events.json に出る値:'); console.log(`  lotteryDate=${ev.lotteryDate || '(空)'} / 現在の枠=${ev.phase}`);
-    ev.schedules.forEach(s => console.log('  公演:', s.label, `（出演${s.castCount}名）`));
+    console.log('■ events.json に出る値:'); console.log(`  lotteryDate=${ev.lotteryDate || '(空)'} / 現在の枠=${ev.phase} / XR=${ev.isXR}`);
+    ev.schedules.forEach(s => console.log('  公演:', s.label, `（出演${s.castCount}名 / ペンライト${s.penlightCastCount}名）`, /auto_cast/.test(s.penlightUrl) ? '' : ' ※auto_castなし'));
     (ev.merch || []).filter(m => m.kind === '整理券').forEach(m => console.log('  整理券:', m.url, m.start, m.end, m.lottery));
     issues.filter(m => m.startsWith(title(live, S.live.meta))).forEach(m => console.log('  ⚠️', m));
   }
