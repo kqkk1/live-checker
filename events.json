@@ -293,7 +293,8 @@
     "isXR": true,
     "schedules": [
       {
-        "label": "Day1 朝公演: 12月12日(土) [～友藍～] 開場11:00/開演12:00",
+        "label": "Day1 朝公演: 12月12日(土) 開場11:00/開演12:00 はんげつであえたら [～友藍～]",
+        "name": "はんげつであえたら [～友藍～]",
         "castCount": 2,
         "castNames": [
           "菊地真",
@@ -303,7 +304,8 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9"
       },
       {
-        "label": "Day1 昼公演: 12月12日(土) [～悲藍～] 開場14:30/開演15:30",
+        "label": "Day1 昼公演: 12月12日(土) 開場14:30/開演15:30 はんげつであえたら [～悲藍～]",
+        "name": "はんげつであえたら [～悲藍～]",
         "castCount": 2,
         "castNames": [
           "菊地真",
@@ -313,7 +315,8 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9"
       },
       {
-        "label": "Day1 夜公演: 12月12日(土) [～純藍～] 開場18:00/開演19:00",
+        "label": "Day1 夜公演: 12月12日(土) 開場18:00/開演19:00 はんげつであえたら [～純藍～]",
+        "name": "はんげつであえたら [～純藍～]",
         "castCount": 2,
         "castNames": [
           "菊地真",
@@ -323,7 +326,8 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9"
       },
       {
-        "label": "Day2 公演: 12月13日(日) [夕方公演] 開場15:00/開演16:00",
+        "label": "Day2 公演: 12月13日(日) 開場15:00/開演16:00 Pop’n ToyBox!! もういっかい！",
+        "name": "Pop’n ToyBox!! もういっかい！",
         "castCount": 19,
         "castNames": [
           "市原仁奈",
