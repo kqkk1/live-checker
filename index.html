@@ -133,6 +133,16 @@ h1{font-size:20px;font-weight:800;letter-spacing:.02em}
 .memo{width:100%;min-height:72px;margin-top:10px;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit}
 .x{position:absolute;top:6px;right:8px;font-size:20px;min-width:44px;min-height:44px;color:var(--muted)}
 .hints{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+.dlgb{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;padding:16px}
+.dlgb[hidden]{display:none}
+.dlg{width:100%;max-width:440px;max-height:88dvh;overflow-y:auto;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.dlg h3{font-size:16px;margin-bottom:8px}.dlg p{font-size:13px;margin:6px 0}
+.dlg .urlbox{width:100%;margin:8px 0;padding:10px;border-radius:8px;background:var(--bg);border:1px solid var(--line);color:var(--muted);font-size:11px;word-break:break-all;max-height:84px;overflow:auto;user-select:all}
+.dlg label.ck{display:flex;gap:8px;align-items:center;font-size:13px;min-height:40px}
+.dlg ul{margin:6px 0 4px 18px;font-size:12px;color:var(--muted)}
+.dlg .dact{display:flex;flex-direction:column;gap:0;margin-top:10px}
+.dlg .dact .btn{margin-top:8px;width:100%}
+.dlg .dact .btn.ghost{background:transparent;border-color:var(--line);color:var(--muted)}
 .toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,24px);opacity:0;pointer-events:none;z-index:70;display:flex;align-items:center;gap:8px;width:max-content;max-width:min(92vw,520px);padding:4px 6px 4px 16px;border-radius:12px;background:#333;border:1px solid #555;font-size:13px;transition:opacity .2s,transform .2s}
 .sheet.on ~ .toast{bottom:calc(24px + env(safe-area-inset-bottom))}
 .sheet.on.hascta ~ .toast{bottom:calc(84px + env(safe-area-inset-bottom))}
@@ -214,6 +224,7 @@ h1{font-size:20px;font-weight:800;letter-spacing:.02em}
     <div class="fpanel" id="fpanel" hidden>
       <div class="fl">ブランド</div><div class="row wrapr" id="brands"></div>
       <div class="fl">参戦スタイル<span class="sub">（連番の管理）</span></div><div class="row" id="gmode"></div>
+      <div class="fl">記録の共有<span class="sub">（友人と状況を揃える）</span></div><div class="row"><button class="chip" data-sharestate>🔗 記録を共有リンクにする</button></div>
     </div>
   </div></div>
   <main class="grid" id="grid"></main>
@@ -221,6 +232,7 @@ h1{font-size:20px;font-weight:800;letter-spacing:.02em}
 </div>
 <div class="back" id="back"></div>
 <aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="イベント詳細" inert></aside>
+<div class="dlgb" id="dlgb" hidden><div class="dlg" id="dlg" role="dialog" aria-modal="true" aria-label="記録の共有"></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -710,6 +722,111 @@ function act(ev, fn, msgFn) {   // 変更 → 保存 → 再描画 → 取り消
   toast(msgFn(), () => { us[ev.id] = JSON.parse(snap); save(); render(); toast('元に戻しました', null, 2500); });
 }
 
+/* ---- 記録の共有リンク ----
+   自分の記録（公演ごとの状態・メモ）を、URLの「#s=…」より後ろに入れる。サーバーには送らない・保存しない。
+   受け取った人は、内容を確認して「空欄だけ補う」か「上書き」で取り込める。連番の名義（自分／連番者）と、ソロ・連番の設定は含めない */
+const VALID_ST = new Set(Object.keys(LBL));
+const fresh = v => !v || v === '未申込';
+const toB64u = u8 => { let t = ''; for (let i = 0; i < u8.length; i += 8192) t += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(t).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+const fromB64u = t => { const b = atob(t.replace(/-/g, '+').replace(/_/g, '/')); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
+async function packShare(obj) {
+  const raw = new TextEncoder().encode(JSON.stringify(obj));
+  if (typeof CompressionStream !== 'undefined') { try { return 'z' + toB64u(new Uint8Array(await new Response(new Blob([raw]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer())); } catch (_) {} }
+  return 'j' + toB64u(raw);
+}
+async function unpackShare(str) {
+  const bytes = fromB64u(str.slice(1));
+  const raw = str[0] === 'z' ? new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer()) : bytes;
+  return JSON.parse(new TextDecoder().decode(raw));
+}
+function collectShare(withMemo) {
+  const e = {};
+  for (const ev of events) {
+    const st = us[ev.id]; if (!st) continue;
+    const d = {}; dkeys(ev).forEach(k => { const v = dget(st, k); if (!fresh(v)) d[k] = v; });
+    const m = withMemo ? (st.memo || '').trim().slice(0, 300) : '';
+    if (!Object.keys(d).length && fresh(st.status) && !m) continue;
+    e[ev.id] = { s: common(ev) || '未申込', ...(Object.keys(d).length ? { d } : {}), ...(m ? { m } : {}) };
+  }
+  return { v: 1, e };
+}
+function cleanShared(x) {   // URLから来た値は、そのまま信用せず、知っているイベント・公演・状態だけを通す
+  const out = {};
+  if (!x || x.v !== 1 || !x.e || typeof x.e !== 'object') return out;
+  for (const [id, sh] of Object.entries(x.e).slice(0, 300)) {
+    const ev = events.find(v => v.id === id); if (!ev || !sh || typeof sh !== 'object') continue;
+    const ks = new Set(dkeys(ev)), o = { s: VALID_ST.has(sh.s) ? sh.s : '未申込', d: {} };
+    for (const [k, v] of Object.entries(sh.d || {})) if (ks.has(k) && VALID_ST.has(v)) o.d[k] = v;
+    if (typeof sh.m === 'string' && sh.m.trim()) o.m = sh.m.slice(0, 300);
+    if (!fresh(o.s) || Object.keys(o.d).length || o.m) out[id] = o;
+  }
+  return out;
+}
+function mergeShared(shared, overwrite) {
+  for (const [id, sh] of Object.entries(shared)) {
+    const ev = events.find(v => v.id === id); if (!ev) continue;
+    const st = me(id); st.days = st.days || {};
+    if (overwrite) {   // このイベントの記録を、受け取った内容に置き換える（受け取った中に無いイベントは、そのまま）
+      st.status = sh.s; st.days = {};
+      for (const [k, v] of Object.entries(sh.d)) st.days[k] = { status: v };
+      if (sh.m !== undefined) st.memo = sh.m;
+    } else {            // 自分の記録が空欄のところだけ、受け取った内容で補う
+      if (fresh(st.status) && Object.keys(sh.d).length === 0) st.status = sh.s;
+      for (const [k, v] of Object.entries(sh.d)) { if (fresh(st.days[k] && st.days[k].status)) st.days[k] = { ...(st.days[k] || {}), status: v }; }
+      if (!(st.memo || '').trim() && sh.m) st.memo = sh.m;
+    }
+    mat(ev); sync(ev, st);
+  }
+}
+const shareSumm = (ev, o) => `${esc(ttl(ev))}：${Object.keys(o.d).length ? Object.entries(o.d).map(([k, v]) => `${esc(kshort(k))} ${esc(LBL[v])}`).join('・') : esc(LBL[o.s] || '')}${o.m ? ' 📝' : ''}`;
+let shareMemo = true, pendingShare = null;
+const dlgOpen = () => !$('dlgb').hidden;
+function showDlg(html) { $('dlg').innerHTML = html; $('dlgb').hidden = false; setTimeout(() => { const b = $('dlg').querySelector('button, input'); if (b) b.focus(); }, 30); }
+function closeDlg() { $('dlgb').hidden = true; $('dlg').innerHTML = ''; pendingShare = null; }
+async function openShareDlg() {
+  const data = collectShare(shareMemo), n = Object.keys(data.e).length;
+  if (!n) { showDlg('<h3>記録の共有リンク</h3><p class="sub">共有できる記録がまだありません。公演の状態（当落待ち・当選など）を記録してから、もう一度お試しください。</p><div class="dact"><button class="btn ghost" data-dlg="close">閉じる</button></div>'); return; }
+  const url = `${location.origin}${location.pathname}#s=${await packShare(data)}`;
+  showDlg(`<h3>記録の共有リンク</h3>
+    <p>いまの記録（${n}件）をリンクにしました。受け取った人は、確認してから自分の記録に取り込めます。</p>
+    <label class="ck"><input type="checkbox" data-dlg-memo ${shareMemo ? 'checked' : ''}>メモも含める</label>
+    <div class="urlbox" id="dlgurl">${esc(url)}</div>
+    <p class="sub">・これは「いま時点の写し」です。あとから変えた分は自動では届かないので、変えたらリンクを作り直してください。<br>・リンクを知っている人は、中身（状態とメモ）を見られます。送る相手にご注意ください。サーバーには保存されません。${url.length > 6000 ? '<br>・リンクが長くなっています。LINEなどで切れる場合は「メモも含める」を外してください。' : ''}</p>
+    <div class="dact"><button class="btn" data-dlg="copy">リンクをコピー</button>${navigator.share ? '<button class="btn" data-dlg="native">共有する…</button>' : ''}<button class="btn ghost" data-dlg="close">閉じる</button></div>`);
+}
+function showImportDlg(shared) {
+  pendingShare = shared;
+  const rows = Object.entries(shared).map(([id, o]) => [events.find(v => v.id === id), o]).filter(([ev]) => ev);
+  showDlg(`<h3>共有された記録を受け取りました</h3>
+    <p>${rows.length}件のイベントの記録が入っています。</p>
+    <ul>${rows.slice(0, 8).map(([ev, o]) => `<li>${shareSumm(ev, o)}</li>`).join('')}${rows.length > 8 ? `<li>…ほか${rows.length - 8}件</li>` : ''}</ul>
+    <p class="sub">取り込んだあとも、トーストの「元に戻す」で取り消せます。受け取った中に無いイベントは、変わりません。</p>
+    <div class="dact"><button class="btn" data-dlg="fill">自分の記録を残して、空欄だけ補う</button><button class="btn" data-dlg="over">相手の記録で上書きする</button><button class="btn ghost" data-dlg="close">取り込まない</button></div>`);
+}
+function applyImport(overwrite) {
+  if (!pendingShare) return;
+  const shared = pendingShare, snap = JSON.stringify(us), n = Object.keys(shared).length;
+  mergeShared(shared, overwrite); save(); closeDlg(); render();
+  toast(`${n}件の記録を${overwrite ? '上書きで' : '空欄だけ'}取り込みました`, () => { us = JSON.parse(snap); save(); render(); toast('元に戻しました', null, 2500); }, 6000);
+}
+async function dlgAction(a) {
+  if (a === 'close') { closeDlg(); return; }
+  if (a === 'fill' || a === 'over') { applyImport(a === 'over'); return; }
+  const url = ($('dlgurl') || {}).textContent || '';
+  if (a === 'copy') {
+    const done = () => toast('リンクをコピーしました', null, 2000);
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, () => prompt('このリンクをコピーしてください', url)); else prompt('このリンクをコピーしてください', url);
+  }
+  if (a === 'native') { try { await navigator.share({ title: 'アイマスライブ情報ポータル 私の記録', url }); } catch (_) {} }
+}
+async function importFromHash() {
+  const hm = (location.hash || '').match(/^#s=(.+)$/); if (!hm) return false;
+  if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);   // 再読み込みで、また聞かれないように
+  try { const shared = cleanShared(await unpackShare(hm[1])); if (Object.keys(shared).length) showImportDlg(shared); else toast('共有された記録を読み取れませんでした（取り込める記録がありません）', null, 4000); }
+  catch (_) { toast('共有リンクを読み取れませんでした。リンクが途中で切れていないか確認してください', null, 4500); }
+  return true;
+}
+
 /* ---- 操作 ---- */
 function openSheet(id, push = true) {
   fOpen = false; drawFilter();
@@ -736,6 +853,9 @@ function shareLink() {   // このイベントのURLをコピー
 }
 
 document.addEventListener('click', e => {
+  const da = e.target.closest('[data-dlg]'); if (da) { dlgAction(da.dataset.dlg); return; }
+  if (e.target === $('dlgb')) { closeDlg(); return; }
+  if (e.target.closest('[data-sharestate]')) { fOpen = false; drawFilter(); openShareDlg(); return; }
   if (e.target.closest('#fbtn')) { fOpen = !fOpen; drawFilter(); return; }
   if (fOpen && !e.target.closest('#fpanel')) { fOpen = false; drawFilter(); }   // パネルの外をタップしたら閉じる（そのタップの操作は、そのまま行う）
   const sm = e.target.closest('details.acc > summary');   // 折りたたみ：手で開閉した状態を覚える（ブラウザ標準の開閉は、そのまま動く）
@@ -767,7 +887,10 @@ document.addEventListener('click', e => {
   if (o) openSheet(o.dataset.open || o.dataset.id);
 });
 $('q').oninput = render;
+addEventListener('hashchange', () => { if (/^#s=/.test(location.hash) && events.length) importFromHash(); });   // 開いたままのタブにリンクを貼ったとき
+document.addEventListener('change', e => { if (e.target.matches('[data-dlg-memo]')) { shareMemo = e.target.checked; openShareDlg(); } });
 addEventListener('keydown', e => {
+  if (e.key === 'Escape' && dlgOpen()) { closeDlg(); return; }
   if (e.key === 'Escape') { if (fOpen) { fOpen = false; drawFilter(); const fb = $('fbtn'); if (fb) fb.focus(); return; } closeSheet(); }
   if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && (e.target.classList.contains('card') || e.target.classList.contains('drow'))) { e.preventDefault(); openSheet(e.target.dataset.id); }
 });
@@ -787,6 +910,7 @@ addEventListener('keydown', e => {
     $('note').style.color = 'var(--warn)';
   }
   render();
+  if (typeof location !== 'undefined' && await importFromHash()) return;   // 記録の共有リンク（#s=…）で開いたとき
   if (typeof location !== 'undefined') {   // 共有リンク（#e=イベントID）で開いたとき
     const hm = (location.hash || '').match(/^#e=(.+)$/);
     if (hm) { const id = decodeURIComponent(hm[1]); if (events.some(x => x.id === id)) openSheet(id, false); }
