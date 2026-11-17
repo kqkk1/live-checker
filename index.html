@@ -63,6 +63,7 @@ h1{font-size:20px;font-weight:800;letter-spacing:.02em}
 .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--b)}
 .card.closed .body{opacity:.5}
 .c-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.xr{display:inline-block;padding:0 7px;margin-right:5px;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:.04em;color:#0c1030;background:#ffd166;vertical-align:1px}
 .tag{display:inline-block;padding:1px 8px;border-radius:6px;font-size:11px;font-weight:700;margin-right:4px;color:#0c1030}
 .badge{padding:2px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
 .badge.open{background:rgba(158,206,106,.18);color:var(--ok)}
@@ -236,6 +237,9 @@ const LBL = {...Object.fromEntries([...ST_LOT, ...ST_FCFS]), '未申込':'未'};
 
 /* ---- Day別管理 ---- */
 const shortK = k => k.replace('公演', '');
+const kshort = k => shortK(k).replace(/\s+/g, '');   // ボタン用の短縮（例: 「Day1 昼公演」→「Day1昼」）。記録の保存キー(k)は変えない
+const subOf = sc => (sc && (sc.name || (String(sc.label || '').match(/「([^」]+)」/) || [])[1])) || '';   // 公演のサブタイトル（公演名）
+const klabels = ev => dkeys(ev).map((k, i) => { const sub = subOf((ev.schedules || [])[i]); return shortK(k) + (sub ? ` 「${sub}」` : ''); });   // 記録・表示用のラベル（サブタイトルつき。例: Day1 昼 「ただ眩しかった」）
 const dkeys = ev => { const seen = {}; return (ev.schedules || []).map((s, i) => { let k = String(s.label || '').split(/[:：]/)[0].trim() || `公演${i+1}`; if (seen[k]) k += `#${i+1}`; seen[k] = 1; return k; }); };
 const dget = (st, k) => (st.days && st.days[k] && st.days[k].status) || st.status;
 const dstats = ev => { const st = me(ev.id), ks = dkeys(ev); return (ks.length ? ks : ['_']).map(k => dget(st, k)); };
@@ -343,6 +347,7 @@ const stripe = ev => {
   const c = (ev.brands || []).map(b => BR[b]).filter(Boolean);
   return c.length > 1 ? `linear-gradient(${c.join(',')})` : (c[0] || '#555a82');
 };
+const xrTag = ev => ev.isXR ? '<span class="xr" title="XRライブ">XR</span>' : '';
 const tags = ev => (ev.brands || []).map(b => `<span class="tag" style="background:${BR[b] || '#555a82'}">${esc(b)}</span>`).join('');
 const seg = (ev, cur, day) => { const set = isFcfs(ev) ? ST_FCFS : ST_LOT; return `<div class="seg" data-id="${esc(ev.id)}" ${day != null ? `data-day="${esc(day)}"` : ''} style="--n:${set.length}">${set.map(([v, l]) => `<button data-st="${v}" class="${cur === v ? 'on' : ''}" aria-pressed="${cur === v}">${l}</button>`).join('')}</div>`; };
 
@@ -355,12 +360,12 @@ function modeBar(ev) {
 function chips(ev) {
   const ks = dkeys(ev), st = me(ev.id), pair = modeOf(ev) === 'pair';
   if (!ks.length || (ks.length < 2 && !pair) || dstats(ev).every(v => v === '未申込')) return '';
-  return `<div class="chips">${ks.map(k => { const v = dget(st, k), by = st.days && st.days[k] && st.days[k].by; return `<button class="dchip ${chipCls(v)}" data-id="${esc(ev.id)}" data-day="${esc(k)}">${esc(shortK(k))} ${esc(LBL[v] || '未')}${pair ? (by === '連番者' ? ' 👥連番' : ' 自分') : ''}</button>`; }).join('')}</div>`;
+  return `<div class="chips">${ks.map(k => { const v = dget(st, k), by = st.days && st.days[k] && st.days[k].by; return `<button class="dchip ${chipCls(v)}" data-id="${esc(ev.id)}" data-day="${esc(k)}">${esc(kshort(k))} ${esc(LBL[v] || '未')}${pair ? (by === '連番者' ? ' 👥連番' : ' 自分') : ''}</button>`; }).join('')}</div>`;
 }
 function dayBlock(ev) {
-  const ks = dkeys(ev), st = me(ev.id), pair = modeOf(ev) === 'pair';
+  const ks = dkeys(ev), st = me(ev.id), pair = modeOf(ev) === 'pair', ls = klabels(ev);
   if (!ks.length || (ks.length < 2 && !pair)) return '';
-  return `<div class="days">${ks.map(k => `<div class="dayrow"><b>${esc(shortK(k))}</b>${ks.length > 1 ? seg(ev, dget(st, k), k) : ''}${pair ? `<div class="by" data-id="${esc(ev.id)}" data-day="${esc(k)}">${BY.map(b => `<button data-by="${b}" class="${((st.days && st.days[k] && st.days[k].by) || '自分') === b ? 'on' : ''}">${b}</button>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
+  return `<div class="days">${ks.map((k, i) => `<div class="dayrow"><b>${esc(ls[i])}</b>${ks.length > 1 ? seg(ev, dget(st, k), k) : ''}${pair ? `<div class="by" data-id="${esc(ev.id)}" data-day="${esc(k)}">${BY.map(b => `<button data-by="${b}" class="${((st.days && st.days[k] && st.days[k].by) || '自分') === b ? 'on' : ''}">${b}</button>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
 }
 
 function slotInner(ev) {   // 受付枠が2つ以上あるイベントだけ、履歴を出す
@@ -391,11 +396,7 @@ function merchInfo(ev) {   // { html, hint } を返す。物販情報がなけ�
       ${lines(x.seiriken).length ? `<div class="mtime"><span class="mt">🎫 整理券の方（当選者）</span>${lines(x.seiriken).map(l => `<div>${esc(l)}</div>`).join('')}</div>` : ''}
       ${lines(x.free).length ? `<div class="mtime"><span class="mt">🚶 フリー（整理券なし）</span>${lines(x.free).map(l => `<div>${esc(l)}</div>`).join('')}<div class="sub">※ 時間は予定・目安です。当日の状況により変わります</div></div>` : ''}
       ${link(x, 'デジタル注文書を開く ↗')}</div></div>`).join('');
-  const sei = items.filter(x => x.kind === '整理券').map(x => {
-  const ph = phase({applyStartDate: x.start, deadline: x.end});
-  const isClosed = ph === 'closed';
-  return `<div class="mrow ${isClosed ? 'done' : ''}">${badge(x)}<div><b>${esc(x.name || '物販整理券')}</b><div class="sub">${esc(range(x))}${x.lottery ? ` 当落発表 ${esc(fmt(ms(x.lottery)))}` : ''}</div>${isClosed ? '<div class="sub" style="margin-top:6px">受付は終了しました。上のデジタル注文書をご利用ください。</div>' : link(x, '整理券の受付ページ ↗')}</div></div>`;
-}).join('');
+  const sei = items.filter(x => x.kind === '整理券').map(x => `<div class="mrow">${badge(x)}<div><b>${esc(x.name || '物販整理券')}</b><div class="sub">${esc(range(x))}${x.lottery ? `　当落発表 ${esc(fmt(ms(x.lottery)))}` : ''}</div>${link(x, '整理券の受付ページ ↗')}</div></div>`).join('');
   const pre = items.filter(x => x.kind === '事前販売').map(x => `<div class="mrow ${phase({applyStartDate: x.start, deadline: x.end}) === 'closed' ? 'done' : ''}">${badge(x)}<div><b>${esc(x.name || '事前販売')}</b>${range(x) ? `<div class="sub">${esc(range(x))}</div>` : '<div class="sub">期間は公式で確認</div>'}${link(x, '事前販売ページを開く ↗')}</div></div>`).join('');
   if (!site && !sei && !pre) return null;
   const nPre = items.filter(x => x.kind === '事前販売').length;
@@ -468,7 +469,7 @@ function drawDates(q, today) {
       + (!isPast(ev) && ['open', 'urgent', 'before'].includes(p.ph) && !won ? `<span class="badge ${p.ph}">${p.txt}</span>` : '');
     html += `<article class="drow" data-id="${esc(ev.id)}" tabindex="0" aria-label="${esc(ev.title)}（Enterで詳細を開く）" style="--b:${stripe(ev)}">
       <div class="ddate">${esc(dateRange(ev))}</div>
-      <div class="dmain"><b>${esc(ev.icon || '🎤')} ${esc(ev.title)}</b><div class="sub">${esc(ev.venue || '会場未定')}</div></div>
+      <div class="dmain"><b>${esc(ev.icon || '🎤')} ${xrTag(ev)}${esc(ev.title)}</b><div class="sub">${esc(ev.venue || '会場未定')}</div></div>
       <div class="dside">${chips}</div></article>`;
   }
   $('grid').className = 'dlist';
@@ -519,7 +520,7 @@ function draw() {
     return `<article class="card ${p.ph === 'closed' || allSkip(ev) ? 'closed' : ''}" data-id="${esc(ev.id)}" style="--b:${stripe(ev)}" tabindex="0" aria-label="${esc(ev.title)}（Enterで詳細を開く）">
       <div class="body">
         <div class="c-top"><div>${tags(ev)}</div><span class="badge ${p.ph}">${p.txt}</span></div>
-        <h2>${esc(ev.icon || '🎤')} ${esc(ev.title)}</h2>
+        <h2>${esc(ev.icon || '🎤')} ${xrTag(ev)}${esc(ev.title)}</h2>
         <div class="phase">${esc(ev.phase || '')}</div>
         <div class="range">${esc(p.range)}</div>
         <div class="remain ${p.urgent ? 'urgent' : ''}">${esc(p.remain)}</div>
@@ -613,7 +614,7 @@ function renderSheet(id) {
   const mi = merchInfo(ev), n = (ev.schedules || []).length;
   const memoKey = `${id}|memo`, memoOpen = memoKey in secOpen ? secOpen[memoKey] : !!st.memo;
   const ks = dkeys(ev), mixed = common(ev) === null, perKey = `${id}|per`, perOpen = perKey in secOpen ? secOpen[perKey] : mixed;   // 公演ごとに違う記録があるときは、開いておく
-  const perHint = mixed ? ks.map(k => `${shortK(k)} ${LBL[dget(st, k)] || '未'}`).join(' ・ ') : (modeOf(ev) === 'pair' ? '連番' : '');
+  const perHint = mixed ? ks.map(k => `${kshort(k)} ${LBL[dget(st, k)] || '未'}`).join(' ・ ') : (modeOf(ev) === 'pair' ? '連番' : '');
 
   const OPEN = {
     won:     { slots: false, merch: true,  venue: true,  sched: true  },
@@ -640,7 +641,7 @@ function renderSheet(id) {
         ${ev.nearestStation ? `<dt>最寄り駅</dt><dd>${esc(ev.nearestStation)}</dd>` : ''}
         <dt>リンク</dt><dd>${ev.mapUrl ? `<a href="${esc(ev.mapUrl)}" target="_blank" rel="noopener">地図</a>` : ''}　${ev.accessUrl ? `<a href="${esc(ev.accessUrl)}" target="_blank" rel="noopener">アクセス</a>` : ''}</dd></dl>`, OPEN.venue),
     sched: acc(ev, 'sched', '公演日程・ペンライト', n ? `${n}公演` : '未定', (ev.schedules || []).map(sc => {
-      const sp = ev.isSpecialColor || (sc.penlightUrl || '').includes('special=1'), c = sc.castCount || (sc.castNames || []).length;
+      const sp = ev.isSpecialColor || (sc.penlightUrl || '').includes('special=1'), c = sc.penlightCastCount ?? (sc.castCount || (sc.castNames || []).length);
       return `<div class="sched"><b>${esc(sc.label)}</b>
         ${(sc.castNames || []).length ? `<details><summary>出演キャスト（${sc.castNames.length}名）</summary>${esc(sc.castNames.join(' / '))}</details>` : ''}
         ${sc.penlightUrl ? `<a class="btn ${sp ? 'sp' : ''}" href="${esc(sc.penlightUrl)}" target="_blank" rel="noopener">${sp ? '🎨 ペンライト設定を作成（特別カラー）' : '🪄 ペンライト設定を作成'}（${c}名）</a>` : ''}</div>`;
@@ -650,7 +651,7 @@ function renderSheet(id) {
   $('sheet').innerHTML = `<div class="bar"><button class="x" data-share aria-label="このイベントのリンクをコピー">🔗</button><button class="x" data-close aria-label="閉じる">✕</button></div>
     <div class="sbody">
     <div>${tags(ev)}</div>
-    <h3>${esc(ev.icon || '🎤')} ${esc(ev.title)}</h3>
+    <h3>${esc(ev.icon || '🎤')} ${xrTag(ev)}${esc(ev.title)}</h3>
     <div class="meta2">📅 ${esc(dateRange(ev))}${ev.venue ? `　🏟️ ${esc(ev.venue)}` : ''}</div>
     <div class="next ${next.tone}" role="status"><div class="nt">${esc(next.title)}</div><div class="ns">${esc(next.sub)}</div>
       ${next.actions.length ? `<div class="acts">${next.actions.map(a => `<a class="btn" href="${esc(a.href)}" target="_blank" rel="noopener">${esc(a.label)}</a>`).join('')}</div>` : ''}</div>
@@ -700,7 +701,7 @@ function allMsg(ev) {
 }
 function dayMsg(ev, k) {
   const v = dget(me(ev.id), k);
-  return v === '未申込' ? `${shortK(k)} を未申込に戻しました` : `${shortK(k)} を${LBL[v] || v}にしました${v === '見送り' ? skipNote(ev) : ''}`;
+  return v === '未申込' ? `${kshort(k)} を未申込に戻しました` : `${kshort(k)} を${LBL[v] || v}にしました${v === '見送り' ? skipNote(ev) : ''}`;
 }
 function act(ev, fn, msgFn) {   // 変更 → 保存 → 再描画 → 取り消しトースト
   me(ev.id);
@@ -750,7 +751,7 @@ document.addEventListener('click', e => {
     return;
   }
   const bb = e.target.closest('.by button');
-  if (bb) { const box = bb.parentElement, ev = events.find(x => x.id === box.dataset.id), k = box.dataset.day; if (ev) act(ev, () => { mat(ev).days[k].by = bb.dataset.by; }, () => `${shortK(k)} の名義を${bb.dataset.by}にしました`); return; }
+  if (bb) { const box = bb.parentElement, ev = events.find(x => x.id === box.dataset.id), k = box.dataset.day; if (ev) act(ev, () => { mat(ev).days[k].by = bb.dataset.by; }, () => `${kshort(k)} の名義を${bb.dataset.by}にしました`); return; }
   const dc = e.target.closest('.dchip');
   if (dc) { const ev = events.find(x => x.id === dc.dataset.id), k = dc.dataset.day; if (ev) act(ev, () => cycleDay(ev, k), () => dayMsg(ev, k)); return; }
   const gm = e.target.closest('[data-gmode]');
