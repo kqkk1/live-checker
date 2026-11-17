@@ -1,0 +1,31 @@
+name: diagnose
+# 手動実行。指定したライブについて、Notionの値と events.json に出る値を並べて表示する（Notionは変更しない）
+on:
+  workflow_dispatch:
+    inputs:
+      names:
+        description: 'ライブの略称（スペース区切りで複数可）例: SideMプロミ2027 LP'
+        required: true
+        default: 'SideMプロミ2027'
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 診断
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+          NOTION_SLOT_DB_ID: ${{ secrets.NOTION_SLOT_DB_ID }}
+          NOTION_SCHEDULE_DB_ID: ${{ secrets.NOTION_SCHEDULE_DB_ID }}
+          NOTION_LOG_DB_ID: ${{ secrets.NOTION_LOG_DB_ID }}
+          NOTION_MERCH_DB_ID: ${{ secrets.NOTION_MERCH_DB_ID }}
+          NAMES: ${{ github.event.inputs.names }}
+        run: |
+          DIR=$(dirname "$(find . -name diagnose.js -not -path './node_modules/*' | head -1)")
+          cd "$DIR"
+          npm install @notionhq/client --no-save --no-audit --no-fund
+          node diagnose.js $NAMES
