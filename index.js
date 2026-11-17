@@ -1056,10 +1056,19 @@ async function syncEventsJson() {
   await loadAll();   // 最新の状態を読み直す
   const { events, issues } = buildEvents(S);
   issues.forEach(warn);
-  // ペンライト設定URLの出演者名が、拡張機能のカラーデータで見つかるか（見つからない名前は「確認のお願い」で通知）
-  const pc = await penlightCheck.check(events);
-  pc.issues.forEach(warn);
-  if (pc.checked && !pc.issues.length) console.log(' ├─ 🪄 ペンライト: これから開催のライブの出演者は、すべてカラーデータで見つかりました');
+  // ペンライト設定URLには、スプシ（カラーデータ）にいる名前だけを入れる（アイマス外のゲスト・スプシ未登録の名前は自動で外す）
+  const known = await penlightCheck.knownChecker();
+  if (known) {
+    const removed = [];
+    for (const ev of events) for (const sc of ev.schedules) {
+      const names = penlightCheck.castOfUrl(sc.penlightUrl), keep = names.filter(known);
+      if (keep.length === names.length) continue;
+      sc.penlightUrl = buildPenlightUrl(keep, ev.isSpecialColor);
+      sc.penlightCastCount = keep.length;
+      removed.push(`${ev.title} / ${dkey(sc.label)}: ${names.filter(n => !known(n)).join('、')}`);
+    }
+    console.log(removed.length ? ` ├─ 🪄 ペンライト: スプシにない名前を、設定URLから外しました\n${removed.map(r => ` │    ${r}`).join('\n')}` : ' ├─ 🪄 ペンライト: 出演者は、すべてスプシにいました');
+  } else console.log(' ├─ ℹ️ ペンライトのカラーデータを読めなかったため、出演者の絞り込みは今回スキップしました（これまで通りの設定URLのまま）');
   if (DRY) { console.log(`   [DRY] events.json は作りません（${events.length}件分を生成できました）`); return { warnChanged: false, aiChanged: false, aiRecovered: false }; }
   fs.writeFileSync(path.join(__dirname, 'events.json'), JSON.stringify(events, null, 2), 'utf8');
   const warnHash = warns.length ? crypto.createHash('sha1').update(warns.join('\n')).digest('hex').slice(0, 12) : '';
