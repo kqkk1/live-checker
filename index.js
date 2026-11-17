@@ -698,6 +698,7 @@ async function grab(page, url) {   // ページを開いて、本文・リンク
     text: (document.querySelector('main, article, #main') || document.body).innerText,
     anchors: Array.from(document.querySelectorAll('a')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })),
     // GOODS欄（#goodsCol）だけの本文とリンク。物販の情報は、ここだけから読む（チケット欄など、ほかの欄の値が混ざらないようにする）
+    goodsIds: Array.from(document.querySelectorAll('[id*="goods" i], [class*="goods" i]')).slice(0, 8).map(e => `${e.tagName.toLowerCase()}${e.id ? '#' + e.id : ''}${e.className && typeof e.className === 'string' ? '.' + e.className.trim().split(/\s+/).slice(0, 2).join('.') : ''}`),   // #goodsCol が無いページの調査用
     goods: (() => { const el = document.querySelector('#goodsCol'); return el ? { text: el.innerText || '', anchors: Array.from(el.querySelectorAll('a')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })) } : null; })(),
   }));
 }
@@ -796,7 +797,7 @@ async function scrapeMerch(page) {
         try { const home = await grab(page, official); const link = merch.pickGoodsLink(home.anchors, official); if (link) { const x = await grab(page, link); if (!isNotFound(x)) g = x; } } catch (e) { /* なし */ }
       }
       if (!g) { console.log(' ├─ ⏩ 物販ページが見つかりません'); continue; }
-      if (!g.goods) { warn(`${title}: 物販ページに GOODS欄（#goodsCol）が見つかりませんでした。ほかの欄の値が混ざるのを防ぐため、このライブの物販は更新しません（${g.url}）`); continue; }
+      if (!g.goods) { warn(`${title}: 物販ページに GOODS欄（#goodsCol）が見つかりませんでした。ほかの欄の値が混ざるのを防ぐため、このライブの物販は更新しません（${g.url}）${g.goodsIds?.length ? ` ページ内のgoods系の要素: ${g.goodsIds.join(' , ')}` : ' ページ内にgoods系の要素は見つかりませんでした'}`); continue; }
       const year = Number(dateStart(live, 'ライブ開催日').slice(0, 4)) || new Date().getFullYear();
       const dig = merch.extractDigitalOrder(g.goods.anchors), onsite = merch.extractOnsite(g.goods.text);
       if (dig || onsite) await upsertMerch(live, { kind: '会場物販', name: '会場物販', url: dig, dates: onsite?.dates || '', place: onsite?.place || '', seiriken: onsite?.seiriken || '', free: onsite?.free || '' }, g.url);
