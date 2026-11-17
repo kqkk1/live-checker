@@ -1,4 +1,7 @@
 name: Imas Ticket Checker
+# アイマスチケットチェッカー
+#  - 定期実行（深夜・お昼）: 公式サイトの新着記事をAIで読み取り、Notionに反映して events.json を作る
+#  - 手動実行: 「実行モード」で、通常（公式サイト＋AI）か、同期のみ（Notionの今の内容から events.json だけ作り直す）を選べる
 on:
   schedule:
     # 毎日UTC 18:23 (日本時間 翌03:23) ＝ 深夜の更新（0分ちょうどはGitHubが混み合うので、ずらしています）
@@ -7,12 +10,19 @@ on:
     - cron: '43 4 * * *'
   workflow_dispatch: # 手動実行用
     inputs:
+      mode:
+        description: '実行モード。通常 = 公式サイト＋AIで取得 / 同期のみ = 公式サイトもAIも使わず、Notionの今の内容から events.json だけ作り直す（手入力の反映・画面の確認用）'
+        type: choice
+        options:
+          - 通常
+          - 同期のみ
+        default: 通常
       dry:
         description: 'ドライラン（Notionにもevents.jsonにも書き込まない。試運転用）'
         type: boolean
         default: false
       max:
-        description: '（任意）新しい記事を最大この件数だけ処理する。空欄なら全件'
+        description: '（任意・通常のときだけ）新しい記事を最大この件数だけ処理する。空欄なら全件'
         type: string
         required: false
         default: ''
@@ -21,7 +31,7 @@ on:
 permissions:
   contents: write
 
-# 手動実行の「Sync events.json」と同時に書き込まないようにする
+# 2つの実行が同時に events.json を書き込まないようにする（後から来た方は、前の実行が終わるまで待つ）
 concurrency:
   group: imas-write
   cancel-in-progress: false
@@ -29,6 +39,9 @@ concurrency:
 jobs:
   run-checker:
     runs-on: ubuntu-latest
+    env:
+      # 定期実行のときは inputs が空になるので「通常」として扱う
+      SYNC_ONLY: ${{ inputs.mode == '同期のみ' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -39,9 +52,23 @@ jobs:
           node-version: '24'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --no-audit --no-fund
+
+      # ブラウザ（Chromium）は通常モードのときだけ。毎回ダウンロードしないよう、Playwrightのバージョンごとに保存しておく
+      - name: Check Playwright version
+        if: env.SYNC_ONLY != 'true'
+        id: pw
+        run: echo "version=$(node -p "require('playwright/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Headless Browser
+        if: env.SYNC_ONLY != 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
 
       - name: Install Headless Browser
+        if: env.SYNC_ONLY != 'true'
         run: npx playwright install chromium
 
       - name: Run Script
@@ -60,8 +87,9 @@ jobs:
           MAX: ${{ inputs.max }}
         run: |
           args=()
+          if [ "$SYNC_ONLY" = "true" ]; then args+=(--sync-only); fi
           if [ "$DRY" = "true" ]; then args+=(--dry); fi
-          if [ -n "$MAX" ]; then args+=("--max=$MAX"); fi
+          if [ -n "$MAX" ] && [ "$SYNC_ONLY" != "true" ]; then args+=("--max=$MAX"); fi
           node index.js "${args[@]}"
 
       # 生成された events.json を自動でコミット＆プッシュ（ドライランのときは変更なし）
@@ -70,9 +98,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add events.json meta.json
-          # 差分がある場合のみコミットしてプッシュする安全な書き方
-          git diff --staged --quiet || git commit -m "chore: update events.json from Notion DB"
-          git push
+          # 差分がある場合のみコミットしてプッシュする。実行中に画面からファイルを上げていても失敗しないよう、先に最新を取り込む
+          if ! git diff --staged --quiet; then
+            if [ "$SYNC_ONLY" = "true" ]; then msg="chore: sync events.json from Notion DB"; else msg="chore: update events.json from Notion DB"; fi
+            git commit -m "$msg"
+            git pull --rebase
+            git push
+          fi
 
       # 失敗したときだけ、Discordに通知（DISCORD_WEBHOOK_URL が未設定なら何もしない）
       - name: Notify failure
@@ -82,5 +114,6 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           if [ -z "$DISCORD_WEBHOOK_URL" ]; then echo "通知先が未設定のため、通知はスキップします"; exit 0; fi
-          payload=$(printf '{"content":"%s"}' "⚠️ スナイパーの実行が失敗しました。データが更新されていない可能性があります。ログ: $RUN_URL")
+          if [ "$SYNC_ONLY" = "true" ]; then what="アイマスチケットチェッカー（同期のみ）"; else what="アイマスチケットチェッカー"; fi
+          payload=$(printf '{"content":"%s"}' "⚠️ ${what}の実行が失敗しました。データが更新されていない可能性があります。ログ: $RUN_URL")
           curl -sS -o /dev/null -X POST -H 'Content-Type: application/json' -d "$payload" "$DISCORD_WEBHOOK_URL"
