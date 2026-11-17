@@ -250,7 +250,7 @@ const LBL = {...Object.fromEntries([...ST_LOT, ...ST_FCFS]), '未申込':'未'};
 /* ---- Day別管理 ---- */
 const shortK = k => k.replace('公演', '');
 const kshort = k => shortK(k).replace(/\s+/g, '');   // ボタン用の短縮（例: 「Day1 昼公演」→「Day1昼」）。記録の保存キー(k)は変えない
-const subOf = sc => (sc && (sc.name || (String(sc.label || '').match(/「([^」]+)」/) || [])[1])) || '';   // 公演のサブタイトル（公演名）
+const subOf = sc => (sc && (sc.name || (String(sc.label || '').match(/「(.+)」/) || [])[1])) || '';   // 公演のサブタイトル（公演名）
 const klabels = ev => dkeys(ev).map((k, i) => { const sub = subOf((ev.schedules || [])[i]); return shortK(k) + (sub ? ` 「${sub}」` : ''); });   // 記録・表示用のラベル（サブタイトルつき。例: Day1 昼 「ただ眩しかった」）
 const dkeys = ev => { const seen = {}; return (ev.schedules || []).map((s, i) => { let k = String(s.label || '').split(/[:：]/)[0].trim() || `公演${i+1}`; if (seen[k]) k += `#${i+1}`; seen[k] = 1; return k; }); };
 const dget = (st, k) => (st.days && st.days[k] && st.days[k].status) || st.status;
