@@ -1,21 +1,32 @@
-name: sync
-# 手動実行。公式サイトもAIも使わず、Notionの今の内容から events.json だけ作り直して反映する（画面の確認・手入力の反映用）
+name: Sync events.json
+# 手動実行。公式サイトもAIも使わず、Notionの今の内容から events.json だけ作り直して反映する（手入力の反映・画面の確認用）
 on:
   workflow_dispatch:
-concurrency:
-  group: sniper-write      # チェッカー本体と同時に動かさない（同じグループ名を cron.yml にも付けると、完全に重なりを防げます）
-  cancel-in-progress: false
+
 permissions:
   contents: write
+
+# チェッカー本体（Imas Ticket Checker）と同時に書き込まないように、同じ名前のグループにする
+concurrency:
+  group: imas-write
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: 同期（Notion → events.json）
+          node-version: '24'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Sync from Notion (no scraping, no AI)
         env:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
           NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
@@ -23,15 +34,13 @@ jobs:
           NOTION_SCHEDULE_DB_ID: ${{ secrets.NOTION_SCHEDULE_DB_ID }}
           NOTION_LOG_DB_ID: ${{ secrets.NOTION_LOG_DB_ID }}
           NOTION_MERCH_DB_ID: ${{ secrets.NOTION_MERCH_DB_ID }}
-        run: |
-          DIR=$(dirname "$(find . -name index.js -path '*sniper*' -not -path './node_modules/*' | head -1)")
-          echo "DIR=$DIR" >> "$GITHUB_ENV"
-          cd "$DIR"
-          npm install @notionhq/client --no-save --no-audit --no-fund
-          node index.js --sync-only
-      - name: 変更を保存（コミット）
+        run: node index.js --sync-only
+
+      - name: Commit and Push events.json
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$DIR/events.json" "$DIR/meta.json" 2>/dev/null || true
-          if git diff --cached --quiet; then echo "変更なし"; else git commit -m "sync: Notionから events.json を更新" && git pull --rebase && git push; fi
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add events.json meta.json
+          git diff --staged --quiet || git commit -m "chore: sync events.json from Notion DB"
+          git pull --rebase
+          git push
