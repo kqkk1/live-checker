@@ -299,6 +299,68 @@ function normalizeScheduleKeys(rows, anchorIso) {
 }
 
 /* =====================================================================
+ * 公演日程の1行 → 表示ラベル
+ *   表示ラベルに日付・開演の時刻が入っていればそれを使う（手で書いたラベルを優先）。
+ *   なければ、行の「開演日時」「開場時刻」の列から組み立てる。公演名は「公演名」列（なければラベル中の「」）から、末尾に「」で付ける
+ * ===================================================================== */
+const WD = ['日', '月', '火', '水', '木', '金', '土'];
+function jstParts(iso) {   // 'YYYY-MM-DDTHH:mm...' → { date, time }（日本時間）
+  if (!iso) return null;
+  if (!iso.includes('T')) return { date: iso.slice(0, 10), time: '' };
+  const hasZone = /(Z|[+-]\d{2}:\d{2})$/.test(iso);
+  if (!hasZone || /\+09:00$/.test(iso)) return { date: iso.slice(0, 10), time: iso.slice(11, 16) };
+  const d = new Date(iso); if (isNaN(d)) return null;
+  const f = d.toLocaleString('sv-SE', { timeZone: 'Asia/Tokyo' }); return { date: f.slice(0, 10), time: f.slice(11, 16) };
+}
+function timeText(p, name) {
+  const c = p.properties[name]; if (!c) return '';
+  if (c.type === 'date') return (jstParts(c.date?.start || '') || {}).time || '';
+  const m = propText(c).match(/(\d{1,2})[:：](\d{2})/); return m ? `${m[1].padStart(2, '0')}:${m[2]}` : '';
+}
+function composeSchedLabel(key, p) {
+  let label = propText(p.properties['表示ラベル']) || '';
+  const colon = label.search(/[:：]/);
+  let body0 = label.trim();
+  if (key && body0.startsWith(key)) body0 = body0.slice(key.length).replace(/^\s*[:：]\s*/, '').trim();   // 先頭に公演キーがあれば外す（後で付け直す）
+  else if (/^\s*Day\s*\d/i.test(label) && colon >= 0) body0 = label.slice(colon + 1).trim();
+  const st = jstParts(dateStart(p, '開演日時')), open = timeText(p, '開場時刻');
+  const hasTime = /開演\s*\d{1,2}:\d{2}/.test(body0);
+  let body = body0;
+  if (!hasTime && (st?.time || open)) {
+    const dm = body0.match(/(?:\d{4}年\s*)?\d{1,2}月\s*\d{1,2}日(?:\s*[（(][^）)]*[）)])?/);
+    const dateText = st?.date ? `${+st.date.slice(0, 4)}年${+st.date.slice(5, 7)}月${+st.date.slice(8, 10)}日(${WD[new Date(`${st.date}T00:00:00+09:00`).getDay()]})` : (dm ? dm[0] : '');
+    const times = [open ? `開場${open}` : '', st?.time ? `開演${st.time}` : ''].filter(Boolean).join('/');
+    const rest = body0.replace(dm ? dm[0] : '', '').trim();
+    body = [dateText, times, rest].filter(Boolean).join(' ');
+  } else if (!/\d{1,2}月\s*\d{1,2}日/.test(body0) && st?.date) {
+    body = `${+st.date.slice(0, 4)}年${+st.date.slice(5, 7)}月${+st.date.slice(8, 10)}日(${WD[new Date(`${st.date}T00:00:00+09:00`).getDay()]}) ${body0}`.trim();
+  }
+  const name = propText(p.properties['公演名']).trim() || ((body.match(/「([^」]+)」/) || [])[1] || '');
+  if (name && !body.includes(`「${name}」`)) body = `${body} 「${name}」`.trim();
+  return { label: `${key}: ${body}`.replace(/:\s*$/, ''), name };
+}
+/** 同じ公演キー（例: Day1）が複数あるとき、開演時刻で「Day1 昼」「Day1 夜」のように分ける（1つにまとめてしまわないため） */
+function splitDuplicateKeys(items) {
+  const groups = new Map();
+  items.forEach((it, i) => { const k = norm(it.key); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(i); });
+  const out = items.map(it => ({ ...it }));
+  const tod = m => (m < 11 * 60 ? '朝' : m < 16 * 60 ? '昼' : '夜');
+  for (const idx of groups.values()) {
+    if (idx.length < 2) continue;
+    const mins = idx.map(i => { const t = items[i].text.match(/開演\s*(\d{1,2}):(\d{2})/); return t ? +t[1] * 60 + +t[2] : null; });
+    if (mins.some(m => m === null)) continue;   // 時刻がなければ分けられない
+    const order = idx.map((i, n) => ({ i, m: mins[n] })).sort((a, b) => a.m - b.m);
+    const RANK = { 2: ['昼', '夜'], 3: ['朝', '昼', '夜'], 4: ['朝', '昼', '夕', '夜'] };
+    let names = order.map(o => tod(o.m)); if (new Set(names).size !== names.length) names = RANK[order.length] || order.map(o => `${String(Math.floor(o.m / 60)).padStart(2, '0')}:${String(o.m % 60).padStart(2, '0')}`);
+    order.forEach((o, n) => {
+      const it = items[o.i], nk = `${it.key} ${names[n]}`;
+      out[o.i].key = nk; out[o.i].text = it.text.replace(/^\s*[^:：]*[:：]/, `${nk}:`);
+    });
+  }
+  return out;
+}
+
+/* =====================================================================
  * 受付枠の「現在の枠」の選び方（Pages と同じ考え方）
  *   受付中（締切が近い順） → 受付前（開始が近い順） → 終了（締切が新しい順）
  * ===================================================================== */
@@ -319,6 +381,22 @@ function pickCurrent(slots, now = Date.now()) {
   const closed = by('closed').sort((a, b) => (b.end ? Date.parse(b.end) : 0) - (a.end ? Date.parse(a.end) : 0));
   if (closed.length) return closed[0];
   return slots[0];
+}
+
+/**
+ * 現在の受付枠の当落発表日（events.json に出す値）。基本は受付枠DBの値。
+ * 受付枠の値が空のときだけ、ライブ行に手で入力された「当落発表日」を使う。ただし次の場合は使わない（古い写しの可能性があるため）
+ *   ・先着・リセールの枠 ／ 受付の締切より前の日付 ／ 同じライブの別の受付枠の当落発表日と同じ日付（以前の枠の写し）
+ */
+function effectiveLottery(livePage, cur, slots) {
+  if (!cur) return { value: '', source: '' };
+  if (cur.lottery) return { value: cur.lottery, source: 'slot' };
+  if (cur.kind === '先着' || /リセール/.test(cur.name || '')) return { value: '', source: '' };
+  const v = dateStart(livePage, '当落発表日'), day = v.slice(0, 10);
+  if (!day) return { value: '', source: '' };
+  if (cur.end && day < cur.end.slice(0, 10)) return { value: '', source: '' };
+  if (slots.some(x => x !== cur && (x.lottery || '').slice(0, 10) === day)) return { value: '', source: '' };
+  return { value: v, source: 'live' };
 }
 
 /* =====================================================================
@@ -525,11 +603,13 @@ async function applyEvent(ev, article) {
   const anchor = startOf(live) || ev.live_date || '';
   const liveStart = anchor.slice(0, 10), liveEnd = (dateEnd(live, 'ライブ開催日') || anchor).slice(0, 10);
   let schedChanged = false;
-  for (let i = 0; i < (ev.schedules || []).length; i++) {
-    const s = ev.schedules[i];
+  const schedItems = splitDuplicateKeys((ev.schedules || []).map((s, i) => {
     const text = typeof s === 'string' ? s : (s.text || '');
-    const key = (text.includes(':') || text.includes('：')) ? dkey(text) : ((typeof s === 'object' && s.label) || dkey(text) || `Day${i + 1}`);
-    const cast = cleanCastList(typeof s === 'object' ? s.cast : []);
+    return { text, key: (text.includes(':') || text.includes('：')) ? dkey(text) : ((typeof s === 'object' && s.label) || dkey(text) || `Day${i + 1}`), cast: typeof s === 'object' ? s.cast : [] };
+  }));
+  for (let i = 0; i < schedItems.length; i++) {
+    const { text, key } = schedItems[i];
+    const cast = cleanCastList(schedItems[i].cast);
     const d = parseLabelDate(text, liveStart);
     if (d && liveStart && (Date.parse(d.date) < Date.parse(liveStart) - 864e5 || Date.parse(d.date) > Date.parse(liveEnd) + 864e5))
       warn(`${liveTitle} / ${key}: 公演日(${d.date})がライブ開催日(${liveStart}〜${liveEnd})の範囲外です`);
@@ -550,7 +630,7 @@ async function applyEvent(ev, article) {
       const merged = cleanCastList([...oldCast, ...cast]);
       if (merged.length !== oldCast.length) { put(sm2, props, '出演者', merged.join(',')); changes.push(`出演者 ${oldCast.length}→${merged.length}名`); }
       const oldLabel = propText(row.properties['表示ラベル']);
-      if (text && text !== oldLabel && /開演/.test(text) && (!/開演/.test(oldLabel) || text.length > oldLabel.length)) { put(sm2, props, '表示ラベル', text); changes.push('日時'); }
+      if (!isLocked(row) && text && text !== oldLabel && /開演/.test(text) && (!/開演/.test(oldLabel) || text.length > oldLabel.length)) { put(sm2, props, '表示ラベル', text); changes.push('日時'); }
       if (d && !dateStart(row, '開演日時') && put(sm2, props, '開演日時', d.start)) changes.push('開演日時');
       if (d?.open && !propText(row.properties['開場時刻']) && put(sm2, props, '開場時刻', d.open)) changes.push('開場時刻');
       if (changes.length) {
@@ -574,7 +654,9 @@ async function applyEvent(ev, article) {
     if (cur) {
       put(meta, props, '受付枠', cur.name);
       put(meta, props, '受付期間', cur.start && cur.end ? { start: cur.start, end: cur.end } : (cur.start || cur.end || null));
-      put(meta, props, '当落発表日', cur.lottery || null);
+      // 受付枠に当落発表日がなく、ライブ行にだけ手入力されている場合は、その値を消さない（以前はここで空に戻していた）
+      const el = effectiveLottery(live, cur, slotsOfLive(live.id));
+      if (el.source !== 'live') put(meta, props, '当落発表日', cur.lottery || null);
     }
     put(meta, props, '最終自動更新', new Date().toISOString());
     const u = await W.update({ page_id: live.id, properties: props }); if (u) { replacePage(S.live, u); live = u; }
@@ -615,6 +697,8 @@ async function grab(page, url) {   // ページを開いて、本文・リンク
     title: document.title, url: location.href,
     text: (document.querySelector('main, article, #main') || document.body).innerText,
     anchors: Array.from(document.querySelectorAll('a')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })),
+    // GOODS欄（#goodsCol）だけの本文とリンク。物販の情報は、ここだけから読む（チケット欄など、ほかの欄の値が混ざらないようにする）
+    goods: (() => { const el = document.querySelector('#goodsCol'); return el ? { text: el.innerText || '', anchors: Array.from(el.querySelectorAll('a')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })) } : null; })(),
   }));
 }
 const isNotFound = g => !g || /404|Not Found|見つかりません/i.test(g.title || '') || String(g.text || '').length < 200;
@@ -624,14 +708,42 @@ const mName = p => propText(p.properties['名称']);
 const merchRows = liveId => S.merch.pages.filter(p => relIds(p, S.merch.rel.live).includes(liveId));
 const nowJST = () => new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
 
+/** 同じライブの「チケット受付」のURLと期間（整理券との混入チェック用）。受付枠DBのURL列・ライブ行の受付期間・ページ上のチケット欄のURL */
+const NOT_TICKET_URL_COLS = ['取得元記事URL', '公式URL', '地図URL', 'アクセスURL', '取得元'];
+function ticketInfoOf(live, extraUrls = []) {
+  const urls = [...extraUrls], periods = [];
+  const grabUrls = page => { for (const [k, p] of Object.entries(page.properties || {})) if (p?.type === 'url' && p.url && !NOT_TICKET_URL_COLS.includes(k)) urls.push(p.url); };
+  grabUrls(live);
+  const s0 = dateStart(live, '受付期間'), e0 = dateEnd(live, '受付期間');
+  if (s0 && e0) periods.push({ start: s0, end: e0 });
+  for (const p of S.slot.pages.filter(p => relIds(p, S.slot.rel.live).includes(live.id))) {
+    grabUrls(p);
+    const s = dateStart(p, '受付開始'), e = dateStart(p, '締切'); if (s && e) periods.push({ start: s, end: e });
+  }
+  return { urls, periods };
+}
+
 /** 物販DBに1件を反映（なければ追加、あれば変わった項目だけ更新）。ロック中の行は触らない */
-async function upsertMerch(live, item, sourceUrl, opts = {}) {
+async function upsertMerch(live, item, sourceUrl, opts = {}) {   // item は、整理券のとき書き換えるため let 相当で扱う
+  item = { ...item };
   const mm = S.merch.meta, liveTitle = titleOf(live, S.live.meta);
   const rows = merchRows(live.id).filter(p => mKind(p) === item.kind);
   const byUrl = () => (item.url ? rows.find(p => propText(p.properties['URL']) === item.url) : null);
   const byName = () => rows.find(p => merch.sameName(mName(p), item.name));
   let row = opts.rowHint || null;
   if (!row) row = item.kind !== '事前販売' ? (rows[0] || null) : (opts.order === 'name' ? (byName() || null) : (byUrl() || byName() || null));
+  // 会場物販・整理券は1ライブに1行。同じ種別の行のどれかがロック中なら、その種別は触らない（ロックしていない重複行に書いてしまうのを防ぐ）
+  if (item.kind !== '事前販売' && rows.some(isLocked)) return;
+  if (row && isLocked(row)) return;
+  // 整理券は、書き込む前に、チケット受付の値との照合をする（混入の疑いがあれば書かない。補完もしない）
+  if (item.kind === '整理券') {
+    (item.missing || []).forEach(k => warn(`${liveTitle}｜整理券: 公式の物販整理券受付の欄に「${k}」が見つかりませんでした。空欄のままにします（他の値で補いません）`));
+    const g = merch.guardSeiriken(item, ticketInfoOf(live, opts.ticketUrls), sameDate);
+    g.notes.forEach(n => warn(`${liveTitle}｜${n}`));
+    if (!g.item) return;
+    item = g.item;
+    if (!item.url && !item.start && !item.end && !item.lottery) return;
+  }
   const start = toNotionDate(item.start), end = toNotionDate(item.end), lot = toNotionDate(item.lottery);
   const label = item.kind === '事前販売' ? ` ${item.name}` : '';
   if (!row) {
@@ -648,7 +760,6 @@ async function upsertMerch(live, item, sourceUrl, opts = {}) {
     news.push(`🛍 新しい物販情報: ${liveTitle}｜${item.kind}${label}${start || end ? `\n　${fmtJ(start) || ''}${end ? ` 〜 ${fmtJ(end)}` : ' 〜'}` : ''}${item.url ? `\n　${item.url}` : ''}`);
     return;
   }
-  if (isLocked(row)) return;
   const props = {}, changes = [];
   if (item.url && item.url !== propText(row.properties['URL']) && put(mm, props, 'URL', item.url)) changes.push('URL');
   if (start && !sameDate(start, dateStart(row, '開始')) && put(mm, props, '開始', start)) changes.push('開始');
@@ -685,12 +796,19 @@ async function scrapeMerch(page) {
         try { const home = await grab(page, official); const link = merch.pickGoodsLink(home.anchors, official); if (link) { const x = await grab(page, link); if (!isNotFound(x)) g = x; } } catch (e) { /* なし */ }
       }
       if (!g) { console.log(' ├─ ⏩ 物販ページが見つかりません'); continue; }
+      if (!g.goods) { warn(`${title}: 物販ページに GOODS欄（#goodsCol）が見つかりませんでした。ほかの欄の値が混ざるのを防ぐため、このライブの物販は更新しません（${g.url}）`); continue; }
       const year = Number(dateStart(live, 'ライブ開催日').slice(0, 4)) || new Date().getFullYear();
-      const dig = merch.extractDigitalOrder(g.anchors), onsite = merch.extractOnsite(g.text);
+      const dig = merch.extractDigitalOrder(g.goods.anchors), onsite = merch.extractOnsite(g.goods.text);
       if (dig || onsite) await upsertMerch(live, { kind: '会場物販', name: '会場物販', url: dig, dates: onsite?.dates || '', place: onsite?.place || '', seiriken: onsite?.seiriken || '', free: onsite?.free || '' }, g.url);
-      const sei = merch.extractSeiriken(g.text, year);
-      if (sei) await upsertMerch(live, sei, g.url);
-      for (const pl of merch.extractPresaleLinks(g.anchors)) await upsertMerch(live, pl, g.url, { order: 'url' });
+      const sei = merch.extractSeiriken(g.goods.text, year);
+      // ページのGOODS欄より外にある「受付URL」（チケット欄のもの）は、混入チェック用の「チケットのURL」として渡す
+      const whole = g.text.indexOf(g.goods.text) >= 0;   // GOODS欄が全文の一部として切り出せるなら、その外側だけを見る（切り出せないときは、GOODS欄内にも出るURLを除く）
+      const outside = whole ? g.text.split(g.goods.text).join('\n') : g.text;
+      const inGoods = whole ? new Set() : new Set([...g.goods.text.matchAll(/https?:\/\/[^\s)\]]+/g)].map(m => merch.urlKey(m[0])));
+      const ticketUrls = [...outside.matchAll(/受付URL\s*(https?:\/\/[^\s)\]]+)/g)].map(m => m[1]).filter(u => !inGoods.has(merch.urlKey(u)));
+      if (sei) await upsertMerch(live, sei, g.url, { ticketUrls });
+      else if (/整理券/.test(g.goods.text) && !/物販整理券/.test(g.goods.text)) console.log(' ├─ ℹ️ 「物販整理券受付」の欄がありません（整理券の情報は更新しません）');
+      for (const pl of merch.extractPresaleLinks(g.goods.anchors)) await upsertMerch(live, pl, g.url, { order: 'url' });
     } catch (e) { warn(`「${title}」の物販情報の取得に失敗: ${e.message}`); }
     await sleep(Number(process.env.MERCH_GAP_MS ?? 800));
   }
@@ -771,17 +889,24 @@ function buildEvents({ live, slot, sched, merch: mdb }, now = Date.now()) {
       if (tier || st) slots.push({ name: tier, kind: /先着/.test(tier) ? '先着' : '抽選', start: st, end: en, lottery: dateStart(page, '当落発表日') });
     }
     const cur = pickCurrent(slots, now);
+    const lotEff = effectiveLottery(page, cur, slots);
+    if (lotEff.source === 'live') issues.push(`${title}: 当落発表日（${lotEff.value.slice(0, 10)}）が、ライブ行にだけ入力されています。受付枠DBの「${cur.name}」の行の「当落発表日」にも入力してください（今回はライブ行の値を使って表示します）`);
     const special = isOn(page.properties['特別カラー']);
     const ds = dateStart(page, 'ライブ開催日').slice(0, 10), de = (dateEnd(page, 'ライブ開催日') || ds).slice(0, 10);
     const rawSched = sched.pages.filter(p => relIds(p, schedRel).includes(page.id))
       .sort((a, b) => (a.properties['順番']?.number ?? 99) - (b.properties['順番']?.number ?? 99))
       .map(p => {
         const key = propText(p.properties['Day']);
-        let label = propText(p.properties['表示ラベル']) || key;
-        if (key && !label.startsWith(key)) label = `${key}: ${label}`;   // Pages は「:」より前を公演キーにする
-        return { key, label, castNames: cleanCastList(propText(p.properties['出演者']).split(',')) };
+        const c = composeSchedLabel(key, p);   // 表示ラベルに時刻がなければ、開演日時・開場時刻の列から組み立てる（Pages は「:」より前を公演キーにする）
+        return { key, label: c.label, name: c.name, castNames: cleanCastList(propText(p.properties['出演者']).split(',')) };
       });
-    const schedules = normalizeScheduleKeys(rawSched, ds).map(x => ({ label: x.label, ...(x.title ? { title: x.title } : {}), castCount: x.castNames.length, castNames: x.castNames, penlightUrl: buildPenlightUrl(x.castNames, special) }));
+    // 日付だけの古い行（時刻も公演名もない）が、同じ日の時刻つきの行と並んでいるときは、古い行を出さない（公演が重複して見えるため）
+    const dateOf = r => (parseLabelDate(r.label, ds) || {}).date;
+    for (let k = rawSched.length - 1; k >= 0; k--) {
+      const r = rawSched[k], d = dateOf(r);
+      if (d && !/開演/.test(r.label) && rawSched.some((o, j) => j !== k && /開演/.test(o.label) && dateOf(o) === d)) { issues.push(`${title} / ${r.key}: 日付だけの古い公演行です（同じ日に時刻つきの公演行があります）。公演日程DBで削除してください`); rawSched.splice(k, 1); }
+    }
+    const schedules = normalizeScheduleKeys(rawSched, ds).map(x => ({ label: x.label, ...(x.title ? { title: x.title } : {}), ...(x.name ? { name: x.name } : {}), castCount: x.castNames.length, castNames: x.castNames, penlightUrl: buildPenlightUrl(x.castNames, special) }));
     // 検査
     for (const s of schedules) { const d = parseLabelDate(s.label, ds); if (d && ds && (Date.parse(d.date) < Date.parse(ds) - 864e5 || Date.parse(d.date) > Date.parse(de) + 864e5)) issues.push(`${title} / ${dkey(s.label)}: 公演日(${d.date})がライブ開催日(${ds}〜${de})の範囲外`); }
     if (!g('会場')) issues.push(`${title}: 会場が未入力です`);
@@ -791,8 +916,8 @@ function buildEvents({ live, slot, sched, merch: mdb }, now = Date.now()) {
       id: page.id, icon: page.icon?.type === 'emoji' ? page.icon.emoji : '🎤', title,
       brands: (page.properties['ブランド']?.multi_select || []).map(o => o.name),
       phase: cur?.name || '', phaseKind: cur?.kind || '',
-      applyStartDate: cur?.start || '', deadline: cur?.end || '', lotteryDate: (cur?.lottery || '').slice(0, 10),
-      slots: slots.map(s => ({ name: s.name, kind: s.kind, start: s.start, end: s.end, lottery: s.lottery.slice(0, 10) })),
+      applyStartDate: cur?.start || '', deadline: cur?.end || '', lotteryDate: (lotEff.value || '').slice(0, 10),
+      slots: slots.map(s => ({ name: s.name, kind: s.kind, start: s.start, end: s.end, lottery: (s === cur ? lotEff.value : s.lottery).slice(0, 10) })),
       eventDateStart: ds, eventDateEnd: de,
       officialUrl: g('公式URL'), venue, mapUrl, accessUrl: g('アクセスURL'), nearestStation: g('最寄り駅'),
       isSpecialColor: special, schedules,
@@ -836,7 +961,6 @@ function buildPrompt(existingNames, links, text) {
 ${existingNames}
 ・既存リストと同じ公演であれば、表記揺れを防ぐため "short_name" は上記リストにある略称と一字一句一致させてください。
 ・複合イベントやナンバリングライブの場合は、"short_name" に『PM』を入れず『ヴイアラ3rd名古屋』のようにスッキリ命名してください。
-・★xRライブ（CG映像を用いたライブなど）の場合は、必ず "short_name" の先頭付近に『XR』と付けてください（例: 以前「LP noctchill」だったものは「XR noctchill」とする）。
 
 【最重要③：nearest_station（最寄り駅）の記載ルール】
 ・会場から「距離が一番近い駅」と「多くの参加者が実際に利用する主要ターミナル駅」が異なる場合は必ずその2駅を併記してください。
@@ -844,7 +968,6 @@ ${existingNames}
 【最重要④：schedules（各日の詳細スケジュールと出演アイドルの抽出）の記載ルール】
 ・★もし同じ日に「昼公演」と「夜公演」がある場合は、必ず「昼公演」と「夜公演」で別々のオブジェクトとして2つに分割して出力してください。
 ・各 "text" は必ず「Day1: 」「Day2 昼公演: 」のように、日付の順番（Day n）と、同じ日に複数あるときは「朝・昼・夕・夜」で始め、半角コロンを付けてください。公式の公演名（「第一公演 ～〇〇～」など）は text の末尾に（）で添えてください。
-・★【重複・増殖の防止】記事内に「第一公演」と「朝公演」など複数の呼び方が混在している場合、AIが同じ公演を別々のスケジュールとして二重に抽出してしまうのを固く禁じます。必ず「開場/開演時間」を基準に同一公演を判定しマージしてください。（1日が3回公演なら、要素数も絶対に3つのみにする）
 ・声優名やユニット名しか書かれていない場合でも、知識から該当するキャラクター名に変換して出力してください。
 
 【最重要⑤：受付の種類・先着・リセールの扱い・受付開始日】
@@ -852,17 +975,13 @@ ${existingNames}
 ・「一般発売(先着)」や「リセール」の場合、当落発表はないため "result_date_notion" は必ず空文字("")にしてください。
 ・申込受付には「開始日時」と「締切日時」があります。両方わかる場合は "apply_start_date" と "deadline_date" の両方を出力してください。先着などで開始日時しかわからない場合は "apply_start_date" に開始日時を入れ、"deadline_date" は空文字にしてください。
 
-【最重要⑥：物販関連のURL抽出に関する厳格なルール】
-・物販整理券のURLには、絶対にライブ本編のチケット申込URLを入れないでください。必ずグッズ販売ページ等にある「物販整理券の専用受付URL」を探して抽出してください。
-・会場物販のURLには、グッズ販売ページ等にある現地利用用の「デジタル注文書（グッズオーダー）」のURLを抽出してください。
-
 【抽出フォーマット】
 {
   "is_target_live": true,
   "events": [
     {
       "full_official_name": "イベントの正式フルタイトル",
-      "short_name": "カレンダー表示用の略称（例: ヴイアラ3rd名古屋、XR noctchill）",
+      "short_name": "カレンダー表示用の略称（例: ヴイアラ3rd名古屋）",
       "brands": ["対象ブランド名の配列。選択肢: '765AS', 'デレマス', 'ミリオン', 'シャニマス', 'SideM', '学マス', 'ヴイアラ', '876'"],
       "icon_emoji": "イベント種別に応じた絵文字1文字",
       "is_special_color": false,
@@ -1005,5 +1124,5 @@ async function run() {
 }
 
 module.exports = { scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
-  parseLabelDate, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
+  parseLabelDate, effectiveLottery, composeSchedLabel, splitDuplicateKeys, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
 if (require.main === module) run();
