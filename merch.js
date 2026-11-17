@@ -25,7 +25,7 @@ function deriveGoodsUrls(officialUrl) {
 function pickGoodsLink(anchors, officialUrl) {
   const show = (String(officialUrl || '').match(/\/information\/([^/?#]+)/) || [])[1];
   const cand = anchors.filter(a => a.href && /\/goods(\/|\.php|$)/.test(a.href.replace(/[?#].*$/, '')) || /^(GOODS|グッズ|物販)/i.test((a.text || '').trim()));
-  const hrefs = cand.map(a => a.href).filter(h => /idolmaster-official\.jp/.test(h));
+  const hrefs = cand.map(a => a.href).filter(h => /idolmaster-official\.jp/.test(h) && !/#$/.test(h));   // 「#」だけのリンク（まだ物販ページがないサイトのナビ）は除く
   if (show) { const hit = hrefs.find(h => h.includes(`/${show}`)); if (hit) return hit; }
   return hrefs[0] || '';
 }
