@@ -223,7 +223,7 @@ function normalizeBrands(brandsArray, fullOfficialName) {
 }
 /** XR形式のライブか。ライブDBの「XR」チェックがオン、または名称に「xR」「XR」が入っている */
 const XR_RE = /(?<![A-Za-z])x\s?r(?![A-Za-z])|ＸＲ|ｘｒ/i;
-const isXRLive = (page, title) => isOn(page.properties['XR']) || XR_RE.test(`${title || ''} ${propText(page.properties['正式名称'])}`);
+const isXRLive = (page, title, slotNames = []) => isOn(page.properties['XR']) || XR_RE.test(`${title || ''} ${propText(page.properties['正式名称'])} ${slotNames.join(' ')}`);   // チケット名（受付枠の名前）に「xR」とあれば、それも根拠にする
 const isSpecialColorEvent = (ev, full) => ev.is_special_color === true || /REFRAC7IONS|リフラクションズ/i.test(`${full || ''} ${ev.short_name || ''}`);
 function cleanCastList(arr) {
   if (!Array.isArray(arr)) return [];
@@ -548,7 +548,7 @@ async function applyEvent(ev, article) {
     }
     put(meta, props, '公式URL', linkUrl);
     put(meta, props, '特別カラー', special);
-    if (ev.is_xr === true) put(meta, props, 'XR', true);
+    if (ev.is_xr === true || XR_RE.test(ev.ticket_tier || '')) put(meta, props, 'XR', true);
     put(meta, props, '最終自動更新', new Date().toISOString());
     live = await W.create({ parent: { database_id: S.live.id }, icon: { type: 'emoji', emoji }, properties: props });
     replacePage(S.live, live); created = true; bodyChanged = true;
@@ -571,7 +571,7 @@ async function applyEvent(ev, article) {
       else if (cur !== ev.live_date) warn(`『${titleOf(live, meta)}』: 記事の公演日(${ev.live_date})が登録済み(${cur})と異なります。変更が必要なら手で直してください`);
     }
     if (special && !isOn(live.properties['特別カラー']) && put(meta, props, '特別カラー', true)) bodyChanged = true;
-    if (ev.is_xr === true && live.properties['XR']?.type === 'checkbox' && !isOn(live.properties['XR'])) put(meta, props, 'XR', true);
+    if ((ev.is_xr === true || XR_RE.test(ev.ticket_tier || '')) && live.properties['XR']?.type === 'checkbox' && !isOn(live.properties['XR'])) put(meta, props, 'XR', true);
     if (Object.keys(props).length) { const u = await W.update({ page_id: live.id, properties: props }); if (u) { replacePage(S.live, u); live = u; } }
     console.log(` ├─ 🔄 既存: 『${titleOf(live, meta)}』を確認${Object.keys(props).length ? '（空欄を補完）' : ''}`);
   } else console.log(` ├─ 🔒 ロック中: 『${titleOf(live, meta)}』のライブ本体は更新しません`);
@@ -938,7 +938,7 @@ function buildEvents({ live, slot, sched, merch: mdb }, now = Date.now()) {
       slots: slots.map(s => ({ name: s.name, kind: s.kind, start: s.start, end: s.end, lottery: (s === cur ? lotEff.value : s.lottery).slice(0, 10) })),
       eventDateStart: ds, eventDateEnd: de,
       officialUrl: g('公式URL'), venue, mapUrl, accessUrl: g('アクセスURL'), nearestStation: g('最寄り駅'),
-      isSpecialColor: special, isXR: isXRLive(page, title), schedules,
+      isSpecialColor: special, isXR: isXRLive(page, title, slots.map(s => s.name)), schedules,
       merch: !mdb ? [] : mdb.pages.filter(p => relIds(p, mRel).includes(page.id)).map(p => ({
         kind: propText(p.properties['種別']), name: propText(p.properties['名称']), url: propText(p.properties['URL']),
         start: dateStart(p, '開始'), end: dateStart(p, '締切'), lottery: dateStart(p, '当落発表'),
