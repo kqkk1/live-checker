@@ -215,6 +215,7 @@ function pickFallbacks(list, primary) {
 }
 let _fallbacks = null;
 async function geminiFallbacks() {
+  if (process.env.GEMINI_FALLBACK !== 'on' && !GEMINI_MODELS_ENV.length) return [];   // 初期設定: 代替モデルは使わない（'on' にすると、1つ目が失敗したときだけ使う）
   if (GEMINI_MODELS_ENV.length) return GEMINI_MODELS_ENV.filter(n => n !== GEMINI_PRIMARY);
   if (_fallbacks) return _fallbacks;
   try {
