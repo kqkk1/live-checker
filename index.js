@@ -221,10 +221,25 @@ function normalizeBrands(brandsArray, fullOfficialName) {
   if (set.size === 0 && fullOfficialName) add(fullOfficialName);
   return Array.from(set);
 }
+/** XR形式のライブか。ライブDBの「XR」チェックがオン、または名称に「xR」「XR」が入っている */
+const XR_RE = /(?<![A-Za-z])x\s?r(?![A-Za-z])|ＸＲ|ｘｒ/i;
+const isXRLive = (page, title) => isOn(page.properties['XR']) || XR_RE.test(`${title || ''} ${propText(page.properties['正式名称'])}`);
 const isSpecialColorEvent = (ev, full) => ev.is_special_color === true || /REFRAC7IONS|リフラクションズ/i.test(`${full || ''} ${ev.short_name || ''}`);
 function cleanCastList(arr) {
   if (!Array.isArray(arr)) return [];
   return uniq(arr.map(n => String(n).replace(/（.*?）|\(.*?\)/g, '').replace(/\s+/g, '').trim()).filter(Boolean));
+}
+/**
+ * ペンライトのカラー対応がない外部ゲスト（アイマス外からの出演者）。ペンライト設定URL（auto_cast）からだけ外す。
+ * 出演者の表示（castNames）は変えない。追加したいときは、次のどちらか
+ *   ・この一覧に名前を足す（全イベント共通）
+ *   ・公演日程DBに「ペンライト対象外」（テキスト・名前をカンマ区切り）の列を作り、その公演の行に名前を入れる（コード変更なし）
+ */
+const NON_PENLIGHT_GUESTS = ['姫乃みえる', '真未夢メエ', '和央パリン', '凛堂たいむ', '凜堂たいむ'];
+const nkey = s => String(s || '').normalize('NFKC').replace(/\s+/g, '').toLowerCase();
+function penlightCast(castArray, extra = '') {
+  const ex = new Set([...NON_PENLIGHT_GUESTS, ...String(extra || '').split(/[,、，\n]/)].map(nkey).filter(Boolean));
+  return cleanCastList(castArray).filter(n => !ex.has(nkey(n)));
 }
 function buildPenlightUrl(castArray, isSpecial = false) {
   const base = 'https://penlight-supporter.onrender.com/setlist';
@@ -533,6 +548,7 @@ async function applyEvent(ev, article) {
     }
     put(meta, props, '公式URL', linkUrl);
     put(meta, props, '特別カラー', special);
+    if (ev.is_xr === true) put(meta, props, 'XR', true);
     put(meta, props, '最終自動更新', new Date().toISOString());
     live = await W.create({ parent: { database_id: S.live.id }, icon: { type: 'emoji', emoji }, properties: props });
     replacePage(S.live, live); created = true; bodyChanged = true;
@@ -555,6 +571,7 @@ async function applyEvent(ev, article) {
       else if (cur !== ev.live_date) warn(`『${titleOf(live, meta)}』: 記事の公演日(${ev.live_date})が登録済み(${cur})と異なります。変更が必要なら手で直してください`);
     }
     if (special && !isOn(live.properties['特別カラー']) && put(meta, props, '特別カラー', true)) bodyChanged = true;
+    if (ev.is_xr === true && live.properties['XR']?.type === 'checkbox' && !isOn(live.properties['XR'])) put(meta, props, 'XR', true);
     if (Object.keys(props).length) { const u = await W.update({ page_id: live.id, properties: props }); if (u) { replacePage(S.live, u); live = u; } }
     console.log(` ├─ 🔄 既存: 『${titleOf(live, meta)}』を確認${Object.keys(props).length ? '（空欄を補完）' : ''}`);
   } else console.log(` ├─ 🔒 ロック中: 『${titleOf(live, meta)}』のライブ本体は更新しません`);
@@ -899,7 +916,7 @@ function buildEvents({ live, slot, sched, merch: mdb }, now = Date.now()) {
       .map(p => {
         const key = propText(p.properties['Day']);
         const c = composeSchedLabel(key, p);   // 表示ラベルに時刻がなければ、開演日時・開場時刻の列から組み立てる（Pages は「:」より前を公演キーにする）
-        return { key, label: c.label, name: c.name, castNames: cleanCastList(propText(p.properties['出演者']).split(',')) };
+        return { key, label: c.label, name: c.name, castNames: cleanCastList(propText(p.properties['出演者']).split(',')), noPenlight: propText(p.properties['ペンライト対象外']) };
       });
     // 日付だけの古い行（時刻も公演名もない）が、同じ日の時刻つきの行と並んでいるときは、古い行を出さない（公演が重複して見えるため）
     const dateOf = r => (parseLabelDate(r.label, ds) || {}).date;
@@ -907,7 +924,7 @@ function buildEvents({ live, slot, sched, merch: mdb }, now = Date.now()) {
       const r = rawSched[k], d = dateOf(r);
       if (d && !/開演/.test(r.label) && rawSched.some((o, j) => j !== k && /開演/.test(o.label) && dateOf(o) === d)) { issues.push(`${title} / ${r.key}: 日付だけの古い公演行です（同じ日に時刻つきの公演行があります）。公演日程DBで削除してください`); rawSched.splice(k, 1); }
     }
-    const schedules = normalizeScheduleKeys(rawSched, ds).map(x => ({ label: x.label, ...(x.title ? { title: x.title } : {}), ...(x.name ? { name: x.name } : {}), castCount: x.castNames.length, castNames: x.castNames, penlightUrl: buildPenlightUrl(x.castNames, special) }));
+    const schedules = normalizeScheduleKeys(rawSched, ds).map(x => ({ label: x.label, ...(x.title ? { title: x.title } : {}), ...(x.name ? { name: x.name } : {}), castCount: x.castNames.length, castNames: x.castNames, penlightCastCount: penlightCast(x.castNames, x.noPenlight).length, penlightUrl: buildPenlightUrl(penlightCast(x.castNames, x.noPenlight), special) }));
     // 検査
     for (const s of schedules) { const d = parseLabelDate(s.label, ds); if (d && ds && (Date.parse(d.date) < Date.parse(ds) - 864e5 || Date.parse(d.date) > Date.parse(de) + 864e5)) issues.push(`${title} / ${dkey(s.label)}: 公演日(${d.date})がライブ開催日(${ds}〜${de})の範囲外`); }
     if (!g('会場')) issues.push(`${title}: 会場が未入力です`);
@@ -921,7 +938,7 @@ function buildEvents({ live, slot, sched, merch: mdb }, now = Date.now()) {
       slots: slots.map(s => ({ name: s.name, kind: s.kind, start: s.start, end: s.end, lottery: (s === cur ? lotEff.value : s.lottery).slice(0, 10) })),
       eventDateStart: ds, eventDateEnd: de,
       officialUrl: g('公式URL'), venue, mapUrl, accessUrl: g('アクセスURL'), nearestStation: g('最寄り駅'),
-      isSpecialColor: special, schedules,
+      isSpecialColor: special, isXR: isXRLive(page, title), schedules,
       merch: !mdb ? [] : mdb.pages.filter(p => relIds(p, mRel).includes(page.id)).map(p => ({
         kind: propText(p.properties['種別']), name: propText(p.properties['名称']), url: propText(p.properties['URL']),
         start: dateStart(p, '開始'), end: dateStart(p, '締切'), lottery: dateStart(p, '当落発表'),
@@ -986,6 +1003,7 @@ ${existingNames}
       "brands": ["対象ブランド名の配列。選択肢: '765AS', 'デレマス', 'ミリオン', 'シャニマス', 'SideM', '学マス', 'ヴイアラ', '876'"],
       "icon_emoji": "イベント種別に応じた絵文字1文字",
       "is_special_color": false,
+      "is_xr": false,
       "live_date": "その公演ブロックの初日の日付（YYYY-MM-DD形式）",
       "live_end_date": "その公演ブロックの最終日の日付（YYYY-MM-DD形式）",
       "official_url": "イベント公式・特設サイトのURL",
@@ -1005,6 +1023,7 @@ ${existingNames}
 
 【厳格な判定ルール】
 ・is_target_live: 現地開催（リアル会場）があるアイマス関連の単独音楽ライブ、xRライブ、コンサート、PM、ファンミ、オーケストラであれば true。「遊園地等のコラボ」「上映会」「配信のみ」「外部フェス出展」は false。
+・is_xr: 「xR LIVE」「XRライブ」など、XR（クロスリアリティ）形式の公演であることが明記されていれば true。通常の会場ライブや、配信のみ・VR配信は false。
 ・is_special_color: シャイニーカラーズの「REFRAC7IONS」シリーズ等、特別カラー編成であることが明記されている特殊な公演のみ true。
 
 【ページ内の主なリンク一覧】
@@ -1125,5 +1144,5 @@ async function run() {
 }
 
 module.exports = { scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
-  parseLabelDate, effectiveLottery, composeSchedLabel, splitDuplicateKeys, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
+  parseLabelDate, penlightCast, isXRLive, effectiveLottery, composeSchedLabel, splitDuplicateKeys, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
 if (require.main === module) run();
