@@ -577,7 +577,8 @@
     "isXR": false,
     "schedules": [
       {
-        "label": "Day1: 1月30日(土) 開場16:00/開演17:00（PRODUCER MEETING in NAGOYA）",
+        "label": "Day1: 1月30日(土) 開場16:00/開演17:00 PRODUCER MEETING in NAGOYA",
+        "name": "PRODUCER MEETING in NAGOYA",
         "castCount": 3,
         "castNames": [
           "灯里愛夏",
@@ -588,7 +589,8 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
       },
       {
-        "label": "Day2 昼公演: 1月31日(日) 開場13:00/開演14:00（3rdLIVE in NAGOYA 昼公演）",
+        "label": "Day2 昼公演: 1月31日(日) 開場13:00/開演14:00 3rdLIVE in NAGOYA 昼公演",
+        "name": "3rdLIVE in NAGOYA 昼公演",
         "castCount": 6,
         "castNames": [
           "灯里愛夏",
@@ -602,7 +604,8 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9%2C%E6%97%A5%E9%AB%98%E9%9B%B6%E5%A5%88%2C%E6%9D%B1%E9%9B%B2%E5%92%8C%E9%9F%B3%2C%E8%8C%85%E9%87%8E%E3%81%B5%E3%81%9F%E3%81%B0"
       },
       {
-        "label": "Day2 夜公演: 1月31日(日) 開場17:00/開演18:00（3rdLIVE in NAGOYA 夜公演）",
+        "label": "Day2 夜公演: 1月31日(日) 開場17:00/開演18:00 3rdLIVE in NAGOYA 夜公演",
+        "name": "3rdLIVE in NAGOYA 夜公演",
         "castCount": 3,
         "castNames": [
           "灯里愛夏",
@@ -654,7 +657,8 @@
     "isXR": true,
     "schedules": [
       {
-        "label": "Day1: 2月13日(土) 開場18:00/開演19:00（山形愛♡果物愛♡いろんな愛を産地直送♡）",
+        "label": "Day1: 2月13日(土) 開場18:00/開演19:00 山形愛♡果物愛♡いろんな愛を産地直送♡",
+        "name": "山形愛♡果物愛♡いろんな愛を産地直送♡",
         "castCount": 5,
         "castNames": [
           "辻野あかり",
@@ -667,7 +671,8 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E4%BD%90%E4%B9%85%E9%96%93%E3%81%BE%E3%82%86%2C%E6%A9%98%E3%81%82%E3%82%8A%E3%81%99"
       },
       {
-        "label": "Day2 昼公演: 2月14日(日) 開場11:30/開演12:30（甘ずっぱーい♡愛♡でココロ高まれ♡）",
+        "label": "Day2 昼公演: 2月14日(日) 開場11:30/開演12:30 甘ずっぱーい♡愛♡でココロ高まれ♡",
+        "name": "甘ずっぱーい♡愛♡でココロ高まれ♡",
         "castCount": 5,
         "castNames": [
           "辻野あかり",
@@ -680,8 +685,8 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E4%BD%90%E4%B9%85%E9%96%93%E3%81%BE%E3%82%86%2C%E6%A9%98%E3%81%82%E3%82%8A%E3%81%99"
       },
       {
-        "label": "Day2 夜公演: 2月14日(日) 開場16:30/開演17:30（ハッピーバレンタイン♡珠玉の「大好き♡」狩り放題♡）",
-        "name": "大好き♡",
+        "label": "Day2 夜公演: 2月14日(日) 開場16:30/開演17:30 ハッピーバレンタイン♡珠玉の「大好き♡」狩り放題♡",
+        "name": "ハッピーバレンタイン♡珠玉の「大好き♡」狩り放題♡",
         "castCount": 5,
         "castNames": [
           "辻野あかり",
@@ -901,7 +906,8 @@
     "isXR": false,
     "schedules": [
       {
-        "label": "Day1 昼公演: 3月21日(日) 開場13:30/開演14:30（PRODUCER MEETING in TOKYO）",
+        "label": "Day1 昼公演: 3月21日(日) 開場13:30/開演14:30 PRODUCER MEETING in TOKYO",
+        "name": "PRODUCER MEETING in TOKYO",
         "castCount": 7,
         "castNames": [
           "灯里愛夏",
@@ -916,7 +922,8 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
       },
       {
-        "label": "Day1 夜公演: 3月21日(日) 開場17:30/開演18:30（3rdLIVE in TOKYO Day1）",
+        "label": "Day1 夜公演: 3月21日(日) 開場17:30/開演18:30 3rdLIVE in TOKYO Day1",
+        "name": "3rdLIVE in TOKYO Day1",
         "castCount": 3,
         "castNames": [
           "灯里愛夏",
@@ -927,7 +934,8 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
       },
       {
-        "label": "Day2: 3月22日(月・祝) 開場15:30/開演16:30（3rdLIVE in TOKYO Day2）",
+        "label": "Day2: 3月22日(月・祝) 開場15:30/開演16:30 3rdLIVE in TOKYO Day2",
+        "name": "3rdLIVE in TOKYO Day2",
         "castCount": 3,
         "castNames": [
           "灯里愛夏",
