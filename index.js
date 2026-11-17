@@ -382,6 +382,17 @@ function timeText(p, name) {
   if (c.type === 'date') return (jstParts(c.date?.start || '') || {}).time || '';
   const m = propText(c).match(/(\d{1,2})[:：](\d{2})/); return m ? `${m[1].padStart(2, '0')}:${m[2]}` : '';
 }
+/** 公演名として扱わない文字列（「第一公演」「昼公演」「Day1」など、公演の呼び名・順番だけのもの） */
+const isGenericName = n => /^(第[一二三四五六七八九十\d]+(公演|部)|[朝昼夕夜](公演|の部)?|Day\s*\d.*|DAY\s*\d.*|\[.*\]|［.*］|【.*】|LIVE|ライブ)$/i.test(String(n || '').trim());
+const stripWrap = t => { t = String(t || '').trim(); let m = t.match(/^[（(]([\s\S]+)[）)]$/); if (m) return m[1].trim(); m = t.match(/^「([\s\S]+)」$/); if (m) return m[1].trim(); return t; };
+/** 表示ラベルの「開演HH:MM」より後ろにある文字を、公演名（サブタイトル）とみなす。（）や「」で囲まれていれば外す。♡・「」などの記号は、そのまま残す */
+function nameFromRemainder(body) {
+  const m = String(body || '').match(/開演\s*\d{1,2}:\d{2}\s*([\s\S]*)$/); if (!m) return '';
+  const rest = m[1].replace(/^[\s\/／・,，、]+/, '').trim();
+  if (!rest || rest.length > 80) return '';
+  const n = stripWrap(rest);
+  return n && !isGenericName(n) && /[A-Za-z0-9ぁ-んァ-ヶ一-龠♡♥☆★～〜]/.test(n) ? n : '';
+}
 function composeSchedLabel(key, p) {
   let label = propText(p.properties['表示ラベル']) || '';
   const colon = label.search(/[:：]/);
@@ -400,8 +411,10 @@ function composeSchedLabel(key, p) {
   } else if (!/\d{1,2}月\s*\d{1,2}日/.test(body0) && st?.date) {
     body = `${+st.date.slice(0, 4)}年${+st.date.slice(5, 7)}月${+st.date.slice(8, 10)}日(${WD[new Date(`${st.date}T00:00:00+09:00`).getDay()]}) ${body0}`.trim();
   }
-  const name = propText(p.properties['公演名']).trim() || ((body.match(/「([^」]+)」/) || [])[1] || '');
-  if (name && !body.includes(`「${name}」`)) body = `${body} 「${name}」`.trim();
+  const colName = propText(p.properties['公演名']).trim();
+  const name = colName || nameFromRemainder(body);   // 「公演名」列があればそれを、なければ表示ラベルの開演時刻のあとの文字を、公演名とする
+  if (!colName && name) body = body.replace(/(開演\s*\d{1,2}:\d{2})\s*[（(]([\s\S]+)[）)]\s*$/, (m0, t, inner) => isGenericName(inner) ? m0 : `${t} ${inner.trim()}`);   // 公演名が（）で囲まれていたら、（）を外す（記号を含め、名前はそのまま）
+  if (colName && !body.includes(colName)) body = `${body} 「${colName}」`.trim();   // 列にだけ公演名があるときは、ラベルの末尾に付ける（表示ラベルの手書きの表記は、そのまま）
   return { label: `${key}: ${body}`.replace(/:\s*$/, ''), name };
 }
 /** 同じ公演キー（例: Day1）が複数あるとき、開演時刻で「Day1 昼」「Day1 夜」のように分ける（1つにまとめてしまわないため） */
@@ -671,11 +684,15 @@ async function applyEvent(ev, article) {
   const liveStart = anchor.slice(0, 10), liveEnd = (dateEnd(live, 'ライブ開催日') || anchor).slice(0, 10);
   let schedChanged = false;
   const schedItems = splitDuplicateKeys((ev.schedules || []).map((s, i) => {
-    const text = typeof s === 'string' ? s : (s.text || '');
-    return { text, key: (text.includes(':') || text.includes('：')) ? dkey(text) : ((typeof s === 'object' && s.label) || dkey(text) || `Day${i + 1}`), cast: typeof s === 'object' ? s.cast : [] };
+    let text = typeof s === 'string' ? s : (s.text || ''), name = typeof s === 'object' ? String(s.name || '').trim() : '';
+    const tp = text.match(/^([\s\S]*開演\s*\d{1,2}:\d{2})\s*[（(]([\s\S]+)[）)]\s*$/);   // AIが公演名を末尾の（）で付けてきたときは、外して公演名に回す
+    if (tp && !isGenericName(tp[2])) { text = tp[1].trim(); name = name || tp[2].trim(); }
+    return { text, name, key: (text.includes(':') || text.includes('：')) ? dkey(text) : ((typeof s === 'object' && s.label) || dkey(text) || `Day${i + 1}`), cast: typeof s === 'object' ? s.cast : [] };
   }));
   for (let i = 0; i < schedItems.length; i++) {
-    const { text, key } = schedItems[i];
+    const { text, key, name } = schedItems[i];
+    const hasNameCol = !!sm2.properties['公演名'];
+    const labelText = name && !hasNameCol && !text.includes(name) ? `${text} 「${name}」` : text;   // 「公演名」列がないDBでは、ラベルの末尾に公演名を付ける
     const cast = cleanCastList(schedItems[i].cast);
     const d = parseLabelDate(text, liveStart);
     if (d && liveStart && (Date.parse(d.date) < Date.parse(liveStart) - 864e5 || Date.parse(d.date) > Date.parse(liveEnd) + 864e5))
@@ -684,7 +701,7 @@ async function applyEvent(ev, article) {
     if (!row) {
       const props = {};
       put(sm2, props, titleName(sm2), `${liveTitle} ${key}`); put(sm2, props, S.sched.rel.live, [live.id]);
-      put(sm2, props, 'Day', key); put(sm2, props, '出演者', cast.join(',')); put(sm2, props, '順番', i + 1); put(sm2, props, '表示ラベル', text);
+      put(sm2, props, 'Day', key); put(sm2, props, '出演者', cast.join(',')); put(sm2, props, '順番', i + 1); put(sm2, props, '表示ラベル', labelText); if (name) put(sm2, props, '公演名', name);
       if (d) put(sm2, props, '開演日時', d.start);
       if (d?.open) put(sm2, props, '開場時刻', d.open);
       const pg = await W.create({ parent: { database_id: S.sched.id }, properties: props });
@@ -697,7 +714,9 @@ async function applyEvent(ev, article) {
       const merged = cleanCastList([...oldCast, ...cast]);
       if (merged.length !== oldCast.length) { put(sm2, props, '出演者', merged.join(',')); changes.push(`出演者 ${oldCast.length}→${merged.length}名`); }
       const oldLabel = propText(row.properties['表示ラベル']);
-      if (!isLocked(row) && text && text !== oldLabel && /開演/.test(text) && (!/開演/.test(oldLabel) || text.length > oldLabel.length)) { put(sm2, props, '表示ラベル', text); changes.push('日時'); }
+      // ラベルは、時刻のない行を補うときだけ書く（手で直したラベルを、再解析で上書きしない）
+      if (!isLocked(row) && labelText && labelText !== oldLabel && /開演/.test(labelText) && !/開演/.test(oldLabel)) { put(sm2, props, '表示ラベル', labelText); changes.push('日時'); }
+      if (name && hasNameCol && !propText(row.properties['公演名']) && put(sm2, props, '公演名', name)) changes.push('公演名');
       if (d && !dateStart(row, '開演日時') && put(sm2, props, '開演日時', d.start)) changes.push('開演日時');
       if (d?.open && !propText(row.properties['開場時刻']) && put(sm2, props, '開場時刻', d.open)) changes.push('開場時刻');
       if (changes.length) {
@@ -1034,7 +1053,7 @@ ${existingNames}
 
 【最重要④：schedules（各日の詳細スケジュールと出演アイドルの抽出）の記載ルール】
 ・★もし同じ日に「昼公演」と「夜公演」がある場合は、必ず「昼公演」と「夜公演」で別々のオブジェクトとして2つに分割して出力してください。
-・各 "text" は必ず「Day1: 」「Day2 昼公演: 」のように、日付の順番（Day n）と、同じ日に複数あるときは「朝・昼・夕・夜」で始め、半角コロンを付けてください。公式の公演名（「第一公演 ～〇〇～」など）は text の末尾に（）で添えてください。
+・各 "text" は必ず「Day1: 」「Day2 昼公演: 」のように、日付の順番（Day n）と、同じ日に複数あるときは「朝・昼・夕・夜」で始め、半角コロンを付けてください。text には、公演名（サブタイトル）を含めないでください（日付・開場・開演の時刻までにします）。公式に公演名（「第一公演 ～〇〇～」や、「山形愛♡果物愛♡いろんな愛を産地直送♡」のようなサブタイトル）がある場合は、別項目 "name" に、♡・「」・！・～などの記号も含めて、公式の表記のまま入れてください（（）や「」で囲まず、言い換え・省略もしないでください）。公演名がなければ "name" は空文字にしてください。
 ・声優名やユニット名しか書かれていない場合でも、知識から該当するキャラクター名に変換して出力してください。
 
 【最重要⑤：受付の種類・先着・リセールの扱い・受付開始日】
@@ -1059,7 +1078,7 @@ ${existingNames}
       "venues": "会場名のみを簡潔に",
       "nearest_station": "最寄り駅と主要利用駅の所要時間",
       "schedules": [
-        { "label": "Day1", "text": "Day1: 1月30日(土) [LIVE] 開場16:30/開演17:30", "cast": ["灯里愛夏", "上水流宇宙", "レトラ"] }
+        { "label": "Day1", "text": "Day1: 1月30日(土) 開場16:30/開演17:30", "name": "公演名（サブタイトル）。なければ空文字", "cast": ["灯里愛夏", "上水流宇宙", "レトラ"] }
       ],
       "ticket_tier": "現在募集している現地チケットの受付名称",
       "ticket_kind": "抽選 または 先着",
@@ -1189,5 +1208,5 @@ async function run() {
 }
 
 module.exports = { geminiJson, aiMessage, buildAiReport, aiState, resetAI: () => { aiDownStreak = 0; }, scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson,
-  parseLabelDate, penlightCast, isXRLive, effectiveLottery, composeSchedLabel, splitDuplicateKeys, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
+  parseLabelDate, nameFromRemainder, penlightCast, isXRLive, effectiveLottery, composeSchedLabel, splitDuplicateKeys, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
 if (require.main === module) run();
