@@ -167,6 +167,19 @@ h1{font-size:20px;font-weight:800;letter-spacing:.02em}
 .dstat{padding:2px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
 .dstat.ok{background:rgba(158,206,106,.18);color:var(--ok)}
 .dstat.w{background:rgba(224,175,104,.18);color:var(--gold)}
+.dstat.sk{background:#2c2c2c;color:var(--muted)}
+.dstat.ng{background:rgba(247,118,142,.15);color:var(--warn)}
+.drow.dim{opacity:.55}
+.drow.dim:hover{opacity:.8}
+.dtime{display:block;font-weight:600;font-size:12px;color:var(--muted);margin-top:2px}
+.dday{display:inline-block;margin-right:6px;padding:0 7px;border-radius:6px;font-size:11px;font-weight:800;background:rgba(158,206,106,.18);color:var(--ok);vertical-align:1px}
+.calbox{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:6px 0 2px;padding:12px 14px;border-radius:var(--r);border:1px solid var(--ok);background:rgba(158,206,106,.08)}
+.calbox .ct{flex:1 1 220px;font-size:13px;line-height:1.5}
+.calbox .ct b{display:block;font-size:14px}
+.calbox .btn{margin-top:0;flex:0 0 auto;padding:10px 16px;background:rgba(158,206,106,.18);border-color:var(--ok);color:var(--ok)}
+.dlg ol{margin:6px 0 4px 18px;font-size:12px;color:var(--muted);line-height:1.6}
+.dlg .how{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.dlg .how b{font-size:12px}
 @media(max-width:767px){.drow{grid-template-columns:1fr auto}.ddate{grid-column:1/-1}}
 .slotrow{display:flex;gap:10px;align-items:flex-start;margin-top:10px}
 .slotrow .badge{flex:none;margin-top:2px}
@@ -461,33 +474,174 @@ function drawView() {
   $('viewrow').innerHTML = [['apply', '📋', '受付状況'], ['dates', '📅', '公演日順']].map(([v, ic, l]) => `<button class="vb ${view === v ? 'on' : ''}" data-view="${v}" aria-pressed="${view === v}" aria-label="${l}" title="${l}"><span class="vi">${ic}</span><span class="vl">${l}</span></button>`).join('');
   drawFilter();
 }
+/* ---- 公演日順：Dayごとの状況 ---- */
+const WON = v => v === '当選🎉' || v === '入手🎫';
+const LOST = v => v === '落選💦' || v === '入手できず';
+// 「Day1・Day2昼」のように短く並べる。3公演以上は「3公演」
+const keysTxt = ks => ks.length > 2 ? `${ks.length}公演` : ks.map(kshort).join('・');
+/** 一覧の右側に出す状況。won: 当選・入手した公演、wait: 当落待ちの公演 */
+function dayStatus(ev) {
+  const ks = dkeys(ev), st = me(ev.id), vals = ks.length ? ks.map(k => dget(st, k)) : [st.status];
+  const won = ks.filter((k, i) => WON(vals[i])), wait = ks.filter((k, i) => vals[i] === '当落待ち⏳');
+  const all = n => n === vals.length;
+  return {
+    won, wait, vals,
+    allWon: vals.length > 0 && vals.every(WON),
+    skip: vals.every(v => v === '見送り'),
+    lost: vals.every(v => LOST(v) || v === '見送り') && vals.some(LOST),
+    wonTxt: !won.length && !vals.some(WON) ? '' : vals.every(WON) ? (vals.length > 1 ? '全日参戦' : '参戦予定') : `${keysTxt(won)} 参戦`,
+    waitTxt: !wait.length ? (vals.some(v => v === '当落待ち⏳') ? '当落待ち' : '') : all(wait.length) ? '当落待ち' : `${keysTxt(wait)} 当落待ち`
+  };
+}
+
+/* ---- 公演ごとの日時（表示ラベルから読む） ---- */
+/** 表示ラベル「Day1: 2027年2月13日(土) 開場15:30 / 開演17:00」から、日付と開場・開演を取り出す。年がなければ公演初日から補う */
+function perfOf(ev, i) {
+  const sc = (ev.schedules || [])[i] || {}, label = String(sc.label || '');
+  const base = ev.eventDateStart || '', by = +base.slice(0, 4) || new Date().getFullYear(), bm = +base.slice(5, 7) || 1;
+  const m = label.match(/(?:(\d{4})年)?\s*(\d{1,2})月\s*(\d{1,2})日/);
+  let date = '';
+  if (m) { const mo = +m[2], y = m[1] ? +m[1] : (mo < bm ? by + 1 : by); date = `${y}-${String(mo).padStart(2, '0')}-${String(+m[3]).padStart(2, '0')}`; }
+  else if ((ev.schedules || []).length <= 1) date = base.slice(0, 10);
+  const t = re => { const x = label.match(re); return x ? `${x[1].padStart(2, '0')}:${x[2]}` : ''; };
+  return { date, open: t(/開場\s*(\d{1,2})[:：](\d{2})/), start: t(/開演\s*(\d{1,2})[:：](\d{2})/), sub: subOf(sc) };
+}
+/** 参戦予定（当選・入手した公演）を、公演1つずつの一覧にする。終わった公演は除く */
+function goingPerfs(evs, today) {
+  const out = [];
+  evs.forEach(ev => {
+    const ks = dkeys(ev), st = me(ev.id), lb = klabels(ev);
+    if (!ks.length) {   // 公演日程がないライブは、ライブ全体で1つ
+      if (WON(st.status) && ev.eventDateStart && (ev.eventDateEnd || ev.eventDateStart).slice(0, 10) >= today) out.push({ ev, k: '_', i: -1, label: '', date: ev.eventDateStart.slice(0, 10), open: '', start: '', sub: '', by: '' });
+      return;
+    }
+    ks.forEach((k, i) => {
+      if (!WON(dget(st, k))) return;
+      const p = perfOf(ev, i);
+      if (p.date && p.date < today) return;
+      out.push({ ev, k, i, label: shortK(k), ...p, by: (st.days && st.days[k] && st.days[k].by) || '' });
+    });
+  });
+  return out.sort((a, b) => (a.date || '9999').localeCompare(b.date || '9999') || (a.start || a.open || '').localeCompare(b.start || b.open || ''));
+}
+
 function drawDates(q, today) {
   const base = events.filter(ev => (brand === 'すべて' || (ev.brands || []).includes(brand)) && (!q ||
     [ev.title, ev.venue, ev.phase, me(ev.id).memo, ...(ev.brands || []), ...(ev.schedules || []).flatMap(s => s.castNames || [])].join(' ').toLowerCase().includes(q)));
   const endOf = ev => (ev.eventDateEnd || ev.eventDateStart || '').slice(0, 10);
   const isPast = ev => endOf(ev) && endOf(ev) < today;
-  const match = (ev, k) => k === 'upcoming' ? !isPast(ev) : k === 'going' ? (!isPast(ev) && anyWon(ev)) : !!isPast(ev);
-  const cnt = Object.fromEntries(DTABS.map(([k]) => [k, base.filter(ev => match(ev, k)).length]));
+  const going = goingPerfs(base.filter(ev => !isPast(ev)), today);
+  const match = (ev, k) => k === 'upcoming' ? !isPast(ev) : !!isPast(ev);
+  const cnt = { upcoming: base.filter(ev => match(ev, 'upcoming')).length, going: going.length, past: base.filter(ev => match(ev, 'past')).length };
   $('tabs').innerHTML = DTABS.map(([k, l]) => `<button class="tab ${dtab === k ? 'on' : ''}" data-dtab="${k}" aria-pressed="${dtab === k}">${l}<b>${cnt[k]}</b></button>`).join('');
   $('gmode').innerHTML = [['solo', 'ソロ'], ['pair', '連番']].map(([v, l]) => `<button class="chip ${gmode === v ? 'on' : ''}" data-gmode="${v}">${l}</button>`).join('');
   $('brands').innerHTML = BRANDS.map(b => `<button class="chip ${brand === b ? 'on' : ''}" data-brand="${b}" aria-pressed="${brand === b}">${b}</button>`).join('');
+  $('grid').className = 'dlist';
+  $('todo').hidden = true;
+  if (dtab === 'going') { drawGoing(going); if (openId) renderSheet(openId); return; }
+
   const list = base.filter(ev => match(ev, dtab)).sort((a, b) => dtab === 'past' ? (b.eventDateStart || '').localeCompare(a.eventDateStart || '') : (a.eventDateStart || '9999').localeCompare(b.eventDateStart || '9999'));
   let html = '', last = null;
   for (const ev of list) {
     const m = (ev.eventDateStart || '').slice(0, 7);
     if (m !== last) { html += `<h3 class="mh">${m ? `${m.slice(0, 4)}年${+m.slice(5)}月` : '日程未定'}</h3>`; last = m; }
-    const p = period(ev), won = anyWon(ev), wait = dstats(ev).includes('当落待ち⏳');
-    const chips = (won ? '<span class="dstat ok">参戦予定</span>' : wait ? '<span class="dstat w">当落待ち</span>' : '')
-      + (!isPast(ev) && ['open', 'urgent', 'before'].includes(p.ph) && !won ? `<span class="badge ${p.ph}">${p.txt}</span>` : '');
-    html += `<article class="drow" data-id="${esc(ev.id)}" tabindex="0" aria-label="${esc(ev.title)}（Enterで詳細を開く）" style="--b:${stripe(ev)}">
+    const p = period(ev), ds = dayStatus(ev), canApply = !isPast(ev) && ['open', 'urgent', 'before'].includes(p.ph);
+    // 見送り・落選は消さずに薄く出す（「ライブが消えた」と迷わないように）。落選でも次の受付があれば、受付のバッジを出す
+    const dim = !ds.won.length && (ds.skip || (ds.lost && !canApply));
+    const chips = (ds.wonTxt ? `<span class="dstat ok">${esc(ds.wonTxt)}</span>` : '')
+      + (ds.waitTxt && !ds.allWon ? `<span class="dstat w">${esc(ds.waitTxt)}</span>` : '')
+      + (!ds.won.length && !ds.wait.length && ds.skip ? '<span class="dstat sk">見送り</span>' : '')
+      + (!ds.won.length && !ds.wait.length && ds.lost ? '<span class="dstat ng">落選</span>' : '')
+      + (canApply && !ds.won.length && !ds.skip ? `<span class="badge ${p.ph}">${p.txt}</span>` : '');
+    html += `<article class="drow${dim ? ' dim' : ''}" data-id="${esc(ev.id)}" tabindex="0" aria-label="${esc(ev.title)}（Enterで詳細を開く）" style="--b:${stripe(ev)}">
       <div class="ddate">${esc(dateRange(ev))}</div>
       <div class="dmain"><b>${esc(ev.icon || '🎤')} ${xrTag(ev)}${esc(ev.title)}</b><div class="sub">${esc(ev.venue || '会場未定')}</div></div>
       <div class="dside">${chips}</div></article>`;
   }
-  $('grid').className = 'dlist';
   $('grid').innerHTML = html || '<div class="empty">この条件の公演はありません</div>';
-  $('todo').hidden = true;
   if (openId) renderSheet(openId);
+}
+
+/** 参戦予定タブ：当選・入手した公演を1つずつ、日付・時刻つきで並べる（そのままスケジュール表として使える） */
+function drawGoing(list) {
+  if (!list.length) {
+    $('grid').innerHTML = `<div class="empty"><p>参戦予定の公演はまだありません</p><p class="sub" style="margin-top:8px">公演の詳細で「当選」「入手」を記録すると、ここに日付順で並びます</p><div class="hints"><button class="chip" data-dtab="upcoming">これからの公演を見る</button></div></div>`;
+    return;
+  }
+  const fresh = list.filter(x => !calDone().has(perfUid(x))).length;
+  let html = `<div class="calbox"><div class="ct"><b>📅 参戦予定を、まとめてカレンダーに登録</b>${list.length}公演${fresh && fresh < list.length ? `（うち未登録 ${fresh}公演）` : ''}をファイル1つで追加できます</div><button class="btn" data-calopen>カレンダーに登録</button></div>`;
+  let last = null;
+  for (const x of list) {
+    const ev = x.ev, m = (x.date || '').slice(0, 7);
+    if (m !== last) { html += `<h3 class="mh">${m ? `${m.slice(0, 4)}年${+m.slice(5)}月` : '日程未定'}</h3>`; last = m; }
+    const time = [x.open && `開場 ${x.open}`, x.start && `開演 ${x.start}`].filter(Boolean).join(' / ');
+    const sub = [x.sub && `「${x.sub}」`, ev.venue || '会場未定'].filter(Boolean).join(' ・ ');
+    const by = gmode === 'pair' && x.by ? `<span class="dstat sk">${esc(x.by)}名義</span>` : '';
+    html += `<article class="drow" data-id="${esc(ev.id)}" tabindex="0" aria-label="${esc(ev.title)} ${esc(x.label)}（Enterで詳細を開く）" style="--b:${stripe(ev)}">
+      <div class="ddate">${x.date ? `${md(x.date)}(${wd(x.date)})` : '日程未定'}${time ? `<span class="dtime">${esc(time)}</span>` : ''}</div>
+      <div class="dmain"><b>${x.label ? `<span class="dday">${esc(x.label)}</span>` : ''}${esc(ev.icon || '🎤')} ${xrTag(ev)}${esc(ev.title)}</b><div class="sub">${esc(sub)}</div></div>
+      <div class="dside">${by}</div></article>`;
+  }
+  $('grid').innerHTML = html;
+}
+
+/* ---- カレンダー用ファイル（.ics）：参戦予定をまとめて登録 ---- */
+const CAL_KEY = 'imas_portal_cal_v1';   // 一度ファイルに書き出した公演（次回は「新しい公演だけ」を選べるように）
+const calDone = () => { try { return new Set(JSON.parse(localStorage.getItem(CAL_KEY) || '[]')); } catch (_) { return new Set(); } };
+const perfUid = x => `${x.ev.id}--${x.k}`.replace(/[^\w.-]/g, c => c.charCodeAt(0).toString(16)) + '@imas-live-portal';
+const LIVE_HOURS = 3;   // 終演時刻は公式に載っていないことが多いので、開演から3時間で入れる
+function icsText(list) {
+  const escT = v => String(v || '').replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+  const fold = line => {   // 1行75バイトまで（日本語が途中で切れないよう、文字単位で折り返す）
+    const out = []; let cur = '', n = 0;
+    for (const ch of line) { const b = new TextEncoder().encode(ch).length; if (n + b > 73 && cur) { out.push(cur); cur = ' '; n = 1; } cur += ch; n += b; }
+    return [...out, cur].join('\r\n');
+  };
+  const utc = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const stamp = utc(new Date());
+  const ev = list.map(x => {
+    const e = x.ev, at = x.start || x.open;
+    const startD = x.date && at ? new Date(`${x.date}T${at}:00+09:00`) : null;
+    const when = startD
+      ? [`DTSTART:${utc(startD)}`, `DTEND:${utc(new Date(+startD + LIVE_HOURS * 36e5))}`]
+      : [`DTSTART;VALUE=DATE:${ymd(x.date)}`, `DTEND;VALUE=DATE:${ymd(nextDay(x.date))}`];
+    const desc = [x.label && `${x.label}${x.sub ? `「${x.sub}」` : ''}`, x.open && `開場 ${x.open}`, x.start && `開演 ${x.start}`, x.by && `名義: ${x.by}`, e.officialUrl && `公式: ${e.officialUrl}`, '※終了時刻は目安です（アイマス ライブ情報ポータルから登録）'].filter(Boolean).join('\n');
+    return ['BEGIN:VEVENT', `UID:${perfUid(x)}`, `DTSTAMP:${stamp}`, ...when,
+      `SUMMARY:${escT(`【公演】${e.title}${x.label ? ` ${x.label}` : ''}`)}`, `LOCATION:${escT(e.venue || '')}`, `DESCRIPTION:${escT(desc)}`,
+      ...(e.officialUrl ? [`URL:${escT(e.officialUrl)}`] : []), 'END:VEVENT'];
+  }).flat();
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//imas-live-portal//JA', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'X-WR-TIMEZONE:Asia/Tokyo', ...ev, 'END:VCALENDAR'].map(fold).join('\r\n') + '\r\n';
+}
+let calList = [];
+function openCalDlg() {
+  const today = jstToday(), filt = events.filter(ev => brand === 'すべて' || (ev.brands || []).includes(brand));
+  calList = goingPerfs(filt.filter(ev => (ev.eventDateEnd || ev.eventDateStart || '9999').slice(0, 10) >= today), today);
+  if (!calList.length) { showDlg('<h3>参戦予定をカレンダーに登録</h3><p class="sub">参戦予定の公演がありません。</p><div class="dact"><button class="btn ghost" data-dlg="close">閉じる</button></div>'); return; }
+  const done = calDone(), fresh = calList.filter(x => !done.has(perfUid(x)));
+  const row = x => `<li>${x.date ? `${md(x.date)}(${wd(x.date)})` : '日程未定'} ${esc(x.ev.title)}${x.label ? ` ${esc(x.label)}` : ''}${done.has(perfUid(x)) ? '（登録済み）' : ''}</li>`;
+  const btns = fresh.length && fresh.length < calList.length
+    ? `<button class="btn" data-ics="new">まだ登録していない ${fresh.length}公演をダウンロード</button><button class="btn ghost" data-ics="all">すべて（${calList.length}公演）をダウンロード</button>`
+    : `<button class="btn" data-ics="all">${calList.length}公演をダウンロード</button>`;
+  showDlg(`<h3>📅 参戦予定をカレンダーに登録</h3>
+    <p class="sub">カレンダー用のファイル（.ics）をダウンロードして、カレンダーに読み込みます。</p>
+    <ul>${calList.slice(0, 8).map(row).join('')}${calList.length > 8 ? `<li>…ほか${calList.length - 8}公演</li>` : ''}</ul>
+    ${!fresh.length ? '<p class="sub">すべて登録済みです。もう一度読み込むと、予定が二重になる場合があります。</p>' : ''}
+    <div class="dact">${btns}<button class="btn ghost" data-dlg="close">閉じる</button></div>
+    <div class="how"><b>読み込み方</b>
+      <ol><li><b>パソコン（Googleカレンダー）</b>：⚙ 設定 →「インポート／エクスポート」→ ダウンロードしたファイルを選んで「インポート」</li>
+      <li><b>iPhone</b>：ダウンロードしたファイルを開くと、カレンダーに追加できます</li>
+      <li><b>Android</b>：Googleカレンダーのアプリでは読み込めないことがあります。パソコンで読み込むか、各公演の「Googleカレンダーに登録」から1件ずつ追加してください</li></ol>
+      <p class="sub">終了時刻は、開演から${LIVE_HOURS}時間後で仮に入れています。</p></div>`);
+}
+function downloadIcs(which) {
+  const done = calDone(), list = which === 'new' ? calList.filter(x => !done.has(perfUid(x))) : calList;
+  if (!list.length) return;
+  const url = URL.createObjectURL(new Blob([icsText(list)], { type: 'text/calendar;charset=utf-8' }));
+  const a = document.createElement('a'); a.href = url; a.download = `imas-live-${jstToday()}.ics`; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+  list.forEach(x => done.add(perfUid(x))); localStorage.setItem(CAL_KEY, JSON.stringify([...done]));
+  closeDlg(); render();
+  toast(`${list.length}公演のファイルをダウンロードしました。カレンダーに読み込んでください`, null, 4500);
 }
 
 /* ---- 描画 ---- */
@@ -781,7 +935,7 @@ function mergeShared(shared, overwrite) {
 const shareSumm = (ev, o) => `${esc(ttl(ev))}：${Object.keys(o.d).length ? Object.entries(o.d).map(([k, v]) => `${esc(kshort(k))} ${esc(LBL[v])}`).join('・') : esc(LBL[o.s] || '')}${o.m ? ' 📝' : ''}`;
 let shareMemo = true, pendingShare = null;
 const dlgOpen = () => !$('dlgb').hidden;
-function showDlg(html) { $('dlg').innerHTML = html; $('dlgb').hidden = false; setTimeout(() => { const b = $('dlg').querySelector('button, input'); if (b) b.focus(); }, 30); }
+function showDlg(html) { $('dlg').innerHTML = html; $('dlgb').hidden = false; const h = $('dlg').querySelector('h3'); if (h) $('dlg').setAttribute('aria-label', h.textContent.replace(/^\W+/, '')); setTimeout(() => { const b = $('dlg').querySelector('button, input'); if (b) b.focus(); }, 30); }
 function closeDlg() { $('dlgb').hidden = true; $('dlg').innerHTML = ''; pendingShare = null; }
 async function openShareDlg() {
   const data = collectShare(shareMemo), n = Object.keys(data.e).length;
@@ -854,6 +1008,8 @@ function shareLink() {   // このイベントのURLをコピー
 
 document.addEventListener('click', e => {
   const da = e.target.closest('[data-dlg]'); if (da) { dlgAction(da.dataset.dlg); return; }
+  const ic = e.target.closest('[data-ics]'); if (ic) { downloadIcs(ic.dataset.ics); return; }
+  if (e.target.closest('[data-calopen]')) { openCalDlg(); return; }
   if (e.target === $('dlgb')) { closeDlg(); return; }
   if (e.target.closest('[data-sharestate]')) { fOpen = false; drawFilter(); openShareDlg(); return; }
   if (e.target.closest('#fbtn')) { fOpen = !fOpen; drawFilter(); return; }
