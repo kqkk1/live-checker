@@ -83,6 +83,10 @@ jobs:
           APPLICANTS: ${{ secrets.APPLICANTS }}   # 任意。未設定なら、申込記録の自動作成は行われません
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}   # 任意。未設定なら、通知は送られません
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # 使うAIモデル。最新版（gemini-flash-latest）は混雑で止まりやすいので、1つ前のFlashに固定し、
+          # 混雑・1日の上限のときだけ、同じ格の最新版Flashで同じ依頼をやり直す（軽量モデルは使わない）
+          GEMINI_PRIMARY: gemini-3.6-flash
+          GEMINI_MODELS: gemini-3.8-flash
           DRY: ${{ inputs.dry }}
           MAX: ${{ inputs.max }}
         run: |
