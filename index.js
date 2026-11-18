@@ -176,9 +176,10 @@ async function fetchWithRetry(url, options, maxRetries = 4, waitUnit = 30000) {
       const res = await fetch(url, options);
       if (res.ok) return res;
       if (res.status === 429 || res.status === 500 || res.status === 502 || res.status === 503 || res.status === 504) {
-        if (res.status === 429) {   // 無料枠のないモデル（上限が0）は、待っても使えないので、すぐ次のモデルへ
+        if (res.status === 429) {   // 待っても通らない429は、すぐ次のモデルへ
           const body = await res.text().catch(() => '');
           if (/"limit"\s*:\s*0\b|limit: 0\b/.test(body)) { console.log(' ├─ ⚠️ このモデルは、いまのAPIキーでは使えません（無料枠の上限が0）'); return null; }
+          if (/PerDay|per day/i.test(body)) { console.log(' ├─ ⚠️ このモデルの、今日の無料枠を使い切りました（日本時間の夕方にリセット）'); return null; }
         }
         const waitTime = (i + 1) * waitUnit * WAIT_SCALE;
         console.log(` ├─ ⚠️ API制限/混雑(${res.status})。${last ? '' : `${Math.round(waitTime / 1000)}秒待機して再試行します`}...(${i + 1}/${maxRetries})`);
