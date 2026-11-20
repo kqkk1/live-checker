@@ -268,12 +268,19 @@
       "765AS",
       "デレマス"
     ],
-    "phase": "アソビストア一般会員先行",
-    "phaseKind": "抽選",
-    "applyStartDate": "2026-10-03T19:00:00.000+09:00",
-    "deadline": "2026-11-08T23:59:00.000+09:00",
-    "lotteryDate": "2026-11-14",
+    "phase": "現地チケット 一般販売(先着)",
+    "phaseKind": "先着",
+    "applyStartDate": "2026-11-22T12:00:00.000+09:00",
+    "deadline": "2026-12-05T23:59:00.000+09:00",
+    "lotteryDate": "",
     "slots": [
+      {
+        "name": "現地チケット 一般販売(先着)",
+        "kind": "先着",
+        "start": "2026-11-22T12:00:00.000+09:00",
+        "end": "2026-12-05T23:59:00.000+09:00",
+        "lottery": ""
+      },
       {
         "name": "アソビストア一般会員先行",
         "kind": "抽選",
@@ -304,6 +311,17 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9"
       },
       {
+        "label": "Day1 夕公演: 12月12日(土) 開場14:30/開演15:30 「菊地 真・萩原 雪歩 twin live “はんげつであえたら” [～悲藍～]」",
+        "name": "菊地 真・萩原 雪歩 twin live “はんげつであえたら” [～悲藍～]",
+        "castCount": 2,
+        "castNames": [
+          "菊地真",
+          "萩原雪歩"
+        ],
+        "penlightCastCount": 2,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9"
+      },
+      {
         "label": "Day1 昼公演: 12月12日(土) 開場14:30/開演15:30 はんげつであえたら [～悲藍～]",
         "name": "はんげつであえたら [～悲藍～]",
         "castCount": 2,
@@ -324,6 +342,34 @@
         ],
         "penlightCastCount": 2,
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9"
+      },
+      {
+        "label": "Day2 夕公演: 12月13日(日) 開場15:00/開演16:00 「Pop’n ToyBox!! もういっかい！ [夕方公演]」",
+        "name": "Pop’n ToyBox!! もういっかい！ [夕方公演]",
+        "castCount": 19,
+        "castNames": [
+          "市原仁奈",
+          "龍崎薫",
+          "赤城みりあ",
+          "椎名法子",
+          "浅利七海",
+          "佐城雪美",
+          "川島瑞樹",
+          "佐藤心",
+          "高垣楓",
+          "三船美優",
+          "大和亜季",
+          "鷹富士茄子",
+          "篠原礼",
+          "財前時子",
+          "高橋礼子",
+          "柊志乃",
+          "黒川千秋",
+          "東郷あい",
+          "池袋晶葉"
+        ],
+        "penlightCastCount": 19,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B8%82%E5%8E%9F%E4%BB%81%E5%A5%88%2C%E9%BE%8D%E5%B4%8E%E8%96%AB%2C%E8%B5%A4%E5%9F%8E%E3%81%BF%E3%82%8A%E3%81%82%2C%E6%A4%8E%E5%90%8D%E6%B3%95%E5%AD%90%2C%E6%B5%85%E5%88%A9%E4%B8%83%E6%B5%B7%2C%E4%BD%90%E5%9F%8E%E9%9B%AA%E7%BE%8E%2C%E5%B7%9D%E5%B3%B6%E7%91%9E%E6%A8%B9%2C%E4%BD%90%E8%97%A4%E5%BF%83%2C%E9%AB%98%E5%9E%A3%E6%A5%93%2C%E4%B8%89%E8%88%B9%E7%BE%8E%E5%84%AA%2C%E5%A4%A7%E5%92%8C%E4%BA%9C%E5%AD%A3%2C%E9%B7%B9%E5%AF%8C%E5%A3%AB%E8%8C%84%E5%AD%90%2C%E7%AF%A0%E5%8E%9F%E7%A4%BC%2C%E8%B2%A1%E5%89%8D%E6%99%82%E5%AD%90%2C%E9%AB%98%E6%A9%8B%E7%A4%BC%E5%AD%90%2C%E6%9F%8A%E5%BF%97%E4%B9%83%2C%E9%BB%92%E5%B7%9D%E5%8D%83%E7%A7%8B%2C%E6%9D%B1%E9%83%B7%E3%81%82%E3%81%84%2C%E6%B1%A0%E8%A2%8B%E6%99%B6%E8%91%89"
       },
       {
         "label": "Day2 公演: 12月13日(日) 開場15:00/開演16:00 Pop’n ToyBox!! もういっかい！",
