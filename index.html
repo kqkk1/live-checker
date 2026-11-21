@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>アイマス ライブ・イベント情報ポータル</title>
-<meta name="description" content="アイマスのライブ・イベントのチケット受付状況と、自分の参戦記録をまとめて確認できる非公式サイトです。">
+<meta name="description" content="アイマスのライブ・イベントの受付期間を見ながら、自分のチケットの申し込み状況と参戦記録をまとめて管理できる非公式サイトです（チケットの販売・申し込み受付は行っていません）。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="アイマス ライブ・イベント情報ポータル">
 <meta property="og:locale" content="ja_JP">
@@ -14,7 +14,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="アイマス ライブ情報ポータル（非公式）">
 <meta property="og:title" content="アイマス ライブ・イベント情報ポータル（非公式）">
-<meta property="og:description" content="チケットの受付状況と、自分の参戦記録をひとつに。">
+<meta property="og:description" content="自分のチケットの申し込み状況と、参戦記録をまとめて管理。">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#111214">
 <meta name="color-scheme" content="dark light">
@@ -56,14 +56,14 @@ button:active:not(:disabled){transform:scale(.97)}
 
 /* ===== ページ上部（タイトル・数字・データ確認） ===== */
 .stale{color:var(--warn)}
-.hero{position:relative;padding:44px 0 18px;isolation:isolate}
+.hero{position:relative;padding:44px 0 6px;isolation:isolate}
 .hero-bg{position:absolute;z-index:-1;inset:-40px -50vw 0;pointer-events:none;overflow:hidden;-webkit-mask-image:linear-gradient(#000 40%,transparent);mask-image:linear-gradient(#000 40%,transparent)}
 .hero-bg::before{content:"";position:absolute;width:56vmax;height:56vmax;border-radius:50%;opacity:var(--orb,.16);left:calc(50% - 46vmax);top:-30vmax;background:radial-gradient(closest-side,var(--orb1),transparent)}
 .hero-bg::after{content:"";position:absolute;width:56vmax;height:56vmax;border-radius:50%;opacity:var(--orb,.16);left:calc(50% - 6vmax);top:-34vmax;background:radial-gradient(closest-side,var(--orb2),transparent)}
 .kicker{font-size:11px;font-weight:700;letter-spacing:.24em;color:var(--muted);margin-bottom:10px}
 .hero h1{font-size:28px;line-height:1.25;letter-spacing:.04em;text-wrap:balance}
 .lead{margin-top:8px;color:var(--muted);font-size:13px;max-width:36em;text-wrap:pretty}
-.stats{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px;min-height:46px}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 12px;min-height:46px}
 .stat{display:flex;align-items:baseline;gap:8px;min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card,transparent);color:var(--muted);font-size:12px;font-weight:600;text-align:left}
 .stat b{font-size:20px;color:var(--text);letter-spacing:.02em;font-variant-numeric:tabular-nums}
 .stat.u b{color:var(--warn)}
@@ -85,7 +85,7 @@ button:active:not(:disabled){transform:scale(.97)}
   .hset{width:40px;justify-content:center;padding:0}
 }
 @media(min-width:768px){
-  .hero{padding:64px 0 22px}
+  .hero{padding:64px 0 6px}
   .hero h1{font-size:40px}
 }
 
@@ -207,6 +207,43 @@ body.scrolled .tools{background:var(--nav);-webkit-backdrop-filter:saturate(1.4)
 .drow:hover{background:var(--surface2);border-color:var(--line2)}
 .dstat::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
 .calbox .ct b .ic{color:var(--muted)}
+/* 参戦記録 */
+.rtop{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:6px 0 2px}
+.rtop .row{flex:1 1 300px;min-width:0}
+.rtop .seg2 .vb{font-size:12px;min-height:36px}
+.chip .cn{margin-left:6px;font-weight:600;opacity:.7;font-variant-numeric:tabular-nums}
+.rcard{margin-top:8px;padding:18px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.rhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px}
+.rhead b{font-size:16px}
+.rbig{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin:14px 0 4px}
+.rbig .n{font-size:52px;font-weight:800;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.rbig .u{font-size:17px;font-weight:700;margin-right:10px}
+.rbig .s{font-size:13px;color:var(--muted)}
+.rsec{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.rsec h4{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.06em;margin-bottom:10px}
+.rrank{list-style:none;display:grid;gap:10px}
+.rrank li{display:grid;grid-template-columns:1.4em minmax(0,1fr) auto;gap:4px 10px;align-items:center;font-size:13px}
+.rrank .rk{color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.rrank .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rrank .ct{color:var(--muted);font-variant-numeric:tabular-nums}
+.rrank .rbar{grid-column:2/4;height:3px;border-radius:2px;background:var(--line)}
+.rrank .rbar i{display:block;height:100%;border-radius:2px;background:var(--accent)}
+.rstack{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--line)}
+.rstack i{display:block;height:100%}
+.rleg{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12px;color:var(--muted)}
+.rleg span{display:inline-flex;align-items:center;gap:6px}
+.rleg span>i{width:8px;height:8px;border-radius:50%;flex:none}
+.rleg b,.rpref b{color:var(--text);font-variant-numeric:tabular-nums}
+.rpref{display:flex;flex-wrap:wrap;gap:6px}
+.rpref span{display:inline-flex;gap:6px;font-size:12px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.ract{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.ract .btn{margin-top:0;flex:1 1 220px;display:inline-flex;align-items:center;justify-content:center;gap:2px}
+.btn.pri{background:var(--cta);border-color:var(--cta);color:var(--cta-fg)}
+.ropts{margin-top:12px;font-size:13px}
+.ropts summary{cursor:pointer;color:var(--muted);min-height:36px;display:flex;align-items:center;gap:6px}
+.ropts .chips{margin-top:4px}
+.rec .rlh{margin-top:26px}
+.rec .empty .ract{max-width:360px;margin-left:auto;margin-right:auto}
 @media(hover:hover) and (pointer:fine){
   .drow{transition:border-color .2s,background-color .2s}
   .drow::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),var(--spot,rgba(255,255,255,.06)),transparent 70%)}
@@ -320,6 +357,29 @@ body.scrolled .tools{background:var(--nav);-webkit-backdrop-filter:saturate(1.4)
 .about p b{color:var(--text)}
 .about .stale{color:var(--warn);font-weight:700}
 .dlg h3 .ic{color:var(--muted)}
+.dlg.mid{max-width:560px}
+.dlg .rimg{display:block;width:100%;height:auto;margin:8px 0;border-radius:10px;border:1px solid var(--line)}
+.dlg .xtxt{width:100%;margin:6px 0 2px;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:12px;line-height:1.6;resize:vertical}
+.dlg.wide{max-width:640px;height:88dvh;padding:0;display:flex;flex-direction:column;overflow:hidden}
+.dlg.wide .dh{padding:16px 18px 10px;border-bottom:1px solid var(--line)}
+.dlg.wide .dh .row{margin-top:8px}
+.dlg.wide .dh .search{display:block;width:100%;max-width:none;margin-top:8px;min-height:42px}
+.dlg.wide .db{flex:1;overflow-y:auto;padding:0 18px 12px;overscroll-behavior:contain}
+.dlg.wide .db .mh{margin:16px 0 0}
+.dlg.wide .df{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 18px 14px;border-top:1px solid var(--line)}
+.dlg.wide .df .sub{flex:1 1 100%;margin:0}
+.dlg.wide .df .btn{flex:1;margin-top:0}
+.dlg .btn:disabled{opacity:.45;cursor:default}
+.bklive{position:relative;padding:12px 0 12px 12px;border-bottom:1px solid var(--line)}
+.bklive::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:2px;background:var(--b)}
+.bklive .t{display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline;justify-content:space-between}
+.bklive .t b{font-size:14px}
+.bkp{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.bkp button{min-height:38px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-size:12px;display:inline-flex;align-items:center;gap:4px}
+.bkp button small{font-size:11px;opacity:.8;margin-left:2px;font-variant-numeric:tabular-nums}
+.bkp button[aria-pressed=true]{background:var(--sel);border-color:var(--sel-line);color:var(--sel-fg);font-weight:700}
+.bkp button .ic{width:14px;height:14px}
+.bkp button.all{border-style:dashed}
 .thopts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 4px}
 .thopt{display:flex;flex-direction:column;gap:8px;padding:8px;border-radius:12px;border:1px solid var(--line);text-align:left;color:var(--text)}
 .thopt.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
@@ -381,7 +441,7 @@ html[data-theme="light"] .xr{background:#ffd166}
     <button class="hset" data-settings aria-label="設定"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg><span>設定</span></button>
     <p class="kicker reveal" style="--i:0">UNOFFICIAL ・ LIVE &amp; EVENT</p>
     <h1><span class="nb w" style="--i:0">アイマス</span> <span class="nb w" style="--i:1">ライブ情報ポータル</span></h1>
-    <p class="lead reveal" style="--i:3">チケットの受付と、自分の参戦記録をひとつに。</p>
+    <p class="lead reveal" style="--i:3">自分のチケットの申し込み状況と、参戦記録をまとめて管理。</p>
     <div class="stats reveal" style="--i:4" id="stats"></div>
     <p class="upd"><span id="updt"></span><button class="ulink" data-settings="about" id="aboutbtn"></button></p>
     <p class="sub" id="note" hidden></p>
@@ -436,6 +496,8 @@ const ICONS = {
   wand: '<path d="M4.5 19.5l10-10"/><path d="M13 8l3 3"/><path d="M18 3.5v3M16.5 5h3M19.5 11v2M18.5 12h2M11 3v2M10 4h2"/>',
   note: '<path d="M5 19h3.5L19 8.5 15.5 5 5 15.5z"/><path d="M13.5 7l3.5 3.5"/>',
   info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/>',
+  share: '<path d="M12 14.5V3.5M7.5 8L12 3.5 16.5 8"/><path d="M5 12.5v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   alert: '<path d="M12 4.5l8.5 15h-17z"/><path d="M12 10.5v4M12 17h.01"/>',
 };
 const ic = n => `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]}</svg>`;
@@ -550,7 +612,7 @@ function perfCalUrl(ev) {   // 当選・入手した公演があるときだけ
 
 /* ---- 部品 ---- */
 const stripe = ev => {
-  const c = (ev.brands || []).map(b => BR[b]).filter(Boolean);
+  const c = (ev.brands || []).map(b => BRX[b] || BR[b]).filter(Boolean);
   return c.length > 1 ? `linear-gradient(${c.join(',')})` : (c[0] || '#555a82');
 };
 const xrTag = ev => ev.isXR ? '<span class="xr" title="XRライブ">XR</span>' : '';
@@ -620,7 +682,7 @@ function matchTab(ev, ph, st) {
 }
 
 /* ---- 公演日順ビュー ---- */
-const DTABS = [['upcoming', 'これから'], ['going', '参戦予定'], ['past', '終了']];
+const DTABS = [['upcoming', 'これから'], ['going', '参戦予定'], ['past', '終了'], ['record', '参戦記録']];
 const wd = d => new Date(d + 'T00:00:00+09:00').toLocaleDateString('ja-JP', {timeZone:'Asia/Tokyo', weekday:'short'});
 const md = d => `${+d.slice(5, 7)}/${+d.slice(8, 10)}`;
 function dateRange(ev) {
@@ -660,7 +722,7 @@ function openSettings(focus) {
     <div class="setsec"><div class="thopts" role="radiogroup" aria-label="テーマ">${THEMES.map(([k, l, d, c]) => `<button class="thopt ${theme === k ? 'on' : ''}" data-theme-set="${k}" role="radio" aria-checked="${theme === k}"><span class="pv ${c}"><i></i><i></i><i></i></span><b>${l}${theme === k ? chk : ''}</b><small>${d}</small></button>`).join('')}</div>
     <p class="sub">設定はこのブラウザに保存されます。</p></div>
     <div class="setsec about" id="about" tabindex="-1"><div class="fl">このサイトについて</div>
-      <p><b>アイマス ライブ情報ポータル</b>は、ライブ・イベントのチケット受付状況と、自分の参戦記録をまとめて確認できる非公式サイトです。</p>
+      <p><b>アイマス ライブ情報ポータル</b>は、公式のチケット受付期間を見ながら、自分の申し込み状況と参戦記録をまとめて管理できる非公式サイトです。このサイトでは、チケットの販売・申し込みの受付は行っていません。</p>
       <p>応募状況やメモは、このブラウザにだけ保存されます（他の人には見えません）。</p>
       ${(u => u.t ? `<p class="${u.stale ? 'stale' : ''}">データ確認: ${esc(u.t)}</p>` : '')(updInfo())}
       <p>2023年〜2026年9月のライブ情報（日程・公演名・セトリへのリンク）は、<a href="https://imas-db.jp/" target="_blank" rel="noopener">アイマスDB</a>を参考にしています。</p>
@@ -758,12 +820,13 @@ function drawDates(q, today) {
   const isPast = ev => endOf(ev) && endOf(ev) < today;
   const going = goingPerfs(base.filter(ev => !isPast(ev)), today);
   const match = (ev, k) => k === 'upcoming' ? !isPast(ev) : !!isPast(ev);
-  const cnt = { upcoming: base.filter(ev => match(ev, 'upcoming')).length, going: going.length, past: base.filter(ev => match(ev, 'past')).length };
+  const cnt = { upcoming: base.filter(ev => match(ev, 'upcoming')).length, going: going.length, past: base.filter(ev => match(ev, 'past')).length, record: recYears().total };
   $('tabs').innerHTML = DTABS.map(([k, l]) => `<button class="tab ${dtab === k ? 'on' : ''}" data-dtab="${k}" aria-pressed="${dtab === k}">${l}<b>${cnt[k]}</b></button>`).join('');
   $('gmode').innerHTML = [['solo', 'ソロ'], ['pair', '連番']].map(([v, l]) => `<button class="chip ${gmode === v ? 'on' : ''}" data-gmode="${v}">${l}</button>`).join('');
   $('brands').innerHTML = BRANDS.map(b => `<button class="chip ${brand === b ? 'on' : ''}" data-brand="${b}" aria-pressed="${brand === b}">${b}</button>`).join('');
   $('grid').className = 'dlist';
   $('todo').hidden = true;
+  if (dtab === 'record') { drawRecord(); const on = document.querySelector('#tabs .tab.on'); if (on) { const row = $('tabs'), r = on.getBoundingClientRect(), rr = row.getBoundingClientRect(); if (r.right > rr.right || r.left < rr.left) row.scrollLeft += r.left - rr.left - 8; } if (openId) renderSheet(openId); return; }
   if (dtab === 'going') { drawGoing(going); if (openId) renderSheet(openId); return; }
 
   const list = base.filter(ev => match(ev, dtab)).sort((a, b) => dtab === 'past' ? (b.eventDateStart || '').localeCompare(a.eventDateStart || '') : (a.eventDateStart || '9999').localeCompare(b.eventDateStart || '9999'));
@@ -1145,15 +1208,66 @@ const VALID_ST = new Set(Object.keys(LBL));
 const fresh = v => !v || v === '未申込';
 const toB64u = u8 => { let t = ''; for (let i = 0; i < u8.length; i += 8192) t += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(t).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
 const fromB64u = t => { const b = atob(t.replace(/-/g, '+').replace(/_/g, '/')); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
+/* 短いリンク用のID（16進8桁）。ページIDの先頭は、同じころに作ったページどうしで似ているため、ID全体から計算した値を使う */
+const hexId = id => { let h = 0x811c9dc5; for (const ch of String(id)) { h ^= ch.codePointAt(0); h = Math.imul(h, 0x01000193); }
+  h ^= h >>> 16; h = Math.imul(h, 0x85ebca6b); h ^= h >>> 13; h = Math.imul(h, 0xc2b2ae35); h ^= h >>> 16; return (h >>> 0).toString(16).padStart(8, '0'); };
+const shortId = id => hexId(id);
+/** 「#e=…」の値から、イベントを探す（以前の長いIDのリンクも開ける） */
+function findEvByRef(ref) {
+  ref = String(ref || '').trim(); if (!ref) return null;
+  const full = events.find(v => v.id === ref); if (full) return full;
+  if (!/^[0-9a-f]{6,8}$/i.test(ref)) return null;
+  const hit = events.filter(v => hexId(v.id).startsWith(ref.toLowerCase()));
+  return hit.length === 1 ? hit[0] : null;
+}
+/* 記録の共有リンクの中身（版2）。1イベントあたり、IDの先頭3〜4バイト＋状態1バイト（公演ごとに違うときは公演数ぶんの4ビット）＋メモ */
+const SCODE = ['未申込', '当落待ち⏳', '当選🎉', '落選💦', '見送り', '入手🎫', '入手できず'];
+function idLen() { for (const n of [6, 8]) if (new Set(events.map(e => hexId(e.id).slice(0, n))).size === events.length) return n; return 8; }
 async function packShare(obj) {
-  const raw = new TextEncoder().encode(JSON.stringify(obj));
-  if (typeof CompressionStream !== 'undefined') { try { return 'z' + toB64u(new Uint8Array(await new Response(new Blob([raw]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer())); } catch (_) {} }
-  return 'j' + toB64u(raw);
+  const L = idLen(), out = [2, L], enc = new TextEncoder(), code = v => Math.max(0, SCODE.indexOf(v));
+  for (const [id, o] of Object.entries(obj.e)) {
+    const ev = events.find(v => v.id === id); if (!ev) continue;
+    const h = hexId(id).slice(0, L); for (let i = 0; i < L; i += 2) out.push(parseInt(h.slice(i, i + 2), 16));
+    const ks = dkeys(ev).slice(0, 63), vals = ks.map(k => code((o.d && o.d[k]) || '未申込'));
+    const memo = o.m ? enc.encode(o.m) : null, mf = memo ? 0x40 : 0;
+    if (!ks.length || vals.every(c => c === vals[0])) out.push(mf | (ks.length ? vals[0] : code(o.s)));
+    else { out.push(0x80 | mf | ks.length); for (let i = 0; i < ks.length; i += 2) out.push((vals[i] << 4) | (vals[i + 1] || 0)); }
+    if (memo) { let n = memo.length; while (n > 127) { out.push((n & 127) | 128); n >>= 7; } out.push(n); for (const b of memo) out.push(b); }
+  }
+  const raw = Uint8Array.from(out);
+  let best = 'b' + toB64u(raw);
+  if (typeof CompressionStream !== 'undefined') { try { const z = 'c' + toB64u(new Uint8Array(await new Response(new Blob([raw]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer())); if (z.length < best.length) best = z; } catch (_) {} }
+  return best;
 }
 async function unpackShare(str) {
-  const bytes = fromB64u(str.slice(1));
-  const raw = str[0] === 'z' ? new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer()) : bytes;
-  return JSON.parse(new TextDecoder().decode(raw));
+  const t = str[0];
+  let bytes = fromB64u(str.slice(1));
+  if (t === 'z' || t === 'c') bytes = new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer());
+  if (t === 'z' || t === 'j') return JSON.parse(new TextDecoder().decode(bytes));   // 以前の形式（JSON）
+  if ((t !== 'b' && t !== 'c') || bytes[0] !== 2) throw new Error('unknown');
+  const L = bytes[1], dec = new TextDecoder(), e = {}, idx = new Map();
+  if (L !== 6 && L !== 8) throw new Error('bad');
+  events.forEach(ev => { const h = hexId(ev.id).slice(0, L); idx.set(h, idx.has(h) ? null : ev); });   // 先頭が同じイベントが2つあれば、どちらにも当てない
+  let p = 2;
+  const need = n => { if (p + n > bytes.length) throw new Error('short'); };
+  while (p < bytes.length) {
+    need(L / 2 + 1);
+    let h = ''; for (let i = 0; i < L / 2; i++) h += bytes[p++].toString(16).padStart(2, '0');
+    const hd = bytes[p++], ev = idx.get(h) || null, d = {};
+    let s = '未申込';
+    if (hd & 0x80) {
+      const n = hd & 63; need(Math.ceil(n / 2));
+      const codes = []; for (let i = 0; i < n; i += 2) { const b = bytes[p++]; codes.push(b >> 4, b & 15); }
+      if (ev) { const ks = dkeys(ev); codes.slice(0, n).forEach((c, i) => { if (ks[i] && SCODE[c] && SCODE[c] !== '未申込') d[ks[i]] = SCODE[c]; }); }
+    } else {
+      s = SCODE[hd & 63] || '未申込';
+      if (ev && s !== '未申込') dkeys(ev).forEach(k => { d[k] = s; });
+    }
+    let m = '';
+    if (hd & 0x40) { let n = 0, sh = 0, b; do { need(1); b = bytes[p++]; n |= (b & 127) << sh; sh += 7; } while (b & 128 && sh < 28); need(n); m = dec.decode(bytes.subarray(p, p + n)); p += n; }
+    if (ev) e[ev.id] = { s, ...(Object.keys(d).length ? { d } : {}), ...(m ? { m } : {}) };
+  }
+  return { v: 1, e };
 }
 function collectShare(withMemo) {
   const e = {};
@@ -1195,7 +1309,7 @@ function mergeShared(shared, overwrite) {
   }
 }
 const shareSumm = (ev, o) => `${esc(ttl(ev))}：${Object.keys(o.d).length ? Object.entries(o.d).map(([k, v]) => `${esc(kshort(k))} ${esc(LBL[v])}`).join('・') : esc(LBL[o.s] || '')}${o.m ? '（メモあり）' : ''}`;
-let shareMemo = true, pendingShare = null;
+let shareMemo = false, pendingShare = null;   // メモはリンクが長くなるので、最初は含めない
 const dlgOpen = () => !$('dlgb').hidden;
 let dlgOpener = null;
 function syncInert() {   // パネルやダイアログを開いている間は、後ろの画面にフォーカスが移らないようにする
@@ -1203,14 +1317,17 @@ function syncInert() {   // パネルやダイアログを開いている間は�
   if (w) w.inert = dlg || sh;
   $('sheet').inert = !sh || dlg;
 }
-function showDlg(html, focusSel) {
+function showDlg(html, focusSel, cls) {
   if ($('dlgb').hidden) dlgOpener = document.activeElement;
+  $('dlg').className = 'dlg' + (cls ? ' ' + cls : '');
   $('dlg').innerHTML = html; $('dlgb').hidden = false; syncInert();
   const h = $('dlg').querySelector('h3'); if (h) $('dlg').setAttribute('aria-label', h.textContent.replace(/^\W+/, ''));
   setTimeout(() => { const b = (focusSel && $('dlg').querySelector(focusSel)) || $('dlg').querySelector('button, input'); if (b) b.focus(); }, 30);
 }
 function closeDlg() {
-  $('dlgb').hidden = true; $('dlg').innerHTML = ''; pendingShare = null; syncInert();
+  $('dlgb').hidden = true; $('dlg').innerHTML = ''; $('dlg').className = 'dlg'; pendingShare = null; bk = null;
+  if (card) { URL.revokeObjectURL(card.url); card = null; }
+  syncInert();
   if (dlgOpener && document.contains(dlgOpener)) dlgOpener.focus({ preventScroll: true });
   dlgOpener = null;
 }
@@ -1222,7 +1339,7 @@ async function openShareDlg() {
     <p>いまの記録（${n}件）をリンクにしました。受け取った人は、確認してから自分の記録に取り込めます。</p>
     <label class="ck"><input type="checkbox" data-dlg-memo ${shareMemo ? 'checked' : ''}>メモも含める</label>
     <div class="urlbox" id="dlgurl">${esc(url)}</div>
-    <p class="sub">・これは「いま時点の写し」です。あとから変えた分は自動では届かないので、変えたらリンクを作り直してください。<br>・リンクを知っている人は、中身（状態とメモ）を見られます。送る相手にご注意ください。サーバーには保存されません。${url.length > 6000 ? '<br>・リンクが長くなっています。LINEなどで切れる場合は「メモも含める」を外してください。' : ''}</p>
+    <p class="sub">・これは「いま時点の写し」です。あとから変えた分は自動では届かないので、変えたらリンクを作り直してください。<br>・リンクを知っている人は、中身（状態とメモ）を見られます。送る相手にご注意ください。サーバーには保存されません。${url.length > 2000 ? '<br>・リンクが長くなっています。LINEなどで切れる場合は「メモも含める」を外してください。' : ''}</p>
     <div class="dact"><button class="btn" data-dlg="copy">リンクをコピー</button>${navigator.share ? '<button class="btn" data-dlg="native">共有する…</button>' : ''}<button class="btn ghost" data-dlg="close">閉じる</button></div>`);
 }
 function showImportDlg(shared) {
@@ -1241,7 +1358,9 @@ function applyImport(overwrite) {
   toast(`${n}件の記録を${overwrite ? '上書きで' : '空欄だけ'}取り込みました`, () => { us = JSON.parse(snap); save(); render(); toast('元に戻しました', null, 2500); }, 6000);
 }
 async function dlgAction(a) {
-  if (a === 'close') { closeDlg(); return; }
+  if (a === 'close') { tryCloseDlg(); return; }
+  if (a === 'bksave') { bkSave(); return; }
+  if (/^r(share|save|x|copy)$/.test(a)) { recAction(a); return; }
   if (a === 'fill' || a === 'over') { applyImport(a === 'over'); return; }
   const url = ($('dlgurl') || {}).textContent || '';
   if (a === 'copy') {
@@ -1258,6 +1377,265 @@ async function importFromHash() {
   return true;
 }
 
+/* ---- 参戦記録：終わった公演のうち「当選」「入手」を記録したものを集計し、画像で共有する ----
+   一覧にあるのは2023年以降のライブなので、それ以降の記録になる。集計はこの端末の中だけで行い、どこにも送らない */
+const BRX = {...BR, '876':'#f39ac0', '961':'#5d6275', '合同':'#c9cbd6'};
+const WONST = ev => isFcfs(ev) ? '入手🎫' : '当選🎉';
+const rankOf = (list, c) => 1 + list.filter(x => x[1] > c).length;   // 同じ数なら同じ順位
+const BNAME = { '961': '961プロ', '876': '876プロ' }, bName = b => BNAME[b] || b;
+const brandOfEv = ev => (ev.brands || []).length > 1 ? '合同' : ((ev.brands || [])[0] || 'その他');
+/** 会場の表記ゆれ・改称をまとめる（同じ会場を1つに数える） */
+function venueKey(v) {
+  const s = String(v || '').normalize('NFKC').replace(/\s+/g, ' ').trim(), n = s.replace(/\s/g, '');
+  if (!n || n === '未定') return '';
+  if (/幕張/.test(n) && /イベントホール/.test(n)) return '幕張イベントホール';
+  if (/^幕張メッセ/.test(n)) return '幕張メッセ';
+  if (/武蔵野の森|京王アリーナ/.test(n)) return '京王アリーナTOKYO（武蔵野の森）';
+  if (/代々木/.test(n) && /第一体育館/.test(n)) return '国立代々木競技場 第一体育館';
+  if (/^(北九州メッセ|西日本総合展示場)/.test(n)) return '北九州メッセ（西日本総合展示場）';
+  if (/^(AichiSkyExpo|愛知県国際展示場)/i.test(n)) return 'Aichi Sky Expo（愛知県国際展示場）';
+  if (/^トーサイクラシックホール岩手/.test(n)) return 'トーサイクラシックホール岩手';
+  if (/^ZeppDiverCity/i.test(n)) return 'Zepp DiverCity TOKYO';
+  return s;
+}
+/** 都道府県が events.json に入っていないライブ用に、会場名から引く表 */
+const VENUE_PREF = {"日本武道館": "東京都", "東京ドーム": "東京都", "国立代々木競技場 第一体育館": "東京都", "さいたまスーパーアリーナ": "埼玉県", "大阪城ホール": "大阪府", "神田スクエアホール": "東京都", "神奈川県民ホール": "神奈川県", "京王アリーナTOKYO（武蔵野の森）": "東京都", "ポートメッセなごや 新第1展示館": "愛知県", "Aichi Sky Expo（愛知県国際展示場）": "愛知県", "幕張イベントホール": "千葉県", "Kアリーナ横浜": "神奈川県", "北九州メッセ（西日本総合展示場）": "福岡県", "幕張メッセ": "千葉県", "やまぎん県民ホール": "山形県", "トーサイクラシックホール岩手": "岩手県", "ベイシア文化ホール(群馬県民会館)": "群馬県", "Zepp Osaka Bayside": "大阪府", "Zepp Fukuoka": "福岡県", "Zepp DiverCity TOKYO": "東京都", "本多の森北電ホール": "石川県", "横浜アリーナ": "神奈川県", "名古屋クラブクアトロ": "愛知県", "梅田クラブクアトロ": "大阪府", "ロームシアター京都 メインホール": "京都府", "渋谷クラブクアトロ": "東京都", "広島クラブクアトロ": "広島県", "GARDEN新木場FACTORY": "東京都", "松山市民会館 大ホール": "愛媛県", "横浜BUNTAI": "神奈川県", "熊本城ホール メインホール": "熊本県", "立川ステージガーデン": "東京都", "フェニーチェ堺 大ホール": "大阪府", "オリックス劇場": "大阪府", "ぴあアリーナMM": "神奈川県", "有明アリーナ": "東京都", "沖縄サントリーアリーナ": "沖縄県", "福岡国際センター": "福岡県", "マリンメッセ福岡": "福岡県", "新宿ReNY": "東京都", "パシフィコ横浜 国立大ホール": "神奈川県", "盛運輸アリーナ": "青森県", "森のホール21 大ホール": "千葉県", "京セラドーム大阪": "大阪府", "Niterra日本特殊陶業市民会館 フォレストホール": "愛知県", "日本工学院アリーナ": "東京都", "Zepp Namba": "大阪府", "Zepp Nagoya": "愛知県", "Shibuya LOVEZ": "東京都", "フェニックス・プラザ エルピス 大ホール": "福井県", "Zepp Haneda": "東京都", "福岡サンパレス ホテル&ホール": "福岡県", "TOYOTA ARENA TOKYO": "東京都", "IGアリーナ": "愛知県", "愛知芸術劇場 大ホール": "愛知県", "ゼビオアリーナ仙台": "宮城県"};
+const prefOf = ev => ev.prefecture || VENUE_PREF[venueKey(ev.venue)] || '';
+const nowJst = () => new Date().toLocaleString('sv-SE', {timeZone:'Asia/Tokyo'}).slice(0, 16);   // 'YYYY-MM-DD HH:MM'
+/** 終わった公演の記録。won: 当選・入手、app: 応募・購入に動いたもの（当落待ち・落選なども含む） */
+function perfRecs() {
+  const now = nowJst(), won = [], app = [];
+  for (const ev of events) {
+    const st = us[ev.id]; if (!st) continue;
+    const ks = dkeys(ev);
+    const push = (k, i, date, start, label, sub) => {
+      if (!date || `${date} ${start || '23:59'}` > now) return;
+      const v = k === '_' ? st.status : dget(st, k), x = { ev, k, i, date, label, sub };
+      if (DONE.includes(v)) app.push(x);
+      if (WON(v)) won.push(x);
+    };
+    if (!ks.length) { const d = (ev.eventDateStart || '').slice(0, 10); push('_', -1, d, '', '', ''); continue; }
+    ks.forEach((k, i) => { const p = perfOf(ev, i); push(k, i, p.date || (ev.eventDateStart || '').slice(0, 10), p.start, shortK(k), p.sub); });
+  }
+  const by = (a, b) => b.date.localeCompare(a.date) || (b.i - a.i);
+  return { won: won.sort(by), app: app.sort(by) };
+}
+const ROPT_KEY = 'imas_portal_record_v1';
+let rYear, rUnit = 'perf';
+let ropt = (() => { const d = { venue: true, brand: true, pref: true, lot: false }; try { return { ...d, ...JSON.parse(localStorage.getItem(ROPT_KEY) || '{}') }; } catch (_) { return d; } })();
+const RITEMS = [['venue', 'よく行った会場'], ['brand', 'ブランド別'], ['pref', '都道府県'], ['lot', '応募と当選の数']];
+function recStats(year) {
+  const R = perfRecs(), inY = x => !year || x.date.slice(0, 4) === String(year), inB = x => brand === 'すべて' || (x.ev.brands || []).includes(brand);
+  const won = R.won.filter(x => inY(x) && inB(x)), app = R.app.filter(x => inY(x) && inB(x));
+  const live = rUnit === 'live', uid = x => live ? x.ev.id : `${x.ev.id}\u0001${x.k}`;
+  const count = fn => { const m = new Map(); for (const x of won) { const k = fn(x.ev); if (!k) continue; (m.get(k) || m.set(k, new Set()).get(k)).add(uid(x)); } return [...m].map(([k, s]) => [k, s.size]).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ja')); };
+  const lives = new Set(won.map(x => x.ev.id)), appLives = new Set(app.map(x => x.ev.id));
+  return { year, won, perfN: won.length, liveN: lives.size, appN: live ? appLives.size : app.length, wonN: live ? lives.size : won.length,
+    venues: count(ev => venueKey(ev.venue)), prefs: count(prefOf), brands: count(brandOfEv) };
+}
+const recTitle = y => `${y ? `${y}年の` : ''}${brand !== 'すべて' ? `${brand} ` : 'アイマス'}参戦記録`;
+const unitTxt = () => rUnit === 'live' ? 'ライブ' : '公演';
+function recYears() {
+  const R = perfRecs().won.filter(x => brand === 'すべて' || (x.ev.brands || []).includes(brand)), m = {};
+  R.forEach(x => { const y = x.date.slice(0, 4); m[y] = (m[y] || 0) + 1; });
+  const yNow = +jstToday().slice(0, 4), ys = [];
+  for (let y = yNow; y >= 2023; y--) ys.push([String(y), m[y] || 0]);
+  return { ys, total: R.length };
+}
+function drawRecord() {
+  $('grid').className = 'dlist rec';
+  const { ys, total } = recYears();
+  if (rYear === undefined) { const cur = ys[0]; rYear = cur && cur[1] ? cur[0] : null; }
+  if (!total) {
+    $('grid').innerHTML = `<div class="empty"><p>参戦した公演の記録はまだありません</p><p class="sub" style="margin-top:8px">終わった公演で「当選」「入手」を記録すると、ここで回数や会場をまとめて見られます。過去の公演は、一覧からまとめて記録できます</p><div class="ract" style="justify-content:center"><button class="btn pri" data-bulk>${ic('check')}過去の公演をまとめて記録</button></div></div>`;
+    return;
+  }
+  const S = recStats(rYear), U = unitTxt(), N = rUnit === 'live' ? S.liveN : S.perfN;
+  const yChips = [['', '全期間', total], ...ys.map(([y, n]) => [y, `${y}年`, n])].map(([y, l, n]) => `<button class="chip ${String(rYear || '') === y ? 'on' : ''}" data-ryear="${y}" aria-pressed="${String(rYear || '') === y}">${l}<b class="cn">${n}</b></button>`).join('');
+  const unit = [['perf', '公演ごと'], ['live', 'ライブごと']].map(([v, l]) => `<button class="vb ${rUnit === v ? 'on' : ''}" data-runit="${v}" aria-pressed="${rUnit === v}">${l}</button>`).join('');
+  const rank = (list, n) => { const max = list[0] ? list[0][1] : 1; return `<ol class="rrank">${list.slice(0, n).map(([k, c]) => `<li><span class="rk">${rankOf(list, c)}</span><span class="nm">${esc(k)}</span><span class="ct">${c}${U}</span><span class="rbar"><i style="width:${Math.max(4, c / max * 100)}%"></i></span></li>`).join('')}</ol>`; };
+  const bsum = S.brands.reduce((a, b) => a + b[1], 0) || 1;
+  let body = '';
+  if (!S.perfN) body = `<p class="sub" style="margin-top:12px">${rYear ? `${rYear}年に` : ''}参戦した公演の記録はありません</p>`;
+  else {
+    const others = [rUnit === 'live' ? `${S.perfN}公演` : `${S.liveN}ライブ`, `${S.venues.length}会場`, ...(ropt.pref ? [`${S.prefs.length}都道府県`] : [])];
+    body = `<div class="rbig"><span class="n">${N}</span><span class="u">${U}</span><span class="s">${others.join(' ・ ')}</span></div>
+      ${ropt.lot ? `<p class="sub">応募 ${S.appN}${U}のうち、当選・入手 ${S.wonN}${U}${S.appN ? `（${Math.round(S.wonN / S.appN * 100)}%）` : ''}</p>` : ''}
+      ${ropt.venue ? `<div class="rsec"><h4>よく行った会場</h4>${rank(S.venues, 5)}</div>` : ''}
+      ${ropt.brand ? `<div class="rsec"><h4>ブランド別</h4><div class="rstack" role="img" aria-label="${esc(S.brands.map(([b, c]) => `${bName(b)} ${c}${U}`).join('、'))}">${S.brands.map(([b, c]) => `<i style="width:${c / bsum * 100}%;background:${BRX[b] || '#888'}"></i>`).join('')}</div><div class="rleg">${S.brands.map(([b, c]) => `<span><i style="background:${BRX[b] || '#888'}"></i>${esc(bName(b))}<b>${c}</b></span>`).join('')}</div></div>` : ''}
+      ${ropt.pref ? `<div class="rsec"><h4>都道府県</h4><div class="rpref">${S.prefs.map(([p, c]) => `<span>${esc(p)}<b>${c}</b></span>`).join('')}</div>${S.won.some(x => !prefOf(x.ev)) ? '<p class="sub">※ 都道府県が分からない会場は数えていません</p>' : ''}</div>` : ''}`;
+  }
+  let list = '', last = null;
+  for (const x of S.won) {
+    const ev = x.ev, m = x.date.slice(0, 7);
+    if (m !== last) { list += `<h3 class="mh">${m.slice(0, 4)}年${+m.slice(5)}月</h3>`; last = m; }
+    const sub = [x.sub && `「${x.sub}」`, ev.venue || ''].filter(Boolean).join(' ・ ');
+    list += `<article class="drow" data-id="${esc(ev.id)}" tabindex="0" aria-label="${esc(ev.title)} ${esc(x.label)}（Enterで詳細を開く）" style="--b:${stripe(ev)}">
+      <div class="ddate">${md(x.date)}(${wd(x.date)})</div>
+      <div class="dmain"><b>${x.label ? `<span class="dday">${esc(x.label)}</span>` : ''}${xrTag(ev)}${esc(ev.title)}</b><div class="sub">${esc(sub)}</div></div><div class="dside"></div></article>`;
+  }
+  $('grid').innerHTML = `<div class="rtop"><div class="row" role="group" aria-label="期間">${yChips}</div><div class="seg2" role="group" aria-label="数え方">${unit}</div></div>
+    <section class="rcard" aria-label="${esc(recTitle(rYear))}">
+      <div class="rhead"><b>${esc(recTitle(rYear))}</b><span class="sub">2023年以降の記録から集計</span></div>
+      ${body}
+      <div class="ract">${S.perfN ? `<button class="btn pri" data-rshare>${ic('share')}画像で共有</button>` : ''}<button class="btn" data-bulk>${ic('check')}過去の公演をまとめて記録</button></div>
+      <details class="ropts"><summary>表示する項目<span class="sub">（共有する画像にも反映）</span></summary><div class="chips">${RITEMS.map(([k, l]) => `<button class="chip ${ropt[k] ? 'on' : ''}" data-ropt="${k}" aria-pressed="${!!ropt[k]}">${l}</button>`).join('')}</div></details>
+    </section>
+    ${list ? `<h3 class="mh rlh">参戦した公演（${S.perfN}公演）</h3>${list}` : ''}`;
+}
+
+/* ---- 共有用の画像（1200×675。今のテーマの色で描く） ---- */
+function recText(S) {
+  const U = unitTxt(), N = rUnit === 'live' ? S.liveN : S.perfN;
+  const l2 = [`${N}${U}`, rUnit === 'live' ? `${S.perfN}公演` : `${S.liveN}ライブ`, `${S.venues.length}会場`, ...(ropt.pref ? [`${S.prefs.length}都道府県`] : [])];
+  return [recTitle(S.year), `${l2[0]}（${l2.slice(1).join('・')}）`,
+    ...(ropt.venue && S.venues[0] ? [`いちばん行った会場：${S.venues[0][0]}（${S.venues[0][1]}${U}）`] : []),
+    ...(ropt.lot && S.appN ? [`応募${S.appN}${U}・当選${S.wonN}${U}`] : []),
+    `#アイマス参戦記録${S.year || ''}`, `${location.origin}${location.pathname}`].join('\n');
+}
+function rrect(x, l, t, w, h, r) { x.beginPath(); x.moveTo(l + r, t); x.arcTo(l + w, t, l + w, t + h, r); x.arcTo(l + w, t + h, l, t + h, r); x.arcTo(l, t + h, l, t, r); x.arcTo(l, t, l + w, t, r); x.closePath(); }
+async function recCard(S) {
+  const W = 1200, H = 675, c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d'), cs = getComputedStyle(document.documentElement), v = (n, d) => cs.getPropertyValue(n).trim() || d;
+  const BG = v('--bg', '#111214'), SF = v('--surface', '#17181b'), TX = v('--text', '#ececf0'), MU = v('--muted', '#9c9ea8'), LN = v('--line2', 'rgba(255,255,255,.16)'), AC = v('--accent', '#a3b6ff');
+  const FF = getComputedStyle(document.body).fontFamily || 'sans-serif';
+  try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (_) {}
+  const font = (w, s) => { x.font = `${w} ${s}px ${FF}`; };
+  const fit = (t, max) => { t = String(t); if (x.measureText(t).width <= max) return t; while (t.length > 1 && x.measureText(t + '…').width > max) t = t.slice(0, -1); return t + '…'; };
+  const U = unitTxt(), N = rUnit === 'live' ? S.liveN : S.perfN, L = 84, R = W - 84;
+  x.fillStyle = BG; x.fillRect(0, 0, W, H);
+  rrect(x, 36, 36, W - 72, H - 72, 28); x.fillStyle = SF; x.fill(); x.lineWidth = 2; x.strokeStyle = LN; x.stroke();
+  x.textBaseline = 'alphabetic';
+  font(700, 30); x.fillStyle = TX; x.textAlign = 'left'; x.fillText(fit(recTitle(S.year), 560), L, 116);
+  font(500, 20); x.fillStyle = MU; x.fillText('2023年以降の記録から集計', L, 150);
+  font(800, 150); x.fillStyle = TX; x.fillText(String(N), L - 6, 320); const nw = x.measureText(String(N)).width;
+  font(700, 44); x.fillText(U, L + nw + 8, 320);
+  const others = [rUnit === 'live' ? `${S.perfN}公演` : `${S.liveN}ライブ`, `${S.venues.length}会場`, ...(ropt.pref ? [`${S.prefs.length}都道府県`] : [])];
+  font(500, 28); x.fillStyle = MU; x.fillText(fit(others.join(' ・ '), 540), L, 372);
+  if (ropt.lot && S.appN) { font(500, 24); x.fillText(fit(`応募 ${S.appN}${U} ・ 当選 ${S.wonN}${U}（${Math.round(S.wonN / S.appN * 100)}%）`, 540), L, 414); }
+  const col = ropt.venue ? ['よく行った会場', S.venues] : ropt.pref ? ['よく行った都道府県', S.prefs] : null;
+  if (col) {
+    const cx = 676;
+    font(700, 22); x.fillStyle = MU; x.fillText(col[0], cx, 116);
+    col[1].slice(0, 4).forEach(([k, n], i) => {
+      const y = 172 + i * 58;
+      font(700, 22); x.fillStyle = MU; x.textAlign = 'right'; x.fillText(String(rankOf(col[1], n)), cx + 18, y);
+      font(600, 25); x.fillText(`${n}${U}`, R, y); const cw = x.measureText(`${n}${U}`).width;
+      x.textAlign = 'left'; x.fillStyle = TX; font(i ? 600 : 700, i ? 25 : 27); x.fillText(fit(k, R - cx - 46 - cw - 16), cx + 34, y);
+      x.fillStyle = LN; x.fillRect(cx, y + 20, R - cx, 1);
+    });
+  }
+  if (ropt.brand && S.brands.length) {
+    const tot = S.brands.reduce((a, b) => a + b[1], 0); let bx = L; const by = 470, bw = R - L;
+    font(700, 22); x.fillStyle = MU; x.textAlign = 'left'; x.fillText('ブランド別', L, by - 14);
+    x.save(); rrect(x, L, by, bw, 16, 8); x.clip();
+    S.brands.forEach(([b, n]) => { const w = n / tot * bw; x.fillStyle = BRX[b] || '#888'; x.fillRect(bx, by, w + 1, 16); bx += w; });
+    x.restore();
+    let lx = L, ly = by + 56; font(600, 22);
+    for (const [b, n] of S.brands) {
+      const t = `${bName(b)} ${n}`, w = x.measureText(t).width + 40;
+      if (lx + w > R) { lx = L; ly += 34; if (ly > by + 92) break; }
+      x.fillStyle = BRX[b] || '#888'; x.beginPath(); x.arc(lx + 7, ly - 8, 7, 0, Math.PI * 2); x.fill();
+      x.fillStyle = TX; x.fillText(t, lx + 22, ly); lx += w;
+    }
+  }
+  font(700, 24); x.fillStyle = AC; x.textAlign = 'left'; x.fillText(`#アイマス参戦記録${S.year || ''}`, L, 606);
+  font(500, 20); x.fillStyle = MU; x.textAlign = 'right'; x.fillText('アイマス ライブ情報ポータル', R, 606);
+  return new Promise(res => c.toBlob(b => res(b), 'image/png'));
+}
+let card = null;   // { url, file }
+async function openCardDlg() {
+  const S = recStats(rYear); if (!S.perfN) return;
+  const blob = await recCard(S); if (!blob) { toast('画像を作れませんでした', null, 3000); return; }
+  const name = `imas-sansen-${S.year || 'all'}.png`, file = new File([blob], name, { type: 'image/png' });
+  card = { url: URL.createObjectURL(blob), file, name };
+  const canFiles = !!(navigator.canShare && navigator.canShare({ files: [file] }));
+  showDlg(`<h3>${ic('share')}参戦記録を共有</h3>
+    <img class="rimg" src="${card.url}" alt="${esc(recText(S).split('\n').slice(0, 3).join(' '))}">
+    <textarea class="xtxt" id="xtxt" rows="5" aria-label="一緒に投稿する文章（編集できます）">${esc(recText(S))}</textarea>
+    <p class="sub">画像はこの端末の中で作っています。サーバーには送りません。${canFiles ? '' : '<br>Xでは、先に「画像を保存」してから、投稿画面で画像を添付してください。'}</p>
+    <div class="dact">${canFiles ? '<button class="btn pri" data-dlg="rshare">画像と文章を共有する…</button>' : ''}<button class="btn" data-dlg="rsave">画像を保存</button><button class="btn" data-dlg="rx">Xの投稿画面を開く</button><button class="btn" data-dlg="rcopy">文章をコピー</button><button class="btn ghost" data-dlg="close">閉じる</button></div>`, null, 'mid');
+}
+async function recAction(a) {
+  const text = ($('xtxt') || {}).value || '';
+  if (a === 'rshare' && card) { try { await navigator.share({ files: [card.file], text }); } catch (_) {} return; }
+  if (a === 'rsave' && card) { const l = document.createElement('a'); l.href = card.url; l.download = card.name; document.body.appendChild(l); l.click(); l.remove(); toast('画像を保存しました', null, 2000); return; }
+  if (a === 'rx') { window.open(`https://x.com/intent/post?text=${encodeURIComponent(text)}`, '_blank', 'noopener'); return; }
+  if (a === 'rcopy') { const done = () => toast('文章をコピーしました', null, 2000); if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => prompt('この文章をコピーしてください', text)); else prompt('この文章をコピーしてください', text); }
+}
+
+/* ---- 過去の公演をまとめて記録（押した公演を「参戦（当選・入手）」にする。保存するまでは記録を変えない） ---- */
+let bk = null;
+const BKSEP = '\u0001';
+function bkPerfs(ev, today) {
+  const ks = dkeys(ev), end = (ev.eventDateEnd || ev.eventDateStart || '').slice(0, 10);
+  if (!ks.length) return end && end < today ? [{ k: '_', label: '参戦した', date: '' }] : [];
+  return ks.map((k, i) => { const p = perfOf(ev, i); return { k, label: kshort(k), date: p.date }; }).filter(p => p.date ? p.date < today : end && end < today);
+}
+const bkCur = (ev, k) => { const st = us[ev.id]; if (!st) return false; return WON(k === '_' ? st.status : dget(st, k)); };
+const bkOn = (ev, k) => { const key = ev.id + BKSEP + k; return bk.ch.has(key) ? bk.ch.get(key) : bkCur(ev, k); };
+function bkSet(ev, k, on) { const key = ev.id + BKSEP + k; if (on === bkCur(ev, k)) bk.ch.delete(key); else bk.ch.set(key, on); }
+function openBulk() {
+  bk = { y: '', q: '', ch: new Map() };
+  showDlg(`<div class="dh"><h3>${ic('check')}過去の公演をまとめて記録</h3>
+      <p class="sub">行った公演を押すと「参戦」になります（もう一度押すと外れます）。保存するまで記録は変わりません。</p>
+      <div class="row" id="bky" role="group" aria-label="年"></div>
+      <input class="search" id="bkq" type="search" placeholder="ライブ名・会場で絞り込み" aria-label="ライブ名・会場で絞り込み"></div>
+    <div class="db" id="bkb"></div>
+    <div class="df"><span class="sub" id="bkn" aria-live="polite"></span><button class="btn ghost" data-dlg="close">閉じる</button><button class="btn pri" data-dlg="bksave" id="bksave" disabled>保存する</button></div>`, '#bky button', 'wide');
+  bkDraw();
+}
+function bkLives(today) { return events.map(ev => [ev, bkPerfs(ev, today)]).filter(([, p]) => p.length).sort((a, b) => (b[0].eventDateStart || '').localeCompare(a[0].eventDateStart || '')); }
+function bkBtn(ev, p) { const on = bkOn(ev, p.k); return `<button data-bk="${esc(ev.id)}" data-k="${esc(p.k)}" aria-pressed="${on}">${on ? ic('check') : ''}${esc(p.label)}${p.date ? `<small>${md(p.date)}</small>` : ''}</button>`; }
+function bkAllBtn(ev, ps) { const all = ps.every(p => bkOn(ev, p.k)); return ps.length > 1 ? `<button class="all" data-bkall="${esc(ev.id)}">${all ? 'すべて外す' : 'すべて参戦'}</button>` : ''; }
+function bkDraw() {
+  if (!bk || !$('bkb')) return;
+  const today = jstToday(), all = bkLives(today), q = bk.q.trim().toLowerCase();
+  const years = [...new Set(all.map(([ev]) => (ev.eventDateStart || '').slice(0, 4)).filter(Boolean))];
+  $('bky').innerHTML = [['', 'すべて'], ...years.map(y => [y, `${y}年`])].map(([y, l]) => `<button class="chip ${bk.y === y ? 'on' : ''}" data-bky="${y}" aria-pressed="${bk.y === y}">${l}</button>`).join('');
+  const list = all.filter(([ev]) => (!bk.y || (ev.eventDateStart || '').startsWith(bk.y)) && (!q || [ev.title, ev.venue, ...(ev.brands || [])].join(' ').toLowerCase().includes(q)));
+  let html = '', last = null;
+  for (const [ev, ps] of list) {
+    const y = (ev.eventDateStart || '').slice(0, 4);
+    if (y !== last) { html += `<h4 class="mh">${y ? `${y}年` : '日程未定'}</h4>`; last = y; }
+    html += `<div class="bklive" data-bklive="${esc(ev.id)}" style="--b:${stripe(ev)}"><div class="t"><b>${xrTag(ev)}${esc(ev.title)}</b><span class="sub">${esc(dateRange(ev))}</span></div>
+      <div class="sub">${esc(ev.venue || '')}</div><div class="bkp">${ps.map(p => bkBtn(ev, p)).join('')}${bkAllBtn(ev, ps)}</div></div>`;
+  }
+  $('bkb').innerHTML = html || '<p class="sub" style="padding:24px 0;text-align:center">この条件のライブはありません</p>';
+  bkCount();
+}
+function bkCount() {
+  let plus = 0, minus = 0; bk.ch.forEach(on => { on ? plus++ : minus++; });
+  $('bkn').textContent = plus || minus ? [plus && `参戦 +${plus}`, minus && `取り消し ${minus}`].filter(Boolean).join(' ・ ') : '変更はまだありません';
+  $('bksave').disabled = !(plus || minus);
+}
+function bkRedrawLive(ev) {   // 押したライブの行だけ描き直す（スクロール位置とフォーカスを保つ）
+  const box = document.querySelector(`.bklive[data-bklive="${CSS.escape(ev.id)}"] .bkp`); if (!box) return;
+  const ps = bkPerfs(ev, jstToday()), fk = document.activeElement && document.activeElement.closest('[data-bk],[data-bkall]');
+  const sel = fk ? (fk.dataset.bkall ? '[data-bkall]' : `[data-k="${CSS.escape(fk.dataset.k)}"]`) : null;
+  box.innerHTML = ps.map(p => bkBtn(ev, p)).join('') + bkAllBtn(ev, ps);
+  if (sel) { const b = box.querySelector(sel); if (b) b.focus({ preventScroll: true }); }
+  bkCount();
+}
+function bkToggle(id, k) { const ev = events.find(v => v.id === id); if (!ev || !bk) return; bkSet(ev, k, !bkOn(ev, k)); bkRedrawLive(ev); }
+function bkToggleAll(id) { const ev = events.find(v => v.id === id); if (!ev || !bk) return; const ps = bkPerfs(ev, jstToday()), on = !ps.every(p => bkOn(ev, p.k)); ps.forEach(p => bkSet(ev, p.k, on)); bkRedrawLive(ev); }
+function bkSave() {
+  if (!bk || !bk.ch.size) return;
+  const snap = JSON.stringify(us); let plus = 0, minus = 0;
+  for (const [key, on] of bk.ch) {
+    const [id, k] = key.split(BKSEP), ev = events.find(v => v.id === id); if (!ev) continue;
+    const st = mat(ev), v = on ? WONST(ev) : '未申込';
+    if (k === '_') st.status = v; else if (st.days[k]) st.days[k].status = v; else continue;
+    sync(ev, st); on ? plus++ : minus++;
+  }
+  bk = null; save(); closeDlg(); render();
+  toast([plus && `${plus}公演を参戦にしました`, minus && `${minus}公演の参戦を外しました`].filter(Boolean).join('・'), () => { us = JSON.parse(snap); save(); render(); toast('元に戻しました', null, 2500); }, 6000);
+}
+function tryCloseDlg() {   // まとめて記録で、保存していない変更があるときは確かめる
+  if (bk && bk.ch.size && !confirm('保存していない変更があります。閉じてもよいですか？')) return;
+  closeDlg();
+}
+
 /* ---- 操作 ---- */
 function openSheet(id, push = true) {
   fOpen = false; drawFilter();
@@ -1265,7 +1643,7 @@ function openSheet(id, push = true) {
   const sh = $('sheet'); sh.scrollTop = 0; syncInert(); $('back').classList.add('on'); sh.classList.add('on');
   setTimeout(() => { const x = sh.querySelector('[data-close]'); if (x) x.focus(); }, 60);
   if (push && typeof history !== 'undefined' && history.pushState) {   // 戻るボタンで、パネルを閉じられるようにする
-    const url = '#e=' + encodeURIComponent(id);
+    const url = '#e=' + shortId(id);
     if (history.state && history.state.sheet) history.replaceState({ sheet: id }, '', url); else history.pushState({ sheet: id }, '', url);
   }
 }
@@ -1278,13 +1656,21 @@ function closeSheet() {
 addEventListener('popstate', () => { if (openId) doClose(); });
 function shareLink() {   // このイベントのURLをコピー
   if (!openId) return;
-  const url = `${location.origin}${location.pathname}#e=${encodeURIComponent(openId)}`;
+  const url = `${location.origin}${location.pathname}#e=${shortId(openId)}`;
   const done = () => toast('リンクをコピーしました', null, 2000), ask = () => prompt('このリンクをコピーしてください', url);
   if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, ask); else ask();
 }
 
 document.addEventListener('click', e => {
   const da = e.target.closest('[data-dlg]'); if (da) { dlgAction(da.dataset.dlg); return; }
+  const bkB = e.target.closest('[data-bk]'); if (bkB) { bkToggle(bkB.dataset.bk, bkB.dataset.k); return; }
+  const bkA = e.target.closest('[data-bkall]'); if (bkA) { bkToggleAll(bkA.dataset.bkall); return; }
+  const bkY = e.target.closest('[data-bky]'); if (bkY && bk) { bk.y = bkY.dataset.bky; bkDraw(); const db = $('bkb'); if (db) db.scrollTop = 0; return; }
+  if (e.target.closest('[data-bulk]')) { openBulk(); return; }
+  if (e.target.closest('[data-rshare]')) { openCardDlg(); return; }
+  const rY = e.target.closest('[data-ryear]'); if (rY) { rYear = rY.dataset.ryear || null; render(); return; }
+  const rU = e.target.closest('[data-runit]'); if (rU) { rUnit = rU.dataset.runit; render(); return; }
+  const rO = e.target.closest('[data-ropt]'); if (rO) { ropt[rO.dataset.ropt] = !ropt[rO.dataset.ropt]; try { localStorage.setItem(ROPT_KEY, JSON.stringify(ropt)); } catch (_) {} render(); return; }
   const ts = e.target.closest('[data-theme-set]'); if (ts) { theme = ts.dataset.themeSet; try { localStorage.setItem(THEME_KEY, theme); } catch (_) {} applyTheme(); openSettings(); return; }
   const so = e.target.closest('[data-settings]'); if (so) { openSettings(so.dataset.settings); return; }
   const sg = e.target.closest('[data-go]');
@@ -1331,8 +1717,9 @@ document.addEventListener('click', e => {
 $('q').oninput = render;
 addEventListener('hashchange', () => { if (/^#s=/.test(location.hash) && events.length) importFromHash(); });   // 開いたままのタブにリンクを貼ったとき
 document.addEventListener('change', e => { if (e.target.matches('[data-dlg-memo]')) { shareMemo = e.target.checked; openShareDlg(); } });
+document.addEventListener('input', e => { if (e.target && e.target.id === 'bkq' && bk) { bk.q = e.target.value; bkDraw(); } });
 addEventListener('keydown', e => {
-  if (e.key === 'Escape' && dlgOpen()) { closeDlg(); return; }
+  if (e.key === 'Escape' && dlgOpen()) { tryCloseDlg(); return; }
   if (e.key === 'Escape') { if (fOpen) { fOpen = false; drawFilter(); const fb = $('fbtn'); if (fb) fb.focus(); return; } closeSheet(); }
   if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && (e.target.classList.contains('card') || e.target.classList.contains('drow'))) { e.preventDefault(); openSheet(e.target.dataset.id); }
 });
@@ -1355,7 +1742,7 @@ addEventListener('keydown', e => {
   if (typeof location !== 'undefined' && await importFromHash()) return;   // 記録の共有リンク（#s=…）で開いたとき
   if (typeof location !== 'undefined') {   // 共有リンク（#e=イベントID）で開いたとき
     const hm = (location.hash || '').match(/^#e=(.+)$/);
-    if (hm) { const id = decodeURIComponent(hm[1]); if (events.some(x => x.id === id)) openSheet(id, false); }
+    if (hm) { const ev = findEvByRef(decodeURIComponent(hm[1])); if (ev) openSheet(ev.id, false); }
   }
 })();
 </script>
