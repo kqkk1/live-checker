@@ -1,5 +1,4960 @@
 [
   {
+    "id": "41f17392-1f2b-81fe-88b4-e05b4488d7c8",
+    "icon": "🎤",
+    "title": "ミリオン9th",
+    "brands": [
+      "ミリオン"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-01-14",
+    "eventDateEnd": "2023-01-15",
+    "officialUrl": "",
+    "venue": "日本武道館",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%97%A5%E6%9C%AC%E6%AD%A6%E9%81%93%E9%A4%A8",
+    "accessUrl": "https://www.google.com/search?q=%E6%97%A5%E6%9C%AC%E6%AD%A6%E9%81%93%E9%A4%A8%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年1月14日(金) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/million_9th_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年1月15日(土) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/million_9th_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81e5-9f97-e410b8dfecca",
+    "icon": "🎤",
+    "title": "IDOL WORLD 2023",
+    "brands": [
+      "765AS",
+      "デレマス",
+      "ミリオン",
+      "SideM",
+      "シャニマス",
+      "961"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-02-11",
+    "eventDateEnd": "2023-02-12",
+    "officialUrl": "",
+    "venue": "東京ドーム",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E3%83%89%E3%83%BC%E3%83%A0",
+    "accessUrl": "https://www.google.com/search?q=%E6%9D%B1%E4%BA%AC%E3%83%89%E3%83%BC%E3%83%A0%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年2月11日(金) 開場15:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2023_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年2月12日(土) 開場15:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2023_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8111-ab8b-e236e0399e89",
+    "icon": "🎤",
+    "title": "シャニ5th",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-03-18",
+    "eventDateEnd": "2023-03-19",
+    "officialUrl": "",
+    "venue": "国立代々木競技場 第一体育館",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E7%AB%8B%E4%BB%A3%E3%80%85%E6%9C%A8%E7%AB%B6%E6%8A%80%E5%A0%B4%20%E7%AC%AC%E4%B8%80%E4%BD%93%E8%82%B2%E9%A4%A8",
+    "accessUrl": "https://www.google.com/search?q=%E5%9B%BD%E7%AB%8B%E4%BB%A3%E3%80%85%E6%9C%A8%E7%AB%B6%E6%8A%80%E5%A0%B4%20%E7%AC%AC%E4%B8%80%E4%BD%93%E8%82%B2%E9%A4%A8%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年3月18日(金) 開場14:30/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5th_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年3月19日(土) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5th_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8108-ae40-fc9437a69494",
+    "icon": "🎤",
+    "title": "ミリオン10th Act-1",
+    "brands": [
+      "ミリオン"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-04-22",
+    "eventDateEnd": "2023-04-23",
+    "officialUrl": "",
+    "venue": "さいたまスーパーアリーナ",
+    "prefecture": "埼玉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%95%E3%81%84%E3%81%9F%E3%81%BE%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+    "accessUrl": "https://www.google.com/search?q=%E3%81%95%E3%81%84%E3%81%9F%E3%81%BE%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年4月22日(金) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_10th_act1_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年4月23日(土) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_10th_act1_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81b6-8324-db86d13511f7",
+    "icon": "🎤",
+    "title": "デレ燿城夜祭",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-06-10",
+    "eventDateEnd": "2023-06-11",
+    "officialUrl": "",
+    "venue": "大阪城ホール",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E9%98%AA%E5%9F%8E%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E5%A4%A7%E9%98%AA%E5%9F%8E%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年6月10日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_kagayaki_yomatsuri_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年6月11日(土) 開場15:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_kagayaki_yomatsuri_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-815c-b6f9-e1ffcdcf1bfc",
+    "icon": "🎤",
+    "title": "765ML Dreamin' Groove",
+    "brands": [
+      "765AS",
+      "ミリオン"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-07-01",
+    "eventDateEnd": "2023-07-02",
+    "officialUrl": "",
+    "venue": "神田スクエアホール",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%A5%9E%E7%94%B0%E3%82%B9%E3%82%AF%E3%82%A8%E3%82%A2%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E7%A5%9E%E7%94%B0%E3%82%B9%E3%82%AF%E3%82%A8%E3%82%A2%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2023年7月1日(金) 開場17:15/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_imas765ml_dg.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2023年7月2日(土) 開場11:15/開演12:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_imas765ml_dg.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2023年7月2日(土) 開場15:15/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_imas765ml_dg.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-813d-88a1-f6d63e41bd40",
+    "icon": "🎤",
+    "title": "FCL BRAINPOWER!! 神奈川",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-07-09",
+    "eventDateEnd": "2023-07-09",
+    "officialUrl": "",
+    "venue": "神奈川県民ホール",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%B0%91%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%B0%91%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2023年7月9日(土) 開場18:00/開演19:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_bp.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-815f-9ec3-fed7d938f790",
+    "icon": "🎤",
+    "title": "283ソロライブ「我儘なまま」",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-07-22",
+    "eventDateEnd": "2023-07-23",
+    "officialUrl": "",
+    "venue": "武蔵野の森総合スポーツプラザ メインアリーナ",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%AD%A6%E8%94%B5%E9%87%8E%E3%81%AE%E6%A3%AE%E7%B7%8F%E5%90%88%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84%E3%83%97%E3%83%A9%E3%82%B6%20%E3%83%A1%E3%82%A4%E3%83%B3%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+    "accessUrl": "https://www.google.com/search?q=%E6%AD%A6%E8%94%B5%E9%87%8E%E3%81%AE%E6%A3%AE%E7%B7%8F%E5%90%88%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84%E3%83%97%E3%83%A9%E3%82%B6%20%E3%83%A1%E3%82%A4%E3%83%B3%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年7月22日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_solo_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年7月23日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_solo_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8145-93f9-f25ce10f4992",
+    "icon": "🎤",
+    "title": "ミリオン10th Act-2",
+    "brands": [
+      "ミリオン"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-07-29",
+    "eventDateEnd": "2023-07-30",
+    "officialUrl": "",
+    "venue": "ポートメッセなごや 新第1展示館",
+    "prefecture": "愛知県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%9D%E3%83%BC%E3%83%88%E3%83%A1%E3%83%83%E3%82%BB%E3%81%AA%E3%81%94%E3%82%84%20%E6%96%B0%E7%AC%AC1%E5%B1%95%E7%A4%BA%E9%A4%A8",
+    "accessUrl": "https://www.google.com/search?q=%E3%83%9D%E3%83%BC%E3%83%88%E3%83%A1%E3%83%83%E3%82%BB%E3%81%AA%E3%81%94%E3%82%84%20%E6%96%B0%E7%AC%AC1%E5%B1%95%E7%A4%BA%E9%A4%A8%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年7月29日(金) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_10th_act2_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年7月30日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_10th_act2_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-812a-a598-f0731fc0ac1e",
+    "icon": "🎤",
+    "title": "デレ Shout out Live!!!",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-09-09",
+    "eventDateEnd": "2023-09-10",
+    "officialUrl": "",
+    "venue": "愛知県国際展示場 ホールA",
+    "prefecture": "愛知県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%84%9B%E7%9F%A5%E7%9C%8C%E5%9B%BD%E9%9A%9B%E5%B1%95%E7%A4%BA%E5%A0%B4%20%E3%83%9B%E3%83%BC%E3%83%ABA",
+    "accessUrl": "https://www.google.com/search?q=%E6%84%9B%E7%9F%A5%E7%9C%8C%E5%9B%BD%E9%9A%9B%E5%B1%95%E7%A4%BA%E5%A0%B4%20%E3%83%9B%E3%83%BC%E3%83%ABA%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年9月9日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_shoutoutlive_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年9月10日(土) 開場15:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_shoutoutlive_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-818e-b17a-ffe7d800ca7b",
+    "icon": "🎤",
+    "title": "シャニ5.5th",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-10-21",
+    "eventDateEnd": "2023-10-22",
+    "officialUrl": "",
+    "venue": "幕張イベントホール",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年10月21日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5_5th_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年10月22日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5_5th_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81ab-872a-e1f2e9502d1f",
+    "icon": "🎤",
+    "title": "SideM 8th",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-10-28",
+    "eventDateEnd": "2023-10-29",
+    "officialUrl": "",
+    "venue": "Kアリーナ横浜",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C",
+    "accessUrl": "https://www.google.com/search?q=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年10月28日(金) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_8th_stage_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年10月29日(土) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_8th_stage_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-816e-97b9-e45fbed2f762",
+    "icon": "🎤",
+    "title": "ミリオン10th Act-3",
+    "brands": [
+      "ミリオン"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-11-04",
+    "eventDateEnd": "2023-11-05",
+    "officialUrl": "",
+    "venue": "西日本総合展示場 新館",
+    "prefecture": "福岡県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%A5%BF%E6%97%A5%E6%9C%AC%E7%B7%8F%E5%90%88%E5%B1%95%E7%A4%BA%E5%A0%B4%20%E6%96%B0%E9%A4%A8",
+    "accessUrl": "https://www.google.com/search?q=%E8%A5%BF%E6%97%A5%E6%9C%AC%E7%B7%8F%E5%90%88%E5%B1%95%E7%A4%BA%E5%A0%B4%20%E6%96%B0%E9%A4%A8%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年11月4日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/million_10th_act3_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年11月5日(土) 開場14:30/開演15:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_10th_act3_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8148-94d1-de4fd68bc44f",
+    "icon": "🎤",
+    "title": "FCL BRAINPOWER!! 幕張",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-11-17",
+    "eventDateEnd": "2023-11-17",
+    "officialUrl": "",
+    "venue": "幕張メッセ",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%83%A1%E3%83%83%E3%82%BB",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%83%A1%E3%83%83%E3%82%BB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2023年11月17日(木) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_bp2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8147-92a0-e9338a3f0c1f",
+    "icon": "🎤",
+    "title": "FCL CONNECTIME!!!!",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-11-18",
+    "eventDateEnd": "2023-11-19",
+    "officialUrl": "",
+    "venue": "幕張メッセ国際展示場 ホール9-10",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%83%A1%E3%83%83%E3%82%BB%E5%9B%BD%E9%9A%9B%E5%B1%95%E7%A4%BA%E5%A0%B4%20%E3%83%9B%E3%83%BC%E3%83%AB9-10",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%83%A1%E3%83%83%E3%82%BB%E5%9B%BD%E9%9A%9B%E5%B1%95%E7%A4%BA%E5%A0%B4%20%E3%83%9B%E3%83%BC%E3%83%AB9-10%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2023年11月18日(金) 開場12:30/開演13:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_ct_da.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2023年11月18日(金) 開場17:30/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_ct_hc.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2023年11月19日(土) 開場12:00/開演13:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_ct_hc.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2023年11月19日(土) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_ct_da.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8111-b780-e0c30366626b",
+    "icon": "🎤",
+    "title": "異次元フェス",
+    "brands": [
+      "デレマス",
+      "ミリオン",
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2023-12-09",
+    "eventDateEnd": "2023-12-10",
+    "officialUrl": "",
+    "venue": "東京ドーム",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E3%83%89%E3%83%BC%E3%83%A0",
+    "accessUrl": "https://www.google.com/search?q=%E6%9D%B1%E4%BA%AC%E3%83%89%E3%83%BC%E3%83%A0%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2023年12月9日(金) 開場15:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/ijigenfes_utagassen_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2023年12月10日(土) 開場15:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/ijigenfes_utagassen_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-818c-b95f-e5b2cfa21868",
+    "icon": "🎤",
+    "title": "デレ ConnecTrip! 山形",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-02-03",
+    "eventDateEnd": "2024-02-03",
+    "officialUrl": "",
+    "venue": "やまぎん県民ホール",
+    "prefecture": "山形県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%82%84%E3%81%BE%E3%81%8E%E3%82%93%E7%9C%8C%E6%B0%91%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E3%82%84%E3%81%BE%E3%81%8E%E3%82%93%E7%9C%8C%E6%B0%91%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年2月3日(金) 開場13:00/開演14:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_yamagata.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年2月3日(金) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_yamagata.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8171-af7a-d7a51e0b8bdc",
+    "icon": "🎤",
+    "title": "ミリオン10th Act-4",
+    "brands": [
+      "ミリオン"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-02-24",
+    "eventDateEnd": "2024-02-25",
+    "officialUrl": "",
+    "venue": "Kアリーナ横浜",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C",
+    "accessUrl": "https://www.google.com/search?q=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2024年2月24日(金) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_10th_act4_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2024年2月25日(土) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_10th_act4_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81d6-8a06-f94998d69e2e",
+    "icon": "🎤",
+    "title": "シャニ6th 大阪",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-03-02",
+    "eventDateEnd": "2024-03-03",
+    "officialUrl": "",
+    "venue": "大阪城ホール",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E9%98%AA%E5%9F%8E%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E5%A4%A7%E9%98%AA%E5%9F%8E%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2024年3月2日(金) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_bb_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2024年3月3日(土) 開場15:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_bb_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8196-a7c5-c2fa2a84b9d8",
+    "icon": "🎤",
+    "title": "デレ ConnecTrip! 岩手",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-03-10",
+    "eventDateEnd": "2024-03-10",
+    "officialUrl": "",
+    "venue": "トーサイクラシックホール岩手",
+    "prefecture": "岩手県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%88%E3%83%BC%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%9B%E3%83%BC%E3%83%AB%E5%B2%A9%E6%89%8B",
+    "accessUrl": "https://www.google.com/search?q=%E3%83%88%E3%83%BC%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%9B%E3%83%BC%E3%83%AB%E5%B2%A9%E6%89%8B%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年3月10日(土) 開場12:30/開演13:30",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_iwate.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年3月10日(土) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_iwate.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8129-a0bb-d3c9941eacf1",
+    "icon": "🎤",
+    "title": "twin live はんげつであえたら",
+    "brands": [
+      "765AS"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-03-16",
+    "eventDateEnd": "2024-03-17",
+    "officialUrl": "",
+    "venue": "ベイシア文化ホール（群馬県民会館）",
+    "prefecture": "群馬県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%99%E3%82%A4%E3%82%B7%E3%82%A2%E6%96%87%E5%8C%96%E3%83%9B%E3%83%BC%E3%83%AB%EF%BC%88%E7%BE%A4%E9%A6%AC%E7%9C%8C%E6%B0%91%E4%BC%9A%E9%A4%A8%EF%BC%89",
+    "accessUrl": "https://www.google.com/search?q=%E3%83%99%E3%82%A4%E3%82%B7%E3%82%A2%E6%96%87%E5%8C%96%E3%83%9B%E3%83%BC%E3%83%AB%EF%BC%88%E7%BE%A4%E9%A6%AC%E7%9C%8C%E6%B0%91%E4%BC%9A%E9%A4%A8%EF%BC%89%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2024年3月16日(金) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_twinlive_halfmoon.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2024年3月17日(土) 開場10:00/開演12:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_twinlive_halfmoon.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2024年3月17日(土) 開場15:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_twinlive_halfmoon.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-811f-bfcf-dd6468c05881",
+    "icon": "🎤",
+    "title": "デレ ConnecTrip! 大阪",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-04-06",
+    "eventDateEnd": "2024-04-06",
+    "officialUrl": "",
+    "venue": "Zepp Osaka Bayside",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zepp%20Osaka%20Bayside",
+    "accessUrl": "https://www.google.com/search?q=Zepp%20Osaka%20Bayside%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年4月6日(金) 開場12:30/開演13:30",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_osaka.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年4月6日(金) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_osaka.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8116-9759-d5fa52bd7c9d",
+    "icon": "🎤",
+    "title": "FCL HEARTMAKER!!!!",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-04-13",
+    "eventDateEnd": "2024-04-14",
+    "officialUrl": "",
+    "venue": "幕張イベントホール",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年4月13日(金) 開場12:30/開演13:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_bm.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年4月13日(金) 開場17:30/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_sw.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2024年4月14日(土) 開場11:00/開演12:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_sw.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2024年4月14日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_bm.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8116-8781-f268e6d096f0",
+    "icon": "🎤",
+    "title": "シャニ6th 横浜",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-04-20",
+    "eventDateEnd": "2024-04-21",
+    "officialUrl": "",
+    "venue": "Kアリーナ横浜",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C",
+    "accessUrl": "https://www.google.com/search?q=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2024年4月20日(金) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_ff_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2024年4月21日(土) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_ff_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8139-a1e6-d5bf57d69956",
+    "icon": "🎤",
+    "title": "デレ ConnecTrip! 福岡",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-05-19",
+    "eventDateEnd": "2024-05-19",
+    "officialUrl": "",
+    "venue": "Zepp Fukuoka",
+    "prefecture": "福岡県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zepp%20Fukuoka",
+    "accessUrl": "https://www.google.com/search?q=Zepp%20Fukuoka%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年5月19日(土) 開場12:30/開演13:30",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_fukuoka.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年5月19日(土) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_fukuoka.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81ee-935a-d7cb98bdd7db",
+    "icon": "🎤",
+    "title": "デレ ConnecTrip! 東京",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-06-01",
+    "eventDateEnd": "2024-06-01",
+    "officialUrl": "",
+    "venue": "Zepp DiverCity TOKYO",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zepp%20DiverCity%20TOKYO",
+    "accessUrl": "https://www.google.com/search?q=Zepp%20DiverCity%20TOKYO%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年6月1日(金) 開場13:00/開演14:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_tokyo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年6月1日(金) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_tokyo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8191-be74-c73e34249f1b",
+    "icon": "🎤",
+    "title": "デレ ConnecTrip! 石川",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-06-16",
+    "eventDateEnd": "2024-06-16",
+    "officialUrl": "",
+    "venue": "本多の森北電ホール",
+    "prefecture": "石川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%9C%AC%E5%A4%9A%E3%81%AE%E6%A3%AE%E5%8C%97%E9%9B%BB%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E6%9C%AC%E5%A4%9A%E3%81%AE%E6%A3%AE%E5%8C%97%E9%9B%BB%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年6月16日(土) 開場13:00/開演14:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_ishikawa.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年6月16日(土) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_ishikawa.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-814b-8e80-d898b589d8f6",
+    "icon": "🎤",
+    "title": "SideM 9th",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-07-13",
+    "eventDateEnd": "2024-07-14",
+    "officialUrl": "",
+    "venue": "幕張メッセ 国際展示場ホール9-11",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%83%A1%E3%83%83%E3%82%BB%20%E5%9B%BD%E9%9A%9B%E5%B1%95%E7%A4%BA%E5%A0%B4%E3%83%9B%E3%83%BC%E3%83%AB9-11",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%83%A1%E3%83%83%E3%82%BB%20%E5%9B%BD%E9%9A%9B%E5%B1%95%E7%A4%BA%E5%A0%B4%E3%83%9B%E3%83%BC%E3%83%AB9-11%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2024年7月13日(金) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_9th_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2024年7月14日(土) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_9th_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8115-9721-eb9d3014a082",
+    "icon": "🎤",
+    "title": "シャニ LIVE FUN!!",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-07-27",
+    "eventDateEnd": "2024-07-28",
+    "officialUrl": "",
+    "venue": "横浜アリーナ",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A8%AA%E6%B5%9C%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+    "accessUrl": "https://www.google.com/search?q=%E6%A8%AA%E6%B5%9C%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2024年7月27日(金) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_livefun_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2024年7月28日(土) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_livefun_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-811a-89c9-d68115b6fea3",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初声 名古屋",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-08-10",
+    "eventDateEnd": "2024-08-10",
+    "officialUrl": "",
+    "venue": "名古屋クラブクアトロ",
+    "prefecture": "愛知県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%90%8D%E5%8F%A4%E5%B1%8B%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E5%90%8D%E5%8F%A4%E5%B1%8B%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2024年8月10日(金) 開場16:30/開演17:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_ubugoe_nagoya.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81de-a0a2-c81e383f0082",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初声 梅田",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-08-18",
+    "eventDateEnd": "2024-08-18",
+    "officialUrl": "",
+    "venue": "梅田クラブクアトロ",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A2%85%E7%94%B0%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E6%A2%85%E7%94%B0%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年8月18日(土) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_ubugoe_umeda.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年8月18日(土) 開場17:45/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_ubugoe_umeda.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8198-997a-d7bc3741c905",
+    "icon": "🎤",
+    "title": "Re:FLAME 京都",
+    "brands": [
+      "961"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-08-24",
+    "eventDateEnd": "2024-08-25",
+    "officialUrl": "",
+    "venue": "ロームシアター京都 メインホール",
+    "prefecture": "京都府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%AD%E3%83%BC%E3%83%A0%E3%82%B7%E3%82%A2%E3%82%BF%E3%83%BC%E4%BA%AC%E9%83%BD%20%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E3%83%AD%E3%83%BC%E3%83%A0%E3%82%B7%E3%82%A2%E3%82%BF%E3%83%BC%E4%BA%AC%E9%83%BD%20%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2024年8月24日(金) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/961production_reflame.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2024年8月25日(土) 開場12:30/開演13:30",
+        "setlistUrl": "https://imas-db.jp/song/event/961production_reflame.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2024年8月25日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/961production_reflame.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-812f-9c43-c4d611e4acd2",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初声 渋谷",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-08-25",
+    "eventDateEnd": "2024-08-25",
+    "officialUrl": "",
+    "venue": "渋谷クラブクアトロ",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%B8%8B%E8%B0%B7%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E6%B8%8B%E8%B0%B7%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年8月25日(土) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_ubugoe_shibuya.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年8月25日(土) 開場17:45/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_ubugoe_shibuya.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8139-80b0-e6b4a8f0f747",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初心 名古屋",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-09-07",
+    "eventDateEnd": "2024-09-07",
+    "officialUrl": "",
+    "venue": "名古屋クラブクアトロ",
+    "prefecture": "愛知県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%90%8D%E5%8F%A4%E5%B1%8B%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E5%90%8D%E5%8F%A4%E5%B1%8B%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年9月7日(金) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_nagoya.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年9月7日(金) 開場17:45/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_nagoya.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8138-bd8f-d8cb96a5a151",
+    "icon": "🎤",
+    "title": "デレ STARLIGHT FANTASY",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-09-14",
+    "eventDateEnd": "2024-09-15",
+    "officialUrl": "",
+    "venue": "Kアリーナ横浜",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C",
+    "accessUrl": "https://www.google.com/search?q=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2024年9月14日(金) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_sf_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2024年9月15日(土) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_sf_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8197-bfcb-fe9ada13070e",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初心 広島",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-09-23",
+    "eventDateEnd": "2024-09-23",
+    "officialUrl": "",
+    "venue": "広島クラブクアトロ",
+    "prefecture": "広島県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%BA%83%E5%B3%B6%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E5%BA%83%E5%B3%B6%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年9月23日(日) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_hiroshima.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年9月23日(日) 開場17:45/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_hiroshima.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8143-a967-e4c8ccb7165a",
+    "icon": "🎤",
+    "title": "ヴイアラ PRODUCER MEETING 2024",
+    "brands": [
+      "ヴイアラ"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-09-28",
+    "eventDateEnd": "2024-09-28",
+    "officialUrl": "",
+    "venue": "GARDEN新木場FACTORY",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=GARDEN%E6%96%B0%E6%9C%A8%E5%A0%B4FACTORY",
+    "accessUrl": "https://www.google.com/search?q=GARDEN%E6%96%B0%E6%9C%A8%E5%A0%B4FACTORY%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年9月28日(金) 開場13:30/開演14:30",
+        "setlistUrl": "https://imas-db.jp/song/event/valiv_producer_meeting2024.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年9月28日(金) 開場17:30/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/valiv_producer_meeting2024.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-816f-8da5-c582aef09cc7",
+    "icon": "🎤",
+    "title": "シャニ6.5th",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-10-05",
+    "eventDateEnd": "2024-10-06",
+    "officialUrl": "",
+    "venue": "武蔵野の森総合スポーツプラザ メインアリーナ",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%AD%A6%E8%94%B5%E9%87%8E%E3%81%AE%E6%A3%AE%E7%B7%8F%E5%90%88%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84%E3%83%97%E3%83%A9%E3%82%B6%20%E3%83%A1%E3%82%A4%E3%83%B3%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+    "accessUrl": "https://www.google.com/search?q=%E6%AD%A6%E8%94%B5%E9%87%8E%E3%81%AE%E6%A3%AE%E7%B7%8F%E5%90%88%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84%E3%83%97%E3%83%A9%E3%82%B6%20%E3%83%A1%E3%82%A4%E3%83%B3%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2024年10月5日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6_5th_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2024年10月6日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6_5th_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8197-9b23-ce4456822251",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初恋 梅田",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-10-14",
+    "eventDateEnd": "2024-10-14",
+    "officialUrl": "",
+    "venue": "梅田クラブクアトロ",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A2%85%E7%94%B0%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E6%A2%85%E7%94%B0%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年10月14日(日) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_umeda.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年10月14日(日) 開場17:45/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_umeda.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-819d-af37-e7d6510babcc",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初恋 広島",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-10-19",
+    "eventDateEnd": "2024-10-19",
+    "officialUrl": "",
+    "venue": "広島クラブクアトロ",
+    "prefecture": "広島県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%BA%83%E5%B3%B6%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E5%BA%83%E5%B3%B6%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年10月19日(金) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_hiroshima.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年10月19日(金) 開場17:45/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_hiroshima.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81df-8123-f932b71bebcc",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初恋 渋谷",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-10-27",
+    "eventDateEnd": "2024-10-27",
+    "officialUrl": "",
+    "venue": "渋谷クラブクアトロ",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%B8%8B%E8%B0%B7%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E6%B8%8B%E8%B0%B7%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年10月27日(土) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_shibuya.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年10月27日(土) 開場17:45/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_shibuya.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81c4-b56d-c98402105083",
+    "icon": "🎤",
+    "title": "SideM 10th 愛媛",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-11-03",
+    "eventDateEnd": "2024-11-03",
+    "officialUrl": "",
+    "venue": "松山市民会館 大ホール",
+    "prefecture": "愛媛県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%9D%BE%E5%B1%B1%E5%B8%82%E6%B0%91%E4%BC%9A%E9%A4%A8%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E6%9D%BE%E5%B1%B1%E5%B8%82%E6%B0%91%E4%BC%9A%E9%A4%A8%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年11月3日(土) 開場12:00/開演13:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_ehime.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年11月3日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_ehime.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-814b-b0fd-e6b572f64121",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初心 梅田",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-12-01",
+    "eventDateEnd": "2024-12-01",
+    "officialUrl": "",
+    "venue": "梅田クラブクアトロ",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A2%85%E7%94%B0%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E6%A2%85%E7%94%B0%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年12月1日(土) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_umeda.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年12月1日(土) 開場17:45/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_umeda.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81e5-b4c0-fbcada021894",
+    "icon": "🎤",
+    "title": "FCL PINATATIME!!",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-12-01",
+    "eventDateEnd": "2024-12-01",
+    "officialUrl": "",
+    "venue": "横浜BUNTAI",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A8%AA%E6%B5%9CBUNTAI",
+    "accessUrl": "https://www.google.com/search?q=%E6%A8%AA%E6%B5%9CBUNTAI%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年12月1日(土) 開場11:00/開演12:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_pt.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年12月1日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_pt.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8184-93db-f4e1df5b91b6",
+    "icon": "🎤",
+    "title": "M@STER EXPO LIVE SHOWCASE",
+    "brands": [
+      "765AS",
+      "デレマス",
+      "ミリオン",
+      "SideM",
+      "シャニマス",
+      "学マス",
+      "ヴイアラ"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-12-14",
+    "eventDateEnd": "2024-12-15",
+    "officialUrl": "",
+    "venue": "幕張メッセ 国際展示場",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%83%A1%E3%83%83%E3%82%BB%20%E5%9B%BD%E9%9A%9B%E5%B1%95%E7%A4%BA%E5%A0%B4",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%83%A1%E3%83%83%E3%82%BB%20%E5%9B%BD%E9%9A%9B%E5%B1%95%E7%A4%BA%E5%A0%B4%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 765AS: 2024年12月14日(金) 開場09:50/開演10:30",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 ヴイアラ: 2024年12月14日(金) 開演11:30",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 シャニ: 2024年12月14日(金) 開場12:40/開演13:20",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 デレ: 2024年12月14日(金) 開場15:10/開演15:50",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 学マス: 2024年12月14日(金) 開演17:40",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 SideM: 2024年12月14日(金) 開場18:30/開演19:10",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 765AS: 2024年12月15日(土) 開場09:50/開演10:30",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 ヴイアラ: 2024年12月15日(土) 開演11:30",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 シャニ: 2024年12月15日(土) 開場12:40/開演13:20",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 デレ: 2024年12月15日(土) 開場15:10/開演15:50",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 学マス: 2024年12月15日(土) 開演17:40",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 ミリオン: 2024年12月15日(土) 開場18:30/開演19:10",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8184-a72c-cc4407e54bd7",
+    "icon": "🎤",
+    "title": "SideM 10th 熊本",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2024-12-22",
+    "eventDateEnd": "2024-12-22",
+    "officialUrl": "",
+    "venue": "熊本城ホール メインホール",
+    "prefecture": "熊本県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%86%8A%E6%9C%AC%E5%9F%8E%E3%83%9B%E3%83%BC%E3%83%AB%20%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E7%86%8A%E6%9C%AC%E5%9F%8E%E3%83%9B%E3%83%BC%E3%83%AB%20%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2024年12月22日(土) 開場12:00/開演13:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_kumamoto.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2024年12月22日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_kumamoto.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81af-8e78-f533a5be1043",
+    "icon": "🎤",
+    "title": "283 LP [liminal;marginal;eternal]",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-01-11",
+    "eventDateEnd": "2025-01-12",
+    "officialUrl": "",
+    "venue": "立川ステージガーデン",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%AB%8B%E5%B7%9D%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%82%AC%E3%83%BC%E3%83%87%E3%83%B3",
+    "accessUrl": "https://www.google.com/search?q=%E7%AB%8B%E5%B7%9D%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%82%AC%E3%83%BC%E3%83%87%E3%83%B3%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年1月11日(金) 開場13:30/開演14:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年1月11日(金) 開場17:30/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2025年1月12日(土) 開場13:30/開演14:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2025年1月12日(土) 開場17:30/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8181-a2da-ca0cc5a4e278",
+    "icon": "🎤",
+    "title": "Re:FLAME 大阪",
+    "brands": [
+      "961"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-02-01",
+    "eventDateEnd": "2025-02-01",
+    "officialUrl": "",
+    "venue": "フェニーチェ堺 大ホール",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%95%E3%82%A7%E3%83%8B%E3%83%BC%E3%83%81%E3%82%A7%E5%A0%BA%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E3%83%95%E3%82%A7%E3%83%8B%E3%83%BC%E3%83%81%E3%82%A7%E5%A0%BA%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年2月1日(金) 開場11:30/開演12:30",
+        "setlistUrl": "https://imas-db.jp/song/event/961production_reflame_osaka.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年2月1日(金) 開場15:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/961production_reflame_osaka.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81e5-8462-c681be1d9d76",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初陣 名古屋",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-02-08",
+    "eventDateEnd": "2025-02-08",
+    "officialUrl": "",
+    "venue": "名古屋クラブクアトロ",
+    "prefecture": "愛知県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%90%8D%E5%8F%A4%E5%B1%8B%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E5%90%8D%E5%8F%A4%E5%B1%8B%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年2月8日(金) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_nagoya.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年2月8日(金) 開場17:45/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_nagoya.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81c3-aff4-e5d89088b85a",
+    "icon": "🎤",
+    "title": "SideM 10th 大阪",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-02-08",
+    "eventDateEnd": "2025-02-09",
+    "officialUrl": "",
+    "venue": "オリックス劇場",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%82%AA%E3%83%AA%E3%83%83%E3%82%AF%E3%82%B9%E5%8A%87%E5%A0%B4",
+    "accessUrl": "https://www.google.com/search?q=%E3%82%AA%E3%83%AA%E3%83%83%E3%82%AF%E3%82%B9%E5%8A%87%E5%A0%B4%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年2月8日(金) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2025年2月9日(土) 開場12:30/開演13:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2025年2月9日(土) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81e1-a108-d6accb5e9a91",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初陣 梅田",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-02-11",
+    "eventDateEnd": "2025-02-11",
+    "officialUrl": "",
+    "venue": "梅田クラブクアトロ",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A2%85%E7%94%B0%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E6%A2%85%E7%94%B0%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年2月11日(月) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_umeda.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年2月11日(月) 開場17:45/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_umeda.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81ac-b22f-e54e46372f11",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初陣 渋谷",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-02-16",
+    "eventDateEnd": "2025-02-16",
+    "officialUrl": "",
+    "venue": "渋谷クラブクアトロ",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%B8%8B%E8%B0%B7%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD",
+    "accessUrl": "https://www.google.com/search?q=%E6%B8%8B%E8%B0%B7%E3%82%AF%E3%83%A9%E3%83%96%E3%82%AF%E3%82%A2%E3%83%88%E3%83%AD%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年2月16日(土) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_shibuya.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年2月16日(土) 開場17:45/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_shibuya.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81b9-9fb3-cb1c6443628f",
+    "icon": "🎤",
+    "title": "シャニ Over the prism",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-03-01",
+    "eventDateEnd": "2025-03-02",
+    "officialUrl": "",
+    "venue": "ぴあアリーナMM",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%B4%E3%81%82%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8AMM",
+    "accessUrl": "https://www.google.com/search?q=%E3%81%B4%E3%81%82%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8AMM%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年3月1日(金) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_over_the_prism_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年3月2日(土) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_over_the_prism_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8195-bec1-e016979a0ebc",
+    "icon": "🎤",
+    "title": "デレステ10th 大阪",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-03-08",
+    "eventDateEnd": "2025-03-09",
+    "officialUrl": "",
+    "venue": "大阪城ホール",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E9%98%AA%E5%9F%8E%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E5%A4%A7%E9%98%AA%E5%9F%8E%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年3月8日(金) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_osaka_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年3月9日(土) 開場14:30/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_osaka_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8197-8c44-f8c1b40b89ee",
+    "icon": "🎤",
+    "title": "SideM 10th 幕張",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-03-15",
+    "eventDateEnd": "2025-03-16",
+    "officialUrl": "",
+    "venue": "幕張イベントホール",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年3月15日(金) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_makuhari_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年3月16日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_makuhari_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-816e-8e88-c861b5662fa2",
+    "icon": "🎤",
+    "title": "ヴイアラ1st",
+    "brands": [
+      "ヴイアラ"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-03-22",
+    "eventDateEnd": "2025-03-22",
+    "officialUrl": "",
+    "venue": "Zepp DiverCity TOKYO",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zepp%20DiverCity%20TOKYO",
+    "accessUrl": "https://www.google.com/search?q=Zepp%20DiverCity%20TOKYO%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年3月22日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/valiv_1st_live.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-816a-ac69-ce9356449518",
+    "icon": "🎤",
+    "title": "ホチフェス2",
+    "brands": [
+      "765AS",
+      "ミリオン"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-03-29",
+    "eventDateEnd": "2025-03-30",
+    "officialUrl": "",
+    "venue": "さいたまスーパーアリーナ",
+    "prefecture": "埼玉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%95%E3%81%84%E3%81%9F%E3%81%BE%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+    "accessUrl": "https://www.google.com/search?q=%E3%81%95%E3%81%84%E3%81%9F%E3%81%BE%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年3月29日(金) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_hpf2_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年3月30日(土) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_hpf2_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81bc-916c-d143218787d4",
+    "icon": "🎤",
+    "title": "デレステ10th 東京",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-04-26",
+    "eventDateEnd": "2025-04-27",
+    "officialUrl": "",
+    "venue": "有明アリーナ",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%9C%89%E6%98%8E%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+    "accessUrl": "https://www.google.com/search?q=%E6%9C%89%E6%98%8E%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年4月26日(金) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_tokyo_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年4月27日(土) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_tokyo_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81e9-8da9-fa17fc4c349e",
+    "icon": "🎤",
+    "title": "283 LP Uka,",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-05-10",
+    "eventDateEnd": "2025-05-11",
+    "officialUrl": "",
+    "venue": "オリックス劇場",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%82%AA%E3%83%AA%E3%83%83%E3%82%AF%E3%82%B9%E5%8A%87%E5%A0%B4",
+    "accessUrl": "https://www.google.com/search?q=%E3%82%AA%E3%83%AA%E3%83%83%E3%82%AF%E3%82%B9%E5%8A%87%E5%A0%B4%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2025年5月10日(金) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_uka.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2025年5月11日(土) 開場12:30/開演13:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_uka.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2025年5月11日(土) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_uka.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81b2-a3b6-c12a19b1f993",
+    "icon": "🎤",
+    "title": "FCL CHOCOFFICERANGER!!",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-05-17",
+    "eventDateEnd": "2025-05-17",
+    "officialUrl": "",
+    "venue": "幕張イベントホール",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年5月17日(金) 開場11:00/開演12:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_cor.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年5月17日(金) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_cor.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8143-b053-dee1aa33eaa7",
+    "icon": "🎤",
+    "title": "FCL AtoZto!!",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-05-18",
+    "eventDateEnd": "2025-05-18",
+    "officialUrl": "",
+    "venue": "幕張イベントホール",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年5月18日(土) 開場11:00/開演12:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_azto.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年5月18日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_azto.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-818f-bc12-e758efeebbd6",
+    "icon": "🎤",
+    "title": "学マス 1st Period Spotlight Star",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-05-24",
+    "eventDateEnd": "2025-05-25",
+    "officialUrl": "",
+    "venue": "立川ステージガーデン",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%AB%8B%E5%B7%9D%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%82%AC%E3%83%BC%E3%83%87%E3%83%B3",
+    "accessUrl": "https://www.google.com/search?q=%E7%AB%8B%E5%B7%9D%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%82%AC%E3%83%BC%E3%83%87%E3%83%B3%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年5月24日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_ss_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年5月25日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_ss_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8195-ba77-f136eb2733b3",
+    "icon": "🎤",
+    "title": "学マス 1st Period Harmony Star",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-05-31",
+    "eventDateEnd": "2025-06-01",
+    "officialUrl": "",
+    "venue": "立川ステージガーデン",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%AB%8B%E5%B7%9D%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%82%AC%E3%83%BC%E3%83%87%E3%83%B3",
+    "accessUrl": "https://www.google.com/search?q=%E7%AB%8B%E5%B7%9D%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%82%AC%E3%83%BC%E3%83%87%E3%83%B3%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年5月31日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_hs_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年6月1日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_hs_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81ab-9342-c2f3783e8ccc",
+    "icon": "🎤",
+    "title": "デレステ10th 沖縄",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-06-07",
+    "eventDateEnd": "2025-06-08",
+    "officialUrl": "",
+    "venue": "沖縄サントリーアリーナ",
+    "prefecture": "沖縄県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E3%82%B5%E3%83%B3%E3%83%88%E3%83%AA%E3%83%BC%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+    "accessUrl": "https://www.google.com/search?q=%E6%B2%96%E7%B8%84%E3%82%B5%E3%83%B3%E3%83%88%E3%83%AA%E3%83%BC%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年6月7日(金) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_okinawa_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年6月8日(土) 開場13:30/開演15:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_okinawa_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8188-aee1-fcaf3f8815d6",
+    "icon": "🎤",
+    "title": "シャニ7th 円環 福岡",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-06-21",
+    "eventDateEnd": "2025-06-22",
+    "officialUrl": "",
+    "venue": "福岡国際センター",
+    "prefecture": "福岡県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E5%B2%A1%E5%9B%BD%E9%9A%9B%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC",
+    "accessUrl": "https://www.google.com/search?q=%E7%A6%8F%E5%B2%A1%E5%9B%BD%E9%9A%9B%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年6月21日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_first.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年6月22日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_first.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81aa-b6b0-cad20b633b8c",
+    "icon": "🎤",
+    "title": "デレステ10th 福岡",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-06-28",
+    "eventDateEnd": "2025-06-29",
+    "officialUrl": "",
+    "venue": "マリンメッセ福岡",
+    "prefecture": "福岡県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%9E%E3%83%AA%E3%83%B3%E3%83%A1%E3%83%83%E3%82%BB%E7%A6%8F%E5%B2%A1",
+    "accessUrl": "https://www.google.com/search?q=%E3%83%9E%E3%83%AA%E3%83%B3%E3%83%A1%E3%83%83%E3%82%BB%E7%A6%8F%E5%B2%A1%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年6月28日(金) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_fukuoka_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年6月29日(土) 開場14:00/開演15:30",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_fukuoka_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-810c-9494-e727f082353a",
+    "icon": "🎤",
+    "title": "学マス初TOUR 初陣 東京追加",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-07-04",
+    "eventDateEnd": "2025-07-04",
+    "officialUrl": "",
+    "venue": "新宿ReNY",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%AE%BFReNY",
+    "accessUrl": "https://www.google.com/search?q=%E6%96%B0%E5%AE%BFReNY%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年7月4日(木) 開場14:30/開演15:15",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_addition.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年7月4日(木) 開場18:15/開演19:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_addition.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8117-ad03-e4afddfc90ae",
+    "icon": "🎤",
+    "title": "シャニ7th 円環 横浜",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-07-05",
+    "eventDateEnd": "2025-07-06",
+    "officialUrl": "",
+    "venue": "横浜BUNTAI",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A8%AA%E6%B5%9CBUNTAI",
+    "accessUrl": "https://www.google.com/search?q=%E6%A8%AA%E6%B5%9CBUNTAI%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年7月5日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_second.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年7月6日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_second.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-813a-bedb-dd8721ecbcc9",
+    "icon": "🎤",
+    "title": "SideM 10th 横浜",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-07-12",
+    "eventDateEnd": "2025-07-13",
+    "officialUrl": "",
+    "venue": "Kアリーナ横浜",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C",
+    "accessUrl": "https://www.google.com/search?q=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年7月12日(金) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_yokohama_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年7月13日(土) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_yokohama_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81ae-b51a-dbcc1dc51531",
+    "icon": "🎤",
+    "title": "20th オーケストラコンサート",
+    "brands": [
+      "765AS",
+      "デレマス",
+      "ミリオン",
+      "SideM",
+      "シャニマス",
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-07-21",
+    "eventDateEnd": "2025-07-21",
+    "officialUrl": "",
+    "venue": "パシフィコ横浜 国立大ホール",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%91%E3%82%B7%E3%83%95%E3%82%A3%E3%82%B3%E6%A8%AA%E6%B5%9C%20%E5%9B%BD%E7%AB%8B%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E3%83%91%E3%82%B7%E3%83%95%E3%82%A3%E3%82%B3%E6%A8%AA%E6%B5%9C%20%E5%9B%BD%E7%AB%8B%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年7月21日(日) 開場13:00/開演14:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_orch_2025.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年7月21日(日) 開場17:30/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_orch_2025.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-818a-8c2d-cca4533cbb16",
+    "icon": "🎤",
+    "title": "765AS NEVER END IDOL",
+    "brands": [
+      "765AS"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-08-02",
+    "eventDateEnd": "2025-08-03",
+    "officialUrl": "",
+    "venue": "Kアリーナ横浜",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C",
+    "accessUrl": "https://www.google.com/search?q=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年8月2日(金) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_never_end_idol_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年8月3日(土) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_never_end_idol_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81f9-b6a7-c607c2d70fff",
+    "icon": "🎤",
+    "title": "シャニ7th 円環 愛知",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-08-09",
+    "eventDateEnd": "2025-08-10",
+    "officialUrl": "",
+    "venue": "Aichi Sky Expo",
+    "prefecture": "愛知県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Aichi%20Sky%20Expo",
+    "accessUrl": "https://www.google.com/search?q=Aichi%20Sky%20Expo%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年8月9日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_third.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年8月10日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_third.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8104-8fa4-dbc15385369f",
+    "icon": "🎤",
+    "title": "デレステ10th 神奈川",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-09-06",
+    "eventDateEnd": "2025-09-07",
+    "officialUrl": "",
+    "venue": "Kアリーナ横浜",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C",
+    "accessUrl": "https://www.google.com/search?q=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年9月6日(金) 開場15:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_kanagawa_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年9月7日(土) 開場15:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_kanagawa_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-817b-8e8a-c371088595ce",
+    "icon": "🎤",
+    "title": "学マス 初星大運動会",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-09-20",
+    "eventDateEnd": "2025-09-21",
+    "officialUrl": "",
+    "venue": "国立代々木競技場 第一体育館",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E7%AB%8B%E4%BB%A3%E3%80%85%E6%9C%A8%E7%AB%B6%E6%8A%80%E5%A0%B4%20%E7%AC%AC%E4%B8%80%E4%BD%93%E8%82%B2%E9%A4%A8",
+    "accessUrl": "https://www.google.com/search?q=%E5%9B%BD%E7%AB%8B%E4%BB%A3%E3%80%85%E6%9C%A8%E7%AB%B6%E6%8A%80%E5%A0%B4%20%E7%AC%AC%E4%B8%80%E4%BD%93%E8%82%B2%E9%A4%A8%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年9月20日(金) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_undokai_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年9月21日(土) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_undokai_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8159-9eb8-da2226cf3b44",
+    "icon": "🎤",
+    "title": "シャニ7th 円環 青森",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-09-27",
+    "eventDateEnd": "2025-09-28",
+    "officialUrl": "",
+    "venue": "盛運輸アリーナ",
+    "prefecture": "青森県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%9B%9B%E9%81%8B%E8%BC%B8%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+    "accessUrl": "https://www.google.com/search?q=%E7%9B%9B%E9%81%8B%E8%BC%B8%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年9月27日(金) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_fourth.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年9月28日(土) 開場15:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_fourth.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8179-bc1d-d480ec8791d4",
+    "icon": "🎤",
+    "title": "FBF Who goes first 幕張",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-10-04",
+    "eventDateEnd": "2025-10-05",
+    "officialUrl": "",
+    "venue": "幕張イベントホール",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年10月4日(金) 開場11:00/開演12:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年10月4日(金) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2025年10月5日(土) 開場11:00/開演12:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2025年10月5日(土) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81a9-94d8-e4c11c4525f9",
+    "icon": "🎤",
+    "title": "ミリオン12th",
+    "brands": [
+      "ミリオン"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-10-11",
+    "eventDateEnd": "2025-10-12",
+    "officialUrl": "",
+    "venue": "京王アリーナTOKYO",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO",
+    "accessUrl": "https://www.google.com/search?q=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年10月11日(金) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_12th_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年10月12日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_12th_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-813f-9e59-d26328cb1f83",
+    "icon": "🎤",
+    "title": "twin live いつまでもなかよし！",
+    "brands": [
+      "765AS"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-10-18",
+    "eventDateEnd": "2025-10-19",
+    "officialUrl": "",
+    "venue": "森のホール21 大ホール",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A3%AE%E3%81%AE%E3%83%9B%E3%83%BC%E3%83%AB21%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E6%A3%AE%E3%81%AE%E3%83%9B%E3%83%BC%E3%83%AB21%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2025年10月18日(金) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_twinlive_nakayoshi.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2025年10月19日(土) 開場12:30/開演13:30",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_twinlive_nakayoshi.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2025年10月19日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_twinlive_nakayoshi.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8145-8d26-d4ea5db014e9",
+    "icon": "🎤",
+    "title": "シャニ7th 螺旋",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-10-25",
+    "eventDateEnd": "2025-10-26",
+    "officialUrl": "",
+    "venue": "Kアリーナ横浜",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C",
+    "accessUrl": "https://www.google.com/search?q=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年10月25日(金) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_rasen_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年10月26日(土) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_rasen_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8156-aba8-e6dc2040f85a",
+    "icon": "🎤",
+    "title": "FBF Who goes first 大阪",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-11-15",
+    "eventDateEnd": "2025-11-16",
+    "officialUrl": "",
+    "venue": "オリックス劇場",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%82%AA%E3%83%AA%E3%83%83%E3%82%AF%E3%82%B9%E5%8A%87%E5%A0%B4",
+    "accessUrl": "https://www.google.com/search?q=%E3%82%AA%E3%83%AA%E3%83%83%E3%82%AF%E3%82%B9%E5%8A%87%E5%A0%B4%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年11月15日(金) 開場11:30/開演12:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年11月15日(金) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2025年11月16日(土) 開場11:00/開演12:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2025年11月16日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81e1-b94b-f0a3e670f835",
+    "icon": "🎤",
+    "title": "デレ fes. Once Upon a St@rs",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-11-29",
+    "eventDateEnd": "2025-11-30",
+    "officialUrl": "",
+    "venue": "幕張メッセ 国際展示場ホール9-11",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%83%A1%E3%83%83%E3%82%BB%20%E5%9B%BD%E9%9A%9B%E5%B1%95%E7%A4%BA%E5%A0%B4%E3%83%9B%E3%83%BC%E3%83%AB9-11",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%83%A1%E3%83%83%E3%82%BB%20%E5%9B%BD%E9%9A%9B%E5%B1%95%E7%A4%BA%E5%A0%B4%E3%83%9B%E3%83%BC%E3%83%AB9-11%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 昼公演: 2025年11月29日(金) 開場11:30/開演13:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day1 夜公演: 2025年11月29日(金) 開場16:30/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2025年11月30日(土) 開場09:30/開演11:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage3.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2025年11月30日(土) 開場14:30/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage4.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8196-80d7-f95db43c561c",
+    "icon": "🎤",
+    "title": "IDOL WORLD 2025",
+    "brands": [
+      "765AS",
+      "デレマス",
+      "ミリオン",
+      "SideM",
+      "シャニマス",
+      "学マス",
+      "ヴイアラ",
+      "961"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-12-13",
+    "eventDateEnd": "2025-12-14",
+    "officialUrl": "",
+    "venue": "京セラドーム大阪",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E4%BA%AC%E3%82%BB%E3%83%A9%E3%83%89%E3%83%BC%E3%83%A0%E5%A4%A7%E9%98%AA",
+    "accessUrl": "https://www.google.com/search?q=%E4%BA%AC%E3%82%BB%E3%83%A9%E3%83%89%E3%83%BC%E3%83%A0%E5%A4%A7%E9%98%AA%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2025年12月13日(金) 開場14:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2025_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2025年12月14日(土) 開場14:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2025_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8115-bc21-fee03e4a8a1a",
+    "icon": "🎤",
+    "title": "283 MP 騎士団のヴェール",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2025-12-27",
+    "eventDateEnd": "2025-12-28",
+    "officialUrl": "",
+    "venue": "Niterra日本特殊陶業市民会館 フォレストホール",
+    "prefecture": "愛知県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Niterra%E6%97%A5%E6%9C%AC%E7%89%B9%E6%AE%8A%E9%99%B6%E6%A5%AD%E5%B8%82%E6%B0%91%E4%BC%9A%E9%A4%A8%20%E3%83%95%E3%82%A9%E3%83%AC%E3%82%B9%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=Niterra%E6%97%A5%E6%9C%AC%E7%89%B9%E6%AE%8A%E9%99%B6%E6%A5%AD%E5%B8%82%E6%B0%91%E4%BC%9A%E9%A4%A8%20%E3%83%95%E3%82%A9%E3%83%AC%E3%82%B9%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2025年12月27日(金) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_order.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2025年12月28日(土) 開場12:30/開演13:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_order.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2025年12月28日(土) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_order.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81ad-a353-dc766936316a",
+    "icon": "🎤",
+    "title": "如月千早 OathONE",
+    "brands": [
+      "765AS"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-01-24",
+    "eventDateEnd": "2026-01-25",
+    "officialUrl": "",
+    "venue": "日本武道館",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%97%A5%E6%9C%AC%E6%AD%A6%E9%81%93%E9%A4%A8",
+    "accessUrl": "https://www.google.com/search?q=%E6%97%A5%E6%9C%AC%E6%AD%A6%E9%81%93%E9%A4%A8%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2026年1月24日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_oath_one.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年1月25日(土) 開場15:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_oath_one.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81e7-b1dd-c732a0e9de1a",
+    "icon": "🎤",
+    "title": "シャニマス大感謝祭",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-02-14",
+    "eventDateEnd": "2026-02-15",
+    "officialUrl": "",
+    "venue": "京王アリーナTOKYO",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO",
+    "accessUrl": "https://www.google.com/search?q=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年2月14日(金) 開場15:00/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283pro_kansyasai.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年2月15日(土) 開場15:00/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283pro_kansyasai.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8144-9e50-e51e3e4da43c",
+    "icon": "🎤",
+    "title": "876 PRODUCTION FES.",
+    "brands": [
+      "ヴイアラ",
+      "876"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-02-21",
+    "eventDateEnd": "2026-02-23",
+    "officialUrl": "",
+    "venue": "日本工学院アリーナ",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%97%A5%E6%9C%AC%E5%B7%A5%E5%AD%A6%E9%99%A2%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+    "accessUrl": "https://www.google.com/search?q=%E6%97%A5%E6%9C%AC%E5%B7%A5%E5%AD%A6%E9%99%A2%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年2月21日(金) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年2月22日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day3 昼公演: 2026年2月23日(日) 開場13:00/開演14:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day3.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day3 夜公演: 2026年2月23日(日) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day3.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81af-aff0-e7aed73cb629",
+    "icon": "🎤",
+    "title": "学マス 初星音楽祭",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-02-28",
+    "eventDateEnd": "2026-03-01",
+    "officialUrl": "",
+    "venue": "京王アリーナTOKYO",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO",
+    "accessUrl": "https://www.google.com/search?q=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年2月28日(金) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_musicfestival_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年3月1日(土) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_musicfestival_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81f3-a88c-c5251482fa54",
+    "icon": "🎤",
+    "title": "ミリオン11th",
+    "brands": [
+      "ミリオン"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-03-14",
+    "eventDateEnd": "2026-03-15",
+    "officialUrl": "",
+    "venue": "北九州メッセ",
+    "prefecture": "福岡県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E4%B9%9D%E5%B7%9E%E3%83%A1%E3%83%83%E3%82%BB",
+    "accessUrl": "https://www.google.com/search?q=%E5%8C%97%E4%B9%9D%E5%B7%9E%E3%83%A1%E3%83%83%E3%82%BB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年3月14日(金) 開場14:30/開演15:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_11thlive_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年3月15日(土) 開場14:30/開演15:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_11thlive_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8109-b7fd-f00d7ac3e0f0",
+    "icon": "🎤",
+    "title": "283 XXX= S/N-GUL4R1TY",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-04-11",
+    "eventDateEnd": "2026-04-12",
+    "officialUrl": "",
+    "venue": "幕張イベントホール",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2026年4月11日(金) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_xxx.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2026年4月12日(土) 開場12:00/開演13:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_xxx.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2026年4月12日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_xxx.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8177-a8fb-fd05ff8a4cc1",
+    "icon": "🎤",
+    "title": "シャニ∞th iと夢",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-04-25",
+    "eventDateEnd": "2026-04-26",
+    "officialUrl": "",
+    "venue": "Kアリーナ横浜",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C",
+    "accessUrl": "https://www.google.com/search?q=K%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E6%A8%AA%E6%B5%9C%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年4月25日(金) 開場16:30/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_8th_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年4月26日(土) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_8th_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8199-853b-ffcda3de1845",
+    "icon": "🎤",
+    "title": "ミリオン13th",
+    "brands": [
+      "ミリオン"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-05-05",
+    "eventDateEnd": "2026-05-06",
+    "officialUrl": "",
+    "venue": "有明アリーナ",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%9C%89%E6%98%8E%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+    "accessUrl": "https://www.google.com/search?q=%E6%9C%89%E6%98%8E%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年5月5日(月) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/million_13th_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年5月6日(火) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/million_13th_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81ad-85ab-c84b61fca430",
+    "icon": "🎤",
+    "title": "デレミュ STARLIGHT HIGH SCHOOL!",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-05-09",
+    "eventDateEnd": "2026-05-10",
+    "officialUrl": "",
+    "venue": "森のホール21 大ホール",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A3%AE%E3%81%AE%E3%83%9B%E3%83%BC%E3%83%AB21%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E6%A3%AE%E3%81%AE%E3%83%9B%E3%83%BC%E3%83%AB21%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年5月9日(金) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_sh.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2026年5月10日(土) 開場11:00/開演12:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_sh.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2026年5月10日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_sh.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8172-b64d-cece3f0d645c",
+    "icon": "🎤",
+    "title": "学マス H.I.F選抜試験",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-05-16",
+    "eventDateEnd": "2026-05-17",
+    "officialUrl": "",
+    "venue": "幕張イベントホール",
+    "prefecture": "千葉県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2026年5月16日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_2nd_selection_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年5月17日(土) 開場15:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_2nd_selection_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-812b-991c-c1e6c8626962",
+    "icon": "🎤",
+    "title": "学マス H.I.F",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-06-06",
+    "eventDateEnd": "2026-06-07",
+    "officialUrl": "",
+    "venue": "横浜アリーナ",
+    "prefecture": "神奈川県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A8%AA%E6%B5%9C%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A",
+    "accessUrl": "https://www.google.com/search?q=%E6%A8%AA%E6%B5%9C%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年6月6日(金) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_2ndperiod_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年6月7日(土) 開場15:30/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_2ndperiod_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81fc-ba04-f112c4ed513f",
+    "icon": "🎤",
+    "title": "デレミュ DERE of the DEAD",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-07-04",
+    "eventDateEnd": "2026-07-05",
+    "officialUrl": "",
+    "venue": "オリックス劇場",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%82%AA%E3%83%AA%E3%83%83%E3%82%AF%E3%82%B9%E5%8A%87%E5%A0%B4",
+    "accessUrl": "https://www.google.com/search?q=%E3%82%AA%E3%83%AA%E3%83%83%E3%82%AF%E3%82%B9%E5%8A%87%E5%A0%B4%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年7月4日(金) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_dd.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2026年7月5日(土) 開場11:00/開演12:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_dd.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2026年7月5日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_dd.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-810c-b031-ecf6544028e6",
+    "icon": "🎤",
+    "title": "IDOL WORLD SUPER FESTIVAL 2026",
+    "brands": [
+      "765AS",
+      "デレマス",
+      "ミリオン",
+      "SideM",
+      "シャニマス",
+      "学マス",
+      "876",
+      "ヴイアラ",
+      "961"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-07-24",
+    "eventDateEnd": "2026-07-26",
+    "officialUrl": "",
+    "venue": "京王アリーナTOKYO",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO",
+    "accessUrl": "https://www.google.com/search?q=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2026年7月24日(木) 開場17:30/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_iwsf_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年7月25日(金) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_iwsf_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day3: 2026年7月26日(土) 開場17:00/開演18:00",
+        "setlistUrl": "https://imas-db.jp/song/event/idolmaster_iwsf_day3.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8122-b18a-e3bddb4f4aa8",
+    "icon": "🎤",
+    "title": "twin live ふたごぼしのつばさ 大阪",
+    "brands": [
+      "765AS"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-08-06",
+    "eventDateEnd": "2026-08-06",
+    "officialUrl": "",
+    "venue": "Zepp Namba",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zepp%20Namba",
+    "accessUrl": "https://www.google.com/search?q=Zepp%20Namba%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2026年8月6日(水) 開場18:00/開演19:00",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_amimam.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81d0-9cfc-d318e06c92b7",
+    "icon": "🎤",
+    "title": "twin live つみまつよるまち 大阪",
+    "brands": [
+      "765AS"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-08-07",
+    "eventDateEnd": "2026-08-07",
+    "officialUrl": "",
+    "venue": "Zepp Namba",
+    "prefecture": "大阪府",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zepp%20Namba",
+    "accessUrl": "https://www.google.com/search?q=Zepp%20Namba%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2026年8月7日(木) 開場18:00/開演19:00",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_azurit.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8175-9766-d637baed98a6",
+    "icon": "🎤",
+    "title": "デレ Pop'n ToyBox!!",
+    "brands": [
+      "デレマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-08-13",
+    "eventDateEnd": "2026-08-16",
+    "officialUrl": "",
+    "venue": "Shibuya LOVEZ",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Shibuya%20LOVEZ",
+    "accessUrl": "https://www.google.com/search?q=Shibuya%20LOVEZ%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1 夕公演: 2026年8月13日(水) 開場15:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 昼公演: 2026年8月14日(木) 開場13:00/開演14:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2 夜公演: 2026年8月14日(木) 開場18:00/開演19:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day3 夕公演: 2026年8月15日(金) 開場15:00/開演16:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day4 昼公演: 2026年8月16日(土) 開場13:00/開演14:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day4 夜公演: 2026年8月16日(土) 開場18:00/開演19:00",
+        "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-816e-9d5b-ddbf9994d17e",
+    "icon": "🎤",
+    "title": "twin live ふたごぼしのつばさ 名古屋",
+    "brands": [
+      "765AS"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-08-13",
+    "eventDateEnd": "2026-08-13",
+    "officialUrl": "",
+    "venue": "Zepp Nagoya",
+    "prefecture": "愛知県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zepp%20Nagoya",
+    "accessUrl": "https://www.google.com/search?q=Zepp%20Nagoya%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2026年8月13日(水) 開場18:00/開演19:00",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_amimam.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-815c-83db-d04d473a9fe3",
+    "icon": "🎤",
+    "title": "twin live つみまつよるまち 名古屋",
+    "brands": [
+      "765AS"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-08-14",
+    "eventDateEnd": "2026-08-14",
+    "officialUrl": "",
+    "venue": "Zepp Nagoya",
+    "prefecture": "愛知県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zepp%20Nagoya",
+    "accessUrl": "https://www.google.com/search?q=Zepp%20Nagoya%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2026年8月14日(木) 開場18:00/開演19:00",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_azurit.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-815b-9b7c-c4971d70a97f",
+    "icon": "🎤",
+    "title": "学マス 標ツアー 福井",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-08-20",
+    "eventDateEnd": "2026-08-21",
+    "officialUrl": "",
+    "venue": "フェニックス・プラザ エルピス 大ホール",
+    "prefecture": "福井県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%95%E3%82%A7%E3%83%8B%E3%83%83%E3%82%AF%E3%82%B9%E3%83%BB%E3%83%97%E3%83%A9%E3%82%B6%20%E3%82%A8%E3%83%AB%E3%83%94%E3%82%B9%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E3%83%95%E3%82%A7%E3%83%8B%E3%83%83%E3%82%AF%E3%82%B9%E3%83%BB%E3%83%97%E3%83%A9%E3%82%B6%20%E3%82%A8%E3%83%AB%E3%83%94%E3%82%B9%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年8月20日(水) 開場17:30/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukui.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年8月21日(木) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukui.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-8157-914f-c2288c7c9c9c",
+    "icon": "🎤",
+    "title": "twin live ふたごぼしのつばさ 東京",
+    "brands": [
+      "765AS"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-08-27",
+    "eventDateEnd": "2026-08-27",
+    "officialUrl": "",
+    "venue": "Zepp Haneda",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zepp%20Haneda",
+    "accessUrl": "https://www.google.com/search?q=Zepp%20Haneda%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2026年8月27日(水) 開場18:00/開演19:00",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_amimam.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-819a-b90d-c35b7020152d",
+    "icon": "🎤",
+    "title": "twin live つみまつよるまち 東京",
+    "brands": [
+      "765AS"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-08-28",
+    "eventDateEnd": "2026-08-28",
+    "officialUrl": "",
+    "venue": "Zepp Haneda",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zepp%20Haneda",
+    "accessUrl": "https://www.google.com/search?q=Zepp%20Haneda%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": true,
+    "schedules": [
+      {
+        "label": "Day1: 2026年8月28日(木) 開場18:00/開演19:00",
+        "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_azurit.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-812e-bc73-c39a1bb5909e",
+    "icon": "🎤",
+    "title": "学マス 標ツアー 福岡",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-09-05",
+    "eventDateEnd": "2026-09-06",
+    "officialUrl": "",
+    "venue": "福岡サンパレス ホテル＆ホール",
+    "prefecture": "福岡県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E5%B2%A1%E3%82%B5%E3%83%B3%E3%83%91%E3%83%AC%E3%82%B9%20%E3%83%9B%E3%83%86%E3%83%AB%EF%BC%86%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E7%A6%8F%E5%B2%A1%E3%82%B5%E3%83%B3%E3%83%91%E3%83%AC%E3%82%B9%20%E3%83%9B%E3%83%86%E3%83%AB%EF%BC%86%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年9月5日(金) 開場17:30/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukuoka.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年9月6日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukuoka.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81ec-9f4b-c863a4927cc5",
+    "icon": "🎤",
+    "title": "SideM 11th",
+    "brands": [
+      "SideM"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-09-12",
+    "eventDateEnd": "2026-09-13",
+    "officialUrl": "",
+    "venue": "TOYOTA ARENA TOKYO",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=TOYOTA%20ARENA%20TOKYO",
+    "accessUrl": "https://www.google.com/search?q=TOYOTA%20ARENA%20TOKYO%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年9月12日(金) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_11th_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年9月13日(土) 開場16:00/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/sidem_11th_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81df-a8f8-ffbd9279e7c6",
+    "icon": "🎤",
+    "title": "ミリオン14th",
+    "brands": [
+      "ミリオン"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-09-19",
+    "eventDateEnd": "2026-09-20",
+    "officialUrl": "",
+    "venue": "国立代々木競技場 第一体育館",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E7%AB%8B%E4%BB%A3%E3%80%85%E6%9C%A8%E7%AB%B6%E6%8A%80%E5%A0%B4%20%E7%AC%AC%E4%B8%80%E4%BD%93%E8%82%B2%E9%A4%A8",
+    "accessUrl": "https://www.google.com/search?q=%E5%9B%BD%E7%AB%8B%E4%BB%A3%E3%80%85%E6%9C%A8%E7%AB%B6%E6%8A%80%E5%A0%B4%20%E7%AC%AC%E4%B8%80%E4%BD%93%E8%82%B2%E9%A4%A8%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年9月19日(金) 開場16:30/開演17:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_14th_day1.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年9月20日(土) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/million_14th_day2.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-815e-b22f-f841234c117c",
+    "icon": "🎤",
+    "title": "学マス 標ツアー 岩手",
+    "brands": [
+      "学マス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-09-22",
+    "eventDateEnd": "2026-09-23",
+    "officialUrl": "",
+    "venue": "トーサイクラシックホール岩手 大ホール",
+    "prefecture": "岩手県",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%88%E3%83%BC%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%9B%E3%83%BC%E3%83%AB%E5%B2%A9%E6%89%8B%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB",
+    "accessUrl": "https://www.google.com/search?q=%E3%83%88%E3%83%BC%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%9B%E3%83%BC%E3%83%AB%E5%B2%A9%E6%89%8B%20%E5%A4%A7%E3%83%9B%E3%83%BC%E3%83%AB%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年9月22日(月) 開場17:30/開演18:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_iwate.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年9月23日(火) 開場15:30/開演16:30",
+        "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_iwate.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
+    "id": "41f17392-1f2b-81c4-9f25-d0d23236cbdb",
+    "icon": "🎤",
+    "title": "283 Master ShowPiece",
+    "brands": [
+      "シャニマス"
+    ],
+    "phase": "",
+    "phaseKind": "",
+    "applyStartDate": "",
+    "deadline": "",
+    "lotteryDate": "",
+    "slots": [],
+    "eventDateStart": "2026-09-26",
+    "eventDateEnd": "2026-09-27",
+    "officialUrl": "",
+    "venue": "京王アリーナTOKYO",
+    "prefecture": "東京都",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO",
+    "accessUrl": "https://www.google.com/search?q=%E4%BA%AC%E7%8E%8B%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8ATOKYO%20%E5%85%AC%E5%BC%8F%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9",
+    "nearestStation": "",
+    "isSpecialColor": false,
+    "isXR": false,
+    "schedules": [
+      {
+        "label": "Day1: 2026年9月26日(金) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_msp.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      },
+      {
+        "label": "Day2: 2026年9月27日(土) 開場16:00/開演17:00",
+        "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_msp.html",
+        "castCount": 0,
+        "castNames": [],
+        "penlightCastCount": 0,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+      }
+    ],
+    "merch": []
+  },
+  {
     "id": "3fc17392-1f2b-8140-b7d2-d010e0ce7f7a",
     "icon": "🎤",
     "title": "標ツアー 千秋楽",
@@ -1319,7 +6274,9 @@
       "デレマス",
       "ミリオン",
       "シャニマス",
-      "SideM"
+      "SideM",
+      "961",
+      "876"
     ],
     "phase": "アソビストアプレミアム会員先行",
     "phaseKind": "抽選",
