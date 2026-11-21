@@ -12,6 +12,8 @@
  *   空欄の「正式名称」「会場」「都道府県」「セトリURL」だけ埋め、足りない公演の行を足す（公演の呼び名が違う行があるライブには、行を足さない）
  *   → 途中で止まっても、もう一度動かせば続きから入る（2回動かしても重複しない）
  * ・追加したライブと公演には「ロック」を付け、自動チェックが書き換えないようにする
+ * ・公式サイトで確かめて直した公演（JSONに prevOpen / prevStart / prevKey があるもの）は、
+ *   この道具が前に作った行のままなら、時刻・表示ラベル・公演の呼び名を新しい内容に直す（手で直した行には触らない）
  * ・公演日程DBに「セトリURL」、ライブDBに「都道府県」の列がなければ、--write のときに作る
  */
 const { Client } = require('@notionhq/client');
@@ -108,7 +110,12 @@ async function main() {
 
   const lives = await queryAll(LIVE_DB), scheds = await queryAll(SCHED_DB);
   const lt = titleName(liveMeta), stn = titleName(schedMeta);
-  let newLives = 0, newRows = 0, skipped = 0, filled = 0;
+  let newLives = 0, newRows = 0, skipped = 0, filled = 0, fixedRows = 0;
+  const timeProps = (d, props) => {   // 表示ラベル・開演日時・開場時刻
+    put(schedMeta, props, '表示ラベル', labelOf(d));
+    put(schedMeta, props, '開演日時', d.start ? `${d.date}T${d.start.padStart(5, '0')}:00+09:00` : d.date);
+    if (d.open) put(schedMeta, props, '開場時刻', schedMeta.properties['開場時刻']?.type === 'date' ? `${d.date}T${d.open.padStart(5, '0')}:00+09:00` : d.open.padStart(5, '0'));
+  };
   const brandsOf = p => (p.properties['ブランド']?.multi_select || []).map(o => o.name);
   const startOf = p => (p.properties['ライブ開催日']?.date?.start || '').slice(0, 10);
   const fill = async (meta, page, name, v, what) => {   // 空欄のときだけ書く
@@ -144,6 +151,20 @@ async function main() {
     }
     const rows = live ? scheds.filter(p => (p.properties[rel]?.relation || []).some(r => r.id === live.id)) : [];
     const keys = L.days.map(d => norm(d.key)), keyOf = p => norm(propText(p.properties['Day']));
+    // 前に取り込んだ行を、公式サイトで確かめた内容に直す（この道具が作ったときのラベルのままの行だけ）
+    for (const d of L.days) {
+      if (d.prevOpen === undefined && !d.prevKey) continue;
+      const oldKey = d.prevKey || d.key, oldLabel = labelOf({ ...d, key: oldKey, open: d.prevOpen ?? d.open, start: d.prevStart ?? d.start });
+      const row = rows.find(p => keyOf(p) === norm(oldKey) && propText(p.properties['表示ラベル']) === oldLabel);
+      if (!row || (d.prevKey && rows.some(p => keyOf(p) === norm(d.key)))) continue;
+      const props = {};
+      if (d.prevKey) { put(schedMeta, props, stn, `${L.title} ${d.key}`); put(schedMeta, props, 'Day', d.key); }
+      timeProps(d, props);
+      fixedRows++;
+      console.log(`${WRITE ? '🕒' : '（修正予定）'} ${L.title} ${oldKey}${d.prevKey ? ` → ${d.key}` : ''}: ${d.prevOpen || '—'}/${d.prevStart || '—'} → ${d.open || '—'}/${d.start || '—'}`);
+      if (WRITE) Object.assign(row, await api(() => notion.pages.update({ page_id: row.id, properties: props })));
+      else row.properties['Day'] = { type: 'rich_text', rich_text: [{ plain_text: d.key }] };   // 確認のときも、直したあとの呼び名として数える
+    }
     for (const d of L.days) { const row = rows.find(p => keyOf(p) === norm(d.key)); if (row) await fill(schedMeta, row, 'セトリURL', d.setlistUrl, `${L.title} ${d.key}`); }
     const odd = rows.filter(p => !keys.includes(keyOf(p)));
     if (odd.length) { console.log(`　⚠️ ${L.title}: 公演の呼び名が違う行（${odd.map(p => propText(p.properties['Day']) || '空欄').join('、')}）があるため、公演の行は足しません`); continue; }
@@ -154,10 +175,8 @@ async function main() {
       if (live) put(schedMeta, props, rel, [live.id]);
       put(schedMeta, props, 'Day', d.key);
       put(schedMeta, props, '順番', i + 1);
-      put(schedMeta, props, '表示ラベル', labelOf(d));
       put(schedMeta, props, '公演名', d.name);
-      put(schedMeta, props, '開演日時', d.start ? `${d.date}T${d.start.padStart(5, '0')}:00+09:00` : d.date);
-      if (d.open) put(schedMeta, props, '開場時刻', schedMeta.properties['開場時刻']?.type === 'date' ? `${d.date}T${d.open.padStart(5, '0')}:00+09:00` : d.open.padStart(5, '0'));
+      timeProps(d, props);
       put(schedMeta, props, 'セトリURL', d.setlistUrl);
       put(schedMeta, props, 'ロック', true);
       newRows++;
@@ -165,7 +184,7 @@ async function main() {
       if (WRITE) { const pg = await api(() => notion.pages.create({ parent: { database_id: SCHED_DB }, properties: props })); scheds.push(pg); }
     }
   }
-  console.log(`\n${WRITE ? '✅ 追加しました' : '🔍 確認の結果'}: 新しいライブ ${newLives}件・公演 ${newRows}行${skipped ? ` / 登録済みのライブ ${skipped}件` : ''}${filled ? ` / 空欄の補完 ${filled}か所` : ''}`);
-  if (WRITE && (newLives || newRows || filled)) console.log('このあと events.json を作り直すので、ポータルにも反映されます');
+  console.log(`\n${WRITE ? '✅ 追加しました' : '🔍 確認の結果'}: 新しいライブ ${newLives}件・公演 ${newRows}行${skipped ? ` / 登録済みのライブ ${skipped}件` : ''}${filled ? ` / 空欄の補完 ${filled}か所` : ''}${fixedRows ? ` / 時刻などの修正 ${fixedRows}行` : ''}`);
+  if (WRITE && (newLives || newRows || filled || fixedRows)) console.log('このあと events.json を作り直すので、ポータルにも反映されます');
 }
 main().catch(e => { console.error(`❌ ${e.message}`); process.exit(1); });

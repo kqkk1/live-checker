@@ -18,16 +18,20 @@
     "date": "2023-01-14",
     "name": "",
     "open": "15:30",
-    "start": "17:30",
-    "setlistUrl": "https://imas-db.jp/song/event/million_9th_day1.html"
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/million_9th_day1.html",
+    "prevOpen": "15:30",
+    "prevStart": "17:30"
    },
    {
     "key": "Day2",
     "date": "2023-01-15",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/million_9th_day2.html"
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/million_9th_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -62,9 +66,11 @@
     "key": "Day2",
     "date": "2023-02-12",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2023_day2.html"
+    "open": "15:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2023_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -94,9 +100,11 @@
     "key": "Day2",
     "date": "2023-03-19",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5th_day2.html"
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5th_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -126,9 +134,11 @@
     "key": "Day2",
     "date": "2023-04-23",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act1_day2.html"
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act1_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -158,9 +168,11 @@
     "key": "Day2",
     "date": "2023-06-11",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_kagayaki_yomatsuri_day2.html"
+    "open": "15:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_kagayaki_yomatsuri_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -255,9 +267,11 @@
     "key": "Day2",
     "date": "2023-07-23",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_solo_day2.html"
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_solo_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -287,9 +301,11 @@
     "key": "Day2",
     "date": "2023-07-30",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act2_day2.html"
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act2_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -319,9 +335,11 @@
     "key": "Day2",
     "date": "2023-09-10",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_shoutoutlive_day2.html"
+    "open": "15:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_shoutoutlive_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -351,9 +369,11 @@
     "key": "Day2",
     "date": "2023-10-22",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5_5th_day2.html"
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5_5th_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -415,9 +435,11 @@
     "key": "Day2",
     "date": "2023-11-05",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act3_day2.html"
+    "open": "14:30",
+    "start": "15:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act3_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -521,9 +543,11 @@
     "key": "Day2",
     "date": "2023-12-10",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/ijigenfes_utagassen_day2.html"
+    "open": "15:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/ijigenfes_utagassen_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -585,9 +609,11 @@
     "key": "Day2",
     "date": "2024-02-25",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act4_day2.html"
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act4_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -617,9 +643,11 @@
     "key": "Day2",
     "date": "2024-03-03",
     "name": "Brilliant Blooms",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_bb_day2.html"
+    "open": "15:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_bb_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -745,33 +773,41 @@
     "key": "Day1 昼公演",
     "date": "2024-04-13",
     "name": "BELIEVER'S MATCH",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_bm.html"
+    "open": "12:30",
+    "start": "13:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_bm.html",
+    "prevOpen": "",
+    "prevStart": ""
    },
    {
     "key": "Day1 夜公演",
     "date": "2024-04-13",
     "name": "SPIRIT'S WAY",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_sw.html"
+    "open": "17:30",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_sw.html",
+    "prevOpen": "",
+    "prevStart": ""
    },
    {
     "key": "Day2 昼公演",
     "date": "2024-04-14",
     "name": "SPIRIT'S WAY",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_sw.html"
+    "open": "11:00",
+    "start": "12:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_sw.html",
+    "prevOpen": "",
+    "prevStart": ""
    },
    {
     "key": "Day2 夜公演",
     "date": "2024-04-14",
     "name": "BELIEVER'S MATCH",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_bm.html"
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_bm.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -801,9 +837,11 @@
     "key": "Day2",
     "date": "2024-04-21",
     "name": "Fantastic Fireworks",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_ff_day2.html"
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_ff_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -929,9 +967,11 @@
     "key": "Day2",
     "date": "2024-07-14",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/sidem_9th_day2.html"
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_9th_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -961,9 +1001,11 @@
     "key": "Day2",
     "date": "2024-07-28",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_livefun_day2.html"
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_livefun_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -1153,9 +1195,11 @@
     "key": "Day2",
     "date": "2024-09-15",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_sf_day2.html"
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_sf_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -1249,9 +1293,11 @@
     "key": "Day2",
     "date": "2024-10-06",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6_5th_day2.html"
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6_5th_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -1700,12 +1746,26 @@
     "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day1.html"
    },
    {
-    "key": "Day2",
+    "key": "Day2 昼公演",
     "date": "2025-02-09",
     "name": "P@SSION SUNDAE!!!",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day2.html"
+    "open": "12:30",
+    "start": "13:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day2.html",
+    "prevKey": "Day2",
+    "prevOpen": "",
+    "prevStart": ""
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2025-02-09",
+    "name": "P@SSION SUNDAE!!!",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day2.html",
+    "prevKey": "Day2",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -1831,9 +1891,11 @@
     "key": "Day2",
     "date": "2025-03-02",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_over_the_prism_day2.html"
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_over_the_prism_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -1863,9 +1925,11 @@
     "key": "Day2",
     "date": "2025-03-09",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_osaka_day2.html"
+    "open": "14:30",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_osaka_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -1895,9 +1959,11 @@
     "key": "Day2",
     "date": "2025-03-16",
     "name": "P@SSION UP!!!",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_makuhari_day2.html"
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_makuhari_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -1952,9 +2018,11 @@
     "key": "Day2",
     "date": "2025-03-30",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/million_hpf2_day2.html"
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_hpf2_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -1984,9 +2052,11 @@
     "key": "Day2",
     "date": "2025-04-27",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_tokyo_day2.html"
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_tokyo_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2120,9 +2190,11 @@
     "key": "Day2",
     "date": "2025-05-25",
     "name": "Spotlight Star",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_ss_day2.html"
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_ss_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2152,9 +2224,11 @@
     "key": "Day2",
     "date": "2025-06-01",
     "name": "Harmony Star",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_hs_day2.html"
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_hs_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2184,9 +2258,11 @@
     "key": "Day2",
     "date": "2025-06-08",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_okinawa_day2.html"
+    "open": "13:30",
+    "start": "15:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_okinawa_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2248,9 +2324,11 @@
     "key": "Day2",
     "date": "2025-06-29",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_fukuoka_day2.html"
+    "open": "14:00",
+    "start": "15:30",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_fukuoka_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2344,9 +2422,11 @@
     "key": "Day2",
     "date": "2025-07-13",
     "name": "P@SSION-ING!!!",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_yokohama_day2.html"
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_yokohama_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2413,9 +2493,11 @@
     "key": "Day2",
     "date": "2025-08-03",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/765as_never_end_idol_day2.html"
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_never_end_idol_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2477,9 +2559,11 @@
     "key": "Day2",
     "date": "2025-09-07",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_kanagawa_day2.html"
+    "open": "15:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_kanagawa_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2509,9 +2593,11 @@
     "key": "Day2",
     "date": "2025-09-21",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_undokai_day2.html"
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_undokai_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2621,9 +2707,11 @@
     "key": "Day2",
     "date": "2025-10-12",
     "name": "Let's Sing!（主演：桜守歌織）",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/million_12th_day2.html"
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_12th_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2693,9 +2781,11 @@
     "key": "Day2",
     "date": "2025-10-26",
     "name": "The origin on the axes",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_rasen_day2.html"
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_rasen_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2773,25 +2863,31 @@
     "key": "Day1 夜公演",
     "date": "2025-11-29",
     "name": "Nocturne Crown",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage2.html"
+    "open": "16:30",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage2.html",
+    "prevOpen": "",
+    "prevStart": ""
    },
    {
     "key": "Day2 昼公演",
     "date": "2025-11-30",
     "name": "Princess Riot",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage3.html"
+    "open": "9:30",
+    "start": "11:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage3.html",
+    "prevOpen": "",
+    "prevStart": ""
    },
    {
     "key": "Day2 夜公演",
     "date": "2025-11-30",
     "name": "Ever Starlight",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage4.html"
+    "open": "14:30",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage4.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -2828,9 +2924,11 @@
     "key": "Day2",
     "date": "2025-12-14",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2025_day2.html"
+    "open": "14:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2025_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -3013,9 +3111,11 @@
     "key": "Day2",
     "date": "2026-03-01",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_musicfestival_day2.html"
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_musicfestival_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -3045,9 +3145,11 @@
     "key": "Day2",
     "date": "2026-03-15",
     "name": "百合咲き誇るレムリア（主演：七尾百合子）",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/million_11thlive_day2.html"
+    "open": "14:30",
+    "start": "15:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_11thlive_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -3117,9 +3219,11 @@
     "key": "Day2",
     "date": "2026-04-26",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_8th_day2.html"
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_8th_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -3149,9 +3253,11 @@
     "key": "Day2",
     "date": "2026-05-06",
     "name": "Grand bal masqué（主演：二階堂千鶴）",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/million_13th_day2.html"
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/million_13th_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -3221,9 +3327,11 @@
     "key": "Day2",
     "date": "2026-05-17",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/gakuen_2nd_selection_day2.html"
+    "open": "15:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_2nd_selection_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -3253,9 +3361,11 @@
     "key": "Day2",
     "date": "2026-06-07",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/gakuen_2ndperiod_day2.html"
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_2ndperiod_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -3333,9 +3443,11 @@
     "key": "Day2",
     "date": "2026-07-25",
     "name": "第二公演 -ZESSYOU-",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_iwsf_day2.html"
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_iwsf_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    },
    {
     "key": "Day3",
@@ -3645,9 +3757,11 @@
     "key": "Day2",
     "date": "2026-09-13",
     "name": "",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/sidem_11th_day2.html"
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_11th_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
@@ -3677,9 +3791,11 @@
     "key": "Day2",
     "date": "2026-09-20",
     "name": "Blooming Sign（主演：馬場このみ＆百瀬莉緒）",
-    "open": "",
-    "start": "",
-    "setlistUrl": "https://imas-db.jp/song/event/million_14th_day2.html"
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_14th_day2.html",
+    "prevOpen": "",
+    "prevStart": ""
    }
   ]
  },
