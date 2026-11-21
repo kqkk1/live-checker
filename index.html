@@ -480,7 +480,7 @@ function phase(ev) {
   if (e && e < n) return 'closed';
   if (s && s > n) return 'before';
   if (e && e - n <= 3*864e5) return 'urgent';
-  return (s || e) ? 'open' : 'tbd';
+  return (s || e) ? 'open' : (isPastEv(ev) ? 'closed' : 'tbd');   // 受付の情報がない過去のライブは「終了」
 }
 const fmtJ = new Intl.DateTimeFormat('ja-JP', {timeZone:'Asia/Tokyo', month:'numeric', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit', hourCycle:'h23'});
 function fmt(v) {
@@ -663,6 +663,7 @@ function openSettings(focus) {
       <p><b>アイマス ライブ情報ポータル</b>は、ライブ・イベントのチケット受付状況と、自分の参戦記録をまとめて確認できる非公式サイトです。</p>
       <p>応募状況やメモは、このブラウザにだけ保存されます（他の人には見えません）。</p>
       ${(u => u.t ? `<p class="${u.stale ? 'stale' : ''}">データ確認: ${esc(u.t)}</p>` : '')(updInfo())}
+      <p>2023年〜2026年9月のライブ情報（日程・公演名・セトリへのリンク）は、<a href="https://imas-db.jp/" target="_blank" rel="noopener">アイマスDB</a>を参考にしています。</p>
       <p>${DISCLAIMER}</p>
       <p>公式サイト・各チケット販売ページとは関係ありません。</p>
     </div>
@@ -922,7 +923,9 @@ function draw() {
     return [ev.title, ev.venue, ev.phase, me(ev.id).memo, ...(ev.brands || []), ...(ev.schedules || []).flatMap(s => s.castNames || [])].join(' ').toLowerCase().includes(q);
   });
   const cnt = {};
-  TABS.forEach(([k]) => { const t = tab; tab = k; cnt[k] = base.filter(ev => matchTab(ev, phase(ev), me(ev.id))).length; tab = t; });
+  // 終わったライブは「すべて」「応募済み」だけに出す（下の一覧と同じ数え方にする）
+  const endedEv = ev => { const end = ev.eventDateEnd || ev.eventDateStart || ''; return !!end && end < today; };
+  TABS.forEach(([k]) => { const t = tab; tab = k; cnt[k] = base.filter(ev => matchTab(ev, phase(ev), me(ev.id)) && !(endedEv(ev) && k !== 'all' && k !== 'mine')).length; tab = t; });
   $('tabs').innerHTML = TABS.map(([k, l]) => `<button class="tab ${tab === k ? 'on' : ''}" data-tab="${k}" aria-pressed="${tab === k}">${l}<b>${cnt[k]}</b></button>`).join('');
   $('gmode').innerHTML = [['solo','ソロ'],['pair','連番']].map(([v, l]) => `<button class="chip ${gmode === v ? 'on' : ''}" data-gmode="${v}">${l}</button>`).join('');
   $('brands').innerHTML = BRANDS.map(b => `<button class="chip ${brand === b ? 'on' : ''}" data-brand="${b}" aria-pressed="${brand === b}">${b}</button>`).join('');
@@ -930,11 +933,10 @@ function draw() {
   const list = base.filter(ev => {
     const ph = phase(ev), st = me(ev.id);
     if (!matchTab(ev, ph, st)) return false;
-    const end = ev.eventDateEnd || ev.eventDateStart || '';
-    return !(end && end < today && tab !== 'all' && tab !== 'mine');
+    return !(endedEv(ev) && tab !== 'all' && tab !== 'mine');
   }).sort((a, b) => {
     const pa = phase(a), pb = phase(b);
-    const k = (ev, p) => p === 'before' ? ms(ev.applyStartDate) : p === 'closed' ? -ms(ev.deadline) : (ms(ev.deadline) || 8.64e15);
+    const k = (ev, p) => p === 'before' ? ms(ev.applyStartDate) : p === 'closed' ? -(ms(ev.deadline) || ms(ev.eventDateStart) || 0) : (ms(ev.deadline) || 8.64e15);
     return RANK[pa] - RANK[pb] || k(a, pa) - k(b, pb);
   });
 
@@ -1064,11 +1066,13 @@ function renderSheet(id) {
         <dt>会場</dt><dd>${esc(ev.venue || '未定')}</dd>
         ${ev.nearestStation ? `<dt>最寄り駅</dt><dd>${esc(ev.nearestStation)}</dd>` : ''}
         <dt>リンク</dt><dd>${ev.mapUrl ? `<a href="${esc(ev.mapUrl)}" target="_blank" rel="noopener">地図</a>` : ''}　${ev.accessUrl ? `<a href="${esc(ev.accessUrl)}" target="_blank" rel="noopener">アクセス</a>` : ''}</dd></dl>`, OPEN.venue),
-    sched: acc(ev, 'sched', '公演日程・ペンライト', n ? `${n}公演` : '未定', (ev.schedules || []).map(sc => {
+    sched: acc(ev, 'sched', isPastEv(ev) && (ev.schedules || []).some(x => x.setlistUrl) ? '公演日程・セトリ' : '公演日程・ペンライト', n ? `${n}公演` : '未定', (ev.schedules || []).map(sc => {
       const sp = ev.isSpecialColor || (sc.penlightUrl || '').includes('special=1'), c = sc.penlightCastCount ?? (sc.castCount || (sc.castNames || []).length);
+      const pl = sc.penlightUrl && !(isPastEv(ev) && !c);   // 終わったライブで出演者が入っていなければ、ペンライトのボタンは出さない
       return `<div class="sched"><b>${esc(sc.label)}</b>
         ${(sc.castNames || []).length ? `<details><summary>出演キャスト（${sc.castNames.length}名）</summary>${esc(sc.castNames.join(' / '))}</details>` : ''}
-        ${sc.penlightUrl ? `<a class="btn ${sp ? 'sp' : ''}" href="${esc(sc.penlightUrl)}" target="_blank" rel="noopener">${ic('wand')}${sp ? 'ペンライト設定を作成（特別カラー）' : 'ペンライト設定を作成'}（${c}名）</a>` : ''}</div>`;
+        ${sc.setlistUrl ? `<a class="btn" href="${esc(sc.setlistUrl)}" target="_blank" rel="noopener">${ic('list')}セトリを見る（アイマスDB）</a>` : ''}
+        ${pl ? `<a class="btn ${sp ? 'sp' : ''}" href="${esc(sc.penlightUrl)}" target="_blank" rel="noopener">${ic('wand')}${sp ? 'ペンライト設定を作成（特別カラー）' : 'ペンライト設定を作成'}（${c}名）</a>` : ''}</div>`;
     }).join('') || '<p class="sub">日程は未定です</p>', OPEN.sched),
   };
 

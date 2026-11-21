@@ -1,0 +1,3750 @@
+[
+ {
+  "title": "ミリオン9th",
+  "fullName": "THE IDOLM@STER MILLION LIVE! 9thLIVE ChoruSp@rkle!!",
+  "brands": [
+   "ミリオン"
+  ],
+  "venue": "日本武道館",
+  "venueKey": "日本武道館",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2023-01-14",
+  "dateEnd": "2023-01-15",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-01-14",
+    "name": "",
+    "open": "15:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_9th_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-01-15",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/million_9th_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "IDOL WORLD 2023",
+  "fullName": "THE IDOLM@STER M@STERS OF IDOL WORLD!!!!! 2023",
+  "brands": [
+   "765AS",
+   "デレマス",
+   "ミリオン",
+   "SideM",
+   "シャニマス",
+   "961"
+  ],
+  "venue": "東京ドーム",
+  "venueKey": "東京ドーム",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2023-02-11",
+  "dateEnd": "2023-02-12",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-02-11",
+    "name": "",
+    "open": "15:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2023_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-02-12",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2023_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ5th",
+  "fullName": "THE IDOLM@STER SHINY COLORS 5thLIVE If I_wings.",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "国立代々木競技場 第一体育館",
+  "venueKey": "国立代々木競技場 第一体育館",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2023-03-18",
+  "dateEnd": "2023-03-19",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-03-18",
+    "name": "",
+    "open": "14:30",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5th_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-03-19",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5th_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "ミリオン10th Act-1",
+  "fullName": "THE IDOLM@STER MILLION LIVE! 10thLIVE TOUR Act-1 H@PPY 4 YOU!",
+  "brands": [
+   "ミリオン"
+  ],
+  "venue": "さいたまスーパーアリーナ",
+  "venueKey": "さいたまスーパーアリーナ",
+  "prefecture": "埼玉県",
+  "xr": false,
+  "dateStart": "2023-04-22",
+  "dateEnd": "2023-04-23",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-04-22",
+    "name": "",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act1_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-04-23",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act1_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "デレ燿城夜祭",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS 燿城夜祭 -かがやきよまつり-",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "大阪城ホール",
+  "venueKey": "大阪城ホール",
+  "prefecture": "大阪府",
+  "xr": false,
+  "dateStart": "2023-06-10",
+  "dateEnd": "2023-06-11",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-06-10",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_kagayaki_yomatsuri_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-06-11",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_kagayaki_yomatsuri_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "765ML Dreamin' Groove",
+  "fullName": "765 MILLIONSTARS LIVE 2023 Dreamin' Groove",
+  "brands": [
+   "765AS",
+   "ミリオン"
+  ],
+  "venue": "神田スクエアホール",
+  "venueKey": "神田スクエアホール",
+  "prefecture": "東京都",
+  "xr": true,
+  "dateStart": "2023-07-01",
+  "dateEnd": "2023-07-02",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-07-01",
+    "name": "",
+    "open": "17:15",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_imas765ml_dg.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2023-07-02",
+    "name": "",
+    "open": "11:15",
+    "start": "12:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_imas765ml_dg.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2023-07-02",
+    "name": "",
+    "open": "15:15",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_imas765ml_dg.html"
+   }
+  ]
+ },
+ {
+  "title": "FCL BRAINPOWER!! 神奈川",
+  "fullName": "315 Production presents F@NTASTIC COMBINATION LIVE 〜BRAINPOWER!!〜 神奈川公演",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "神奈川県民ホール",
+  "venueKey": "神奈川県民ホール",
+  "prefecture": "神奈川県",
+  "xr": true,
+  "dateStart": "2023-07-09",
+  "dateEnd": "2023-07-09",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-07-09",
+    "name": "",
+    "open": "18:00",
+    "start": "19:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_bp.html"
+   }
+  ]
+ },
+ {
+  "title": "283ソロライブ「我儘なまま」",
+  "fullName": "283PRODUCTION SOLO PERFORMANCE LIVE「我儘なまま」",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "武蔵野の森総合スポーツプラザ メインアリーナ",
+  "venueKey": "京王アリーナTOKYO（武蔵野の森）",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2023-07-22",
+  "dateEnd": "2023-07-23",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-07-22",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_solo_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-07-23",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_solo_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "ミリオン10th Act-2",
+  "fullName": "THE IDOLM@STER MILLION LIVE! 10thLIVE TOUR Act-2 5 TO SP@RKLE!!",
+  "brands": [
+   "ミリオン"
+  ],
+  "venue": "ポートメッセなごや 新第1展示館",
+  "venueKey": "ポートメッセなごや 新第1展示館",
+  "prefecture": "愛知県",
+  "xr": false,
+  "dateStart": "2023-07-29",
+  "dateEnd": "2023-07-30",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-07-29",
+    "name": "",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act2_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-07-30",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act2_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "デレ Shout out Live!!!",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS Shout out Live!!!",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "愛知県国際展示場 ホールA",
+  "venueKey": "愛知県国際展示場 ホールA",
+  "prefecture": "愛知県",
+  "xr": false,
+  "dateStart": "2023-09-09",
+  "dateEnd": "2023-09-10",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-09-09",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_shoutoutlive_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-09-10",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_shoutoutlive_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ5.5th",
+  "fullName": "THE IDOLM@STER SHINY COLORS 5.5th Anniversary LIVE 星が見上げた空",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "幕張イベントホール",
+  "venueKey": "幕張イベントホール",
+  "prefecture": "千葉県",
+  "xr": false,
+  "dateStart": "2023-10-21",
+  "dateEnd": "2023-10-22",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-10-21",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5_5th_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-10-22",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_5_5th_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "SideM 8th",
+  "fullName": "THE IDOLM@STER SideM 8th STAGE 〜ALL H@NDS TOGETHER〜",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "Kアリーナ横浜",
+  "venueKey": "Kアリーナ横浜",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2023-10-28",
+  "dateEnd": "2023-10-29",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-10-28",
+    "name": "CATCH MY H@NDS",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_8th_stage_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-10-29",
+    "name": "CLAP OUR H@NDS",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_8th_stage_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "ミリオン10th Act-3",
+  "fullName": "THE IDOLM@STER MILLION LIVE! 10thLIVE TOUR Act-3 R@ISE THE DREAM!!!",
+  "brands": [
+   "ミリオン"
+  ],
+  "venue": "西日本総合展示場 新館",
+  "venueKey": "西日本総合展示場 新館",
+  "prefecture": "福岡県",
+  "xr": false,
+  "dateStart": "2023-11-04",
+  "dateEnd": "2023-11-05",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-11-04",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act3_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-11-05",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act3_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "FCL BRAINPOWER!! 幕張",
+  "fullName": "315 Production presents F@NTASTIC COMBINATION LIVE 〜BRAINPOWER!!〜 幕張公演",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "幕張メッセ",
+  "venueKey": "幕張メッセ",
+  "prefecture": "千葉県",
+  "xr": true,
+  "dateStart": "2023-11-17",
+  "dateEnd": "2023-11-17",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-11-17",
+    "name": "",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_bp2.html"
+   }
+  ]
+ },
+ {
+  "title": "FCL CONNECTIME!!!!",
+  "fullName": "315 Production presents F@NTASTIC COMBINATION LIVE 〜CONNECTIME!!!!〜",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "幕張メッセ国際展示場 ホール9-10",
+  "venueKey": "幕張メッセ",
+  "prefecture": "千葉県",
+  "xr": true,
+  "dateStart": "2023-11-18",
+  "dateEnd": "2023-11-19",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2023-11-18",
+    "name": "DIMENSION ARROW",
+    "open": "12:30",
+    "start": "13:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_ct_da.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2023-11-18",
+    "name": "共鳴和音(harmony chord)",
+    "open": "17:30",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_ct_hc.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2023-11-19",
+    "name": "共鳴和音(harmony chord)",
+    "open": "12:00",
+    "start": "13:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_ct_hc.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2023-11-19",
+    "name": "DIMENSION ARROW",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_ct_da.html"
+   }
+  ]
+ },
+ {
+  "title": "異次元フェス",
+  "fullName": "異次元フェス アイドルマスター★♥ラブライブ！歌合戦",
+  "brands": [
+   "デレマス",
+   "ミリオン",
+   "シャニマス"
+  ],
+  "venue": "東京ドーム",
+  "venueKey": "東京ドーム",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2023-12-09",
+  "dateEnd": "2023-12-10",
+  "note": "ラブライブ！との合同。前夜の開催記念番組（配信）は除外",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2023-12-09",
+    "name": "",
+    "open": "15:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/ijigenfes_utagassen_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2023-12-10",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/ijigenfes_utagassen_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "デレ ConnecTrip! 山形",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS UNIT LIVE TOUR ConnecTrip! 山形公演",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "やまぎん県民ホール",
+  "venueKey": "やまぎん県民ホール",
+  "prefecture": "山形県",
+  "xr": false,
+  "dateStart": "2024-02-03",
+  "dateEnd": "2024-02-03",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-02-03",
+    "name": "デア・アウローラ／レイジー・レイジー／ルビーカウンテス",
+    "open": "13:00",
+    "start": "14:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_yamagata.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-02-03",
+    "name": "デア・アウローラ／レイジー・レイジー／ルビーカウンテス",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_yamagata.html"
+   }
+  ]
+ },
+ {
+  "title": "ミリオン10th Act-4",
+  "fullName": "THE IDOLM@STER MILLION LIVE! 10thLIVE TOUR Act-4 MILLION THE@TER!!!!",
+  "brands": [
+   "ミリオン"
+  ],
+  "venue": "Kアリーナ横浜",
+  "venueKey": "Kアリーナ横浜",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2024-02-24",
+  "dateEnd": "2024-02-25",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2024-02-24",
+    "name": "",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act4_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2024-02-25",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/million_10th_act4_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ6th 大阪",
+  "fullName": "THE IDOLM@STER SHINY COLORS 6thLIVE TOUR Come and Unite! Brilliant Blooms（大阪公演）",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "大阪城ホール",
+  "venueKey": "大阪城ホール",
+  "prefecture": "大阪府",
+  "xr": false,
+  "dateStart": "2024-03-02",
+  "dateEnd": "2024-03-03",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2024-03-02",
+    "name": "Brilliant Blooms",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_bb_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2024-03-03",
+    "name": "Brilliant Blooms",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_bb_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "デレ ConnecTrip! 岩手",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS UNIT LIVE TOUR ConnecTrip! 岩手公演",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "トーサイクラシックホール岩手",
+  "venueKey": "トーサイクラシックホール岩手",
+  "prefecture": "岩手県",
+  "xr": false,
+  "dateStart": "2024-03-10",
+  "dateEnd": "2024-03-10",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-03-10",
+    "name": "ワンステップス／フェアリーテイル＊マイテイル／Sola-iris",
+    "open": "12:30",
+    "start": "13:30",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_iwate.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-03-10",
+    "name": "ワンステップス／フェアリーテイル＊マイテイル／Sola-iris",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_iwate.html"
+   }
+  ]
+ },
+ {
+  "title": "twin live はんげつであえたら",
+  "fullName": "菊地真・萩原雪歩 twin live \"はんげつであえたら\"",
+  "brands": [
+   "765AS"
+  ],
+  "venue": "ベイシア文化ホール（群馬県民会館）",
+  "venueKey": "ベイシア文化ホール（群馬県民会館）",
+  "prefecture": "群馬県",
+  "xr": true,
+  "dateStart": "2024-03-16",
+  "dateEnd": "2024-03-17",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2024-03-16",
+    "name": "〜友藍〜",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_twinlive_halfmoon.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2024-03-17",
+    "name": "〜悲藍〜",
+    "open": "10:00",
+    "start": "12:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_twinlive_halfmoon.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2024-03-17",
+    "name": "〜純藍〜",
+    "open": "15:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_twinlive_halfmoon.html"
+   }
+  ]
+ },
+ {
+  "title": "デレ ConnecTrip! 大阪",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS UNIT LIVE TOUR ConnecTrip! 大阪公演",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "Zepp Osaka Bayside",
+  "venueKey": "Zepp Osaka Bayside",
+  "prefecture": "大阪府",
+  "xr": false,
+  "dateStart": "2024-04-06",
+  "dateEnd": "2024-04-06",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-04-06",
+    "name": "Triad Primus／ダークイルミネイト／VelvetRose",
+    "open": "12:30",
+    "start": "13:30",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_osaka.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-04-06",
+    "name": "Triad Primus／ダークイルミネイト／VelvetRose",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_osaka.html"
+   }
+  ]
+ },
+ {
+  "title": "FCL HEARTMAKER!!!!",
+  "fullName": "315 Production presents F@NTASTIC COMBINATION LIVE 〜HEARTMAKER!!!!〜",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "幕張イベントホール",
+  "venueKey": "幕張イベントホール",
+  "prefecture": "千葉県",
+  "xr": true,
+  "dateStart": "2024-04-13",
+  "dateEnd": "2024-04-14",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-04-13",
+    "name": "BELIEVER'S MATCH",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_bm.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-04-13",
+    "name": "SPIRIT'S WAY",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_sw.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2024-04-14",
+    "name": "SPIRIT'S WAY",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_sw.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2024-04-14",
+    "name": "BELIEVER'S MATCH",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_hm_bm.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ6th 横浜",
+  "fullName": "THE IDOLM@STER SHINY COLORS 6thLIVE TOUR Come and Unite! Fantastic Fireworks（横浜公演）",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "Kアリーナ横浜",
+  "venueKey": "Kアリーナ横浜",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2024-04-20",
+  "dateEnd": "2024-04-21",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2024-04-20",
+    "name": "Fantastic Fireworks",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_ff_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2024-04-21",
+    "name": "Fantastic Fireworks",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6th_ff_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "デレ ConnecTrip! 福岡",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS UNIT LIVE TOUR ConnecTrip! 福岡公演",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "Zepp Fukuoka",
+  "venueKey": "Zepp Fukuoka",
+  "prefecture": "福岡県",
+  "xr": false,
+  "dateStart": "2024-05-19",
+  "dateEnd": "2024-05-19",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-05-19",
+    "name": "セクシーギルティ／ヒーローヴァーサス／ビートシューター",
+    "open": "12:30",
+    "start": "13:30",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_fukuoka.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-05-19",
+    "name": "セクシーギルティ／ヒーローヴァーサス／ビートシューター",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_fukuoka.html"
+   }
+  ]
+ },
+ {
+  "title": "デレ ConnecTrip! 東京",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS UNIT LIVE TOUR ConnecTrip! 東京公演",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "Zepp DiverCity TOKYO",
+  "venueKey": "Zepp DiverCity TOKYO",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2024-06-01",
+  "dateEnd": "2024-06-01",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-06-01",
+    "name": "ポジティブパッション／星纏天女／#UNICUS",
+    "open": "13:00",
+    "start": "14:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_tokyo.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-06-01",
+    "name": "ポジティブパッション／星纏天女／#UNICUS",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_tokyo.html"
+   }
+  ]
+ },
+ {
+  "title": "デレ ConnecTrip! 石川",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS UNIT LIVE TOUR ConnecTrip! 石川公演",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "本多の森北電ホール",
+  "venueKey": "本多の森北電ホール",
+  "prefecture": "石川県",
+  "xr": false,
+  "dateStart": "2024-06-16",
+  "dateEnd": "2024-06-16",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-06-16",
+    "name": "羽衣小町／可惜夜月／かくりよがたり",
+    "open": "13:00",
+    "start": "14:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_ishikawa.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-06-16",
+    "name": "羽衣小町／可惜夜月／かくりよがたり",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_ut_ishikawa.html"
+   }
+  ]
+ },
+ {
+  "title": "SideM 9th",
+  "fullName": "THE IDOLM@STER SideM 9th STAGE 〜MIR@-CIRCLE CRESCENDO〜",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "幕張メッセ 国際展示場ホール9-11",
+  "venueKey": "幕張メッセ",
+  "prefecture": "千葉県",
+  "xr": false,
+  "dateStart": "2024-07-13",
+  "dateEnd": "2024-07-14",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2024-07-13",
+    "name": "",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_9th_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2024-07-14",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_9th_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ LIVE FUN!!",
+  "fullName": "THE IDOLM@STER SHINY COLORS LIVE FUN!! -Beyond the Blue sky-",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "横浜アリーナ",
+  "venueKey": "横浜アリーナ",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2024-07-27",
+  "dateEnd": "2024-07-28",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2024-07-27",
+    "name": "",
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_livefun_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2024-07-28",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_livefun_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初声 名古屋",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初声公演- 名古屋公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "名古屋クラブクアトロ",
+  "venueKey": "名古屋クラブクアトロ",
+  "prefecture": "愛知県",
+  "xr": false,
+  "dateStart": "2024-08-10",
+  "dateEnd": "2024-08-10",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2024-08-10",
+    "name": "初声公演",
+    "open": "16:30",
+    "start": "17:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_ubugoe_nagoya.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初声 梅田",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初声公演- 梅田公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "梅田クラブクアトロ",
+  "venueKey": "梅田クラブクアトロ",
+  "prefecture": "大阪府",
+  "xr": false,
+  "dateStart": "2024-08-18",
+  "dateEnd": "2024-08-18",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-08-18",
+    "name": "初声公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_ubugoe_umeda.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-08-18",
+    "name": "初声公演",
+    "open": "17:45",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_ubugoe_umeda.html"
+   }
+  ]
+ },
+ {
+  "title": "Re:FLAME 京都",
+  "fullName": "961 PRODUCTION presents 『Re:FLAME』 京都公演",
+  "brands": [
+   "961"
+  ],
+  "venue": "ロームシアター京都 メインホール",
+  "venueKey": "ロームシアター京都 メインホール",
+  "prefecture": "京都府",
+  "xr": true,
+  "dateStart": "2024-08-24",
+  "dateEnd": "2024-08-25",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2024-08-24",
+    "name": "Re:MEMBER/MOON",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/961production_reflame.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2024-08-25",
+    "name": "Re:SIST/STAR",
+    "open": "12:30",
+    "start": "13:30",
+    "setlistUrl": "https://imas-db.jp/song/event/961production_reflame.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2024-08-25",
+    "name": "Re:FRAME/SUN",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/961production_reflame.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初声 渋谷",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初声公演- 渋谷公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "渋谷クラブクアトロ",
+  "venueKey": "渋谷クラブクアトロ",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2024-08-25",
+  "dateEnd": "2024-08-25",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-08-25",
+    "name": "初声公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_ubugoe_shibuya.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-08-25",
+    "name": "初声公演",
+    "open": "17:45",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_ubugoe_shibuya.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初心 名古屋",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初心公演- 名古屋公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "名古屋クラブクアトロ",
+  "venueKey": "名古屋クラブクアトロ",
+  "prefecture": "愛知県",
+  "xr": false,
+  "dateStart": "2024-09-07",
+  "dateEnd": "2024-09-07",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-09-07",
+    "name": "初心公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_nagoya.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-09-07",
+    "name": "初心公演",
+    "open": "17:45",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_nagoya.html"
+   }
+  ]
+ },
+ {
+  "title": "デレ STARLIGHT FANTASY",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS STARLIGHT FANTASY",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "Kアリーナ横浜",
+  "venueKey": "Kアリーナ横浜",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2024-09-14",
+  "dateEnd": "2024-09-15",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2024-09-14",
+    "name": "",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_sf_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2024-09-15",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_sf_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初心 広島",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初心公演- 広島公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "広島クラブクアトロ",
+  "venueKey": "広島クラブクアトロ",
+  "prefecture": "広島県",
+  "xr": false,
+  "dateStart": "2024-09-23",
+  "dateEnd": "2024-09-23",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-09-23",
+    "name": "初心公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_hiroshima.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-09-23",
+    "name": "初心公演",
+    "open": "17:45",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_hiroshima.html"
+   }
+  ]
+ },
+ {
+  "title": "ヴイアラ PRODUCER MEETING 2024",
+  "fullName": "PROJECT IM@S vα-liv PRODUCER MEETING 2024 -FROM NOW ON!!!-",
+  "brands": [
+   "ヴイアラ"
+  ],
+  "venue": "GARDEN新木場FACTORY",
+  "venueKey": "GARDEN新木場FACTORY",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2024-09-28",
+  "dateEnd": "2024-09-28",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-09-28",
+    "name": "",
+    "open": "13:30",
+    "start": "14:30",
+    "setlistUrl": "https://imas-db.jp/song/event/valiv_producer_meeting2024.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-09-28",
+    "name": "",
+    "open": "17:30",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/valiv_producer_meeting2024.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ6.5th",
+  "fullName": "THE IDOLM@STER SHINY COLORS 6.5th Anniversary LIVE \"Chapter 283\"",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "武蔵野の森総合スポーツプラザ メインアリーナ",
+  "venueKey": "京王アリーナTOKYO（武蔵野の森）",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2024-10-05",
+  "dateEnd": "2024-10-06",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2024-10-05",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6_5th_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2024-10-06",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_6_5th_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初恋 梅田",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初恋公演- 梅田公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "梅田クラブクアトロ",
+  "venueKey": "梅田クラブクアトロ",
+  "prefecture": "大阪府",
+  "xr": false,
+  "dateStart": "2024-10-14",
+  "dateEnd": "2024-10-14",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-10-14",
+    "name": "初恋公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_umeda.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-10-14",
+    "name": "初恋公演",
+    "open": "17:45",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_umeda.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初恋 広島",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初恋公演- 広島公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "広島クラブクアトロ",
+  "venueKey": "広島クラブクアトロ",
+  "prefecture": "広島県",
+  "xr": false,
+  "dateStart": "2024-10-19",
+  "dateEnd": "2024-10-19",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-10-19",
+    "name": "初恋公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_hiroshima.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-10-19",
+    "name": "初恋公演",
+    "open": "17:45",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_hiroshima.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初恋 渋谷",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初恋公演- 渋谷公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "渋谷クラブクアトロ",
+  "venueKey": "渋谷クラブクアトロ",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2024-10-27",
+  "dateEnd": "2024-10-27",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-10-27",
+    "name": "初恋公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_shibuya.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-10-27",
+    "name": "初恋公演",
+    "open": "17:45",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_hatukoi_shibuya.html"
+   }
+  ]
+ },
+ {
+  "title": "SideM 10th 愛媛",
+  "fullName": "THE IDOLM@STER SideM 10th ANNIVERSARY MEETING 〜P@SSION BANG!!!〜（愛媛公演）",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "松山市民会館 大ホール",
+  "venueKey": "松山市民会館 大ホール",
+  "prefecture": "愛媛県",
+  "xr": false,
+  "dateStart": "2024-11-03",
+  "dateEnd": "2024-11-03",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-11-03",
+    "name": "P@SSION BANG!!!",
+    "open": "12:00",
+    "start": "13:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_ehime.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-11-03",
+    "name": "P@SSION BANG!!!",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_ehime.html"
+   }
+  ]
+ },
+ {
+  "title": "FCL PINATATIME!!",
+  "fullName": "315 Production presents F@NTASTIC COMBINATION LIVE 〜PINATATIME!!〜",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "横浜BUNTAI",
+  "venueKey": "横浜BUNTAI",
+  "prefecture": "神奈川県",
+  "xr": true,
+  "dateStart": "2024-12-01",
+  "dateEnd": "2024-12-01",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-12-01",
+    "name": "",
+    "open": "11:00",
+    "start": "12:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_pt.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-12-01",
+    "name": "",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_pt.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初心 梅田",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初心公演- 梅田公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "梅田クラブクアトロ",
+  "venueKey": "梅田クラブクアトロ",
+  "prefecture": "大阪府",
+  "xr": false,
+  "dateStart": "2024-12-01",
+  "dateEnd": "2024-12-01",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-12-01",
+    "name": "初心公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_umeda.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-12-01",
+    "name": "初心公演",
+    "open": "17:45",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_syoshin_umeda.html"
+   }
+  ]
+ },
+ {
+  "title": "M@STER EXPO LIVE SHOWCASE",
+  "fullName": "THE IDOLM@STER M@STER EXPO LIVE SHOWCASE & エキスポステージ",
+  "brands": [
+   "765AS",
+   "デレマス",
+   "ミリオン",
+   "SideM",
+   "シャニマス",
+   "学マス",
+   "ヴイアラ"
+  ],
+  "venue": "幕張メッセ 国際展示場",
+  "venueKey": "幕張メッセ",
+  "prefecture": "千葉県",
+  "xr": true,
+  "dateStart": "2024-12-14",
+  "dateEnd": "2024-12-15",
+  "note": "EXPO会場内のステージ。ブランドごとの回を、それぞれ1公演として登録",
+  "days": [
+   {
+    "key": "Day1 765AS",
+    "date": "2024-12-14",
+    "name": "HARUKA AMAMI SOLO LIVE \"START\"",
+    "open": "9:50",
+    "start": "10:30",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   },
+   {
+    "key": "Day1 ヴイアラ",
+    "date": "2024-12-14",
+    "name": "ヴイアラSPソロステージ DAY1",
+    "open": "",
+    "start": "11:30",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   },
+   {
+    "key": "Day1 シャニ",
+    "date": "2024-12-14",
+    "name": "\"THE CUBE\"",
+    "open": "12:40",
+    "start": "13:20",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   },
+   {
+    "key": "Day1 デレ",
+    "date": "2024-12-14",
+    "name": "CINDERELLA STAGE DAY1",
+    "open": "15:10",
+    "start": "15:50",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   },
+   {
+    "key": "Day1 学マス",
+    "date": "2024-12-14",
+    "name": "エキスポミニライブ DAY1",
+    "open": "",
+    "start": "17:40",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   },
+   {
+    "key": "Day1 SideM",
+    "date": "2024-12-14",
+    "name": "Side P@SSION!!!",
+    "open": "18:30",
+    "start": "19:10",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   },
+   {
+    "key": "Day2 765AS",
+    "date": "2024-12-15",
+    "name": "RITSUKO AKIZUKI SOLO LIVE \"Let me hear\"",
+    "open": "9:50",
+    "start": "10:30",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   },
+   {
+    "key": "Day2 ヴイアラ",
+    "date": "2024-12-15",
+    "name": "ヴイアラSPソロステージ DAY2",
+    "open": "",
+    "start": "11:30",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   },
+   {
+    "key": "Day2 シャニ",
+    "date": "2024-12-15",
+    "name": "\"THE CUBE\"",
+    "open": "12:40",
+    "start": "13:20",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   },
+   {
+    "key": "Day2 デレ",
+    "date": "2024-12-15",
+    "name": "CINDERELLA STAGE DAY2",
+    "open": "15:10",
+    "start": "15:50",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   },
+   {
+    "key": "Day2 学マス",
+    "date": "2024-12-15",
+    "name": "エキスポミニライブ DAY2",
+    "open": "",
+    "start": "17:40",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   },
+   {
+    "key": "Day2 ミリオン",
+    "date": "2024-12-15",
+    "name": "MILLION STAGE",
+    "open": "18:30",
+    "start": "19:10",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_master_expo.html"
+   }
+  ]
+ },
+ {
+  "title": "SideM 10th 熊本",
+  "fullName": "THE IDOLM@STER SideM 10th ANNIVERSARY MEETING 〜P@SSION SPARKS!!!〜（熊本公演）",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "熊本城ホール メインホール",
+  "venueKey": "熊本城ホール メインホール",
+  "prefecture": "熊本県",
+  "xr": false,
+  "dateStart": "2024-12-22",
+  "dateEnd": "2024-12-22",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2024-12-22",
+    "name": "P@SSION SPARKS!!!",
+    "open": "12:00",
+    "start": "13:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_kumamoto.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2024-12-22",
+    "name": "P@SSION SPARKS!!!",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_kumamoto.html"
+   }
+  ]
+ },
+ {
+  "title": "283 LP [liminal;marginal;eternal]",
+  "fullName": "283 Production LIVE Performance [liminal;marginal;eternal]",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "立川ステージガーデン",
+  "venueKey": "立川ステージガーデン",
+  "prefecture": "東京都",
+  "xr": true,
+  "dateStart": "2025-01-11",
+  "dateEnd": "2025-01-12",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-01-11",
+    "name": "[never;1]",
+    "open": "13:30",
+    "start": "14:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-01-11",
+    "name": "[odd;2]",
+    "open": "17:30",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2025-01-12",
+    "name": "[or;3]",
+    "open": "13:30",
+    "start": "14:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2025-01-12",
+    "name": "[even;4]",
+    "open": "17:30",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html"
+   }
+  ]
+ },
+ {
+  "title": "Re:FLAME 大阪",
+  "fullName": "961 PRODUCTION presents 『Re:FLAME』 追加公演（大阪）",
+  "brands": [
+   "961"
+  ],
+  "venue": "フェニーチェ堺 大ホール",
+  "venueKey": "フェニーチェ堺 大ホール",
+  "prefecture": "大阪府",
+  "xr": true,
+  "dateStart": "2025-02-01",
+  "dateEnd": "2025-02-01",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-02-01",
+    "name": "Re:FRAIN/DAWN",
+    "open": "11:30",
+    "start": "12:30",
+    "setlistUrl": "https://imas-db.jp/song/event/961production_reflame_osaka.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-02-01",
+    "name": "Re:FLAME/DUSK",
+    "open": "15:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/961production_reflame_osaka.html"
+   }
+  ]
+ },
+ {
+  "title": "SideM 10th 大阪",
+  "fullName": "THE IDOLM@STER SideM 10th ANNIVERSARY MEETING 〜P@SSION SUNDAE!!!〜（大阪公演）",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "オリックス劇場",
+  "venueKey": "オリックス劇場",
+  "prefecture": "大阪府",
+  "xr": false,
+  "dateStart": "2025-02-08",
+  "dateEnd": "2025-02-09",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-02-08",
+    "name": "P@SSION SUNDAE!!!",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-02-09",
+    "name": "P@SSION SUNDAE!!!",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初陣 名古屋",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初陣公演- 名古屋公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "名古屋クラブクアトロ",
+  "venueKey": "名古屋クラブクアトロ",
+  "prefecture": "愛知県",
+  "xr": false,
+  "dateStart": "2025-02-08",
+  "dateEnd": "2025-02-08",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-02-08",
+    "name": "初陣公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_nagoya.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-02-08",
+    "name": "初陣公演",
+    "open": "17:45",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_nagoya.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初陣 梅田",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初陣公演- 梅田公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "梅田クラブクアトロ",
+  "venueKey": "梅田クラブクアトロ",
+  "prefecture": "大阪府",
+  "xr": false,
+  "dateStart": "2025-02-11",
+  "dateEnd": "2025-02-11",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-02-11",
+    "name": "初陣公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_umeda.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-02-11",
+    "name": "初陣公演",
+    "open": "17:45",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_umeda.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初陣 渋谷",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初陣公演- 渋谷公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "渋谷クラブクアトロ",
+  "venueKey": "渋谷クラブクアトロ",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2025-02-16",
+  "dateEnd": "2025-02-16",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-02-16",
+    "name": "初陣公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_shibuya.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-02-16",
+    "name": "初陣公演",
+    "open": "17:45",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_shibuya.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ Over the prism",
+  "fullName": "THE IDOLM@STER SHINY COLORS 2nd season LIVE Over the prism",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "ぴあアリーナMM",
+  "venueKey": "ぴあアリーナMM",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2025-03-01",
+  "dateEnd": "2025-03-02",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-03-01",
+    "name": "",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_over_the_prism_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-03-02",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_over_the_prism_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "デレステ10th 大阪",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS STARLIGHT STAGE 10th ANNIVERSARY TOUR Let's AMUSEMENT!!! 大阪公演",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "大阪城ホール",
+  "venueKey": "大阪城ホール",
+  "prefecture": "大阪府",
+  "xr": false,
+  "dateStart": "2025-03-08",
+  "dateEnd": "2025-03-09",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-03-08",
+    "name": "",
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_osaka_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-03-09",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_osaka_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "SideM 10th 幕張",
+  "fullName": "THE IDOLM@STER SideM 10th ANNIVERSARY MEETING 〜P@SSION UP!!!〜（幕張公演）",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "幕張イベントホール",
+  "venueKey": "幕張イベントホール",
+  "prefecture": "千葉県",
+  "xr": false,
+  "dateStart": "2025-03-15",
+  "dateEnd": "2025-03-16",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-03-15",
+    "name": "P@SSION UP!!!",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_makuhari_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-03-16",
+    "name": "P@SSION UP!!!",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_makuhari_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "ヴイアラ1st",
+  "fullName": "PROJECT IM@S vα-liv 1stLIVE -HERE WE ARE!!!-",
+  "brands": [
+   "ヴイアラ"
+  ],
+  "venue": "Zepp DiverCity TOKYO",
+  "venueKey": "Zepp DiverCity TOKYO",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2025-03-22",
+  "dateEnd": "2025-03-22",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-03-22",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/valiv_1st_live.html"
+   }
+  ]
+ },
+ {
+  "title": "ホチフェス2",
+  "fullName": "THE IDOLM@STER 765 MILLIONSTARS HOTCHPOTCH FESTIV@L!! 2",
+  "brands": [
+   "765AS",
+   "ミリオン"
+  ],
+  "venue": "さいたまスーパーアリーナ",
+  "venueKey": "さいたまスーパーアリーナ",
+  "prefecture": "埼玉県",
+  "xr": false,
+  "dateStart": "2025-03-29",
+  "dateEnd": "2025-03-30",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-03-29",
+    "name": "",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_hpf2_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-03-30",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/million_hpf2_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "デレステ10th 東京",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS STARLIGHT STAGE 10th ANNIVERSARY TOUR Let's AMUSEMENT!!! 東京公演",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "有明アリーナ",
+  "venueKey": "有明アリーナ",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2025-04-26",
+  "dateEnd": "2025-04-27",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-04-26",
+    "name": "",
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_tokyo_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-04-27",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_tokyo_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "283 LP Uka,",
+  "fullName": "283 Production LIVE Performance Uka,",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "オリックス劇場",
+  "venueKey": "オリックス劇場",
+  "prefecture": "大阪府",
+  "xr": true,
+  "dateStart": "2025-05-10",
+  "dateEnd": "2025-05-11",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-05-10",
+    "name": "Larva,1",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_uka.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2025-05-11",
+    "name": "Pupa,2",
+    "open": "12:30",
+    "start": "13:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_uka.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2025-05-11",
+    "name": "Imago,3",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_uka.html"
+   }
+  ]
+ },
+ {
+  "title": "FCL CHOCOFFICERANGER!!",
+  "fullName": "315 Production presents F@NTASTIC COMBINATION LIVE 〜CHOCOFFICERANGER!!〜",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "幕張イベントホール",
+  "venueKey": "幕張イベントホール",
+  "prefecture": "千葉県",
+  "xr": true,
+  "dateStart": "2025-05-17",
+  "dateEnd": "2025-05-17",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-05-17",
+    "name": "",
+    "open": "11:00",
+    "start": "12:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_cor.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-05-17",
+    "name": "",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_cor.html"
+   }
+  ]
+ },
+ {
+  "title": "FCL AtoZto!!",
+  "fullName": "315 Production presents F@NTASTIC COMBINATION LIVE 〜AtoZto!!〜",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "幕張イベントホール",
+  "venueKey": "幕張イベントホール",
+  "prefecture": "千葉県",
+  "xr": true,
+  "dateStart": "2025-05-18",
+  "dateEnd": "2025-05-18",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-05-18",
+    "name": "",
+    "open": "11:00",
+    "start": "12:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_azto.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-05-18",
+    "name": "",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_azto.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス 1st Period Spotlight Star",
+  "fullName": "学園アイドルマスター The 1st Period Spotlight Star",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "立川ステージガーデン",
+  "venueKey": "立川ステージガーデン",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2025-05-24",
+  "dateEnd": "2025-05-25",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-05-24",
+    "name": "Spotlight Star",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_ss_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-05-25",
+    "name": "Spotlight Star",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_ss_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス 1st Period Harmony Star",
+  "fullName": "学園アイドルマスター The 1st Period Harmony Star",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "立川ステージガーデン",
+  "venueKey": "立川ステージガーデン",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2025-05-31",
+  "dateEnd": "2025-06-01",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-05-31",
+    "name": "Harmony Star",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_hs_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-06-01",
+    "name": "Harmony Star",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_hs_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "デレステ10th 沖縄",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS STARLIGHT STAGE 10th ANNIVERSARY TOUR Let's AMUSEMENT!!! 沖縄公演",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "沖縄サントリーアリーナ",
+  "venueKey": "沖縄サントリーアリーナ",
+  "prefecture": "沖縄県",
+  "xr": false,
+  "dateStart": "2025-06-07",
+  "dateEnd": "2025-06-08",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-06-07",
+    "name": "",
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_okinawa_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-06-08",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_okinawa_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ7th 円環 福岡",
+  "fullName": "THE IDOLM@STER SHINY COLORS 7th UNITLIVE TOUR 円環 -Halo around- first quadrant（福岡公演）",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "福岡国際センター",
+  "venueKey": "福岡国際センター",
+  "prefecture": "福岡県",
+  "xr": false,
+  "dateStart": "2025-06-21",
+  "dateEnd": "2025-06-22",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-06-21",
+    "name": "first quadrant（アンティーカ×シーズ）",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_first.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-06-22",
+    "name": "first quadrant（アンティーカ×シーズ）",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_first.html"
+   }
+  ]
+ },
+ {
+  "title": "デレステ10th 福岡",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS STARLIGHT STAGE 10th ANNIVERSARY TOUR Let's AMUSEMENT!!! 福岡公演",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "マリンメッセ福岡",
+  "venueKey": "マリンメッセ福岡",
+  "prefecture": "福岡県",
+  "xr": false,
+  "dateStart": "2025-06-28",
+  "dateEnd": "2025-06-29",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-06-28",
+    "name": "",
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_fukuoka_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-06-29",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_fukuoka_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス初TOUR 初陣 東京追加",
+  "fullName": "学園アイドルマスター DEBUT LIVE 初 TOUR -初陣公演- 東京追加公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "新宿ReNY",
+  "venueKey": "新宿ReNY",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2025-07-04",
+  "dateEnd": "2025-07-04",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-07-04",
+    "name": "初陣公演",
+    "open": "14:30",
+    "start": "15:15",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_addition.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-07-04",
+    "name": "初陣公演",
+    "open": "18:15",
+    "start": "19:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_addition.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ7th 円環 横浜",
+  "fullName": "THE IDOLM@STER SHINY COLORS 7th UNITLIVE TOUR 円環 -Halo around- second quadrant（横浜公演）",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "横浜BUNTAI",
+  "venueKey": "横浜BUNTAI",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2025-07-05",
+  "dateEnd": "2025-07-06",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-07-05",
+    "name": "second quadrant（放課後クライマックスガールズ×ストレイライト）",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_second.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-07-06",
+    "name": "second quadrant（放課後クライマックスガールズ×ストレイライト）",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_second.html"
+   }
+  ]
+ },
+ {
+  "title": "SideM 10th 横浜",
+  "fullName": "THE IDOLM@STER SideM 10th ANNIVERSARY ST@GE 〜P@SSION-ING!!!〜（横浜公演）",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "Kアリーナ横浜",
+  "venueKey": "Kアリーナ横浜",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2025-07-12",
+  "dateEnd": "2025-07-13",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-07-12",
+    "name": "P@SSION-ING!!!",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_yokohama_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-07-13",
+    "name": "P@SSION-ING!!!",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_yokohama_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "20th オーケストラコンサート",
+  "fullName": "THE IDOLM@STER 20th anniversary ORCHESTRA CONCERT SYMPHONY OF BRILLIANT STARS",
+  "brands": [
+   "765AS",
+   "デレマス",
+   "ミリオン",
+   "SideM",
+   "シャニマス",
+   "学マス"
+  ],
+  "venue": "パシフィコ横浜 国立大ホール",
+  "venueKey": "パシフィコ横浜 国立大ホール",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2025-07-21",
+  "dateEnd": "2025-07-21",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-07-21",
+    "name": "",
+    "open": "13:00",
+    "start": "14:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_orch_2025.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-07-21",
+    "name": "",
+    "open": "17:30",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_orch_2025.html"
+   }
+  ]
+ },
+ {
+  "title": "765AS NEVER END IDOL",
+  "fullName": "THE IDOLM@STER 765PRO ALLSTARS LIVE 〜NEVER END IDOL!!!!!!!!!!!!!〜",
+  "brands": [
+   "765AS"
+  ],
+  "venue": "Kアリーナ横浜",
+  "venueKey": "Kアリーナ横浜",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2025-08-02",
+  "dateEnd": "2025-08-03",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-08-02",
+    "name": "",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_never_end_idol_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-08-03",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_never_end_idol_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ7th 円環 愛知",
+  "fullName": "THE IDOLM@STER SHINY COLORS 7th UNITLIVE TOUR 円環 -Halo around- third quadrant（愛知公演）",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "Aichi Sky Expo",
+  "venueKey": "Aichi Sky Expo",
+  "prefecture": "愛知県",
+  "xr": false,
+  "dateStart": "2025-08-09",
+  "dateEnd": "2025-08-10",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-08-09",
+    "name": "third quadrant（アルストロメリア×コメティック）",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_third.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-08-10",
+    "name": "third quadrant（アルストロメリア×コメティック）",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_third.html"
+   }
+  ]
+ },
+ {
+  "title": "デレステ10th 神奈川",
+  "fullName": "THE IDOLM@STER CINDERELLA GIRLS STARLIGHT STAGE 10th ANNIVERSARY TOUR Let's AMUSEMENT!!! 神奈川公演",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "Kアリーナ横浜",
+  "venueKey": "Kアリーナ横浜",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2025-09-06",
+  "dateEnd": "2025-09-07",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-09-06",
+    "name": "",
+    "open": "15:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_kanagawa_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-09-07",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_kanagawa_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス 初星大運動会",
+  "fullName": "学園アイドルマスター クラス対抗初星大運動会",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "国立代々木競技場 第一体育館",
+  "venueKey": "国立代々木競技場 第一体育館",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2025-09-20",
+  "dateEnd": "2025-09-21",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-09-20",
+    "name": "",
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_undokai_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-09-21",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_undokai_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ7th 円環 青森",
+  "fullName": "THE IDOLM@STER SHINY COLORS 7th UNITLIVE TOUR 円環 -Halo around- fourth quadrant（青森公演）",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "盛運輸アリーナ",
+  "venueKey": "盛運輸アリーナ",
+  "prefecture": "青森県",
+  "xr": false,
+  "dateStart": "2025-09-27",
+  "dateEnd": "2025-09-28",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-09-27",
+    "name": "fourth quadrant（イルミネーションスターズ×ノクチル）",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_fourth.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-09-28",
+    "name": "fourth quadrant（イルミネーションスターズ×ノクチル）",
+    "open": "15:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_fourth.html"
+   }
+  ]
+ },
+ {
+  "title": "FBF Who goes first 幕張",
+  "fullName": "315 Production presents F@NTASTIC BATTLE FES 〜Who goes first〜 幕張公演",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "幕張イベントホール",
+  "venueKey": "幕張イベントホール",
+  "prefecture": "千葉県",
+  "xr": true,
+  "dateStart": "2025-10-04",
+  "dateEnd": "2025-10-05",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-10-04",
+    "name": "",
+    "open": "11:00",
+    "start": "12:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day1.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-10-04",
+    "name": "",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day1.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2025-10-05",
+    "name": "",
+    "open": "11:00",
+    "start": "12:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day2.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2025-10-05",
+    "name": "",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "ミリオン12th",
+  "fullName": "THE IDOLM@STER MILLION LIVE! 12thLIVE",
+  "brands": [
+   "ミリオン"
+  ],
+  "venue": "京王アリーナTOKYO",
+  "venueKey": "京王アリーナTOKYO（武蔵野の森）",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2025-10-11",
+  "dateEnd": "2025-10-12",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-10-11",
+    "name": "ありのままに。（主演：北上麗花）",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_12th_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-10-12",
+    "name": "Let's Sing!（主演：桜守歌織）",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/million_12th_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "twin live いつまでもなかよし！",
+  "fullName": "高槻やよい・水瀬伊織 twin live \"いつまでもなかよし！\"",
+  "brands": [
+   "765AS"
+  ],
+  "venue": "森のホール21 大ホール",
+  "venueKey": "森のホール21 大ホール",
+  "prefecture": "千葉県",
+  "xr": true,
+  "dateStart": "2025-10-18",
+  "dateEnd": "2025-10-19",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-10-18",
+    "name": "えがおだね！",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_twinlive_nakayoshi.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2025-10-19",
+    "name": "ひゃくねんさきも！",
+    "open": "12:30",
+    "start": "13:30",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_twinlive_nakayoshi.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2025-10-19",
+    "name": "きみとおはなし！",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_twinlive_nakayoshi.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ7th 螺旋",
+  "fullName": "THE IDOLM@STER SHINY COLORS 7th LIVE TOUR 螺旋 -Halo around- \"The origin on the axes\"",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "Kアリーナ横浜",
+  "venueKey": "Kアリーナ横浜",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2025-10-25",
+  "dateEnd": "2025-10-26",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-10-25",
+    "name": "The origin on the axes",
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_rasen_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-10-26",
+    "name": "The origin on the axes",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_rasen_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "FBF Who goes first 大阪",
+  "fullName": "315 Production presents F@NTASTIC BATTLE FES 〜Who goes first〜 大阪公演",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "オリックス劇場",
+  "venueKey": "オリックス劇場",
+  "prefecture": "大阪府",
+  "xr": true,
+  "dateStart": "2025-11-15",
+  "dateEnd": "2025-11-16",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-11-15",
+    "name": "",
+    "open": "11:30",
+    "start": "12:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day1.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-11-15",
+    "name": "",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day1.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2025-11-16",
+    "name": "",
+    "open": "11:00",
+    "start": "12:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day2.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2025-11-16",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "デレ fes. Once Upon a St@rs",
+  "fullName": "CINDERELLA GIRLS fes. Once Upon a St@rs",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "幕張メッセ 国際展示場ホール9-11",
+  "venueKey": "幕張メッセ",
+  "prefecture": "千葉県",
+  "xr": true,
+  "dateStart": "2025-11-29",
+  "dateEnd": "2025-11-30",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 昼公演",
+    "date": "2025-11-29",
+    "name": "Luminaria Tiara",
+    "open": "11:30",
+    "start": "13:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage1.html"
+   },
+   {
+    "key": "Day1 夜公演",
+    "date": "2025-11-29",
+    "name": "Nocturne Crown",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage2.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2025-11-30",
+    "name": "Princess Riot",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage3.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2025-11-30",
+    "name": "Ever Starlight",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage4.html"
+   }
+  ]
+ },
+ {
+  "title": "IDOL WORLD 2025",
+  "fullName": "THE IDOLM@STER M@STERS OF IDOL WORLD 2025",
+  "brands": [
+   "765AS",
+   "デレマス",
+   "ミリオン",
+   "SideM",
+   "シャニマス",
+   "学マス",
+   "ヴイアラ",
+   "961"
+  ],
+  "venue": "京セラドーム大阪",
+  "venueKey": "京セラドーム大阪",
+  "prefecture": "大阪府",
+  "xr": false,
+  "dateStart": "2025-12-13",
+  "dateEnd": "2025-12-14",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-12-13",
+    "name": "",
+    "open": "14:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2025_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2025-12-14",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2025_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "283 MP 騎士団のヴェール",
+  "fullName": "283 Production MUSICAL Performance 騎士団のヴェール -Veil of Order-",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "Niterra日本特殊陶業市民会館 フォレストホール",
+  "venueKey": "Niterra日本特殊陶業市民会館 フォレストホール",
+  "prefecture": "愛知県",
+  "xr": true,
+  "dateStart": "2025-12-27",
+  "dateEnd": "2025-12-28",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2025-12-27",
+    "name": "Abnegatio (I)",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_order.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2025-12-28",
+    "name": "Odium (II)",
+    "open": "12:30",
+    "start": "13:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_order.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2025-12-28",
+    "name": "Cupiditas (III)",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_order.html"
+   }
+  ]
+ },
+ {
+  "title": "如月千早 OathONE",
+  "fullName": "如月千早武道館単独公演「OathONE」",
+  "brands": [
+   "765AS"
+  ],
+  "venue": "日本武道館",
+  "venueKey": "日本武道館",
+  "prefecture": "東京都",
+  "xr": true,
+  "dateStart": "2026-01-24",
+  "dateEnd": "2026-01-25",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-01-24",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_oath_one.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-01-25",
+    "name": "",
+    "open": "15:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_oath_one.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニマス大感謝祭",
+  "fullName": "THE IDOLM@STER SHINY COLORS シャニマス大感謝祭！ 〜283スポーツフェスティバル〜",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "京王アリーナTOKYO",
+  "venueKey": "京王アリーナTOKYO（武蔵野の森）",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2026-02-14",
+  "dateEnd": "2026-02-15",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-02-14",
+    "name": "",
+    "open": "15:00",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283pro_kansyasai.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-02-15",
+    "name": "",
+    "open": "15:00",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283pro_kansyasai.html"
+   }
+  ]
+ },
+ {
+  "title": "876 PRODUCTION FES.",
+  "fullName": "THE IDOLM@STER 20th Anniversary 876 PRODUCTION FES.",
+  "brands": [
+   "ヴイアラ",
+   "876"
+  ],
+  "venue": "日本工学院アリーナ",
+  "venueKey": "日本工学院アリーナ",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2026-02-21",
+  "dateEnd": "2026-02-23",
+  "note": "Day3（Dearly Stars × vα-liv）だけ MR 公演",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-02-21",
+    "name": "vα-liv 2ndLIVE -BEYOND THE CUSTOM !!!-",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-02-22",
+    "name": "Dearly Stars -Dearly, Dearly MEETING !!!-",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day2.html"
+   },
+   {
+    "key": "Day3 昼公演",
+    "date": "2026-02-23",
+    "name": "Dearly Stars × vα-liv LIVE -UNDER ONE SKY !!!!!!-",
+    "open": "13:00",
+    "start": "14:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day3.html"
+   },
+   {
+    "key": "Day3 夜公演",
+    "date": "2026-02-23",
+    "name": "Dearly Stars × vα-liv LIVE -UNDER ONE SKY !!!!!!-",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day3.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス 初星音楽祭",
+  "fullName": "学園アイドルマスター 初星音楽祭",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "京王アリーナTOKYO",
+  "venueKey": "京王アリーナTOKYO（武蔵野の森）",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2026-02-28",
+  "dateEnd": "2026-03-01",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-02-28",
+    "name": "",
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_musicfestival_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-03-01",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_musicfestival_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "ミリオン11th",
+  "fullName": "THE IDOLM@STER MILLION LIVE! 11thLIVE",
+  "brands": [
+   "ミリオン"
+  ],
+  "venue": "北九州メッセ",
+  "venueKey": "北九州メッセ",
+  "prefecture": "福岡県",
+  "xr": false,
+  "dateStart": "2026-03-14",
+  "dateEnd": "2026-03-15",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-03-14",
+    "name": "Atelier ROCOMOTION!!（主演：ロコ）",
+    "open": "14:30",
+    "start": "15:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_11thlive_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-03-15",
+    "name": "百合咲き誇るレムリア（主演：七尾百合子）",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/million_11thlive_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "283 XXX= S/N-GUL4R1TY",
+  "fullName": "283 Production XXXX Performance XXX= S/N-GUL4R1TY",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "幕張イベントホール",
+  "venueKey": "幕張イベントホール",
+  "prefecture": "千葉県",
+  "xr": true,
+  "dateStart": "2026-04-11",
+  "dateEnd": "2026-04-12",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-04-11",
+    "name": "// 0x01; initialize()",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_xxx.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2026-04-12",
+    "name": "// 0x02; evolve()",
+    "open": "12:00",
+    "start": "13:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_xxx.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2026-04-12",
+    "name": "// 0x03; overflow()",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_xxx.html"
+   }
+  ]
+ },
+ {
+  "title": "シャニ∞th iと夢",
+  "fullName": "THE IDOLM@STER SHINY COLORS ∞th LIVE iと夢",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "Kアリーナ横浜",
+  "venueKey": "Kアリーナ横浜",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2026-04-25",
+  "dateEnd": "2026-04-26",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-04-25",
+    "name": "",
+    "open": "16:30",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_8th_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-04-26",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_8th_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "ミリオン13th",
+  "fullName": "THE IDOLM@STER MILLION LIVE! 13thLIVE",
+  "brands": [
+   "ミリオン"
+  ],
+  "venue": "有明アリーナ",
+  "venueKey": "有明アリーナ",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2026-05-05",
+  "dateEnd": "2026-05-06",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-05-05",
+    "name": "全力援走（主演：高山紗代子）",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/million_13th_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-05-06",
+    "name": "Grand bal masqué（主演：二階堂千鶴）",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/million_13th_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "デレミュ STARLIGHT HIGH SCHOOL!",
+  "fullName": "CINDERELLA GIRLS MUSICAL STARLIGHT HIGH SCHOOL!",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "森のホール21 大ホール",
+  "venueKey": "森のホール21 大ホール",
+  "prefecture": "千葉県",
+  "xr": false,
+  "dateStart": "2026-05-09",
+  "dateEnd": "2026-05-10",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-05-09",
+    "name": "",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_sh.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2026-05-10",
+    "name": "",
+    "open": "11:00",
+    "start": "12:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_sh.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2026-05-10",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_sh.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス H.I.F選抜試験",
+  "fullName": "学園アイドルマスター The 2nd Period H.I.F選抜試験(セレクション)",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "幕張イベントホール",
+  "venueKey": "幕張イベントホール",
+  "prefecture": "千葉県",
+  "xr": true,
+  "dateStart": "2026-05-16",
+  "dateEnd": "2026-05-17",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-05-16",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_2nd_selection_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-05-17",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_2nd_selection_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス H.I.F",
+  "fullName": "学園アイドルマスター The 2nd Period Hatsuboshi IDOL FESTIVAL",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "横浜アリーナ",
+  "venueKey": "横浜アリーナ",
+  "prefecture": "神奈川県",
+  "xr": false,
+  "dateStart": "2026-06-06",
+  "dateEnd": "2026-06-07",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-06-06",
+    "name": "",
+    "open": "15:30",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_2ndperiod_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-06-07",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_2ndperiod_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "デレミュ DERE of the DEAD",
+  "fullName": "CINDERELLA GIRLS MUSICAL DERE of the DEAD",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "オリックス劇場",
+  "venueKey": "オリックス劇場",
+  "prefecture": "大阪府",
+  "xr": false,
+  "dateStart": "2026-07-04",
+  "dateEnd": "2026-07-05",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-07-04",
+    "name": "",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_dd.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2026-07-05",
+    "name": "",
+    "open": "11:00",
+    "start": "12:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_dd.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2026-07-05",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_dd.html"
+   }
+  ]
+ },
+ {
+  "title": "IDOL WORLD SUPER FESTIVAL 2026",
+  "fullName": "THE IDOLM@STER 20th Anniversary MORE RE@LITY LIVE IDOL WORLD SUPER FESTIVAL 2026",
+  "brands": [
+   "765AS",
+   "デレマス",
+   "ミリオン",
+   "SideM",
+   "シャニマス",
+   "学マス",
+   "876",
+   "ヴイアラ",
+   "961"
+  ],
+  "venue": "京王アリーナTOKYO",
+  "venueKey": "京王アリーナTOKYO（武蔵野の森）",
+  "prefecture": "東京都",
+  "xr": true,
+  "dateStart": "2026-07-24",
+  "dateEnd": "2026-07-26",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-07-24",
+    "name": "第一公演 -YAKUDOU-",
+    "open": "17:30",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_iwsf_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-07-25",
+    "name": "第二公演 -ZESSYOU-",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_iwsf_day2.html"
+   },
+   {
+    "key": "Day3",
+    "date": "2026-07-26",
+    "name": "第三公演 -KYOUMEI-",
+    "open": "17:00",
+    "start": "18:00",
+    "setlistUrl": "https://imas-db.jp/song/event/idolmaster_iwsf_day3.html"
+   }
+  ]
+ },
+ {
+  "title": "twin live ふたごぼしのつばさ 大阪",
+  "fullName": "dual twin live tour 双海亜美・双海真美 twin live \"ふたごぼしのつばさ\" 大阪公演",
+  "brands": [
+   "765AS"
+  ],
+  "venue": "Zepp Namba",
+  "venueKey": "Zepp Namba",
+  "prefecture": "大阪府",
+  "xr": true,
+  "dateStart": "2026-08-06",
+  "dateEnd": "2026-08-06",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-08-06",
+    "name": "ワクワクフタリボシ",
+    "open": "18:00",
+    "start": "19:00",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_amimam.html"
+   }
+  ]
+ },
+ {
+  "title": "twin live つみまつよるまち 大阪",
+  "fullName": "dual twin live tour 三浦あずさ・秋月律子 twin live \"つみまつよるまち\" 大阪公演",
+  "brands": [
+   "765AS"
+  ],
+  "venue": "Zepp Namba",
+  "venueKey": "Zepp Namba",
+  "prefecture": "大阪府",
+  "xr": true,
+  "dateStart": "2026-08-07",
+  "dateEnd": "2026-08-07",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-08-07",
+    "name": "OSAKA SILENTCITY LOVE",
+    "open": "18:00",
+    "start": "19:00",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_azurit.html"
+   }
+  ]
+ },
+ {
+  "title": "twin live ふたごぼしのつばさ 名古屋",
+  "fullName": "dual twin live tour 双海亜美・双海真美 twin live \"ふたごぼしのつばさ\" 名古屋公演",
+  "brands": [
+   "765AS"
+  ],
+  "venue": "Zepp Nagoya",
+  "venueKey": "Zepp Nagoya",
+  "prefecture": "愛知県",
+  "xr": true,
+  "dateStart": "2026-08-13",
+  "dateEnd": "2026-08-13",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-08-13",
+    "name": "ソワソワフタリボシ",
+    "open": "18:00",
+    "start": "19:00",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_amimam.html"
+   }
+  ]
+ },
+ {
+  "title": "デレ Pop'n ToyBox!!",
+  "fullName": "Pop'n ToyBox!!（シンデレラガールズ xRライブ）",
+  "brands": [
+   "デレマス"
+  ],
+  "venue": "Shibuya LOVEZ",
+  "venueKey": "Shibuya LOVEZ",
+  "prefecture": "東京都",
+  "xr": true,
+  "dateStart": "2026-08-13",
+  "dateEnd": "2026-08-16",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1 夕公演",
+    "date": "2026-08-13",
+    "name": "",
+    "open": "15:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html"
+   },
+   {
+    "key": "Day2 昼公演",
+    "date": "2026-08-14",
+    "name": "",
+    "open": "13:00",
+    "start": "14:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html"
+   },
+   {
+    "key": "Day2 夜公演",
+    "date": "2026-08-14",
+    "name": "",
+    "open": "18:00",
+    "start": "19:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html"
+   },
+   {
+    "key": "Day3 夕公演",
+    "date": "2026-08-15",
+    "name": "",
+    "open": "15:00",
+    "start": "16:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html"
+   },
+   {
+    "key": "Day4 昼公演",
+    "date": "2026-08-16",
+    "name": "",
+    "open": "13:00",
+    "start": "14:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html"
+   },
+   {
+    "key": "Day4 夜公演",
+    "date": "2026-08-16",
+    "name": "",
+    "open": "18:00",
+    "start": "19:00",
+    "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html"
+   }
+  ]
+ },
+ {
+  "title": "twin live つみまつよるまち 名古屋",
+  "fullName": "dual twin live tour 三浦あずさ・秋月律子 twin live \"つみまつよるまち\" 名古屋公演",
+  "brands": [
+   "765AS"
+  ],
+  "venue": "Zepp Nagoya",
+  "venueKey": "Zepp Nagoya",
+  "prefecture": "愛知県",
+  "xr": true,
+  "dateStart": "2026-08-14",
+  "dateEnd": "2026-08-14",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-08-14",
+    "name": "NAGOYA MISTY NIGHT",
+    "open": "18:00",
+    "start": "19:00",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_azurit.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス 標ツアー 福井",
+  "fullName": "学園アイドルマスター LIVE TOUR -標- 福井公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "フェニックス・プラザ エルピス 大ホール",
+  "venueKey": "フェニックス・プラザ エルピス 大ホール",
+  "prefecture": "福井県",
+  "xr": false,
+  "dateStart": "2026-08-20",
+  "dateEnd": "2026-08-21",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-08-20",
+    "name": "",
+    "open": "17:30",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukui.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-08-21",
+    "name": "",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukui.html"
+   }
+  ]
+ },
+ {
+  "title": "twin live ふたごぼしのつばさ 東京",
+  "fullName": "dual twin live tour 双海亜美・双海真美 twin live \"ふたごぼしのつばさ\" 東京公演",
+  "brands": [
+   "765AS"
+  ],
+  "venue": "Zepp Haneda",
+  "venueKey": "Zepp Haneda",
+  "prefecture": "東京都",
+  "xr": true,
+  "dateStart": "2026-08-27",
+  "dateEnd": "2026-08-27",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-08-27",
+    "name": "キラキラフタリボシ",
+    "open": "18:00",
+    "start": "19:00",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_amimam.html"
+   }
+  ]
+ },
+ {
+  "title": "twin live つみまつよるまち 東京",
+  "fullName": "dual twin live tour 三浦あずさ・秋月律子 twin live \"つみまつよるまち\" 東京公演",
+  "brands": [
+   "765AS"
+  ],
+  "venue": "Zepp Haneda",
+  "venueKey": "Zepp Haneda",
+  "prefecture": "東京都",
+  "xr": true,
+  "dateStart": "2026-08-28",
+  "dateEnd": "2026-08-28",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-08-28",
+    "name": "TOKYO LAST CHOICE",
+    "open": "18:00",
+    "start": "19:00",
+    "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_azurit.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス 標ツアー 福岡",
+  "fullName": "学園アイドルマスター LIVE TOUR -標- 福岡公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "福岡サンパレス ホテル＆ホール",
+  "venueKey": "福岡サンパレス ホテル＆ホール",
+  "prefecture": "福岡県",
+  "xr": false,
+  "dateStart": "2026-09-05",
+  "dateEnd": "2026-09-06",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-09-05",
+    "name": "",
+    "open": "17:30",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukuoka.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-09-06",
+    "name": "",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukuoka.html"
+   }
+  ]
+ },
+ {
+  "title": "SideM 11th",
+  "fullName": "THE IDOLM@STER SideM 11th STAGE 〜EVER EVER@FTER〜",
+  "brands": [
+   "SideM"
+  ],
+  "venue": "TOYOTA ARENA TOKYO",
+  "venueKey": "TOYOTA ARENA TOKYO",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2026-09-12",
+  "dateEnd": "2026-09-13",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-09-12",
+    "name": "",
+    "open": "16:00",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_11th_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-09-13",
+    "name": "",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/sidem_11th_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "ミリオン14th",
+  "fullName": "THE IDOLM@STER MILLION LIVE! 14thLIVE",
+  "brands": [
+   "ミリオン"
+  ],
+  "venue": "国立代々木競技場 第一体育館",
+  "venueKey": "国立代々木競技場 第一体育館",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2026-09-19",
+  "dateEnd": "2026-09-20",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-09-19",
+    "name": "夢咲くワンダーミラージュ（主演：徳川まつり＆エミリー）",
+    "open": "16:30",
+    "start": "17:30",
+    "setlistUrl": "https://imas-db.jp/song/event/million_14th_day1.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-09-20",
+    "name": "Blooming Sign（主演：馬場このみ＆百瀬莉緒）",
+    "open": "",
+    "start": "",
+    "setlistUrl": "https://imas-db.jp/song/event/million_14th_day2.html"
+   }
+  ]
+ },
+ {
+  "title": "学マス 標ツアー 岩手",
+  "fullName": "学園アイドルマスター LIVE TOUR -標- 岩手公演",
+  "brands": [
+   "学マス"
+  ],
+  "venue": "トーサイクラシックホール岩手 大ホール",
+  "venueKey": "トーサイクラシックホール岩手",
+  "prefecture": "岩手県",
+  "xr": false,
+  "dateStart": "2026-09-22",
+  "dateEnd": "2026-09-23",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-09-22",
+    "name": "",
+    "open": "17:30",
+    "start": "18:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_iwate.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-09-23",
+    "name": "",
+    "open": "15:30",
+    "start": "16:30",
+    "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_iwate.html"
+   }
+  ]
+ },
+ {
+  "title": "283 Master ShowPiece",
+  "fullName": "283 PRODUCTION Solo Live Collection -Master ShowPiece-",
+  "brands": [
+   "シャニマス"
+  ],
+  "venue": "京王アリーナTOKYO",
+  "venueKey": "京王アリーナTOKYO（武蔵野の森）",
+  "prefecture": "東京都",
+  "xr": false,
+  "dateStart": "2026-09-26",
+  "dateEnd": "2026-09-27",
+  "note": "",
+  "days": [
+   {
+    "key": "Day1",
+    "date": "2026-09-26",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_msp.html"
+   },
+   {
+    "key": "Day2",
+    "date": "2026-09-27",
+    "name": "",
+    "open": "16:00",
+    "start": "17:00",
+    "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_msp.html"
+   }
+  ]
+ }
+]

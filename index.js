@@ -1017,15 +1017,15 @@ function buildEvents({ live, slot, sched, merch: mdb }, now = Date.now()) {
       .map(p => {
         const key = propText(p.properties['Day']);
         const c = composeSchedLabel(key, p);   // 表示ラベルに時刻がなければ、開演日時・開場時刻の列から組み立てる（Pages は「:」より前を公演キーにする）
-        return { key, label: c.label, name: c.name, castNames: cleanCastList(propText(p.properties['出演者']).split(',')), noPenlight: propText(p.properties['ペンライト対象外']) };
+        return { key, label: c.label, name: c.name, castNames: cleanCastList(propText(p.properties['出演者']).split(',')), noPenlight: propText(p.properties['ペンライト対象外']), setlistUrl: propText(p.properties['セトリURL']) };
       });
     // 日付だけの古い行（時刻も公演名もない）が、同じ日の時刻つきの行と並んでいるときは、古い行を出さない（公演が重複して見えるため）
     const dateOf = r => (parseLabelDate(r.label, ds) || {}).date;
     for (let k = rawSched.length - 1; k >= 0; k--) {
       const r = rawSched[k], d = dateOf(r);
-      if (d && !/開演/.test(r.label) && rawSched.some((o, j) => j !== k && /開演/.test(o.label) && dateOf(o) === d)) { issues.push(`${title} / ${r.key}: 日付だけの古い公演行です（同じ日に時刻つきの公演行があります）。公演日程DBで削除してください`); rawSched.splice(k, 1); }
+      if (d && !/開演/.test(r.label) && !r.name && !r.setlistUrl && rawSched.some((o, j) => j !== k && /開演/.test(o.label) && dateOf(o) === d)) { issues.push(`${title} / ${r.key}: 日付だけの古い公演行です（同じ日に時刻つきの公演行があります）。公演日程DBで削除してください`); rawSched.splice(k, 1); }
     }
-    const schedules = normalizeScheduleKeys(rawSched, ds).map(x => ({ label: x.label, ...(x.title ? { title: x.title } : {}), ...(x.name ? { name: x.name } : {}), castCount: x.castNames.length, castNames: x.castNames, penlightCastCount: penlightCast(x.castNames, x.noPenlight).length, penlightUrl: buildPenlightUrl(penlightCast(x.castNames, x.noPenlight), special) }));
+    const schedules = normalizeScheduleKeys(rawSched, ds).map(x => ({ label: x.label, ...(x.title ? { title: x.title } : {}), ...(x.name ? { name: x.name } : {}), ...(x.setlistUrl ? { setlistUrl: x.setlistUrl } : {}), castCount: x.castNames.length, castNames: x.castNames, penlightCastCount: penlightCast(x.castNames, x.noPenlight).length, penlightUrl: buildPenlightUrl(penlightCast(x.castNames, x.noPenlight), special) }));
     // 検査
     for (const s of schedules) { const d = parseLabelDate(s.label, ds); if (d && ds && (Date.parse(d.date) < Date.parse(ds) - 864e5 || Date.parse(d.date) > Date.parse(de) + 864e5)) issues.push(`${title} / ${dkey(s.label)}: 公演日(${d.date})がライブ開催日(${ds}〜${de})の範囲外`); }
     if (!g('会場')) issues.push(`${title}: 会場が未入力です`);
@@ -1038,7 +1038,7 @@ function buildEvents({ live, slot, sched, merch: mdb }, now = Date.now()) {
       applyStartDate: cur?.start || '', deadline: cur?.end || '', lotteryDate: (lotEff.value || '').slice(0, 10),
       slots: slots.map(s => ({ name: s.name, kind: s.kind, start: s.start, end: s.end, lottery: (s === cur ? lotEff.value : s.lottery).slice(0, 10) })),
       eventDateStart: ds, eventDateEnd: de,
-      officialUrl: g('公式URL'), venue, mapUrl, accessUrl: g('アクセスURL'), nearestStation: g('最寄り駅'),
+      officialUrl: g('公式URL'), venue, ...(g('都道府県') ? { prefecture: g('都道府県') } : {}), mapUrl, accessUrl: g('アクセスURL'), nearestStation: g('最寄り駅'),
       isSpecialColor: special, isXR: isXRLive(page, title, slots.map(s => s.name)), schedules,
       merch: !mdb ? [] : mdb.pages.filter(p => relIds(p, mRel).includes(page.id)).map(p => ({
         kind: propText(p.properties['種別']), name: propText(p.properties['名称']), url: propText(p.properties['URL']),
@@ -1221,7 +1221,9 @@ async function run() {
       }
 
       console.log(' ├─ 🎯 新着情報を検知！ Geminiに全文解析＆出演者抽出を依頼します...');
-      const existingNames = S.live.pages.map(p => ({ t: titleOf(p, S.live.meta), d: startOf(p).slice(0, 10) })).filter(x => x.t).map(x => `・略称: "${x.t}" (開催初日: ${x.d || '未定'})`).join('\n') || '（まだ登録なし）';
+      // AIに渡す「登録済みのライブ」は、終わってから60日以内のものだけ（過去のライブまで渡すと、依頼文が長くなり、別のライブと取り違えるおそれがあるため）
+      const recentFrom = new Date(Date.now() - 60 * 864e5).toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
+      const existingNames = S.live.pages.filter(p => { const e = (dateEnd(p, 'ライブ開催日') || startOf(p)).slice(0, 10); return !e || e >= recentFrom; }).map(p => ({ t: titleOf(p, S.live.meta), d: startOf(p).slice(0, 10) })).filter(x => x.t).map(x => `・略称: "${x.t}" (開催初日: ${x.d || '未定'})`).join('\n') || '（まだ登録なし）';
       if (aiDownStreak >= AI_DOWN_LIMIT) { console.log(' ├─ ⏳ AIが混雑しているため、この記事は次回に回します'); aiState.deferred.push({ url: article.url, title }); continue; }
       let data = null;
       try {
