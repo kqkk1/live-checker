@@ -58,7 +58,7 @@ function parseCvPage(html) {
 /** 公演ページの「出演」欄の部分（見つからなければ null） */
 function castSection(html) {
   const src = String(html).replace(/<(script|style)[\s\S]*?<\/\1>/gi, '');
-  const re = /<(h[1-6]|dt|th|p|strong|b|div|span)(\s[^>]*)?>\s*(?:<[^>]+>\s*)*出演(?:者)?(?:\s*[（(][^)）<]*[)）])?\s*(?:<\/[^>]+>\s*)*<\/\1>/i;
+  const re = /<(h[1-6]|dt|th|p|strong|b|div|span)(\s[^>]*)?>\s*(?:<[^>]+>\s*)*出演(?:者)?(?:\s*[（(][^)）<]*[)）])?\s*[:：]?\s*(?:<\/[^>]+>\s*)*<\/\1>/i;
   const m = re.exec(src);
   if (!m) return null;
   const tag = m[1].toLowerCase(), start = m.index + m[0].length;
@@ -66,6 +66,37 @@ function castSection(html) {
   const stops = [new RegExp(`<${tag}[\\s>]`, 'i'), /<h[1-6][\s>]/i].map(r => { const x = r.exec(rest); return x ? x.index : -1; }).filter(i => i >= 0);
   const end = stops.length ? Math.min(...stops) : Math.min(rest.length, 20000);
   return rest.slice(0, end);
+}
+
+/** 「出演」欄がないページ（xRライブ・LPなど）用: 「公演概要」の節。公演ごとの小見出し（昼公演・夕方公演・DAY1 など）があれば、label に合う小見出しの分だけ返す */
+function overviewSection(html, label) {
+  const src = String(html).replace(/<(script|style)[\s\S]*?<\/\1>/gi, '');
+  const hs = []; const re = /<h([1-6])[^>]*>([\s\S]*?)<\/h\1>/gi; let m;
+  while ((m = re.exec(src))) hs.push({ level: Number(m[1]), text: textOf(m[2]).replace(/\s+/g, ' ').trim(), start: m.index, end: m.index + m[0].length });
+  const i = hs.findIndex(h => /公演概要/.test(h.text));
+  if (i < 0) return null;
+  const top = hs[i], next = hs.slice(i + 1).find(h => h.level <= top.level);
+  const body = src.slice(top.end, next ? next.start : src.length);
+  const subs = hs.slice(i + 1).filter(h => (!next || h.start < next.start) && h.level > top.level).map((h, j, arr) => {
+    const after = hs.slice(hs.indexOf(h) + 1).find(x => x.level <= h.level);
+    return { title: h.text, html: src.slice(h.end, after ? after.start : (next ? next.start : src.length)) };
+  });
+  if (!subs.length || !label) return body;
+  const name = String(label).split(/[:：]/)[0].normalize('NFKC').toUpperCase();
+  const day = (name.match(/DAY\s*(\d+)/) || [])[1], part = (name.match(/[朝昼夕夜]/) || [])[0];
+  const fit = subs.map(x => { const t = x.title.normalize('NFKC').toUpperCase(); const d = day && new RegExp(`DAY\\s*${day}(?!\\d)`).test(t), p = part && t.includes(part); return { x, score: (d ? 1 : 0) + (p ? 1 : 0), bad: (day && /DAY\s*\d/.test(t) && !d) || (part && /[朝昼夕夜]/.test(t) && !p) }; })
+    .filter(f => f.score > 0 && !f.bad).sort((a, b) => b.score - a.score);
+  return fit.length ? fit[0].x.html : body;
+}
+/** VTR出演など、会場に出ていない人の行を外す */
+function dropOffstage(lines) {
+  const out = []; let skip = false;
+  for (const l of lines) {
+    if (/VTR|映像出演|声のみ|声の出演/.test(l)) { skip = true; continue; }
+    if (/メンバー|出演|ゲスト/.test(l)) { skip = false; continue; }
+    if (!skip) out.push(l);
+  }
+  return out;
 }
 
 /* ---------- 色データ（colors.json）から、アイドル名の一覧を作る ---------- */
@@ -90,13 +121,15 @@ function matchCast(lines, cv, idolData, brands) {
   const byKey = new Map(); for (const i of pool) for (const k of i.keys) if (!byKey.has(k)) byKey.set(k, i);
   const anyKey = new Map(); for (const i of idolData.idols) for (const k of i.keys) if (!anyKey.has(k)) anyKey.set(k, i);
   const found = [], unknown = [];
+  const otherChars = new Set([...cv.values()].flatMap(v => [...v.chars].map(key)));   // 声優一覧にあるアイドル以外のキャラ（社長・スタッフなど）
   const add = n => { if (!found.includes(n)) found.push(n); };
   for (const raw of lines.flatMap(l => String(l).split(/[、,，\/／]/))) {
     const t = stripParen(raw).replace(/^[・\-*●○◆■□▼▽]+/, '').trim();
     if (!t || t.length > 30) continue;
     const k = key(t);
     if (idolData.units.has(k)) continue;   // ユニット名・ブランド名
-    if (byKey.has(k)) { add(byKey.get(k).name); continue; }   // アイドル名がそのまま書かれている（vα-liv など）
+    if (byKey.has(k)) { add(byKey.get(k).name); continue; }   // アイドル名がそのまま書かれている（vα-liv・xRライブなど）
+    if (otherChars.has(k) && !anyKey.has(k)) continue;   // 社長・スタッフなど、アイドル以外のキャラ
     const va = cv.get(k);
     if (va) {
       const hits = [...va.chars].map(c => byKey.get(key(c))).filter(Boolean);
@@ -106,12 +139,12 @@ function matchCast(lines, cv, idolData, brands) {
       unknown.push(`${t}（${[...va.chars].join('・')}）`);   // 声優は分かったが、このライブのブランドのアイドルではない
       continue;
     }
-    if (/^[^\s]{2,12}$/.test(t) && !/[!！?？:：「」『』【】]/.test(t)) unknown.push(t);
+    if (/^[^\s]{2,12}$/.test(t) && !/[!！?？:：「」『』【】\d０-９]/.test(t) && !/(公演|日時|会場|開場|開演|メンバー)$/.test(t)) unknown.push(t);
   }
   return { found, unknown };
 }
 
-module.exports = { parseCvPage, castSection, linesOf, buildIdols, matchCast, key };
+module.exports = { parseCvPage, castSection, overviewSection, dropOffstage, linesOf, buildIdols, matchCast, key };
 
 /* ---------- ここから実行部分 ---------- */
 async function getText(url) {
@@ -184,7 +217,7 @@ async function main() {
     if (!pages.has(t.url)) {
       const html = await getText(t.url);
       const sec = html ? castSection(html) : null;
-      pages.set(t.url, html ? (sec ? linesOf(sec) : 'nosection') : 'noread');
+      pages.set(t.url, html ? (sec ? linesOf(sec) : (overviewSection(html, '') ? { html } : 'nosection')) : 'noread');
       if (html && !sec && !shownHeads) {   // 1回だけ、ページの見出しを出す（ページの作りが想定と違うときの手がかり）
         shownHeads = true;
         const heads = (html.match(/<(h[1-6]|dt|th)[^>]*>[\s\S]*?<\/\1>/gi) || []).map(h => textOf(h).replace(/\s+/g, ' ').trim()).filter(Boolean).slice(0, 20);
@@ -192,7 +225,8 @@ async function main() {
       }
       await sleep(GAP_MS);
     }
-    const lines = pages.get(t.url);
+    const got = pages.get(t.url);
+    const lines = got && got.html ? dropOffstage(linesOf(overviewSection(got.html, t.label))) : got;
     const head = `${t.live.title}｜${t.label.split(':')[0]}`;
     if (lines === 'noread') { console.log(`⏩ ${head}: ページを読めませんでした（${t.url}）`); empty++; continue; }
     if (lines === 'nosection') { console.log(`⏩ ${head}: ページに「出演」欄が見つかりませんでした（${t.url}）`); empty++; continue; }
