@@ -369,6 +369,15 @@ body.scrolled .tools{background:var(--nav);-webkit-backdrop-filter:saturate(1.4)
 .olist{display:flex;flex-wrap:wrap;gap:6px;max-height:42vh;overflow:auto;margin-top:8px;padding:2px}
 .ochip{min-height:38px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text);background:transparent}
 .ochip.on{background:var(--sel);border-color:var(--sel-line);color:var(--sel-fg);font-weight:700}
+.rbest{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin-top:8px;font-size:13px}
+.rbest .lb{color:var(--muted)}
+.rbest .bt{font-weight:700}
+.rbest .nt{color:var(--muted);flex-basis:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.blist{display:flex;flex-direction:column;gap:6px;max-height:36vh;overflow:auto;margin-top:8px;padding:2px}
+.bopt{display:flex;align-items:center;gap:10px;min-height:44px;padding:6px 12px;border-radius:10px;border:1px solid var(--line);text-align:left;color:var(--text);background:transparent}
+.bopt.on{background:var(--sel);border-color:var(--sel-line);color:var(--sel-fg);font-weight:700}
+.bopt .d{flex:none;width:76px;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.bnote{width:100%;margin-top:10px;padding:10px 12px;border-radius:10px;border:1px solid var(--line2);background:var(--surface2);color:var(--text);font:inherit;font-size:15px;resize:vertical;min-height:72px}
 .oq{width:100%;min-height:42px;margin-top:10px;padding:8px 12px;border-radius:10px;border:1px solid var(--line2);background:var(--surface2);color:var(--text);font-size:15px}
 .dlg .xtxt{width:100%;margin:6px 0 2px;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:12px;line-height:1.6;resize:vertical}
 .dlg.wide{max-width:640px;height:88dvh;padding:0;display:flex;flex-direction:column;overflow:hidden}
@@ -1370,7 +1379,7 @@ function showDlg(html, focusSel, cls) {
 }
 function closeDlg() {
   $('dlgb').hidden = true; $('dlg').innerHTML = ''; $('dlg').className = 'dlg'; pendingShare = null; bk = null;
-  if (card) { URL.revokeObjectURL(card.url); if (card.c) URL.revokeObjectURL(card.c.url); card = null; }
+  if (card) { URL.revokeObjectURL(card.url); Object.values(card.extra || {}).forEach(e => e && URL.revokeObjectURL(e.url)); card = null; }
   syncInert();
   if (dlgOpener && document.contains(dlgOpener)) dlgOpener.focus({ preventScroll: true });
   dlgOpener = null;
@@ -1405,6 +1414,7 @@ async function dlgAction(a) {
   if (a === 'close') { tryCloseDlg(); return; }
   if (a === 'bksave') { bkSave(); return; }
   if (/^r(share|save|x|copy)$/.test(a)) { recAction(a); return; }
+  if (a === 'bestsave' || a === 'bestclear') { bestSave(a === 'bestclear'); return; }
   if (a === 'fill' || a === 'over') { applyImport(a === 'over'); return; }
   const url = ($('dlgurl') || {}).textContent || '';
   if (a === 'copy') {
@@ -1523,6 +1533,7 @@ function drawRecord() {
       <div class="rhead"><b>${esc(recTitle(rYear))}</b><span class="sub">2023年以降の記録から集計</span></div>
       ${body}
       ${oshiRow()}
+      ${bestRow(S)}
       <div class="ract">${S.perfN ? `<button class="btn pri" data-rshare>${ic('share')}画像で共有</button>` : ''}<button class="btn" data-bulk>${ic('check')}過去の公演をまとめて記録</button></div>
       <details class="ropts"><summary>表示する項目<span class="sub">（共有する画像にも反映）</span></summary><div class="chips">${RITEMS.map(([k, l]) => `<button class="chip ${ropt[k] ? 'on' : ''}" data-ropt="${k}" aria-pressed="${!!ropt[k]}">${l}</button>`).join('')}</div></details>
     </section>
@@ -1705,6 +1716,113 @@ async function colorCard(S) {
   font(500, 20); x.fillStyle = MU; x.textAlign = 'right'; x.fillText('アイマス ライブ情報ポータル', R, 612); x.textAlign = 'left';
   return { blob: await new Promise(res => c.toBlob(b => res(b), 'image/png')), met, n: perfs.length };
 }
+/* ---- ベスト公演（その年に参戦した公演から1つと、ひとこと）---- */
+const BEST_KEY = 'imas_portal_best_v1', BEST_MAX = 60;
+let best = (() => { try { return JSON.parse(localStorage.getItem(BEST_KEY) || '{}') || {}; } catch (_) { return {}; } })();   // { 年 または 'all': { u: 公演のID, note } }
+const bestKeyOf = y => String(y || 'all');
+const perfUidOf = x => `${x.ev.id}\u0001${x.k}`;
+function bestOf(S) { const b = best[bestKeyOf(S.year)]; if (!b) return null; const x = S.won.find(w => perfUidOf(w) === b.u); return x ? { x, note: b.note || '' } : null; }
+function bestRow(S) {
+  if (!S.perfN) return '';
+  const b = bestOf(S);
+  return `<div class="rbest"><span class="lb">ベスト公演</span>${b ? `<span class="bt">${esc(b.x.ev.title)}${b.x.label ? ` ${esc(b.x.label)}` : ''}</span>` : '<span class="lb">未設定（選ぶと、共有の画像に付けられます）</span>'}<button class="btn sm" data-bestopen>${b ? '変える' : '選ぶ'}</button>${b && b.note ? `<span class="nt">「${esc(b.note)}」</span>` : ''}</div>`;
+}
+let bestPick = null;
+function openBestDlg() {
+  const S = recStats(rYear); if (!S.perfN) return;
+  const cur = bestOf(S); bestPick = cur ? perfUidOf(cur.x) : null;
+  const rows = S.won.slice().sort((a, b) => a.date.localeCompare(b.date) || a.i - b.i).map(x => `<button class="bopt ${perfUidOf(x) === bestPick ? 'on' : ''}" data-bpick="${esc(perfUidOf(x))}" aria-pressed="${perfUidOf(x) === bestPick}"><span class="d">${md(x.date)}(${wd(x.date)})</span><span>${esc(x.ev.title)}${x.label ? ` <span class="sub">${esc(x.label)}</span>` : ''}</span></button>`).join('');
+  showDlg(`<h3>${S.year ? `${S.year}年の` : ''}ベスト公演を選ぶ</h3><p class="sub">選んだ公演と、ひとことを画像にします</p>
+    <div class="blist" id="blist">${rows}</div>
+    <textarea class="bnote" id="bnote" maxlength="${BEST_MAX}" placeholder="ひとこと（${BEST_MAX}文字まで・なくても大丈夫です）" aria-label="ひとこと">${esc(cur ? cur.note : '')}</textarea>
+    <div class="dact"><button class="btn pri" data-dlg="bestsave">保存する</button>${cur ? '<button class="btn" data-dlg="bestclear">ベスト公演を外す</button>' : ''}<button class="btn ghost" data-dlg="close">閉じる</button></div>`, '.bopt.on, .bopt', 'mid');
+}
+function bestSave(clear) {
+  const k = bestKeyOf(rYear);
+  if (clear) delete best[k];
+  else { if (!bestPick) { toast('公演を選んでください', null, 2500); return; } best[k] = { u: bestPick, note: (($('bnote') || {}).value || '').trim().slice(0, BEST_MAX) }; }
+  try { localStorage.setItem(BEST_KEY, JSON.stringify(best)); } catch (_) {}
+  closeDlg(); render(); toast(clear ? 'ベスト公演を外しました' : 'ベスト公演を保存しました', null, 2000);
+}
+/** 公演の出演者の色（並び順は色データの順。SideM はユニットカラー。担当は oshi: true） */
+function castSegs(ev, i, d) {
+  const cast = ((ev.schedules || [])[i] || {}).castNames || [], segs = [];
+  for (const n of cast) { const it = d.by.get(n); if (it) segs.push({ c: d.unit[n] || it.c, o: it.o, oshi: oshi.includes(n) }); }
+  segs.sort((a, b) => a.o - b.o);
+  if (!segs.length) segs.push({ c: BRX[(ev.brands || [])[0]] || '#888', o: 0, oshi: false });
+  return segs;
+}
+/** 共有画像の土台（テーマの色・フォント・枠・下のハッシュタグ） */
+async function cardBase(S) {
+  const W = 1200, H = 675, c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d'), cs = getComputedStyle(document.documentElement), v = (n, dd) => cs.getPropertyValue(n).trim() || dd;
+  const T = { BG: v('--bg', '#111214'), SF: v('--surface', '#17181b'), TX: v('--text', '#ececf0'), MU: v('--muted', '#9c9ea8'), LN: v('--line2', 'rgba(255,255,255,.16)'), LN1: v('--line', 'rgba(255,255,255,.08)'), AC: v('--accent', '#a3b6ff'), dark: document.documentElement.dataset.theme !== 'light' };
+  const FF = getComputedStyle(document.body).fontFamily || 'sans-serif';
+  try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (_) {}
+  const font = (w, s) => { x.font = `${w} ${s}px ${FF}`; };
+  const fit = (t, max) => { t = String(t); if (x.measureText(t).width <= max) return t; while (t.length > 1 && x.measureText(t + '…').width > max) t = t.slice(0, -1); return t + '…'; };
+  x.fillStyle = T.BG; x.fillRect(0, 0, W, H);
+  rrect(x, 36, 36, W - 72, H - 72, 28); x.fillStyle = T.SF; x.fill(); x.lineWidth = 2; x.strokeStyle = T.LN; x.stroke();
+  x.textBaseline = 'alphabetic'; x.textAlign = 'left';
+  const footer = () => { font(700, 24); x.fillStyle = T.AC; x.textAlign = 'left'; x.fillText(`#アイマス参戦記録${S.year || ''}`, 84, 612); font(500, 20); x.fillStyle = T.MU; x.textAlign = 'right'; x.fillText('アイマス ライブ情報ポータル', W - 84, 612); x.textAlign = 'left'; };
+  const done = () => new Promise(res => c.toBlob(b => res(b), 'image/png'));
+  return { c, x, T, font, fit, footer, done, L: 84, R: W - 84 };
+}
+/** 3枚目: ベスト公演 */
+async function bestCard(S) {
+  const b = bestOf(S); if (!b) return null;
+  const d = await loadColors();
+  const { x, T, font, fit, footer, done, L, R } = await cardBase(S), ev = b.x.ev;
+  font(700, 22); x.fillStyle = T.MU; x.fillText(`${S.year ? `${S.year}年の` : ''}ベスト公演`, L, 112);
+  let fs = 54; font(800, fs); while (fs > 32 && x.measureText(ev.title).width > R - L) { fs -= 2; font(800, fs); }
+  x.fillStyle = T.TX; x.fillText(fit(ev.title, R - L), L, 186);
+  const dt = b.x.date, line2 = [`${+dt.slice(0, 4)}年${+dt.slice(5, 7)}月${+dt.slice(8, 10)}日(${wd(dt)})${b.x.label ? ` ${b.x.label}` : ''}`, ev.venue || ''].filter(Boolean).join(' ・ ');
+  font(500, 24); x.fillStyle = T.MU; x.fillText(fit(line2, R - L), L, 228);
+  // 出演者の色（横1本。担当がいれば、担当だけ光らせる）
+  const segs = d ? castSegs(ev, b.x.i, d) : [{ c: BRX[(ev.brands || [])[0]] || '#888', oshi: false }];
+  const hasO = segs.some(g => g.oshi), top = 262, h = 40, w = (R - L) / segs.length;
+  x.save(); rrect(x, L, top, R - L, h, 12); x.clip(); x.fillStyle = T.SF; x.fillRect(L, top, R - L, h);
+  segs.forEach((g, i) => { x.globalAlpha = hasO && !g.oshi ? (T.dark ? 0.35 : 0.4) : 1; x.fillStyle = g.c; x.fillRect(L + i * w, top, w + 1, h); });
+  x.globalAlpha = 1; x.restore();
+  rrect(x, L + .5, top + .5, R - L - 1, h - 1, 12); x.lineWidth = 1; x.strokeStyle = T.LN; x.stroke();
+  segs.forEach((g, i) => { if (!g.oshi) return; x.save(); x.shadowColor = g.c; x.shadowBlur = 18; x.fillStyle = g.c; rrect(x, L + i * w, top - 6, w, h + 12, Math.min(6, w / 2)); x.fill(); x.restore(); });
+  // ひとこと（長さで文字の大きさを変える。3行まで）
+  if (b.note) {
+    const wrap = (t, max) => { const out = []; let ln = ''; for (const ch of t) { if (x.measureText(ln + ch).width > max) { out.push(ln); ln = ch; } else ln += ch; } if (ln) out.push(ln); return out; };
+    let size = 40, lines; for (; size >= 28; size -= 2) { font(700, size); lines = wrap(b.note, R - L - 60); if (lines.length <= 3) break; }
+    if (lines.length > 3) { lines = lines.slice(0, 3); lines[2] = fit(lines[2] + '…', R - L - 60); }
+    font(800, 72); x.fillStyle = T.AC; x.fillText('“', L - 6, 392);
+    font(700, size); x.fillStyle = T.TX; lines.forEach((l, i) => x.fillText(l, L + 44, 400 + i * Math.round(size * 1.5)));
+  } else {
+    const n = (((ev.schedules || [])[b.x.i] || {}).castNames || []).length;
+    if (n) { font(500, 24); x.fillStyle = T.MU; x.fillText(`出演アイドル ${n}人`, L, 340); }
+  }
+  footer(); return await done();
+}
+/** 4枚目: 遠征マップ（都道府県を四角いタイルで並べた地図。行った回数が多いほど濃く） */
+const TILE = {"北海道":[13,0,2,2],"青森":[12,2],"秋田":[11,3],"岩手":[12,3],"山形":[11,4],"宮城":[12,4],"新潟":[10,5],"福島":[11,5],"石川":[8,6],"富山":[9,6],"群馬":[10,6],"栃木":[11,6],"島根":[4,7],"鳥取":[5,7],"福井":[7,7],"岐阜":[8,7],"長野":[9,7],"埼玉":[10,7],"東京":[11,7],"茨城":[12,7],"山口":[3,8],"広島":[4,8],"岡山":[5,8],"兵庫":[6,8],"京都":[7,8],"滋賀":[8,8],"愛知":[9,8],"山梨":[10,8],"神奈川":[11,8],"千葉":[12,8],"大阪":[6,9],"奈良":[7,9],"三重":[8,9],"静岡":[10,9],"和歌山":[7,10],"愛媛":[4,10],"香川":[5,10],"高知":[4,11],"徳島":[5,11],"佐賀":[1,9],"福岡":[2,9],"長崎":[0,10],"熊本":[1,10],"大分":[2,10],"鹿児島":[1,11],"宮崎":[2,11],"沖縄":[0,7]};
+const prefShort = p => p === '北海道' ? p : String(p || '').replace(/[都府県]$/, '');
+async function mapCard(S) {
+  if (!S.prefs.length) return null;
+  const { x, T, font, fit, footer, done, L, R } = await cardBase(S), U = unitTxt();
+  const cnt = {}; S.prefs.forEach(([p, n]) => { cnt[prefShort(p)] = n; }); const max = Math.max(...S.prefs.map(p => p[1]));
+  font(700, 30); x.fillStyle = T.TX; x.fillText(`${S.year ? `${S.year}年の` : 'これまでの'}遠征マップ`, L, 116);
+  const N = String(S.prefs.length); font(800, 150); x.fillText(N, L - 6, 300); const nw = x.measureText(N).width;
+  font(700, 40); x.fillText('都道府県', L + nw + 8, 300);
+  font(700, 22); x.fillStyle = T.MU; x.fillText('よく行った都道府県', L, 370);
+  S.prefs.slice(0, 3).forEach(([p, n], i) => { const y = 414 + i * 46; font(700, 26); x.fillStyle = T.TX; x.fillText(fit(prefShort(p), 140), L, y); font(600, 24); x.fillStyle = T.MU; x.fillText(`${n}${U}`, L + 150, y); });
+  const ts = 40, g = 4, ox = R - 15 * (ts + g) + g, oy = 56;
+  for (const [p, [cx, cy, cw = 1, ch = 1]] of Object.entries(TILE)) {
+    const tx = ox + cx * (ts + g), ty = oy + cy * (ts + g), tw = cw * ts + (cw - 1) * g, th = ch * ts + (ch - 1) * g, n = cnt[p] || 0;
+    rrect(x, tx, ty, tw, th, 8);
+    if (n) { x.fillStyle = T.AC; x.globalAlpha = 0.35 + 0.65 * n / max; x.fill(); x.globalAlpha = 1; } else { x.fillStyle = T.LN1; x.fill(); }
+    font(n ? 700 : 500, cw > 1 ? 16 : p.length > 2 ? 11.5 : 13); x.fillStyle = n ? (T.dark ? T.BG : '#ffffff') : T.MU; x.textAlign = 'center'; x.fillText(p, tx + tw / 2, ty + th / 2 + 4); x.textAlign = 'left';
+  }
+  { const [cx, cy] = TILE['沖縄'], tx = ox + cx * (ts + g), ty = oy + cy * (ts + g), pd = 7; x.save(); x.setLineDash([5, 4]); x.lineWidth = 1.5; x.strokeStyle = T.LN; rrect(x, tx - pd, ty - pd, ts + pd * 2, ts + pd * 2, 12); x.stroke(); x.restore(); }   // 沖縄は点線で囲んで、別の場所に置いていることを示す
+  footer(); return await done();
+}
+const RCARDS_KEY = 'imas_portal_rcards_v1';
+const RCARDS = [['color', '色の記録'], ['best', 'ベスト公演'], ['map', '遠征マップ']];
 const RCOLOR_KEY = 'imas_portal_rcolor_v1';
 let card = null;   // { url, file, name, c:{ url, file, name, met, n } }
 async function openCardDlg() {
@@ -1712,26 +1830,33 @@ async function openCardDlg() {
   const blob = await recCard(S); if (!blob) { toast('画像を作れませんでした', null, 3000); return; }
   const name = `imas-sansen-${S.year || 'all'}.png`, file = new File([blob], name, { type: 'image/png' });
   card = { url: URL.createObjectURL(blob), file, name, c: null };
-  const cc = await colorCard(S).catch(() => null);
-  if (cc && cc.blob) { const n2 = `imas-color-${S.year || 'all'}.png`; card.c = { url: URL.createObjectURL(cc.blob), file: new File([cc.blob], n2, { type: 'image/png' }), name: n2, met: cc.met, n: cc.n }; }
-  const useC = () => !!(card && card.c && ($('rcolor') ? $('rcolor').checked : true));
-  card.useC = useC;
-  const canFiles = !!(navigator.canShare && navigator.canShare({ files: card.c ? [file, card.c.file] : [file] }));
-  let colorOn = true; try { colorOn = localStorage.getItem(RCOLOR_KEY) !== '0'; } catch (_) {}
+  const mk = (blob, nm) => blob ? { url: URL.createObjectURL(blob), file: new File([blob], nm, { type: 'image/png' }), name: nm } : null;
+  const [cc, bb, mm] = await Promise.all([colorCard(S).catch(() => null), bestCard(S).catch(() => null), mapCard(S).catch(() => null)]);
+  const y = S.year || 'all';
+  card.extra = { color: cc && cc.blob ? { ...mk(cc.blob, `imas-color-${y}.png`), met: cc.met, n: cc.n } : null, best: mk(bb, `imas-best-${y}.png`), map: mk(mm, `imas-map-${y}.png`) };
+  card.c = card.extra.color;
+  let on = { color: true, best: true, map: true };
+  try { const o = JSON.parse(localStorage.getItem(RCARDS_KEY) || 'null'); if (o) on = { ...on, ...o }; else if (localStorage.getItem(RCOLOR_KEY) === '0') on.color = false; } catch (_) {}
+  card.sel = () => RCARDS.filter(([k]) => card.extra[k] && ($(`rc_${k}`) ? $(`rc_${k}`).checked : on[k])).map(([k]) => card.extra[k]);
+  card.useC = () => card.sel().includes(card.extra.color);
+  const all = [file, ...RCARDS.map(([k]) => card.extra[k]).filter(Boolean).map(e => e.file)];
+  const canFiles = !!(navigator.canShare && navigator.canShare({ files: all }));
+  const alt = { color: `参戦した公演の出演者のメンバーカラーを、公演ごとの帯にした画像${oshi.length && card.extra.color ? `（担当に会えた公演 ${card.extra.color.met}／${card.extra.color.n}）` : ''}`, best: 'ベスト公演の画像', map: '行った都道府県を色で示した地図の画像' };
+  const extras = RCARDS.filter(([k]) => card.extra[k]).map(([k, l]) => `<label class="rchk"><input type="checkbox" id="rc_${k}" data-rcard="${k}" ${on[k] ? 'checked' : ''}>「${l}」も付ける</label><img class="rimg" id="ri_${k}" src="${card.extra[k].url}" alt="${esc(alt[k])}" ${on[k] ? '' : 'hidden'}>`).join('');
   showDlg(`<h3>${ic('share')}参戦記録を共有</h3>
     <img class="rimg" src="${card.url}" alt="${esc(recText(S).split('\n').slice(0, 3).join(' '))}">
-    ${card.c ? `<label class="rchk"><input type="checkbox" id="rcolor" ${colorOn ? 'checked' : ''}>2枚目に「色の記録」も付ける</label><img class="rimg" id="rimg2" src="${card.c.url}" alt="参戦した公演の出演者のメンバーカラーを、公演ごとの帯にした画像${oshi.length ? `（担当に会えた公演 ${card.c.met}／${card.c.n}）` : ''}" ${colorOn ? '' : 'hidden'}>` : ''}
+    ${extras}
     <textarea class="xtxt" id="xtxt" rows="5" aria-label="一緒に投稿する文章（編集できます）">${esc(recText(S))}</textarea>
     <p class="sub">画像はこの端末の中で作っています。サーバーには送りません。${canFiles ? '' : '<br>Xでは、先に「画像を保存」してから、投稿画面で画像を添付してください。'}</p>
     <div class="dact">${canFiles ? '<button class="btn pri" data-dlg="rshare">画像と文章を共有する…</button>' : ''}<button class="btn" data-dlg="rsave">画像を保存</button><button class="btn" data-dlg="rx">Xの投稿画面を開く</button><button class="btn" data-dlg="rcopy">文章をコピー</button><button class="btn ghost" data-dlg="close">閉じる</button></div>`, null, 'mid');
 }
 async function recAction(a) {
-  const text = ($('xtxt') || {}).value || '', two = !!(card && card.useC && card.useC());
-  if (a === 'rshare' && card) { try { await navigator.share({ files: two ? [card.file, card.c.file] : [card.file], text }); } catch (_) {} return; }
+  const text = ($('xtxt') || {}).value || '', more = card && card.sel ? card.sel() : [];
+  if (a === 'rshare' && card) { try { await navigator.share({ files: [card.file, ...more.map(e => e.file)], text }); } catch (_) {} return; }
   if (a === 'rsave' && card) {
     const dl = (u, n) => { const l = document.createElement('a'); l.href = u; l.download = n; document.body.appendChild(l); l.click(); l.remove(); };
-    dl(card.url, card.name); if (two) setTimeout(() => dl(card.c.url, card.c.name), 400);
-    toast(two ? '画像を2枚保存しました' : '画像を保存しました', null, 2000); return;
+    dl(card.url, card.name); more.forEach((e, i) => setTimeout(() => dl(e.url, e.name), 400 * (i + 1)));
+    toast(more.length ? `画像を${more.length + 1}枚保存しました` : '画像を保存しました', null, 2000); return;
   }
   if (a === 'rx') { window.open(`https://x.com/intent/post?text=${encodeURIComponent(text)}`, '_blank', 'noopener'); return; }
   if (a === 'rcopy') { const done = () => toast('文章をコピーしました', null, 2000); if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => prompt('この文章をコピーしてください', text)); else prompt('この文章をコピーしてください', text); }
@@ -1842,6 +1967,8 @@ document.addEventListener('click', e => {
   if (e.target.closest('[data-bulk]')) { openBulk(); return; }
   if (e.target.closest('[data-rshare]')) { openCardDlg(); return; }
   if (e.target.closest('[data-oshiopen]')) { openOshiDlg(); return; }
+  if (e.target.closest('[data-bestopen]')) { openBestDlg(); return; }
+  const bP = e.target.closest('[data-bpick]'); if (bP) { bestPick = bP.dataset.bpick; document.querySelectorAll('#blist .bopt').forEach(el => { const on = el.dataset.bpick === bestPick; el.classList.toggle('on', on); el.setAttribute('aria-pressed', on); }); return; }
   const oB = e.target.closest('[data-oshi]'); if (oB) { oshiToggle(oB.dataset.oshi); return; }
   const oS = e.target.closest('[data-osheet]'); if (oS) { oSheet = oS.dataset.osheet; oshiDraw(); return; }
   const rY = e.target.closest('[data-ryear]'); if (rY) { rYear = rY.dataset.ryear || null; render(); return; }
@@ -1895,7 +2022,8 @@ addEventListener('hashchange', () => { if (/^#s=/.test(location.hash) && events.
 document.addEventListener('change', e => { if (e.target.matches('[data-dlg-memo]')) { shareMemo = e.target.checked; openShareDlg(); } });
 document.addEventListener('input', e => { if (e.target && e.target.id === 'bkq' && bk) { bk.q = e.target.value; bkDraw(); } if (e.target && e.target.id === 'oq') oshiDraw(); });
 document.addEventListener('change', e => {   // 共有の画面: 色の記録を付けるか
-  if (e.target && e.target.id === 'rcolor') { const im = $('rimg2'); if (im) im.hidden = !e.target.checked; try { localStorage.setItem(RCOLOR_KEY, e.target.checked ? '1' : '0'); } catch (_) {} }
+  const rk = e.target && e.target.dataset && e.target.dataset.rcard;
+  if (rk) { const im = $(`ri_${rk}`); if (im) im.hidden = !e.target.checked; try { const o = JSON.parse(localStorage.getItem(RCARDS_KEY) || '{}') || {}; o[rk] = e.target.checked; localStorage.setItem(RCARDS_KEY, JSON.stringify(o)); } catch (_) {} }
 });
 addEventListener('keydown', e => {
   if (e.key === 'Escape' && dlgOpen()) { tryCloseDlg(); return; }
