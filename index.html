@@ -1550,10 +1550,14 @@ function recText(S) {
     `#アイマス参戦記録${S.year || ''}`, `${location.origin}${location.pathname}`].join('\n');
 }
 function rrect(x, l, t, w, h, r) { x.beginPath(); x.moveTo(l + r, t); x.arcTo(l + w, t, l + w, t + h, r); x.arcTo(l + w, t + h, l, t + h, r); x.arcTo(l, t + h, l, t, r); x.arcTo(l, t, l + w, t, r); x.closePath(); }
+/* 共有画像の色。アプリのテーマ（ライト／ダーク）に関係なく、いつもダークで作る。
+ *   ・メンバーカラーは暗い背景のほうが映える（会場でペンライトが光って見えるのと同じ）。白い背景だと淡い色が沈み、光らせた所もにじんで見える
+ *   ・作った端末のテーマで見え方が変わらず、4枚がいつも同じ見た目でそろう */
+const CARD_THEME = { BG: '#111214', SF: '#17181b', TX: '#ececf0', MU: '#9c9ea8', LN: 'rgba(255,255,255,.16)', LN1: 'rgba(255,255,255,.08)', AC: '#a3b6ff', dark: true };
 async function recCard(S) {
   const W = 1200, H = 675, c = document.createElement('canvas'); c.width = W; c.height = H;
-  const x = c.getContext('2d'), cs = getComputedStyle(document.documentElement), v = (n, d) => cs.getPropertyValue(n).trim() || d;
-  const BG = v('--bg', '#111214'), SF = v('--surface', '#17181b'), TX = v('--text', '#ececf0'), MU = v('--muted', '#9c9ea8'), LN = v('--line2', 'rgba(255,255,255,.16)'), AC = v('--accent', '#a3b6ff');
+  const x = c.getContext('2d');
+  const { BG, SF, TX, MU, LN, AC } = CARD_THEME;
   const FF = getComputedStyle(document.body).fontFamily || 'sans-serif';
   try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (_) {}
   const font = (w, s) => { x.font = `${w} ${s}px ${FF}`; };
@@ -1733,9 +1737,8 @@ async function colorCard(S) {
   });
   const people = new Set(perfs.flatMap(p => p.cast.filter(n => d.by.has(n)))).size, met = perfs.filter(p => p.met).length, hasO = oshi.length > 0;
   const W = 1200, H = 675, c = document.createElement('canvas'); c.width = W; c.height = H;
-  const x = c.getContext('2d'), cs = getComputedStyle(document.documentElement), v = (n, dd) => cs.getPropertyValue(n).trim() || dd;
-  const BG = v('--bg', '#111214'), SF = v('--surface', '#17181b'), TX = v('--text', '#ececf0'), MU = v('--muted', '#9c9ea8'), LN = v('--line2', 'rgba(255,255,255,.16)'), AC = v('--accent', '#a3b6ff');
-  const dark = document.documentElement.dataset.theme !== 'light';
+  const x = c.getContext('2d');
+  const { BG, SF, TX, MU, LN, AC, dark } = CARD_THEME;
   const FF = getComputedStyle(document.body).fontFamily || 'sans-serif';
   try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (_) {}
   const font = (w, s) => { x.font = `${w} ${s}px ${FF}`; };
@@ -1808,8 +1811,7 @@ function bestSave(clear) {
 /** 共有画像の土台（テーマの色・フォント・枠・下のハッシュタグ） */
 async function cardBase(S) {
   const W = 1200, H = 675, c = document.createElement('canvas'); c.width = W; c.height = H;
-  const x = c.getContext('2d'), cs = getComputedStyle(document.documentElement), v = (n, dd) => cs.getPropertyValue(n).trim() || dd;
-  const T = { BG: v('--bg', '#111214'), SF: v('--surface', '#17181b'), TX: v('--text', '#ececf0'), MU: v('--muted', '#9c9ea8'), LN: v('--line2', 'rgba(255,255,255,.16)'), LN1: v('--line', 'rgba(255,255,255,.08)'), AC: v('--accent', '#a3b6ff'), dark: document.documentElement.dataset.theme !== 'light' };
+  const x = c.getContext('2d'), T = CARD_THEME;
   const FF = getComputedStyle(document.body).fontFamily || 'sans-serif';
   try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (_) {}
   const font = (w, s) => { x.font = `${w} ${s}px ${FF}`; };
