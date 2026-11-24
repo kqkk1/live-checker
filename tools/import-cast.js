@@ -101,7 +101,7 @@ function castSection(html, label) {
     const part = rest.slice(0, stops.length ? Math.min(...stops) : Math.min(rest.length, 20000));
     if (linesOf(part).length) return part;
   }
-  const m = /出演(?:者)?(?:\s*[（(][^)）<]*[)）])?\s*[:：]/.exec(src.replace(/<[^>]+>/g, s => ' '.repeat(s.length)));   // タグの中は探さない（位置はそのまま）
+  const m = /(?:出演|出場)[^\s:：<>]{0,6}(?:\s*[（(][^)）<]*[)）])?\s*[:：]/.exec(src.replace(/<[^>]+>/g, s => ' '.repeat(s.length)));   // タグの中は探さない（位置はそのまま）
   if (m) {
     const rest = src.slice(m.index + m[0].length), h = /<h[1-6][\s>]/i.exec(rest);
     const part = rest.slice(0, h ? h.index : Math.min(rest.length, 20000));
@@ -126,12 +126,12 @@ function buildIdols(colors) {
   const items = colors && colors.items ? colors.items : {};
   const idols = [];   // { name, sheet, keys: [...] }
   for (const [sheet, rows] of Object.entries(items)) for (const r of rows || []) {
-    if (!r || r.role !== 'idol' || !r.n) continue;
+    if (!r || (r.role !== 'idol' && r.role !== 'staff') || !r.n) continue;   // 事務員（音無小鳥など）も、出演していれば入れる
     const parts = String(r.n).split(/[・]/).length > 1 && /^双海/.test(r.n) ? String(r.n).split('・') : [r.n];   // 「双海亜美・双海真美」は、どちらの名前でもこの1行に当てる
     idols.push({ name: r.n, sheet, keys: [...new Set([r.n, ...parts].map(key))] });
   }
   const units = new Set();
-  for (const rows of Object.values(items)) for (const r of rows || []) if (r && r.role !== 'idol' && r.n) units.add(key(r.n));
+  for (const rows of Object.values(items)) for (const r of rows || []) if (r && r.role !== 'idol' && r.role !== 'staff' && r.n) units.add(key(r.n));
   return { idols, units };
 }
 
@@ -140,6 +140,7 @@ function matchCast(lines, cv, idolData, brands) {
   const sheets = new Set((brands || []).flatMap(b => BRAND_SHEETS[b] || []));
   const pool = idolData.idols.filter(i => !sheets.size || sheets.has(i.sheet));
   const byKey = new Map(); for (const i of pool) for (const k of i.keys) if (!byKey.has(k)) byKey.set(k, i);
+  const short = c => { const k = key(c); if (byKey.has(k)) return byKey.get(k); const hit = k.length >= 3 ? pool.filter(i => i.keys.some(x => x.startsWith(k))) : []; return hit.length === 1 ? hit[0] : null; };   // 「エミリー」→「エミリー・スチュアート」
   const anyKey = new Map(); for (const i of idolData.idols) for (const k of i.keys) if (!anyKey.has(k)) anyKey.set(k, i);
   const found = [], unknown = [];
   const otherChars = new Set([...cv.values()].flatMap(v => [...v.chars].map(key)));   // 声優一覧にあるアイドル以外のキャラ（社長・スタッフなど）
@@ -153,10 +154,11 @@ function matchCast(lines, cv, idolData, brands) {
     if (otherChars.has(k) && !anyKey.has(k)) continue;   // 社長・スタッフなど、アイドル以外のキャラ
     const va = cv.get(k);
     if (va) {
-      const hits = [...va.chars].map(c => byKey.get(key(c))).filter(Boolean);
+      const hits = [...va.chars].map(short).filter(Boolean);
       if (hits.length) { hits.forEach(h => add(h.name)); continue; }
-      const other = [...va.chars].map(c => anyKey.get(key(c))).filter(Boolean);
-      if (other.length && !sheets.size) { other.forEach(h => add(h.name)); continue; }
+      const anyShort = c => { const k = key(c); if (anyKey.has(k)) return anyKey.get(k); const hit = k.length >= 3 ? idolData.idols.filter(i => i.keys.some(x => x.startsWith(k))) : []; return hit.length === 1 ? hit[0] : null; };
+      const other = [...new Set([...va.chars].map(anyShort).filter(Boolean))];
+      if (other.length) { other.forEach(h => add(h.name)); continue; }   // 合同ライブなどで、ブランドの登録が足りない場合も拾う
       unknown.push(`${t}（${[...va.chars].join('・')}）`);   // 声優は分かったが、このライブのブランドのアイドルではない
       continue;
     }
@@ -234,6 +236,7 @@ async function main() {
 
   const pages = new Map();   // URL → 出演欄の行（同じページを2回開かない）
   let done = 0, empty = 0, shownHeads = false;
+  const unread = [], unknownAll = new Map();
   for (const t of targets) {
     if (!pages.has(t.url)) {
       const html = await getText(t.url);
@@ -249,9 +252,11 @@ async function main() {
     const got = pages.get(t.url);
     const lines = got && got.html ? dropOffstage(linesOf(castSection(got.html, t.label) || '')) : got;
     const head = `${t.live.title}｜${t.label.split(':')[0]}`;
-    if (lines === 'noread') { console.log(`⏩ ${head}: ページを読めませんでした（${t.url}）`); empty++; continue; }
-    if (lines === 'nosection') { console.log(`⏩ ${head}: ページに「出演」欄が見つかりませんでした（${t.url}）`); empty++; continue; }
+    if (lines === 'noread') { console.log(`⏩ ${head}: ページを読めませんでした（${t.url}）`); unread.push(`${head}（読めない）${t.url}`); empty++; continue; }
+    if (lines === 'nosection') { console.log(`⏩ ${head}: ページに「出演」欄が見つかりませんでした（${t.url}）`); unread.push(`${head}（出演欄なし）${t.url}`); empty++; continue; }
     const { found, unknown } = matchCast(lines, cv, idolData, t.live.brands);
+    for (const u of unknown) { const e = unknownAll.get(u) || { n: 0, where: t.live.title }; e.n++; unknownAll.set(u, e); }
+    if (!found.length) unread.push(`${head}（名前が1人も当てはまらない）${t.url}`);
     if (!found.length) { console.log(`⚠️ ${head}: 出演者を読み取れませんでした${unknown.length ? `（対応が見つからない名前: ${unknown.slice(0, 8).join('、')}）` : ''}`); empty++; continue; }
     console.log(`${WRITE ? '✅' : '📝'} ${head}: ${found.length}名 ${found.join(',')}`);
     if (unknown.length) console.log(`   └ 対応が見つからない名前: ${unknown.slice(0, 12).join('、')}${unknown.length > 12 ? ` ほか${unknown.length - 12}件` : ''}`);
@@ -259,7 +264,11 @@ async function main() {
     done++;
   }
   console.log(`\n${WRITE ? '書き込んだ' : '書き込める'}公演: ${done}件 / 読み取れなかった公演: ${empty}件`);
-  if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### 出演者の取り込み（${WRITE ? '書き込み' : '確認だけ'}）\n- 対象 ${targets.length}件 / ${WRITE ? '書き込んだ' : '書き込める'} ${done}件 / 読み取れなかった ${empty}件\n`);
+  // まとめ（ここをまるごと貼ってもらえば、残りを一度に直せるように）
+  const unk = [...unknownAll].sort((a, b) => b[1].n - a[1].n).map(([n, e]) => `${n}×${e.n}（${e.where}）`);
+  const report = ['==== まとめ（この部分をコピーしてください） ====', `読み取れなかった公演 ${unread.length}件`, ...unread.map(x => `- ${x}`), `対応が見つからない名前 ${unk.length}種類（出演者には書かれません）`, ...unk.map(x => `- ${x}`), '==== ここまで ===='].join('\n');
+  console.log('\n' + report);
+  if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### 出演者の取り込み（${WRITE ? '書き込み' : '確認だけ'}）\n- 対象 ${targets.length}件 / ${WRITE ? '書き込んだ' : '書き込める'} ${done}件 / 読み取れなかった ${empty}件\n\n\`\`\`\n${report}\n\`\`\`\n`);
 }
 
 if (require.main === module) main().catch(e => { console.error('❌ ' + e.message); process.exit(1); });
