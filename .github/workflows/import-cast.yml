@@ -1,0 +1,69 @@
+name: Import cast
+# 終わった公演の「出演者」の取り込み（アイマスDBの公演ページから。AIは使わない）
+#  公演日程DBの「セトリURL」のページの「出演」欄の声優名を、アイマスDBの声優一覧でアイドル名に置き換えて、空欄の「出演者」に入れる
+#  まず「書き込む」をオフのまま実行して、ログで内容を確認 → 問題なければ「書き込む」をオンにして実行
+#  出演者が入っている行には触らないので、何度実行しても大丈夫です
+on:
+  workflow_dispatch:
+    inputs:
+      write:
+        description: '書き込む（オフ = 確認だけ。Notionには何も書かない）'
+        type: boolean
+        default: false
+      from:
+        description: 'この日以降に開催されたライブが対象（YYYY-MM-DD）'
+        type: string
+        default: '2025-01-01'
+
+permissions:
+  contents: write
+
+# 定期のチェッカーと同時に動かないようにする
+concurrency:
+  group: imas-write
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    env:
+      NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+      NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+      NOTION_SLOT_DB_ID: ${{ secrets.NOTION_SLOT_DB_ID }}
+      NOTION_SCHEDULE_DB_ID: ${{ secrets.NOTION_SCHEDULE_DB_ID }}
+      NOTION_LOG_DB_ID: ${{ secrets.NOTION_LOG_DB_ID }}
+      NOTION_MERCH_DB_ID: ${{ secrets.NOTION_MERCH_DB_ID }}
+      WRITE: ${{ inputs.write }}
+      CAST_FROM: ${{ inputs.from }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Import cast
+        run: |
+          if [ "$WRITE" = "true" ]; then node tools/import-cast.js --write; else node tools/import-cast.js; fi
+
+      # 書き込んだときだけ、Notionの今の内容から events.json を作り直して保存する（公式サイトもAIも使わない）
+      - name: Rebuild events.json
+        if: env.WRITE == 'true'
+        run: node index.js --sync-only
+
+      - name: Commit and Push events.json
+        if: env.WRITE == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add events.json meta.json
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: add cast of past performances to events.json"
+            git pull --rebase
+            git push
+          fi
