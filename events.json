@@ -7538,7 +7538,20 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%A5%BF%E5%9C%92%E5%AF%BA%E7%90%B4%E6%AD%8C%2C%E5%8C%97%E6%9D%A1%E5%8A%A0%E8%93%AE%2C%E7%9B%B8%E8%91%89%E5%A4%95%E7%BE%8E"
       }
     ],
-    "merch": []
+    "merch": [
+      {
+        "kind": "事前販売",
+        "name": "公式グッズ事前販売",
+        "url": "https://shop.asobistore.jp/feature/cg_15th_orchestra",
+        "start": "",
+        "end": "",
+        "lottery": "",
+        "dates": "",
+        "place": "",
+        "seiriken": "",
+        "free": ""
+      }
+    ]
   },
   {
     "id": "3ff17392-1f2b-8176-aeb2-f56310488ffe",
@@ -7819,7 +7832,20 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88%2C%E9%BB%92%E5%9F%BC%E3%81%A1%E3%81%A8%E3%81%9B%2C%E5%AE%AE%E6%9C%AC%E3%83%95%E3%83%AC%E3%83%87%E3%83%AA%E3%82%AB%2C%E5%B0%8F%E6%97%A5%E5%90%91%E7%BE%8E%E7%A9%82%2C%E7%B5%90%E5%9F%8E%E6%99%B4%2C%E6%9D%BE%E6%B0%B8%E6%B6%BC%2C%E4%B8%89%E8%88%B9%E7%BE%8E%E5%84%AA%2C%E7%A5%9E%E8%B0%B7%E5%A5%88%E7%B7%92%2C%E6%97%A5%E9%87%8E%E8%8C%9C%2C%E5%A0%80%E8%A3%95%E5%AD%90%2C%E4%BE%9D%E7%94%B0%E8%8A%B3%E4%B9%83%2C%E4%B9%85%E5%B7%9D%E5%87%AA%2C%E5%96%9C%E5%A4%9A%E6%97%A5%E8%8F%9C%E5%AD%90%2C%E5%A4%A7%E6%A7%BB%E5%94%AF%2C%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5%2C%E4%BC%8A%E5%90%B9%E7%BF%BC%2C%E5%BE%B3%E5%B7%9D%E3%81%BE%E3%81%A4%E3%82%8A%2C%E3%83%AD%E3%82%B3%2C%E9%AB%98%E5%B1%B1%E7%B4%97%E4%BB%A3%E5%AD%90%2C%E5%A4%A9%E7%A9%BA%E6%A9%8B%E6%9C%8B%E8%8A%B1%2C%E6%A8%AA%E5%B1%B1%E5%A5%88%E7%B7%92%2C%E9%A6%AC%E5%A0%B4%E3%81%93%E3%81%AE%E3%81%BF%2C%E8%B1%8A%E5%B7%9D%E9%A2%A8%E8%8A%B1%2C%E7%9C%9F%E5%A3%81%E7%91%9E%E5%B8%8C%2C%E6%B0%B8%E5%90%89%E6%98%B4%2C%E5%8C%97%E4%B8%8A%E9%BA%97%E8%8A%B1%2C%E7%99%BD%E7%9F%B3%E7%B4%AC%2C%E6%A1%9C%E5%AE%88%E6%AD%8C%E7%B9%94"
       }
     ],
-    "merch": []
+    "merch": [
+      {
+        "kind": "事前販売",
+        "name": "事前販売",
+        "url": "https://shop.asobistore.jp/feature/cg_ml_clash_match",
+        "start": "",
+        "end": "2026-11-15",
+        "lottery": "",
+        "dates": "",
+        "place": "",
+        "seiriken": "",
+        "free": ""
+      }
+    ]
   },
   {
     "id": "41117392-1f2b-81e9-81fd-ef04a146fb52",
