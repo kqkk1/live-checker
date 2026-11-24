@@ -510,6 +510,7 @@ function splitDuplicateKeys(items) {
 /* =====================================================================
  * 受付枠の「現在の枠」の選び方（Pages と同じ考え方）
  *   受付中（締切が近い順） → 受付前（開始が近い順） → 終了（締切が新しい順）
+ *   日時が同じ枠どうしは、新しく作られた枠を先にする（読み込んだ順番によって、選ばれる枠が変わらないように）
  * ===================================================================== */
 function slotState(s, now = Date.now()) {
   const st = s.start ? Date.parse(s.start) : null, en = s.end ? Date.parse(s.end) : null;
@@ -521,11 +522,13 @@ function pickCurrent(slots, now = Date.now()) {
   if (!slots.length) return null;
   const by = st => slots.filter(s => slotState(s, now) === st);
   const t = (s, k) => (s[k] ? Date.parse(s[k]) : Infinity);
-  const open = by('open').sort((a, b) => t(a, 'end') - t(b, 'end'));
+  const c = s => (s.created ? Date.parse(s.created) : Infinity);   // 作成日時がない枠（作ったばかり）は、いちばん新しい扱い
+  const newer = (a, b) => (c(b) - c(a)) || 0;
+  const open = by('open').sort((a, b) => (t(a, 'end') - t(b, 'end')) || newer(a, b));
   if (open.length) return open[0];
-  const before = by('before').sort((a, b) => t(a, 'start') - t(b, 'start'));
+  const before = by('before').sort((a, b) => (t(a, 'start') - t(b, 'start')) || newer(a, b));
   if (before.length) return before[0];
-  const closed = by('closed').sort((a, b) => (b.end ? Date.parse(b.end) : 0) - (a.end ? Date.parse(a.end) : 0));
+  const closed = by('closed').sort((a, b) => ((b.end ? Date.parse(b.end) : 0) - (a.end ? Date.parse(a.end) : 0)) || newer(a, b));
   if (closed.length) return closed[0];
   return slots[0];
 }
@@ -576,8 +579,17 @@ function replacePage(db, page) {
 function toSlot(p) {
   const name = propText(p.properties['枠名']) || titleOf(p, S.slot.meta).split('｜').slice(1).join('｜');
   const kind = propText(p.properties['種別']) || (/先着/.test(name) ? '先着' : '抽選');
-  return { id: p.id, name, kind, start: dateStart(p, '受付開始'), end: dateStart(p, '締切'), lottery: dateStart(p, '当落発表日'), locked: isLocked(p) };
+  return { id: p.id, name, kind, start: dateStart(p, '受付開始'), end: dateStart(p, '締切'), lottery: dateStart(p, '当落発表日'), locked: isLocked(p), created: p.created_time || '' };
 }
+/* ---- 受付枠の名前 ----
+ *   ・基本は現地チケットなので、先頭の「現地チケット」「現地」は付けない（例: 現地チケット 一般販売(先着) → 一般販売(先着)）
+ *   ・同じ受付かどうかは、その名前で比べる。「一般発売」と「一般販売」も同じとみなす */
+function cleanTier(s) {
+  const t = String(s || '').trim();
+  const r = t.replace(/^現地(?:チケット[\s　]*[・:：]?|[\s　]*[・:：]|[\s　]+)[\s　]*/, '').trim();
+  return r && r !== t && !/^配信/.test(r) ? r : t;   // 「現地・配信セット」のようなものは、そのまま
+}
+const tierKey = s => norm(cleanTier(s)).replace(/発売/g, '販売');
 const slotsOfLive = liveId => S.slot.pages.filter(p => relIds(p, S.slot.rel.live).includes(liveId)).map(toSlot);
 const schedPagesOfLive = liveId => S.sched.pages
   .filter(p => relIds(p, S.sched.rel.live).includes(liveId))
@@ -712,12 +724,20 @@ async function applyEvent(ev, article) {
 
   /* --- 受付枠 --- */
   let newSlot = null;
-  const tier = (ev.ticket_tier || '').trim();
+  const tier = cleanTier(ev.ticket_tier);
   if (tier) {
     const kind = (ev.ticket_kind === '先着' || ev.ticket_kind === '抽選') ? ev.ticket_kind : (/先着/.test(tier) ? '先着' : '抽選');
     const start = toNotionDate(ev.apply_start_date), end = toNotionDate(ev.deadline_date);
     const lot = isValidDate(ev.result_date_notion) ? toNotionDate(ev.result_date_notion) : '';
-    const existing = S.slot.pages.find(p => relIds(p, S.slot.rel.live).includes(live.id) && norm(toSlot(p).name) === norm(tier));
+    const mine = S.slot.pages.filter(p => relIds(p, S.slot.rel.live).includes(live.id));
+    let existing = mine.find(p => tierKey(toSlot(p).name) === tierKey(tier));
+    // AIは記事ごとに、同じ受付を違う名前で書くことがある（例: 「現地チケット 一般販売(先着)」と「一般販売(先着)」）。
+    // 名前が違っても、同じライブで種別・受付開始・締切がすべて同じなら、同じ受付とみなして新しい枠は作らない
+    if (!existing && (start || end)) {
+      existing = mine.find(p => { const s = toSlot(p); return s.kind === kind && sameDate(start, s.start) && sameDate(end, s.end); });
+      if (existing) console.log(` ├─ 🎫 「${tier}」は、登録済みの「${toSlot(existing).name}」と期間が同じため、同じ受付として扱います`);
+    }
+    const exName = existing ? toSlot(existing).name : tier;   // 登録済みの枠は、登録済みの名前のまま扱う
     const sm = S.slot.meta;
     if (!existing) {
       const props = {};
@@ -741,10 +761,10 @@ async function applyEvent(ev, article) {
       if (changes.length) {
         put(sm, props, '取得元記事URL', article.url); put(sm, props, '最終自動更新', new Date().toISOString());
         const u = await W.update({ page_id: existing.id, properties: props }); if (u) replacePage(S.slot, u);
-        console.log(` ├─ 🎫 受付枠を更新: ${tier}（${changes.join('・')}）`);
-        news.push(`🔄 受付の日程が変わりました: ${liveTitle}｜${tier}（${changes.join('・')}）\n　受付: ${fmtJ(start || dateStart(existing, '受付開始')) || '未定'}${(end || dateStart(existing, '締切')) ? ` 〜 ${fmtJ(end || dateStart(existing, '締切'))}` : ' 〜'}\n　記事: ${article.url}`);
-      } else console.log(` ├─ 🎫 受付枠は変更なし: ${tier}`);
-    } else console.log(` ├─ 🔒 受付枠「${tier}」はロック中のため更新しません`);
+        console.log(` ├─ 🎫 受付枠を更新: ${exName}（${changes.join('・')}）`);
+        news.push(`🔄 受付の日程が変わりました: ${liveTitle}｜${exName}（${changes.join('・')}）\n　受付: ${fmtJ(start || dateStart(existing, '受付開始')) || '未定'}${(end || dateStart(existing, '締切')) ? ` 〜 ${fmtJ(end || dateStart(existing, '締切'))}` : ' 〜'}\n　記事: ${article.url}`);
+      } else console.log(` ├─ 🎫 受付枠は変更なし: ${exName}`);
+    } else console.log(` ├─ 🔒 受付枠「${exName}」はロック中のため更新しません`);
   }
 
   /* --- 公演日程 --- */
@@ -1034,7 +1054,7 @@ function buildEvents({ live, slot, sched, merch: mdb }, now = Date.now()) {
     const g = n => propText(page.properties[n]);
     const slots = slot.pages.filter(p => relIds(p, slotRel).includes(page.id)).map(p => {
       const name = propText(p.properties['枠名']) || propText(p.properties[titleName(slot.meta)]).split('｜').slice(1).join('｜');
-      return { name, kind: propText(p.properties['種別']) || (/先着/.test(name) ? '先着' : '抽選'), start: dateStart(p, '受付開始'), end: dateStart(p, '締切'), lottery: dateStart(p, '当落発表日') };
+      return { name, kind: propText(p.properties['種別']) || (/先着/.test(name) ? '先着' : '抽選'), start: dateStart(p, '受付開始'), end: dateStart(p, '締切'), lottery: dateStart(p, '当落発表日'), created: p.created_time || '' };
     });
     if (!slots.length) {   // 受付枠DBに行がないライブ（旧方式で登録されたもの）は、ライブ行の旧列から補って表示する
       const tier = propText(page.properties['受付枠']), st = dateStart(page, '受付期間'), en = dateEnd(page, '受付期間');
@@ -1162,7 +1182,7 @@ ${existingNames}
       "schedules": [
         { "label": "Day1", "text": "Day1: 1月30日(土) 開場16:30/開演17:30", "name": "公演名（サブタイトル）。なければ空文字", "cast": ["灯里愛夏", "上水流宇宙", "レトラ"] }
       ],
-      "ticket_tier": "現在募集している現地チケットの受付名称",
+      "ticket_tier": "現在募集している現地チケットの受付名称（「現地チケット」「現地」は付けず、受付の名前だけ。例: 一般販売(先着)、アソビストア一般会員先行）",
       "ticket_kind": "抽選 または 先着",
       "apply_start_date": "上記受付の開始日時（'YYYY-MM-DDTHH:mm' または 'YYYY-MM-DD' 形式。不明なら空文字）",
       "deadline_date": "上記受付の最終締切日時（'YYYY-MM-DDTHH:mm' または 'YYYY-MM-DD' 形式。不明なら空文字）",
