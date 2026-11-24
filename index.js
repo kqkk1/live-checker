@@ -870,10 +870,25 @@ async function grab(page, url) {   // ページを開いて、本文・リンク
     anchors: Array.from(document.querySelectorAll('a')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })),
     // GOODS欄だけの本文とリンク（通常は #goodsCol。1ページ型のサイトは section#goods、物販専用ページは body#goods）。物販の情報は、ここだけから読む（チケット欄など、ほかの欄の値が混ざらないようにする）
     goodsIds: Array.from(document.querySelectorAll('[id*="goods" i], [class*="goods" i]')).slice(0, 8).map(e => `${e.tagName.toLowerCase()}${e.id ? '#' + e.id : ''}${e.className && typeof e.className === 'string' ? '.' + e.className.trim().split(/\s+/).slice(0, 2).join('.') : ''}`),   // #goodsCol が無いページの調査用
-    goods: (() => { const el = document.querySelector('#goodsCol') || document.querySelector('section#goods') || (document.body.id === 'goods' ? (document.querySelector('main, article, #main') || document.body) : null); return el ? { text: el.innerText || '', anchors: Array.from(el.querySelectorAll('a')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })) } : null; })(),
+    // 決まった欄が無くても、物販専用ページ（URLが …/goods/）なら、ページの本文を GOODS欄として読む（メニュー・ヘッダー・フッター・SHAREは除く）
+    goods: (() => {
+      const pick = el => ({ text: el.innerText || '', anchors: Array.from(el.querySelectorAll('a')).filter(a => !a.closest('header, nav, footer, [class*="menu" i], [id*="menu" i], [class*="share" i], [id*="share" i]')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })) });
+      const el = document.querySelector('#goodsCol') || document.querySelector('section#goods') || (document.body.id === 'goods' ? (document.querySelector('main, article, #main') || document.body) : null);
+      if (el) return pick(el);
+      if (/\/goods(\/|\/index\.\w+|\.php)?$/i.test(location.pathname)) { const m = document.querySelector('main, article, #main') || document.body, g = pick(m); g.text = Array.from(m.children).filter(c => !c.matches('header, nav, footer') && !/menu|share/i.test(`${c.id} ${c.className}`)).map(c => c.innerText || '').join('\n'); g.whole = true; return g; }
+      return null;
+    })(),
   }));
 }
-const isNotFound = g => !g || /404|Not Found|見つかりません/i.test(g.title || '') || String(g.text || '').length < 200;
+// 本文が短くても、物販の欄や販売ページへのリンクがあれば「ある」とみなす（バナー1枚だけの物販ページがあるため）
+const isNotFound = g => !g || /404|Not Found|見つかりません/i.test(g.title || '') || (String(g.text || '').length < 200 && !(g.goods && (g.goods.anchors.some(a => /asobistore\.jp\/feature\/|qo-kun\.com/.test(a.href)) || /販売|物販|グッズ/.test(g.goods.text))));
+/** 物販ページの候補URL。live_event/ に加えて、live_events/（xRなど）・va-liv/event/（ヴイアラ）の形も */
+function goodsUrlsOf(official) {
+  const out = merch.deriveGoodsUrls(official);
+  const m = String(official || '').match(/^(https?:\/\/idolmaster-official\.jp\/(?:live_events|va-liv\/event)\/[^/?#]+)/);
+  if (m) out.push(`${m[1]}/goods/`);
+  return [...new Set(out)];
+}
 
 const mKind = p => propText(p.properties['種別']);
 const mName = p => propText(p.properties['名称']);
@@ -958,8 +973,8 @@ async function scrapeMerch(page) {
     const end = (dateEnd(live, 'ライブ開催日') || dateStart(live, 'ライブ開催日')).slice(0, 10);
     if (end && end < today) continue;   // 終わったライブは見ない
     const official = propText(live.properties['公式URL']);
-    const cands = merch.deriveGoodsUrls(official);
-    if (!cands.length) continue;
+    const cands = goodsUrlsOf(official);
+    if (!cands.length && !/^https?:\/\/idolmaster-official\.jp\//.test(official)) continue;   // 公式サイト以外は見ない（候補が無くても、公式サイトならメニューから GOODS を探す）
     console.log(`▶ 物販: ${title}`);
     try {
       let g = null;
@@ -986,6 +1001,22 @@ async function scrapeMerch(page) {
   }
 }
 
+/** ライブの特設サイトの名前（URLの live_event/○○/ の○○）。ニュースのリンクとライブを結びつけるのに使う */
+const siteSlugOf = u => ((String(u || '').match(/idolmaster-official\.jp\/(?:live_events?|va-liv\/event)\/([^/?#]+)/i) || [])[1] || '').toLowerCase();
+/** グッズのニュース記事から、事前販売ページ（アソビストア）のリンクを拾う（AIは使わない）。
+ *   GOODSページの作りが変わって読めなかったときの予備。記事が「登録済みで、まだ終わっていないライブ」の特設サイトを1つだけ指しているときに限る */
+async function presaleFromNews(page, article, upsert = upsertMerch) {
+  if (!S.merch) return 0;
+  await page.goto(article.url, { waitUntil: 'domcontentloaded', timeout: 30000 }); await page.waitForTimeout(1500);
+  const as = await page.evaluate(() => Array.from((document.querySelector('main, article, .news-detail, #main') || document.body).querySelectorAll('a')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })));
+  const links = merch.extractPresaleLinks(as); if (!links.length) return 0;
+  const slugs = new Set(as.map(a => siteSlugOf(a.href)).filter(Boolean)), today = nowJST();
+  const lives = S.live.pages.filter(p => { const sl = siteSlugOf(propText(p.properties['公式URL'])); if (!sl || !slugs.has(sl)) return false; const end = (dateEnd(p, 'ライブ開催日') || dateStart(p, 'ライブ開催日')).slice(0, 10); return !end || end >= today; });
+  if (lives.length !== 1) { if (lives.length > 1) console.log(` ├─ ℹ️ グッズの記事が複数のライブ（${lives.map(l => titleOf(l, S.live.meta)).join('・')}）を指しているため、事前販売は記事からは登録しません`); return 0; }
+  console.log(` ├─ 🛍 グッズの記事から、事前販売のリンクを見つけました（${titleOf(lives[0], S.live.meta)}）`);
+  for (const pl of links) await upsert(lives[0], pl, article.url, { order: 'url' });
+  return links.length;
+}
 /** 事前販売ページ（アソビストア等）を読んで、販売の回と受付期間をAIで抽出する（ページの内容が変わったときだけ） */
 async function enrichPresale(page) {
   if (!S.merch) return;
@@ -1250,6 +1281,7 @@ async function run() {
       if (handled >= MAX) { console.log(` ├─ ⏹ AIで解析した記事が --max=${MAX} 件に達したため、残りは次回に回します`); break; }
       const title = article.title || '';
       if (/グッズ|Blu-ray|CD|配信|上映会|コラボ|展示|出展/.test(title)) {
+        if (/グッズ/.test(title)) { try { await presaleFromNews(page, article); } catch (e) { warn(`グッズの記事の読み込みに失敗（${title}）: ${e.message}`); } }   // チケットの解析はしないが、事前販売のリンクだけ拾う
         console.log(' ├─ ⏩ スキップ: タイトルから対象外と判定');
         await recordLog(article.url, title, '非対象', null); continue;   // AIを使わない判定は --max に数えない
       }
@@ -1321,6 +1353,6 @@ async function run() {
   if (warns.length) { console.log(`\n⚠️ 確認が必要な点 (${warns.length}件)`); warns.forEach(w => console.log(' - ' + w)); }
 }
 
-module.exports = { geminiJson, pickFallbacks, aiMessage, buildAiReport, aiState, resetAI: () => { aiDownStreak = 0; }, scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson, syncOnly,
+module.exports = { presaleFromNews, siteSlugOf, goodsUrlsOf, geminiJson, pickFallbacks, aiMessage, buildAiReport, aiState, resetAI: () => { aiDownStreak = 0; }, scrapeMerch, enrichPresale, upsertMerch, setAI, merchHashes, news, newsMessage, notify, warnMessage, readMeta, normalizeScheduleKeys, S, loadAll, applyEvent, buildEvents, buildBodyBlocks, pickCurrent, slotState, recordLog, isProcessed, syncEventsJson, syncOnly,
   parseLabelDate, nameFromRemainder, penlightCast, isXRLive, effectiveLottery, composeSchedLabel, splitDuplicateKeys, enforceShortName, normalizeBrands, buildPenlightUrl, cleanCastList, toNotionDate, put, relName, dkey, warns };
 if (require.main === module) run();
