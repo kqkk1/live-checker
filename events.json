@@ -2130,34 +2130,58 @@
       {
         "label": "Day1 昼公演: 2025年1月11日(金) 開場13:30/開演14:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 5,
+        "castNames": [
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 5,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       },
       {
         "label": "Day1 夜公演: 2025年1月11日(金) 開場17:30/開演18:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 5,
+        "castNames": [
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 5,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       },
       {
         "label": "Day2 昼公演: 2025年1月12日(土) 開場13:30/開演14:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 5,
+        "castNames": [
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 5,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       },
       {
         "label": "Day2 夜公演: 2025年1月12日(土) 開場17:30/開演18:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_lme.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 5,
+        "castNames": [
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 5,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       }
     ],
     "merch": []
@@ -2189,18 +2213,30 @@
       {
         "label": "Day1 昼公演: 2025年2月1日(金) 開場11:30/開演12:30",
         "setlistUrl": "https://imas-db.jp/song/event/961production_reflame_osaka.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 5,
+        "castNames": [
+          "星井美希",
+          "四条貴音",
+          "我那覇響",
+          "奥空心白",
+          "亜夜"
+        ],
+        "penlightCastCount": 5,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%98%9F%E4%BA%95%E7%BE%8E%E5%B8%8C%2C%E5%9B%9B%E6%9D%A1%E8%B2%B4%E9%9F%B3%2C%E6%88%91%E9%82%A3%E8%A6%87%E9%9F%BF%2C%E5%A5%A5%E7%A9%BA%E5%BF%83%E7%99%BD%2C%E4%BA%9C%E5%A4%9C"
       },
       {
         "label": "Day1 夜公演: 2025年2月1日(金) 開場15:00/開演16:00",
         "setlistUrl": "https://imas-db.jp/song/event/961production_reflame_osaka.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 5,
+        "castNames": [
+          "星井美希",
+          "四条貴音",
+          "我那覇響",
+          "奥空心白",
+          "亜夜"
+        ],
+        "penlightCastCount": 5,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%98%9F%E4%BA%95%E7%BE%8E%E5%B8%8C%2C%E5%9B%9B%E6%9D%A1%E8%B2%B4%E9%9F%B3%2C%E6%88%91%E9%82%A3%E8%A6%87%E9%9F%BF%2C%E5%A5%A5%E7%A9%BA%E5%BF%83%E7%99%BD%2C%E4%BA%9C%E5%A4%9C"
       }
     ],
     "merch": []
@@ -2232,18 +2268,24 @@
       {
         "label": "Day1 昼公演: 2025年2月8日(金) 開場14:30/開演15:15",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_nagoya.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 2,
+        "castNames": [
+          "花海咲季",
+          "十王星南"
+        ],
+        "penlightCastCount": 2,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       },
       {
         "label": "Day1 夜公演: 2025年2月8日(金) 開場17:45/開演18:30",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_nagoya.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 2,
+        "castNames": [
+          "花海咲季",
+          "十王星南"
+        ],
+        "penlightCastCount": 2,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       }
     ],
     "merch": []
@@ -2275,26 +2317,77 @@
       {
         "label": "Day1: 2025年2月8日(金) 開場16:30/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 16,
+        "castNames": [
+          "伊集院北斗",
+          "神楽麗",
+          "渡辺みのり",
+          "蒼井悠介",
+          "信玄誠司",
+          "華村翔真",
+          "清澄九郎",
+          "冬美旬",
+          "紅井朱雀",
+          "神谷幸広",
+          "卯月巻緒",
+          "橘志狼",
+          "九十九一希",
+          "葛之葉雨彦",
+          "花園百々人",
+          "山村賢"
+        ],
+        "penlightCastCount": 15,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA"
       },
       {
         "label": "Day2 昼公演: 2025年2月9日(土) 開場12:30/開演13:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 16,
+        "castNames": [
+          "神楽麗",
+          "握野英雄",
+          "清澄九郎",
+          "冬美旬",
+          "榊夏来",
+          "紅井朱雀",
+          "水嶋咲",
+          "岡村直央",
+          "硲道夫",
+          "山下次郎",
+          "大河タケル",
+          "兜大吾",
+          "北村想楽",
+          "天峰秀",
+          "東雲荘一郎",
+          "山村賢"
+        ],
+        "penlightCastCount": 15,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E"
       },
       {
         "label": "Day2 夜公演: 2025年2月9日(土) 開場16:30/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_osaka_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 16,
+        "castNames": [
+          "神楽麗",
+          "握野英雄",
+          "清澄九郎",
+          "冬美旬",
+          "榊夏来",
+          "紅井朱雀",
+          "水嶋咲",
+          "岡村直央",
+          "硲道夫",
+          "山下次郎",
+          "大河タケル",
+          "兜大吾",
+          "北村想楽",
+          "天峰秀",
+          "東雲荘一郎",
+          "山村賢"
+        ],
+        "penlightCastCount": 15,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E"
       }
     ],
     "merch": []
@@ -2326,18 +2419,26 @@
       {
         "label": "Day1 昼公演: 2025年2月11日(月) 開場14:30/開演15:15",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_umeda.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "花海咲季",
+          "秦谷美鈴",
+          "十王星南"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       },
       {
         "label": "Day1 夜公演: 2025年2月11日(月) 開場17:45/開演18:30",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_umeda.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "花海咲季",
+          "秦谷美鈴",
+          "十王星南"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       }
     ],
     "merch": []
@@ -2369,18 +2470,26 @@
       {
         "label": "Day1 昼公演: 2025年2月16日(土) 開場14:30/開演15:15",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_shibuya.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "花海咲季",
+          "秦谷美鈴",
+          "十王星南"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       },
       {
         "label": "Day1 夜公演: 2025年2月16日(土) 開場17:45/開演18:30",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_shibuya.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "花海咲季",
+          "秦谷美鈴",
+          "十王星南"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       }
     ],
     "merch": []
@@ -2412,18 +2521,62 @@
       {
         "label": "Day1: 2025年3月1日(金) 開場16:00/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_over_the_prism_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 20,
+        "castNames": [
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "小宮果穂",
+          "西城樹里",
+          "杜野凛世",
+          "有栖川夏葉",
+          "大崎甘奈",
+          "大崎甜花",
+          "桑山千雪",
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依",
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸"
+        ],
+        "penlightCastCount": 20,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8"
       },
       {
         "label": "Day2: 2025年3月2日(土) 開場16:00/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_over_the_prism_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 22,
+        "castNames": [
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "小宮果穂",
+          "園田智代子",
+          "西城樹里",
+          "杜野凛世",
+          "有栖川夏葉",
+          "大崎甘奈",
+          "大崎甜花",
+          "桑山千雪",
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依",
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸"
+        ],
+        "penlightCastCount": 22,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E5%9C%92%E7%94%B0%E6%99%BA%E4%BB%A3%E5%AD%90%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8"
       }
     ],
     "merch": []
@@ -2455,18 +2608,62 @@
       {
         "label": "Day1: 2025年3月8日(金) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_osaka_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 21,
+        "castNames": [
+          "島村卯月",
+          "双葉杏",
+          "辻野あかり",
+          "緒方智絵里",
+          "古賀小春",
+          "遊佐こずえ",
+          "佐久間まゆ",
+          "宮本フレデリカ",
+          "渋谷凛",
+          "荒木比奈",
+          "砂塚あきら",
+          "佐城雪美",
+          "上条春菜",
+          "望月聖",
+          "本田未央",
+          "高森藍子",
+          "依田芳乃",
+          "喜多日菜子",
+          "夢見りあむ",
+          "諸星きらり",
+          "イヴ・サンタクロース"
+        ],
+        "penlightCastCount": 21,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88%2C%E5%8F%8C%E8%91%89%E6%9D%8F%2C%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E7%B7%92%E6%96%B9%E6%99%BA%E7%B5%B5%E9%87%8C%2C%E5%8F%A4%E8%B3%80%E5%B0%8F%E6%98%A5%2C%E9%81%8A%E4%BD%90%E3%81%93%E3%81%9A%E3%81%88%2C%E4%BD%90%E4%B9%85%E9%96%93%E3%81%BE%E3%82%86%2C%E5%AE%AE%E6%9C%AC%E3%83%95%E3%83%AC%E3%83%87%E3%83%AA%E3%82%AB%2C%E6%B8%8B%E8%B0%B7%E5%87%9B%2C%E8%8D%92%E6%9C%A8%E6%AF%94%E5%A5%88%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E4%BD%90%E5%9F%8E%E9%9B%AA%E7%BE%8E%2C%E4%B8%8A%E6%9D%A1%E6%98%A5%E8%8F%9C%2C%E6%9C%9B%E6%9C%88%E8%81%96%2C%E6%9C%AC%E7%94%B0%E6%9C%AA%E5%A4%AE%2C%E9%AB%98%E6%A3%AE%E8%97%8D%E5%AD%90%2C%E4%BE%9D%E7%94%B0%E8%8A%B3%E4%B9%83%2C%E5%96%9C%E5%A4%9A%E6%97%A5%E8%8F%9C%E5%AD%90%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E8%AB%B8%E6%98%9F%E3%81%8D%E3%82%89%E3%82%8A%2C%E3%82%A4%E3%83%B4%E3%83%BB%E3%82%B5%E3%83%B3%E3%82%BF%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B9"
       },
       {
         "label": "Day2: 2025年3月9日(土) 開場14:30/開演16:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_osaka_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 21,
+        "castNames": [
+          "島村卯月",
+          "双葉杏",
+          "辻野あかり",
+          "緒方智絵里",
+          "古賀小春",
+          "遊佐こずえ",
+          "佐久間まゆ",
+          "宮本フレデリカ",
+          "渋谷凛",
+          "荒木比奈",
+          "砂塚あきら",
+          "佐城雪美",
+          "上条春菜",
+          "望月聖",
+          "本田未央",
+          "高森藍子",
+          "依田芳乃",
+          "喜多日菜子",
+          "夢見りあむ",
+          "諸星きらり",
+          "イヴ・サンタクロース"
+        ],
+        "penlightCastCount": 21,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88%2C%E5%8F%8C%E8%91%89%E6%9D%8F%2C%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E7%B7%92%E6%96%B9%E6%99%BA%E7%B5%B5%E9%87%8C%2C%E5%8F%A4%E8%B3%80%E5%B0%8F%E6%98%A5%2C%E9%81%8A%E4%BD%90%E3%81%93%E3%81%9A%E3%81%88%2C%E4%BD%90%E4%B9%85%E9%96%93%E3%81%BE%E3%82%86%2C%E5%AE%AE%E6%9C%AC%E3%83%95%E3%83%AC%E3%83%87%E3%83%AA%E3%82%AB%2C%E6%B8%8B%E8%B0%B7%E5%87%9B%2C%E8%8D%92%E6%9C%A8%E6%AF%94%E5%A5%88%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E4%BD%90%E5%9F%8E%E9%9B%AA%E7%BE%8E%2C%E4%B8%8A%E6%9D%A1%E6%98%A5%E8%8F%9C%2C%E6%9C%9B%E6%9C%88%E8%81%96%2C%E6%9C%AC%E7%94%B0%E6%9C%AA%E5%A4%AE%2C%E9%AB%98%E6%A3%AE%E8%97%8D%E5%AD%90%2C%E4%BE%9D%E7%94%B0%E8%8A%B3%E4%B9%83%2C%E5%96%9C%E5%A4%9A%E6%97%A5%E8%8F%9C%E5%AD%90%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E8%AB%B8%E6%98%9F%E3%81%8D%E3%82%89%E3%82%8A%2C%E3%82%A4%E3%83%B4%E3%83%BB%E3%82%B5%E3%83%B3%E3%82%BF%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B9"
       }
     ],
     "merch": []
@@ -2498,18 +2695,58 @@
       {
         "label": "Day1: 2025年3月15日(金) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_makuhari_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 18,
+        "castNames": [
+          "天ヶ瀬冬馬",
+          "神楽麗",
+          "蒼井享介",
+          "握野英雄",
+          "木村龍",
+          "華村翔真",
+          "榊夏来",
+          "神谷幸広",
+          "卯月巻緒",
+          "橘志狼",
+          "舞田類",
+          "牙崎漣",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "花園百々人",
+          "山村賢"
+        ],
+        "penlightCastCount": 17,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA"
       },
       {
         "label": "Day2: 2025年3月16日(土) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_makuhari_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 20,
+        "castNames": [
+          "伊集院北斗",
+          "都築圭",
+          "ピエール",
+          "渡辺みのり",
+          "蒼井悠介",
+          "信玄誠司",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "若里春名",
+          "紅井朱雀",
+          "東雲荘一郎",
+          "水嶋咲",
+          "岡村直央",
+          "大河タケル",
+          "円城寺道流",
+          "北村想楽",
+          "天峰秀",
+          "眉見鋭心",
+          "山村賢"
+        ],
+        "penlightCastCount": 19,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83"
       }
     ],
     "merch": []
@@ -2541,10 +2778,14 @@
       {
         "label": "Day1: 2025年3月22日(金) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/valiv_1st_live.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "灯里愛夏",
+          "上水流宇宙",
+          "レトラ"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
       }
     ],
     "merch": []
@@ -2577,18 +2818,67 @@
       {
         "label": "Day1: 2025年3月29日(金) 開場16:00/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/million_hpf2_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 23,
+        "castNames": [
+          "天海春香",
+          "如月千早",
+          "菊地真",
+          "水瀬伊織",
+          "双海亜美・双海真美",
+          "我那覇響",
+          "最上静香",
+          "島原エレナ",
+          "佐竹美奈子",
+          "箱崎星梨花",
+          "野々原茜",
+          "望月杏奈",
+          "ロコ",
+          "エミリー・スチュアート",
+          "木下ひなた",
+          "矢吹可奈",
+          "大神環",
+          "豊川風花",
+          "宮尾美也",
+          "福田のり子",
+          "北上麗花",
+          "ジュリア",
+          "白石紬"
+        ],
+        "penlightCastCount": 23,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E6%B5%B7%E6%98%A5%E9%A6%99%2C%E5%A6%82%E6%9C%88%E5%8D%83%E6%97%A9%2C%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E6%B0%B4%E7%80%AC%E4%BC%8A%E7%B9%94%2C%E5%8F%8C%E6%B5%B7%E4%BA%9C%E7%BE%8E%E3%83%BB%E5%8F%8C%E6%B5%B7%E7%9C%9F%E7%BE%8E%2C%E6%88%91%E9%82%A3%E8%A6%87%E9%9F%BF%2C%E6%9C%80%E4%B8%8A%E9%9D%99%E9%A6%99%2C%E5%B3%B6%E5%8E%9F%E3%82%A8%E3%83%AC%E3%83%8A%2C%E4%BD%90%E7%AB%B9%E7%BE%8E%E5%A5%88%E5%AD%90%2C%E7%AE%B1%E5%B4%8E%E6%98%9F%E6%A2%A8%E8%8A%B1%2C%E9%87%8E%E3%80%85%E5%8E%9F%E8%8C%9C%2C%E6%9C%9B%E6%9C%88%E6%9D%8F%E5%A5%88%2C%E3%83%AD%E3%82%B3%2C%E3%82%A8%E3%83%9F%E3%83%AA%E3%83%BC%E3%83%BB%E3%82%B9%E3%83%81%E3%83%A5%E3%82%A2%E3%83%BC%E3%83%88%2C%E6%9C%A8%E4%B8%8B%E3%81%B2%E3%81%AA%E3%81%9F%2C%E7%9F%A2%E5%90%B9%E5%8F%AF%E5%A5%88%2C%E5%A4%A7%E7%A5%9E%E7%92%B0%2C%E8%B1%8A%E5%B7%9D%E9%A2%A8%E8%8A%B1%2C%E5%AE%AE%E5%B0%BE%E7%BE%8E%E4%B9%9F%2C%E7%A6%8F%E7%94%B0%E3%81%AE%E3%82%8A%E5%AD%90%2C%E5%8C%97%E4%B8%8A%E9%BA%97%E8%8A%B1%2C%E3%82%B8%E3%83%A5%E3%83%AA%E3%82%A2%2C%E7%99%BD%E7%9F%B3%E7%B4%AC"
       },
       {
         "label": "Day2: 2025年3月30日(土) 開場16:00/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/million_hpf2_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 24,
+        "castNames": [
+          "星井美希",
+          "萩原雪歩",
+          "高槻やよい",
+          "四条貴音",
+          "秋月律子",
+          "三浦あずさ",
+          "春日未来",
+          "伊吹翼",
+          "田中琴葉",
+          "所恵美",
+          "徳川まつり",
+          "高山紗代子",
+          "中谷育",
+          "天空橋朋花",
+          "舞浜歩",
+          "横山奈緒",
+          "二階堂千鶴",
+          "馬場このみ",
+          "真壁瑞希",
+          "篠宮可憐",
+          "百瀬莉緒",
+          "永吉昴",
+          "周防桃子",
+          "桜守歌織"
+        ],
+        "penlightCastCount": 24,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%98%9F%E4%BA%95%E7%BE%8E%E5%B8%8C%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9%2C%E9%AB%98%E6%A7%BB%E3%82%84%E3%82%88%E3%81%84%2C%E5%9B%9B%E6%9D%A1%E8%B2%B4%E9%9F%B3%2C%E7%A7%8B%E6%9C%88%E5%BE%8B%E5%AD%90%2C%E4%B8%89%E6%B5%A6%E3%81%82%E3%81%9A%E3%81%95%2C%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5%2C%E4%BC%8A%E5%90%B9%E7%BF%BC%2C%E7%94%B0%E4%B8%AD%E7%90%B4%E8%91%89%2C%E6%89%80%E6%81%B5%E7%BE%8E%2C%E5%BE%B3%E5%B7%9D%E3%81%BE%E3%81%A4%E3%82%8A%2C%E9%AB%98%E5%B1%B1%E7%B4%97%E4%BB%A3%E5%AD%90%2C%E4%B8%AD%E8%B0%B7%E8%82%B2%2C%E5%A4%A9%E7%A9%BA%E6%A9%8B%E6%9C%8B%E8%8A%B1%2C%E8%88%9E%E6%B5%9C%E6%AD%A9%2C%E6%A8%AA%E5%B1%B1%E5%A5%88%E7%B7%92%2C%E4%BA%8C%E9%9A%8E%E5%A0%82%E5%8D%83%E9%B6%B4%2C%E9%A6%AC%E5%A0%B4%E3%81%93%E3%81%AE%E3%81%BF%2C%E7%9C%9F%E5%A3%81%E7%91%9E%E5%B8%8C%2C%E7%AF%A0%E5%AE%AE%E5%8F%AF%E6%86%90%2C%E7%99%BE%E7%80%AC%E8%8E%89%E7%B7%92%2C%E6%B0%B8%E5%90%89%E6%98%B4%2C%E5%91%A8%E9%98%B2%E6%A1%83%E5%AD%90%2C%E6%A1%9C%E5%AE%88%E6%AD%8C%E7%B9%94"
       }
     ],
     "merch": []
@@ -2620,18 +2910,64 @@
       {
         "label": "Day1: 2025年4月26日(金) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_tokyo_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 22,
+        "castNames": [
+          "関裕美",
+          "一ノ瀬志希",
+          "白菊ほたる",
+          "三村かな子",
+          "宮本フレデリカ",
+          "前川みく",
+          "小早川紗枝",
+          "道明寺歌鈴",
+          "速水奏",
+          "神崎蘭子",
+          "森久保乃々",
+          "神谷奈緒",
+          "大和亜季",
+          "鷹富士茄子",
+          "塩見周子",
+          "村上巴",
+          "向井拓海",
+          "城ヶ崎美嘉",
+          "早坂美玲",
+          "櫻井桃華",
+          "アナスタシア",
+          "星輝子"
+        ],
+        "penlightCastCount": 22,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%96%A2%E8%A3%95%E7%BE%8E%2C%E4%B8%80%E3%83%8E%E7%80%AC%E5%BF%97%E5%B8%8C%2C%E7%99%BD%E8%8F%8A%E3%81%BB%E3%81%9F%E3%82%8B%2C%E4%B8%89%E6%9D%91%E3%81%8B%E3%81%AA%E5%AD%90%2C%E5%AE%AE%E6%9C%AC%E3%83%95%E3%83%AC%E3%83%87%E3%83%AA%E3%82%AB%2C%E5%89%8D%E5%B7%9D%E3%81%BF%E3%81%8F%2C%E5%B0%8F%E6%97%A9%E5%B7%9D%E7%B4%97%E6%9E%9D%2C%E9%81%93%E6%98%8E%E5%AF%BA%E6%AD%8C%E9%88%B4%2C%E9%80%9F%E6%B0%B4%E5%A5%8F%2C%E7%A5%9E%E5%B4%8E%E8%98%AD%E5%AD%90%2C%E6%A3%AE%E4%B9%85%E4%BF%9D%E4%B9%83%E3%80%85%2C%E7%A5%9E%E8%B0%B7%E5%A5%88%E7%B7%92%2C%E5%A4%A7%E5%92%8C%E4%BA%9C%E5%AD%A3%2C%E9%B7%B9%E5%AF%8C%E5%A3%AB%E8%8C%84%E5%AD%90%2C%E5%A1%A9%E8%A6%8B%E5%91%A8%E5%AD%90%2C%E6%9D%91%E4%B8%8A%E5%B7%B4%2C%E5%90%91%E4%BA%95%E6%8B%93%E6%B5%B7%2C%E5%9F%8E%E3%83%B6%E5%B4%8E%E7%BE%8E%E5%98%89%2C%E6%97%A9%E5%9D%82%E7%BE%8E%E7%8E%B2%2C%E6%AB%BB%E4%BA%95%E6%A1%83%E8%8F%AF%2C%E3%82%A2%E3%83%8A%E3%82%B9%E3%82%BF%E3%82%B7%E3%82%A2%2C%E6%98%9F%E8%BC%9D%E5%AD%90"
       },
       {
         "label": "Day2: 2025年4月27日(土) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_tokyo_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 22,
+        "castNames": [
+          "関裕美",
+          "一ノ瀬志希",
+          "白菊ほたる",
+          "三村かな子",
+          "宮本フレデリカ",
+          "前川みく",
+          "小早川紗枝",
+          "道明寺歌鈴",
+          "速水奏",
+          "神崎蘭子",
+          "森久保乃々",
+          "神谷奈緒",
+          "大和亜季",
+          "鷹富士茄子",
+          "塩見周子",
+          "村上巴",
+          "向井拓海",
+          "城ヶ崎美嘉",
+          "浜口あやめ",
+          "久川凪",
+          "的場梨沙",
+          "小関麗奈"
+        ],
+        "penlightCastCount": 22,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%96%A2%E8%A3%95%E7%BE%8E%2C%E4%B8%80%E3%83%8E%E7%80%AC%E5%BF%97%E5%B8%8C%2C%E7%99%BD%E8%8F%8A%E3%81%BB%E3%81%9F%E3%82%8B%2C%E4%B8%89%E6%9D%91%E3%81%8B%E3%81%AA%E5%AD%90%2C%E5%AE%AE%E6%9C%AC%E3%83%95%E3%83%AC%E3%83%87%E3%83%AA%E3%82%AB%2C%E5%89%8D%E5%B7%9D%E3%81%BF%E3%81%8F%2C%E5%B0%8F%E6%97%A9%E5%B7%9D%E7%B4%97%E6%9E%9D%2C%E9%81%93%E6%98%8E%E5%AF%BA%E6%AD%8C%E9%88%B4%2C%E9%80%9F%E6%B0%B4%E5%A5%8F%2C%E7%A5%9E%E5%B4%8E%E8%98%AD%E5%AD%90%2C%E6%A3%AE%E4%B9%85%E4%BF%9D%E4%B9%83%E3%80%85%2C%E7%A5%9E%E8%B0%B7%E5%A5%88%E7%B7%92%2C%E5%A4%A7%E5%92%8C%E4%BA%9C%E5%AD%A3%2C%E9%B7%B9%E5%AF%8C%E5%A3%AB%E8%8C%84%E5%AD%90%2C%E5%A1%A9%E8%A6%8B%E5%91%A8%E5%AD%90%2C%E6%9D%91%E4%B8%8A%E5%B7%B4%2C%E5%90%91%E4%BA%95%E6%8B%93%E6%B5%B7%2C%E5%9F%8E%E3%83%B6%E5%B4%8E%E7%BE%8E%E5%98%89%2C%E6%B5%9C%E5%8F%A3%E3%81%82%E3%82%84%E3%82%81%2C%E4%B9%85%E5%B7%9D%E5%87%AA%2C%E7%9A%84%E5%A0%B4%E6%A2%A8%E6%B2%99%2C%E5%B0%8F%E9%96%A2%E9%BA%97%E5%A5%88"
       }
     ],
     "merch": []
@@ -2663,26 +2999,47 @@
       {
         "label": "Day1: 2025年5月10日(金) 開場16:30/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_uka.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "小宮果穂",
+          "黛冬優子",
+          "田中摩美々"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85"
       },
       {
         "label": "Day2 昼公演: 2025年5月11日(土) 開場12:30/開演13:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_uka.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "小宮果穂",
+          "黛冬優子",
+          "田中摩美々"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85"
       },
       {
         "label": "Day2 夜公演: 2025年5月11日(土) 開場16:30/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_uka.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "小宮果穂",
+          "黛冬優子",
+          "田中摩美々"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85"
       }
     ],
     "merch": []
@@ -2714,18 +3071,32 @@
       {
         "label": "Day1 昼公演: 2025年5月17日(金) 開場11:00/開演12:00",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_cor.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "岡村直央",
+          "橘志狼",
+          "姫野かのん"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93"
       },
       {
         "label": "Day1 夜公演: 2025年5月17日(金) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_cor.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "岡村直央",
+          "橘志狼",
+          "姫野かのん"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93"
       }
     ],
     "merch": []
@@ -2757,18 +3128,32 @@
       {
         "label": "Day1 昼公演: 2025年5月18日(土) 開場11:00/開演12:00",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_azto.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "天ヶ瀬冬馬",
+          "御手洗翔太",
+          "伊集院北斗",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E5%BE%A1%E6%89%8B%E6%B4%97%E7%BF%94%E5%A4%AA%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C"
       },
       {
         "label": "Day1 夜公演: 2025年5月18日(土) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fclive_azto.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "天ヶ瀬冬馬",
+          "御手洗翔太",
+          "伊集院北斗",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E5%BE%A1%E6%89%8B%E6%B4%97%E7%BF%94%E5%A4%AA%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C"
       }
     ],
     "merch": []
@@ -2800,18 +3185,46 @@
       {
         "label": "Day1: 2025年5月24日(金) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_ss_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 13,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "有村麻央",
+          "葛城リーリヤ",
+          "倉本千奈",
+          "紫雲清夏",
+          "篠澤広",
+          "姫崎莉波",
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 12,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       },
       {
         "label": "Day2: 2025年5月25日(土) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_ss_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 13,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "有村麻央",
+          "葛城リーリヤ",
+          "倉本千奈",
+          "紫雲清夏",
+          "篠澤広",
+          "姫崎莉波",
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 12,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       }
     ],
     "merch": []
@@ -2843,18 +3256,46 @@
       {
         "label": "Day1: 2025年5月31日(金) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_hs_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 13,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "有村麻央",
+          "葛城リーリヤ",
+          "倉本千奈",
+          "紫雲清夏",
+          "篠澤広",
+          "姫崎莉波",
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 12,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       },
       {
         "label": "Day2: 2025年6月1日(土) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_1stperiod_hs_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 13,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "有村麻央",
+          "葛城リーリヤ",
+          "倉本千奈",
+          "紫雲清夏",
+          "篠澤広",
+          "姫崎莉波",
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 12,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       }
     ],
     "merch": []
@@ -2886,18 +3327,58 @@
       {
         "label": "Day1: 2025年6月7日(金) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_okinawa_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 19,
+        "castNames": [
+          "西園寺琴歌",
+          "中野有香",
+          "椎名法子",
+          "棟方愛海",
+          "多田李衣菜",
+          "浅利七海",
+          "大石泉",
+          "桐生つかさ",
+          "結城晴",
+          "八神マキノ",
+          "ナターリア",
+          "喜多見柚",
+          "浜口あやめ",
+          "的場梨沙",
+          "及川雫",
+          "龍崎薫",
+          "木村夏樹",
+          "大槻唯",
+          "城ヶ崎莉嘉"
+        ],
+        "penlightCastCount": 19,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%A5%BF%E5%9C%92%E5%AF%BA%E7%90%B4%E6%AD%8C%2C%E4%B8%AD%E9%87%8E%E6%9C%89%E9%A6%99%2C%E6%A4%8E%E5%90%8D%E6%B3%95%E5%AD%90%2C%E6%A3%9F%E6%96%B9%E6%84%9B%E6%B5%B7%2C%E5%A4%9A%E7%94%B0%E6%9D%8E%E8%A1%A3%E8%8F%9C%2C%E6%B5%85%E5%88%A9%E4%B8%83%E6%B5%B7%2C%E5%A4%A7%E7%9F%B3%E6%B3%89%2C%E6%A1%90%E7%94%9F%E3%81%A4%E3%81%8B%E3%81%95%2C%E7%B5%90%E5%9F%8E%E6%99%B4%2C%E5%85%AB%E7%A5%9E%E3%83%9E%E3%82%AD%E3%83%8E%2C%E3%83%8A%E3%82%BF%E3%83%BC%E3%83%AA%E3%82%A2%2C%E5%96%9C%E5%A4%9A%E8%A6%8B%E6%9F%9A%2C%E6%B5%9C%E5%8F%A3%E3%81%82%E3%82%84%E3%82%81%2C%E7%9A%84%E5%A0%B4%E6%A2%A8%E6%B2%99%2C%E5%8F%8A%E5%B7%9D%E9%9B%AB%2C%E9%BE%8D%E5%B4%8E%E8%96%AB%2C%E6%9C%A8%E6%9D%91%E5%A4%8F%E6%A8%B9%2C%E5%A4%A7%E6%A7%BB%E5%94%AF%2C%E5%9F%8E%E3%83%B6%E5%B4%8E%E8%8E%89%E5%98%89"
       },
       {
         "label": "Day2: 2025年6月8日(土) 開場13:30/開演15:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_okinawa_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 19,
+        "castNames": [
+          "西園寺琴歌",
+          "中野有香",
+          "椎名法子",
+          "棟方愛海",
+          "多田李衣菜",
+          "浅利七海",
+          "大石泉",
+          "桐生つかさ",
+          "結城晴",
+          "八神マキノ",
+          "ナターリア",
+          "喜多見柚",
+          "浜口あやめ",
+          "的場梨沙",
+          "及川雫",
+          "龍崎薫",
+          "木村夏樹",
+          "大槻唯",
+          "城ヶ崎莉嘉"
+        ],
+        "penlightCastCount": 19,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%A5%BF%E5%9C%92%E5%AF%BA%E7%90%B4%E6%AD%8C%2C%E4%B8%AD%E9%87%8E%E6%9C%89%E9%A6%99%2C%E6%A4%8E%E5%90%8D%E6%B3%95%E5%AD%90%2C%E6%A3%9F%E6%96%B9%E6%84%9B%E6%B5%B7%2C%E5%A4%9A%E7%94%B0%E6%9D%8E%E8%A1%A3%E8%8F%9C%2C%E6%B5%85%E5%88%A9%E4%B8%83%E6%B5%B7%2C%E5%A4%A7%E7%9F%B3%E6%B3%89%2C%E6%A1%90%E7%94%9F%E3%81%A4%E3%81%8B%E3%81%95%2C%E7%B5%90%E5%9F%8E%E6%99%B4%2C%E5%85%AB%E7%A5%9E%E3%83%9E%E3%82%AD%E3%83%8E%2C%E3%83%8A%E3%82%BF%E3%83%BC%E3%83%AA%E3%82%A2%2C%E5%96%9C%E5%A4%9A%E8%A6%8B%E6%9F%9A%2C%E6%B5%9C%E5%8F%A3%E3%81%82%E3%82%84%E3%82%81%2C%E7%9A%84%E5%A0%B4%E6%A2%A8%E6%B2%99%2C%E5%8F%8A%E5%B7%9D%E9%9B%AB%2C%E9%BE%8D%E5%B4%8E%E8%96%AB%2C%E6%9C%A8%E6%9D%91%E5%A4%8F%E6%A8%B9%2C%E5%A4%A7%E6%A7%BB%E5%94%AF%2C%E5%9F%8E%E3%83%B6%E5%B4%8E%E8%8E%89%E5%98%89"
       }
     ],
     "merch": []
@@ -2929,18 +3410,34 @@
       {
         "label": "Day1: 2025年6月21日(金) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_first.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 7,
+        "castNames": [
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "七草にちか",
+          "緋田美琴"
+        ],
+        "penlightCastCount": 7,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4"
       },
       {
         "label": "Day2: 2025年6月22日(土) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_first.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 7,
+        "castNames": [
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "七草にちか",
+          "緋田美琴"
+        ],
+        "penlightCastCount": 7,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4"
       }
     ],
     "merch": []
@@ -2972,18 +3469,60 @@
       {
         "label": "Day1: 2025年6月28日(金) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_fukuoka_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 20,
+        "castNames": [
+          "黒埼ちとせ",
+          "白雪千夜",
+          "小日向美穂",
+          "乙倉悠貴",
+          "渋谷凛",
+          "白坂小梅",
+          "脇山珠美",
+          "藤原肇",
+          "松永涼",
+          "川島瑞樹",
+          "久川颯",
+          "三船美優",
+          "日野茜",
+          "南条光",
+          "堀裕子",
+          "依田芳乃",
+          "久川凪",
+          "難波笑美",
+          "小関麗奈",
+          "星輝子"
+        ],
+        "penlightCastCount": 20,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%BB%92%E5%9F%BC%E3%81%A1%E3%81%A8%E3%81%9B%2C%E7%99%BD%E9%9B%AA%E5%8D%83%E5%A4%9C%2C%E5%B0%8F%E6%97%A5%E5%90%91%E7%BE%8E%E7%A9%82%2C%E4%B9%99%E5%80%89%E6%82%A0%E8%B2%B4%2C%E6%B8%8B%E8%B0%B7%E5%87%9B%2C%E7%99%BD%E5%9D%82%E5%B0%8F%E6%A2%85%2C%E8%84%87%E5%B1%B1%E7%8F%A0%E7%BE%8E%2C%E8%97%A4%E5%8E%9F%E8%82%87%2C%E6%9D%BE%E6%B0%B8%E6%B6%BC%2C%E5%B7%9D%E5%B3%B6%E7%91%9E%E6%A8%B9%2C%E4%B9%85%E5%B7%9D%E9%A2%AF%2C%E4%B8%89%E8%88%B9%E7%BE%8E%E5%84%AA%2C%E6%97%A5%E9%87%8E%E8%8C%9C%2C%E5%8D%97%E6%9D%A1%E5%85%89%2C%E5%A0%80%E8%A3%95%E5%AD%90%2C%E4%BE%9D%E7%94%B0%E8%8A%B3%E4%B9%83%2C%E4%B9%85%E5%B7%9D%E5%87%AA%2C%E9%9B%A3%E6%B3%A2%E7%AC%91%E7%BE%8E%2C%E5%B0%8F%E9%96%A2%E9%BA%97%E5%A5%88%2C%E6%98%9F%E8%BC%9D%E5%AD%90"
       },
       {
         "label": "Day2: 2025年6月29日(土) 開場14:00/開演15:30",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_fukuoka_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 20,
+        "castNames": [
+          "黒埼ちとせ",
+          "白雪千夜",
+          "小日向美穂",
+          "乙倉悠貴",
+          "渋谷凛",
+          "白坂小梅",
+          "脇山珠美",
+          "藤原肇",
+          "松永涼",
+          "川島瑞樹",
+          "久川颯",
+          "三船美優",
+          "日野茜",
+          "南条光",
+          "堀裕子",
+          "依田芳乃",
+          "久川凪",
+          "難波笑美",
+          "小関麗奈",
+          "星輝子"
+        ],
+        "penlightCastCount": 20,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%BB%92%E5%9F%BC%E3%81%A1%E3%81%A8%E3%81%9B%2C%E7%99%BD%E9%9B%AA%E5%8D%83%E5%A4%9C%2C%E5%B0%8F%E6%97%A5%E5%90%91%E7%BE%8E%E7%A9%82%2C%E4%B9%99%E5%80%89%E6%82%A0%E8%B2%B4%2C%E6%B8%8B%E8%B0%B7%E5%87%9B%2C%E7%99%BD%E5%9D%82%E5%B0%8F%E6%A2%85%2C%E8%84%87%E5%B1%B1%E7%8F%A0%E7%BE%8E%2C%E8%97%A4%E5%8E%9F%E8%82%87%2C%E6%9D%BE%E6%B0%B8%E6%B6%BC%2C%E5%B7%9D%E5%B3%B6%E7%91%9E%E6%A8%B9%2C%E4%B9%85%E5%B7%9D%E9%A2%AF%2C%E4%B8%89%E8%88%B9%E7%BE%8E%E5%84%AA%2C%E6%97%A5%E9%87%8E%E8%8C%9C%2C%E5%8D%97%E6%9D%A1%E5%85%89%2C%E5%A0%80%E8%A3%95%E5%AD%90%2C%E4%BE%9D%E7%94%B0%E8%8A%B3%E4%B9%83%2C%E4%B9%85%E5%B7%9D%E5%87%AA%2C%E9%9B%A3%E6%B3%A2%E7%AC%91%E7%BE%8E%2C%E5%B0%8F%E9%96%A2%E9%BA%97%E5%A5%88%2C%E6%98%9F%E8%BC%9D%E5%AD%90"
       }
     ],
     "merch": []
@@ -3015,18 +3554,26 @@
       {
         "label": "Day1 昼公演: 2025年7月4日(木) 開場14:30/開演15:15",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_addition.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       },
       {
         "label": "Day1 夜公演: 2025年7月4日(木) 開場18:15/開演19:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_debutlivehajime_uijin_addition.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       }
     ],
     "merch": []
@@ -3058,18 +3605,36 @@
       {
         "label": "Day1: 2025年7月5日(金) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_second.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 8,
+        "castNames": [
+          "小宮果穂",
+          "園田智代子",
+          "西城樹里",
+          "杜野凛世",
+          "有栖川夏葉",
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依"
+        ],
+        "penlightCastCount": 8,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E5%9C%92%E7%94%B0%E6%99%BA%E4%BB%A3%E5%AD%90%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D"
       },
       {
         "label": "Day2: 2025年7月6日(土) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_second.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 8,
+        "castNames": [
+          "小宮果穂",
+          "園田智代子",
+          "西城樹里",
+          "杜野凛世",
+          "有栖川夏葉",
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依"
+        ],
+        "penlightCastCount": 8,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E5%9C%92%E7%94%B0%E6%99%BA%E4%BB%A3%E5%AD%90%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D"
       }
     ],
     "merch": []
@@ -3101,18 +3666,97 @@
       {
         "label": "Day1: 2025年7月12日(金) 開場16:00/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_yokohama_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 39,
+        "castNames": [
+          "天道輝",
+          "桜庭薫",
+          "柏木翼",
+          "鷹城恭二",
+          "ピエール",
+          "渡辺みのり",
+          "蒼井悠介",
+          "蒼井享介",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "猫柳キリオ",
+          "華村翔真",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "榊夏来",
+          "若里春名",
+          "伊瀬谷四季",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "天峰秀",
+          "花園百々人",
+          "眉見鋭心",
+          "伊集院北斗",
+          "神楽麗",
+          "紅井朱雀",
+          "神谷幸広",
+          "卯月巻緒",
+          "水嶋咲",
+          "岡村直央",
+          "橘志狼",
+          "硲道夫",
+          "山下次郎",
+          "大河タケル",
+          "円城寺道流",
+          "葛之葉雨彦",
+          "北村想楽"
+        ],
+        "penlightCastCount": 39,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E6%A1%9C%E5%BA%AD%E8%96%AB%2C%E6%9F%8F%E6%9C%A8%E7%BF%BC%2C%E9%B7%B9%E5%9F%8E%E6%81%AD%E4%BA%8C%2C%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E7%8C%AB%E6%9F%B3%E3%82%AD%E3%83%AA%E3%82%AA%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD"
       },
       {
         "label": "Day2: 2025年7月13日(土) 開場16:00/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_10thpm_yokohama_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 38,
+        "castNames": [
+          "天ヶ瀬冬馬",
+          "伊集院北斗",
+          "都築圭",
+          "神楽麗",
+          "紅井朱雀",
+          "黒野玄武",
+          "神谷幸広",
+          "東雲荘一郎",
+          "アスラン＝BBⅡ世",
+          "卯月巻緒",
+          "水嶋咲",
+          "岡村直央",
+          "橘志狼",
+          "硲道夫",
+          "舞田類",
+          "山下次郎",
+          "大河タケル",
+          "円城寺道流",
+          "牙崎漣",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス",
+          "天道輝",
+          "渡辺みのり",
+          "蒼井悠介",
+          "蒼井享介",
+          "木村龍",
+          "信玄誠司",
+          "華村翔真",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "榊夏来",
+          "兜大吾",
+          "九十九一希",
+          "天峰秀",
+          "花園百々人",
+          "眉見鋭心"
+        ],
+        "penlightCastCount": 38,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%EF%BC%9DBB%E2%85%A1%E4%B8%96%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9%2C%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83"
       }
     ],
     "merch": []
@@ -3149,18 +3793,26 @@
       {
         "label": "Day1 昼公演: 2025年7月21日(日) 開場13:00/開演14:00",
         "setlistUrl": "https://imas-db.jp/song/event/idolmaster_orch_2025.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "倉本千奈",
+          "四条貴音",
+          "桜庭薫"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E5%9B%9B%E6%9D%A1%E8%B2%B4%E9%9F%B3%2C%E6%A1%9C%E5%BA%AD%E8%96%AB"
       },
       {
         "label": "Day1 夜公演: 2025年7月21日(日) 開場17:30/開演18:30",
         "setlistUrl": "https://imas-db.jp/song/event/idolmaster_orch_2025.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "藤原肇",
+          "田中琴葉",
+          "浅倉透"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%97%A4%E5%8E%9F%E8%82%87%2C%E7%94%B0%E4%B8%AD%E7%90%B4%E8%91%89%2C%E6%B5%85%E5%80%89%E9%80%8F"
       }
     ],
     "merch": []
@@ -3192,18 +3844,46 @@
       {
         "label": "Day1: 2025年8月2日(金) 開場16:00/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/765as_never_end_idol_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 13,
+        "castNames": [
+          "天海春香",
+          "如月千早",
+          "星井美希",
+          "萩原雪歩",
+          "高槻やよい",
+          "菊地真",
+          "水瀬伊織",
+          "四条貴音",
+          "秋月律子",
+          "三浦あずさ",
+          "双海亜美・双海真美",
+          "我那覇響",
+          "音無小鳥"
+        ],
+        "penlightCastCount": 12,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E6%B5%B7%E6%98%A5%E9%A6%99%2C%E5%A6%82%E6%9C%88%E5%8D%83%E6%97%A9%2C%E6%98%9F%E4%BA%95%E7%BE%8E%E5%B8%8C%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9%2C%E9%AB%98%E6%A7%BB%E3%82%84%E3%82%88%E3%81%84%2C%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E6%B0%B4%E7%80%AC%E4%BC%8A%E7%B9%94%2C%E5%9B%9B%E6%9D%A1%E8%B2%B4%E9%9F%B3%2C%E7%A7%8B%E6%9C%88%E5%BE%8B%E5%AD%90%2C%E4%B8%89%E6%B5%A6%E3%81%82%E3%81%9A%E3%81%95%2C%E5%8F%8C%E6%B5%B7%E4%BA%9C%E7%BE%8E%E3%83%BB%E5%8F%8C%E6%B5%B7%E7%9C%9F%E7%BE%8E%2C%E6%88%91%E9%82%A3%E8%A6%87%E9%9F%BF"
       },
       {
         "label": "Day2: 2025年8月3日(土) 開場16:00/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/765as_never_end_idol_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 13,
+        "castNames": [
+          "天海春香",
+          "如月千早",
+          "星井美希",
+          "萩原雪歩",
+          "高槻やよい",
+          "菊地真",
+          "水瀬伊織",
+          "四条貴音",
+          "秋月律子",
+          "三浦あずさ",
+          "双海亜美・双海真美",
+          "我那覇響",
+          "音無小鳥"
+        ],
+        "penlightCastCount": 12,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E6%B5%B7%E6%98%A5%E9%A6%99%2C%E5%A6%82%E6%9C%88%E5%8D%83%E6%97%A9%2C%E6%98%9F%E4%BA%95%E7%BE%8E%E5%B8%8C%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9%2C%E9%AB%98%E6%A7%BB%E3%82%84%E3%82%88%E3%81%84%2C%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E6%B0%B4%E7%80%AC%E4%BC%8A%E7%B9%94%2C%E5%9B%9B%E6%9D%A1%E8%B2%B4%E9%9F%B3%2C%E7%A7%8B%E6%9C%88%E5%BE%8B%E5%AD%90%2C%E4%B8%89%E6%B5%A6%E3%81%82%E3%81%9A%E3%81%95%2C%E5%8F%8C%E6%B5%B7%E4%BA%9C%E7%BE%8E%E3%83%BB%E5%8F%8C%E6%B5%B7%E7%9C%9F%E7%BE%8E%2C%E6%88%91%E9%82%A3%E8%A6%87%E9%9F%BF"
       }
     ],
     "merch": []
@@ -3235,18 +3915,32 @@
       {
         "label": "Day1: 2025年8月9日(金) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_third.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "大崎甘奈",
+          "大崎甜花",
+          "桑山千雪",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       },
       {
         "label": "Day2: 2025年8月10日(土) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_third.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "大崎甘奈",
+          "大崎甜花",
+          "桑山千雪",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       }
     ],
     "merch": []
@@ -3278,18 +3972,97 @@
       {
         "label": "Day1: 2025年9月6日(金) 開場15:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_kanagawa_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 39,
+        "castNames": [
+          "一ノ瀬志希",
+          "早坂美玲",
+          "三村かな子",
+          "古賀小春",
+          "黒埼ちとせ",
+          "中野有香",
+          "白雪千夜",
+          "宮本フレデリカ",
+          "小早川紗枝",
+          "椎名法子",
+          "乙倉悠貴",
+          "遊佐こずえ",
+          "棟方愛海",
+          "速水奏",
+          "結城晴",
+          "藤原肇",
+          "森久保乃々",
+          "荒木比奈",
+          "川島瑞樹",
+          "久川颯",
+          "佐城雪美",
+          "上条春菜",
+          "八神マキノ",
+          "望月聖",
+          "三船美優",
+          "鷹富士茄子",
+          "相葉夕美",
+          "赤城みりあ",
+          "依田芳乃",
+          "久川凪",
+          "的場梨沙",
+          "及川雫",
+          "十時愛梨",
+          "龍崎薫",
+          "諸星きらり",
+          "イヴ・サンタクロース",
+          "城ヶ崎莉嘉",
+          "城ヶ崎美嘉",
+          "千川ちひろ"
+        ],
+        "penlightCastCount": 38,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B8%80%E3%83%8E%E7%80%AC%E5%BF%97%E5%B8%8C%2C%E6%97%A9%E5%9D%82%E7%BE%8E%E7%8E%B2%2C%E4%B8%89%E6%9D%91%E3%81%8B%E3%81%AA%E5%AD%90%2C%E5%8F%A4%E8%B3%80%E5%B0%8F%E6%98%A5%2C%E9%BB%92%E5%9F%BC%E3%81%A1%E3%81%A8%E3%81%9B%2C%E4%B8%AD%E9%87%8E%E6%9C%89%E9%A6%99%2C%E7%99%BD%E9%9B%AA%E5%8D%83%E5%A4%9C%2C%E5%AE%AE%E6%9C%AC%E3%83%95%E3%83%AC%E3%83%87%E3%83%AA%E3%82%AB%2C%E5%B0%8F%E6%97%A9%E5%B7%9D%E7%B4%97%E6%9E%9D%2C%E6%A4%8E%E5%90%8D%E6%B3%95%E5%AD%90%2C%E4%B9%99%E5%80%89%E6%82%A0%E8%B2%B4%2C%E9%81%8A%E4%BD%90%E3%81%93%E3%81%9A%E3%81%88%2C%E6%A3%9F%E6%96%B9%E6%84%9B%E6%B5%B7%2C%E9%80%9F%E6%B0%B4%E5%A5%8F%2C%E7%B5%90%E5%9F%8E%E6%99%B4%2C%E8%97%A4%E5%8E%9F%E8%82%87%2C%E6%A3%AE%E4%B9%85%E4%BF%9D%E4%B9%83%E3%80%85%2C%E8%8D%92%E6%9C%A8%E6%AF%94%E5%A5%88%2C%E5%B7%9D%E5%B3%B6%E7%91%9E%E6%A8%B9%2C%E4%B9%85%E5%B7%9D%E9%A2%AF%2C%E4%BD%90%E5%9F%8E%E9%9B%AA%E7%BE%8E%2C%E4%B8%8A%E6%9D%A1%E6%98%A5%E8%8F%9C%2C%E5%85%AB%E7%A5%9E%E3%83%9E%E3%82%AD%E3%83%8E%2C%E6%9C%9B%E6%9C%88%E8%81%96%2C%E4%B8%89%E8%88%B9%E7%BE%8E%E5%84%AA%2C%E9%B7%B9%E5%AF%8C%E5%A3%AB%E8%8C%84%E5%AD%90%2C%E7%9B%B8%E8%91%89%E5%A4%95%E7%BE%8E%2C%E8%B5%A4%E5%9F%8E%E3%81%BF%E3%82%8A%E3%81%82%2C%E4%BE%9D%E7%94%B0%E8%8A%B3%E4%B9%83%2C%E4%B9%85%E5%B7%9D%E5%87%AA%2C%E7%9A%84%E5%A0%B4%E6%A2%A8%E6%B2%99%2C%E5%8F%8A%E5%B7%9D%E9%9B%AB%2C%E5%8D%81%E6%99%82%E6%84%9B%E6%A2%A8%2C%E9%BE%8D%E5%B4%8E%E8%96%AB%2C%E8%AB%B8%E6%98%9F%E3%81%8D%E3%82%89%E3%82%8A%2C%E3%82%A4%E3%83%B4%E3%83%BB%E3%82%B5%E3%83%B3%E3%82%BF%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B9%2C%E5%9F%8E%E3%83%B6%E5%B4%8E%E8%8E%89%E5%98%89%2C%E5%9F%8E%E3%83%B6%E5%B4%8E%E7%BE%8E%E5%98%89"
       },
       {
         "label": "Day2: 2025年9月7日(土) 開場15:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cgss10th_kanagawa_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 38,
+        "castNames": [
+          "関裕美",
+          "白菊ほたる",
+          "西園寺琴歌",
+          "双葉杏",
+          "辻野あかり",
+          "島村卯月",
+          "藤本里奈",
+          "輿水幸子",
+          "小日向美穂",
+          "道明寺歌鈴",
+          "佐久間まゆ",
+          "多田李衣菜",
+          "浅利七海",
+          "白坂小梅",
+          "大石泉",
+          "脇山珠美",
+          "桐生つかさ",
+          "松永涼",
+          "砂塚あきら",
+          "渋谷凛",
+          "北条加蓮",
+          "神谷奈緒",
+          "大和亜季",
+          "日野茜",
+          "ナターリア",
+          "高森藍子",
+          "南条光",
+          "堀裕子",
+          "喜多見柚",
+          "浜口あやめ",
+          "小関麗奈",
+          "向井拓海",
+          "喜多日菜子",
+          "夢見りあむ",
+          "星輝子",
+          "木村夏樹",
+          "大槻唯",
+          "千川ちひろ"
+        ],
+        "penlightCastCount": 37,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%96%A2%E8%A3%95%E7%BE%8E%2C%E7%99%BD%E8%8F%8A%E3%81%BB%E3%81%9F%E3%82%8B%2C%E8%A5%BF%E5%9C%92%E5%AF%BA%E7%90%B4%E6%AD%8C%2C%E5%8F%8C%E8%91%89%E6%9D%8F%2C%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88%2C%E8%97%A4%E6%9C%AC%E9%87%8C%E5%A5%88%2C%E8%BC%BF%E6%B0%B4%E5%B9%B8%E5%AD%90%2C%E5%B0%8F%E6%97%A5%E5%90%91%E7%BE%8E%E7%A9%82%2C%E9%81%93%E6%98%8E%E5%AF%BA%E6%AD%8C%E9%88%B4%2C%E4%BD%90%E4%B9%85%E9%96%93%E3%81%BE%E3%82%86%2C%E5%A4%9A%E7%94%B0%E6%9D%8E%E8%A1%A3%E8%8F%9C%2C%E6%B5%85%E5%88%A9%E4%B8%83%E6%B5%B7%2C%E7%99%BD%E5%9D%82%E5%B0%8F%E6%A2%85%2C%E5%A4%A7%E7%9F%B3%E6%B3%89%2C%E8%84%87%E5%B1%B1%E7%8F%A0%E7%BE%8E%2C%E6%A1%90%E7%94%9F%E3%81%A4%E3%81%8B%E3%81%95%2C%E6%9D%BE%E6%B0%B8%E6%B6%BC%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E6%B8%8B%E8%B0%B7%E5%87%9B%2C%E5%8C%97%E6%9D%A1%E5%8A%A0%E8%93%AE%2C%E7%A5%9E%E8%B0%B7%E5%A5%88%E7%B7%92%2C%E5%A4%A7%E5%92%8C%E4%BA%9C%E5%AD%A3%2C%E6%97%A5%E9%87%8E%E8%8C%9C%2C%E3%83%8A%E3%82%BF%E3%83%BC%E3%83%AA%E3%82%A2%2C%E9%AB%98%E6%A3%AE%E8%97%8D%E5%AD%90%2C%E5%8D%97%E6%9D%A1%E5%85%89%2C%E5%A0%80%E8%A3%95%E5%AD%90%2C%E5%96%9C%E5%A4%9A%E8%A6%8B%E6%9F%9A%2C%E6%B5%9C%E5%8F%A3%E3%81%82%E3%82%84%E3%82%81%2C%E5%B0%8F%E9%96%A2%E9%BA%97%E5%A5%88%2C%E5%90%91%E4%BA%95%E6%8B%93%E6%B5%B7%2C%E5%96%9C%E5%A4%9A%E6%97%A5%E8%8F%9C%E5%AD%90%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E6%98%9F%E8%BC%9D%E5%AD%90%2C%E6%9C%A8%E6%9D%91%E5%A4%8F%E6%A8%B9%2C%E5%A4%A7%E6%A7%BB%E5%94%AF"
       }
     ],
     "merch": []
@@ -3321,18 +4094,48 @@
       {
         "label": "Day1: 2025年9月20日(金) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_undokai_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 14,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "有村麻央",
+          "葛城リーリヤ",
+          "倉本千奈",
+          "紫雲清夏",
+          "篠澤広",
+          "姫崎莉波",
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南",
+          "雨夜燕",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 13,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97%2C%E9%9B%A8%E5%A4%9C%E7%87%95"
       },
       {
         "label": "Day2: 2025年9月21日(土) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_undokai_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 14,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "有村麻央",
+          "葛城リーリヤ",
+          "倉本千奈",
+          "紫雲清夏",
+          "篠澤広",
+          "姫崎莉波",
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南",
+          "雨夜燕",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 13,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97%2C%E9%9B%A8%E5%A4%9C%E7%87%95"
       }
     ],
     "merch": []
@@ -3364,18 +4167,34 @@
       {
         "label": "Day1: 2025年9月27日(金) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_fourth.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 7,
+        "castNames": [
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜"
+        ],
+        "penlightCastCount": 7,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C"
       },
       {
         "label": "Day2: 2025年9月28日(土) 開場15:00/開演16:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_fourth.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 7,
+        "castNames": [
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜"
+        ],
+        "penlightCastCount": 7,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C"
       }
     ],
     "merch": []
@@ -3407,34 +4226,138 @@
       {
         "label": "Day1 昼公演: 2025年10月4日(金) 開場11:00/開演12:00",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 25,
+        "castNames": [
+          "天道輝",
+          "桜庭薫",
+          "柏木翼",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "猫柳キリオ",
+          "華村翔真",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "榊夏来",
+          "若里春名",
+          "伊瀬谷四季",
+          "紅井朱雀",
+          "黒野玄武",
+          "大河タケル",
+          "円城寺道流",
+          "牙崎漣",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス"
+        ],
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E6%A1%9C%E5%BA%AD%E8%96%AB%2C%E6%9F%8F%E6%9C%A8%E7%BF%BC%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E7%8C%AB%E6%9F%B3%E3%82%AD%E3%83%AA%E3%82%AA%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9"
       },
       {
         "label": "Day1 夜公演: 2025年10月4日(金) 開場16:30/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 25,
+        "castNames": [
+          "天道輝",
+          "桜庭薫",
+          "柏木翼",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "猫柳キリオ",
+          "華村翔真",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "榊夏来",
+          "若里春名",
+          "伊瀬谷四季",
+          "紅井朱雀",
+          "黒野玄武",
+          "大河タケル",
+          "円城寺道流",
+          "牙崎漣",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス"
+        ],
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E6%A1%9C%E5%BA%AD%E8%96%AB%2C%E6%9F%8F%E6%9C%A8%E7%BF%BC%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E7%8C%AB%E6%9F%B3%E3%82%AD%E3%83%AA%E3%82%AA%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9"
       },
       {
         "label": "Day2 昼公演: 2025年10月5日(土) 開場11:00/開演12:00",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 25,
+        "castNames": [
+          "天道輝",
+          "桜庭薫",
+          "柏木翼",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "猫柳キリオ",
+          "華村翔真",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "榊夏来",
+          "若里春名",
+          "伊瀬谷四季",
+          "紅井朱雀",
+          "黒野玄武",
+          "大河タケル",
+          "円城寺道流",
+          "牙崎漣",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス"
+        ],
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E6%A1%9C%E5%BA%AD%E8%96%AB%2C%E6%9F%8F%E6%9C%A8%E7%BF%BC%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E7%8C%AB%E6%9F%B3%E3%82%AD%E3%83%AA%E3%82%AA%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9"
       },
       {
         "label": "Day2 夜公演: 2025年10月5日(土) 開場16:30/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_makuhari_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 25,
+        "castNames": [
+          "天道輝",
+          "桜庭薫",
+          "柏木翼",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "猫柳キリオ",
+          "華村翔真",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "榊夏来",
+          "若里春名",
+          "伊瀬谷四季",
+          "紅井朱雀",
+          "黒野玄武",
+          "大河タケル",
+          "円城寺道流",
+          "牙崎漣",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス"
+        ],
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E6%A1%9C%E5%BA%AD%E8%96%AB%2C%E6%9F%8F%E6%9C%A8%E7%BF%BC%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E7%8C%AB%E6%9F%B3%E3%82%AD%E3%83%AA%E3%82%AA%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9"
       }
     ],
     "merch": []
@@ -3466,18 +4389,46 @@
       {
         "label": "Day1: 2025年10月11日(金) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/million_12th_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 13,
+        "castNames": [
+          "北上麗花",
+          "最上静香",
+          "ロコ",
+          "高山紗代子",
+          "天空橋朋花",
+          "横山奈緒",
+          "二階堂千鶴",
+          "豊川風花",
+          "宮尾美也",
+          "福田のり子",
+          "真壁瑞希",
+          "篠宮可憐",
+          "百瀬莉緒"
+        ],
+        "penlightCastCount": 13,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%8C%97%E4%B8%8A%E9%BA%97%E8%8A%B1%2C%E6%9C%80%E4%B8%8A%E9%9D%99%E9%A6%99%2C%E3%83%AD%E3%82%B3%2C%E9%AB%98%E5%B1%B1%E7%B4%97%E4%BB%A3%E5%AD%90%2C%E5%A4%A9%E7%A9%BA%E6%A9%8B%E6%9C%8B%E8%8A%B1%2C%E6%A8%AA%E5%B1%B1%E5%A5%88%E7%B7%92%2C%E4%BA%8C%E9%9A%8E%E5%A0%82%E5%8D%83%E9%B6%B4%2C%E8%B1%8A%E5%B7%9D%E9%A2%A8%E8%8A%B1%2C%E5%AE%AE%E5%B0%BE%E7%BE%8E%E4%B9%9F%2C%E7%A6%8F%E7%94%B0%E3%81%AE%E3%82%8A%E5%AD%90%2C%E7%9C%9F%E5%A3%81%E7%91%9E%E5%B8%8C%2C%E7%AF%A0%E5%AE%AE%E5%8F%AF%E6%86%90%2C%E7%99%BE%E7%80%AC%E8%8E%89%E7%B7%92"
       },
       {
         "label": "Day2: 2025年10月12日(土) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/million_12th_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 13,
+        "castNames": [
+          "桜守歌織",
+          "春日未来",
+          "伊吹翼",
+          "島原エレナ",
+          "佐竹美奈子",
+          "野々原茜",
+          "中谷育",
+          "エミリー・スチュアート",
+          "大神環",
+          "永吉昴",
+          "周防桃子",
+          "ジュリア",
+          "白石紬"
+        ],
+        "penlightCastCount": 13,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%A1%9C%E5%AE%88%E6%AD%8C%E7%B9%94%2C%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5%2C%E4%BC%8A%E5%90%B9%E7%BF%BC%2C%E5%B3%B6%E5%8E%9F%E3%82%A8%E3%83%AC%E3%83%8A%2C%E4%BD%90%E7%AB%B9%E7%BE%8E%E5%A5%88%E5%AD%90%2C%E9%87%8E%E3%80%85%E5%8E%9F%E8%8C%9C%2C%E4%B8%AD%E8%B0%B7%E8%82%B2%2C%E3%82%A8%E3%83%9F%E3%83%AA%E3%83%BC%E3%83%BB%E3%82%B9%E3%83%81%E3%83%A5%E3%82%A2%E3%83%BC%E3%83%88%2C%E5%A4%A7%E7%A5%9E%E7%92%B0%2C%E6%B0%B8%E5%90%89%E6%98%B4%2C%E5%91%A8%E9%98%B2%E6%A1%83%E5%AD%90%2C%E3%82%B8%E3%83%A5%E3%83%AA%E3%82%A2%2C%E7%99%BD%E7%9F%B3%E7%B4%AC"
       }
     ],
     "merch": []
@@ -3509,26 +4460,35 @@
       {
         "label": "Day1: 2025年10月18日(金) 開場17:00/開演18:00",
         "setlistUrl": "https://imas-db.jp/song/event/765as_twinlive_nakayoshi.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 2,
+        "castNames": [
+          "高槻やよい",
+          "水瀬伊織"
+        ],
+        "penlightCastCount": 2,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%AB%98%E6%A7%BB%E3%82%84%E3%82%88%E3%81%84%2C%E6%B0%B4%E7%80%AC%E4%BC%8A%E7%B9%94"
       },
       {
         "label": "Day2 昼公演: 2025年10月19日(土) 開場12:30/開演13:30",
         "setlistUrl": "https://imas-db.jp/song/event/765as_twinlive_nakayoshi.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 2,
+        "castNames": [
+          "高槻やよい",
+          "水瀬伊織"
+        ],
+        "penlightCastCount": 2,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%AB%98%E6%A7%BB%E3%82%84%E3%82%88%E3%81%84%2C%E6%B0%B4%E7%80%AC%E4%BC%8A%E7%B9%94"
       },
       {
         "label": "Day2 夜公演: 2025年10月19日(土) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/765as_twinlive_nakayoshi.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 2,
+        "castNames": [
+          "高槻やよい",
+          "水瀬伊織"
+        ],
+        "penlightCastCount": 2,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%AB%98%E6%A7%BB%E3%82%84%E3%82%88%E3%81%84%2C%E6%B0%B4%E7%80%AC%E4%BC%8A%E7%B9%94"
       }
     ],
     "merch": []
@@ -3560,18 +4520,75 @@
       {
         "label": "Day1: 2025年10月25日(金) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_rasen_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 27,
+        "castNames": [
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "小宮果穂",
+          "西城樹里",
+          "杜野凛世",
+          "有栖川夏葉",
+          "大崎甘奈",
+          "大崎甜花",
+          "桑山千雪",
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依",
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜",
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 27,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       },
       {
         "label": "Day2: 2025年10月26日(土) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_7th_rasen_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 28,
+        "castNames": [
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "小宮果穂",
+          "園田智代子",
+          "西城樹里",
+          "杜野凛世",
+          "有栖川夏葉",
+          "大崎甘奈",
+          "大崎甜花",
+          "桑山千雪",
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依",
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜",
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 28,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E5%9C%92%E7%94%B0%E6%99%BA%E4%BB%A3%E5%AD%90%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       }
     ],
     "merch": []
@@ -3603,34 +4620,138 @@
       {
         "label": "Day1 昼公演: 2025年11月15日(金) 開場11:30/開演12:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 25,
+        "castNames": [
+          "天道輝",
+          "桜庭薫",
+          "柏木翼",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "猫柳キリオ",
+          "華村翔真",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "榊夏来",
+          "若里春名",
+          "伊瀬谷四季",
+          "紅井朱雀",
+          "黒野玄武",
+          "大河タケル",
+          "円城寺道流",
+          "牙崎漣",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス"
+        ],
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E6%A1%9C%E5%BA%AD%E8%96%AB%2C%E6%9F%8F%E6%9C%A8%E7%BF%BC%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E7%8C%AB%E6%9F%B3%E3%82%AD%E3%83%AA%E3%82%AA%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9"
       },
       {
         "label": "Day1 夜公演: 2025年11月15日(金) 開場16:30/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 25,
+        "castNames": [
+          "天道輝",
+          "桜庭薫",
+          "柏木翼",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "猫柳キリオ",
+          "華村翔真",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "榊夏来",
+          "若里春名",
+          "伊瀬谷四季",
+          "紅井朱雀",
+          "黒野玄武",
+          "大河タケル",
+          "円城寺道流",
+          "牙崎漣",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス"
+        ],
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E6%A1%9C%E5%BA%AD%E8%96%AB%2C%E6%9F%8F%E6%9C%A8%E7%BF%BC%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E7%8C%AB%E6%9F%B3%E3%82%AD%E3%83%AA%E3%82%AA%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9"
       },
       {
         "label": "Day2 昼公演: 2025年11月16日(土) 開場11:00/開演12:00",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 25,
+        "castNames": [
+          "天道輝",
+          "桜庭薫",
+          "柏木翼",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "猫柳キリオ",
+          "華村翔真",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "榊夏来",
+          "若里春名",
+          "伊瀬谷四季",
+          "紅井朱雀",
+          "黒野玄武",
+          "大河タケル",
+          "円城寺道流",
+          "牙崎漣",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス"
+        ],
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E6%A1%9C%E5%BA%AD%E8%96%AB%2C%E6%9F%8F%E6%9C%A8%E7%BF%BC%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E7%8C%AB%E6%9F%B3%E3%82%AD%E3%83%AA%E3%82%AA%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9"
       },
       {
         "label": "Day2 夜公演: 2025年11月16日(土) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_fbfes_wgf_osaka_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 25,
+        "castNames": [
+          "天道輝",
+          "桜庭薫",
+          "柏木翼",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "猫柳キリオ",
+          "華村翔真",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "榊夏来",
+          "若里春名",
+          "伊瀬谷四季",
+          "紅井朱雀",
+          "黒野玄武",
+          "大河タケル",
+          "円城寺道流",
+          "牙崎漣",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス"
+        ],
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E6%A1%9C%E5%BA%AD%E8%96%AB%2C%E6%9F%8F%E6%9C%A8%E7%BF%BC%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E7%8C%AB%E6%9F%B3%E3%82%AD%E3%83%AA%E3%82%AA%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9"
       }
     ],
     "merch": []
@@ -3662,34 +4783,97 @@
       {
         "label": "Day1 昼公演: 2025年11月29日(金) 開場11:30/開演13:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 15,
+        "castNames": [
+          "赤城みりあ",
+          "安部菜々",
+          "輿水幸子",
+          "佐藤心",
+          "島村卯月",
+          "城ヶ崎美嘉",
+          "城ヶ崎莉嘉",
+          "辻野あかり",
+          "久川凪",
+          "久川颯",
+          "双葉杏",
+          "本田未央",
+          "森久保乃々",
+          "諸星きらり",
+          "夢見りあむ"
+        ],
+        "penlightCastCount": 15,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%B5%A4%E5%9F%8E%E3%81%BF%E3%82%8A%E3%81%82%2C%E5%AE%89%E9%83%A8%E8%8F%9C%E3%80%85%2C%E8%BC%BF%E6%B0%B4%E5%B9%B8%E5%AD%90%2C%E4%BD%90%E8%97%A4%E5%BF%83%2C%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88%2C%E5%9F%8E%E3%83%B6%E5%B4%8E%E7%BE%8E%E5%98%89%2C%E5%9F%8E%E3%83%B6%E5%B4%8E%E8%8E%89%E5%98%89%2C%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E4%B9%85%E5%B7%9D%E5%87%AA%2C%E4%B9%85%E5%B7%9D%E9%A2%AF%2C%E5%8F%8C%E8%91%89%E6%9D%8F%2C%E6%9C%AC%E7%94%B0%E6%9C%AA%E5%A4%AE%2C%E6%A3%AE%E4%B9%85%E4%BF%9D%E4%B9%83%E3%80%85%2C%E8%AB%B8%E6%98%9F%E3%81%8D%E3%82%89%E3%82%8A%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80"
       },
       {
         "label": "Day1 夜公演: 2025年11月29日(金) 開場16:30/開演18:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 15,
+        "castNames": [
+          "一ノ瀬志希",
+          "大槻唯",
+          "神谷奈緒",
+          "神崎蘭子",
+          "鷺沢文香",
+          "塩見周子",
+          "渋谷凛",
+          "砂塚あきら",
+          "高垣楓",
+          "橘ありす",
+          "早坂美玲",
+          "速水奏",
+          "北条加蓮",
+          "星輝子",
+          "宮本フレデリカ"
+        ],
+        "penlightCastCount": 15,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B8%80%E3%83%8E%E7%80%AC%E5%BF%97%E5%B8%8C%2C%E5%A4%A7%E6%A7%BB%E5%94%AF%2C%E7%A5%9E%E8%B0%B7%E5%A5%88%E7%B7%92%2C%E7%A5%9E%E5%B4%8E%E8%98%AD%E5%AD%90%2C%E9%B7%BA%E6%B2%A2%E6%96%87%E9%A6%99%2C%E5%A1%A9%E8%A6%8B%E5%91%A8%E5%AD%90%2C%E6%B8%8B%E8%B0%B7%E5%87%9B%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E9%AB%98%E5%9E%A3%E6%A5%93%2C%E6%A9%98%E3%81%82%E3%82%8A%E3%81%99%2C%E6%97%A9%E5%9D%82%E7%BE%8E%E7%8E%B2%2C%E9%80%9F%E6%B0%B4%E5%A5%8F%2C%E5%8C%97%E6%9D%A1%E5%8A%A0%E8%93%AE%2C%E6%98%9F%E8%BC%9D%E5%AD%90%2C%E5%AE%AE%E6%9C%AC%E3%83%95%E3%83%AC%E3%83%87%E3%83%AA%E3%82%AB"
       },
       {
         "label": "Day2 昼公演: 2025年11月30日(土) 開場09:30/開演11:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage3.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 17,
+        "castNames": [
+          "速水奏",
+          "塩見周子",
+          "城ヶ崎美嘉",
+          "一ノ瀬志希",
+          "宮本フレデリカ",
+          "アナスタシア",
+          "大槻唯",
+          "神谷奈緒",
+          "小早川紗枝",
+          "白坂小梅",
+          "新田美波",
+          "早坂美玲",
+          "久川颯",
+          "北条加蓮",
+          "星輝子",
+          "森久保乃々",
+          "諸星きらり"
+        ],
+        "penlightCastCount": 17,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%80%9F%E6%B0%B4%E5%A5%8F%2C%E5%A1%A9%E8%A6%8B%E5%91%A8%E5%AD%90%2C%E5%9F%8E%E3%83%B6%E5%B4%8E%E7%BE%8E%E5%98%89%2C%E4%B8%80%E3%83%8E%E7%80%AC%E5%BF%97%E5%B8%8C%2C%E5%AE%AE%E6%9C%AC%E3%83%95%E3%83%AC%E3%83%87%E3%83%AA%E3%82%AB%2C%E3%82%A2%E3%83%8A%E3%82%B9%E3%82%BF%E3%82%B7%E3%82%A2%2C%E5%A4%A7%E6%A7%BB%E5%94%AF%2C%E7%A5%9E%E8%B0%B7%E5%A5%88%E7%B7%92%2C%E5%B0%8F%E6%97%A9%E5%B7%9D%E7%B4%97%E6%9E%9D%2C%E7%99%BD%E5%9D%82%E5%B0%8F%E6%A2%85%2C%E6%96%B0%E7%94%B0%E7%BE%8E%E6%B3%A2%2C%E6%97%A9%E5%9D%82%E7%BE%8E%E7%8E%B2%2C%E4%B9%85%E5%B7%9D%E9%A2%AF%2C%E5%8C%97%E6%9D%A1%E5%8A%A0%E8%93%AE%2C%E6%98%9F%E8%BC%9D%E5%AD%90%2C%E6%A3%AE%E4%B9%85%E4%BF%9D%E4%B9%83%E3%80%85%2C%E8%AB%B8%E6%98%9F%E3%81%8D%E3%82%89%E3%82%8A"
       },
       {
         "label": "Day2 夜公演: 2025年11月30日(土) 開場14:30/開演16:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_fes_oustars_stage4.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 12,
+        "castNames": [
+          "島村卯月",
+          "渋谷凛",
+          "本田未央",
+          "辻野あかり",
+          "砂塚あきら",
+          "夢見りあむ",
+          "赤城みりあ",
+          "安部菜々",
+          "輿水幸子",
+          "鷺沢文香",
+          "佐藤心",
+          "橘ありす"
+        ],
+        "penlightCastCount": 12,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88%2C%E6%B8%8B%E8%B0%B7%E5%87%9B%2C%E6%9C%AC%E7%94%B0%E6%9C%AA%E5%A4%AE%2C%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E8%B5%A4%E5%9F%8E%E3%81%BF%E3%82%8A%E3%81%82%2C%E5%AE%89%E9%83%A8%E8%8F%9C%E3%80%85%2C%E8%BC%BF%E6%B0%B4%E5%B9%B8%E5%AD%90%2C%E9%B7%BA%E6%B2%A2%E6%96%87%E9%A6%99%2C%E4%BD%90%E8%97%A4%E5%BF%83%2C%E6%A9%98%E3%81%82%E3%82%8A%E3%81%99"
       }
     ],
     "merch": []
@@ -3728,18 +4912,138 @@
       {
         "label": "Day1: 2025年12月13日(金) 開場14:00/開演16:00",
         "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2025_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 59,
+        "castNames": [
+          "天海春香",
+          "萩原雪歩",
+          "高槻やよい",
+          "菊地真",
+          "水瀬伊織",
+          "秋月律子",
+          "辻野あかり",
+          "砂塚あきら",
+          "夢見りあむ",
+          "佐久間まゆ",
+          "北条加蓮",
+          "小日向美穂",
+          "多田李衣菜",
+          "緒方智絵里",
+          "堀裕子",
+          "及川雫",
+          "最上静香",
+          "伊吹翼",
+          "箱崎星梨花",
+          "野々原茜",
+          "七尾百合子",
+          "中谷育",
+          "エミリー・スチュアート",
+          "二階堂千鶴",
+          "福田のり子",
+          "百瀬莉緒",
+          "周防桃子",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "華村翔真",
+          "清澄九郎",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "天峰秀",
+          "花園百々人",
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "大崎甘奈",
+          "大崎甜花",
+          "桑山千雪",
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき",
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "有村麻央",
+          "葛城リーリヤ",
+          "姫崎莉波",
+          "灯里愛夏",
+          "上水流宇宙",
+          "レトラ"
+        ],
+        "penlightCastCount": 59,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E6%B5%B7%E6%98%A5%E9%A6%99%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9%2C%E9%AB%98%E6%A7%BB%E3%82%84%E3%82%88%E3%81%84%2C%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E6%B0%B4%E7%80%AC%E4%BC%8A%E7%B9%94%2C%E7%A7%8B%E6%9C%88%E5%BE%8B%E5%AD%90%2C%E8%BE%BB%E9%87%8E%E3%81%82%E3%81%8B%E3%82%8A%2C%E7%A0%82%E5%A1%9A%E3%81%82%E3%81%8D%E3%82%89%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80%2C%E4%BD%90%E4%B9%85%E9%96%93%E3%81%BE%E3%82%86%2C%E5%8C%97%E6%9D%A1%E5%8A%A0%E8%93%AE%2C%E5%B0%8F%E6%97%A5%E5%90%91%E7%BE%8E%E7%A9%82%2C%E5%A4%9A%E7%94%B0%E6%9D%8E%E8%A1%A3%E8%8F%9C%2C%E7%B7%92%E6%96%B9%E6%99%BA%E7%B5%B5%E9%87%8C%2C%E5%A0%80%E8%A3%95%E5%AD%90%2C%E5%8F%8A%E5%B7%9D%E9%9B%AB%2C%E6%9C%80%E4%B8%8A%E9%9D%99%E9%A6%99%2C%E4%BC%8A%E5%90%B9%E7%BF%BC%2C%E7%AE%B1%E5%B4%8E%E6%98%9F%E6%A2%A8%E8%8A%B1%2C%E9%87%8E%E3%80%85%E5%8E%9F%E8%8C%9C%2C%E4%B8%83%E5%B0%BE%E7%99%BE%E5%90%88%E5%AD%90%2C%E4%B8%AD%E8%B0%B7%E8%82%B2%2C%E3%82%A8%E3%83%9F%E3%83%AA%E3%83%BC%E3%83%BB%E3%82%B9%E3%83%81%E3%83%A5%E3%82%A2%E3%83%BC%E3%83%88%2C%E4%BA%8C%E9%9A%8E%E5%A0%82%E5%8D%83%E9%B6%B4%2C%E7%A6%8F%E7%94%B0%E3%81%AE%E3%82%8A%E5%AD%90%2C%E7%99%BE%E7%80%AC%E8%8E%89%E7%B7%92%2C%E5%91%A8%E9%98%B2%E6%A1%83%E5%AD%90%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88"
       },
       {
         "label": "Day2: 2025年12月14日(土) 開場14:00/開演16:00",
         "setlistUrl": "https://imas-db.jp/song/event/idolmaster_idolworld2025_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 59,
+        "castNames": [
+          "如月千早",
+          "星井美希",
+          "四条貴音",
+          "三浦あずさ",
+          "我那覇響",
+          "島村卯月",
+          "宮本フレデリカ",
+          "喜多日菜子",
+          "渋谷凛",
+          "白雪千夜",
+          "松永涼",
+          "藤本里奈",
+          "大槻唯",
+          "城ヶ崎美嘉",
+          "春日未来",
+          "佐竹美奈子",
+          "所恵美",
+          "馬場このみ",
+          "真壁瑞希",
+          "篠宮可憐",
+          "永吉昴",
+          "ジュリア",
+          "白石紬",
+          "桜守歌織",
+          "天道輝",
+          "伊集院北斗",
+          "紅井朱雀",
+          "黒野玄武",
+          "硲道夫",
+          "舞田類",
+          "山下次郎",
+          "大河タケル",
+          "円城寺道流",
+          "牙崎漣",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス",
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "小宮果穂",
+          "西城樹里",
+          "杜野凛世",
+          "有栖川夏葉",
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依",
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜",
+          "倉本千奈",
+          "紫雲清夏",
+          "篠澤広",
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南",
+          "奥空心白",
+          "亜夜"
+        ],
+        "penlightCastCount": 59,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A6%82%E6%9C%88%E5%8D%83%E6%97%A9%2C%E6%98%9F%E4%BA%95%E7%BE%8E%E5%B8%8C%2C%E5%9B%9B%E6%9D%A1%E8%B2%B4%E9%9F%B3%2C%E4%B8%89%E6%B5%A6%E3%81%82%E3%81%9A%E3%81%95%2C%E6%88%91%E9%82%A3%E8%A6%87%E9%9F%BF%2C%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88%2C%E5%AE%AE%E6%9C%AC%E3%83%95%E3%83%AC%E3%83%87%E3%83%AA%E3%82%AB%2C%E5%96%9C%E5%A4%9A%E6%97%A5%E8%8F%9C%E5%AD%90%2C%E6%B8%8B%E8%B0%B7%E5%87%9B%2C%E7%99%BD%E9%9B%AA%E5%8D%83%E5%A4%9C%2C%E6%9D%BE%E6%B0%B8%E6%B6%BC%2C%E8%97%A4%E6%9C%AC%E9%87%8C%E5%A5%88%2C%E5%A4%A7%E6%A7%BB%E5%94%AF%2C%E5%9F%8E%E3%83%B6%E5%B4%8E%E7%BE%8E%E5%98%89%2C%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5%2C%E4%BD%90%E7%AB%B9%E7%BE%8E%E5%A5%88%E5%AD%90%2C%E6%89%80%E6%81%B5%E7%BE%8E%2C%E9%A6%AC%E5%A0%B4%E3%81%93%E3%81%AE%E3%81%BF%2C%E7%9C%9F%E5%A3%81%E7%91%9E%E5%B8%8C%2C%E7%AF%A0%E5%AE%AE%E5%8F%AF%E6%86%90%2C%E6%B0%B8%E5%90%89%E6%98%B4%2C%E3%82%B8%E3%83%A5%E3%83%AA%E3%82%A2%2C%E7%99%BD%E7%9F%B3%E7%B4%AC%2C%E6%A1%9C%E5%AE%88%E6%AD%8C%E7%B9%94%2C%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9%2C%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2"
       }
     ],
     "merch": []
@@ -3771,26 +5075,59 @@
       {
         "label": "Day1: 2025年12月27日(金) 開場16:30/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_order.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 10,
+        "castNames": [
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 10,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       },
       {
         "label": "Day2 昼公演: 2025年12月28日(土) 開場12:30/開演13:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_order.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 10,
+        "castNames": [
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 10,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       },
       {
         "label": "Day2 夜公演: 2025年12月28日(土) 開場16:30/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_order.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 10,
+        "castNames": [
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 10,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       }
     ],
     "merch": []
@@ -3822,18 +5159,22 @@
       {
         "label": "Day1: 2026年1月24日(金) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/765as_oath_one.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 1,
+        "castNames": [
+          "如月千早"
+        ],
+        "penlightCastCount": 1,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A6%82%E6%9C%88%E5%8D%83%E6%97%A9"
       },
       {
         "label": "Day2: 2026年1月25日(土) 開場15:00/開演16:00",
         "setlistUrl": "https://imas-db.jp/song/event/765as_oath_one.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 1,
+        "castNames": [
+          "如月千早"
+        ],
+        "penlightCastCount": 1,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A6%82%E6%9C%88%E5%8D%83%E6%97%A9"
       }
     ],
     "merch": []
@@ -3865,18 +5206,74 @@
       {
         "label": "Day1: 2026年2月14日(金) 開場15:00/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283pro_kansyasai.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 27,
+        "castNames": [
+          "櫻木真乃",
+          "月岡恋鐘",
+          "小宮果穂",
+          "大崎甘奈",
+          "芹沢あさひ",
+          "樋口円香",
+          "緋田美琴",
+          "鈴木羽那",
+          "風野灯織",
+          "田中摩美々",
+          "三峰結華",
+          "幽谷霧子",
+          "杜野凛世",
+          "大崎甜花",
+          "和泉愛依",
+          "福丸小糸",
+          "八宮めぐる",
+          "白瀬咲耶",
+          "西城樹里",
+          "有栖川夏葉",
+          "桑山千雪",
+          "黛冬優子",
+          "浅倉透",
+          "市川雛菜",
+          "七草にちか",
+          "郁田はるき",
+          "七草はづき"
+        ],
+        "penlightCastCount": 26,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       },
       {
         "label": "Day2: 2026年2月15日(土) 開場15:00/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283pro_kansyasai.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 27,
+        "castNames": [
+          "櫻木真乃",
+          "月岡恋鐘",
+          "小宮果穂",
+          "大崎甘奈",
+          "芹沢あさひ",
+          "樋口円香",
+          "緋田美琴",
+          "鈴木羽那",
+          "風野灯織",
+          "田中摩美々",
+          "三峰結華",
+          "幽谷霧子",
+          "杜野凛世",
+          "大崎甜花",
+          "和泉愛依",
+          "福丸小糸",
+          "八宮めぐる",
+          "白瀬咲耶",
+          "西城樹里",
+          "有栖川夏葉",
+          "桑山千雪",
+          "黛冬優子",
+          "浅倉透",
+          "市川雛菜",
+          "七草にちか",
+          "郁田はるき",
+          "七草はづき"
+        ],
+        "penlightCastCount": 26,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       }
     ],
     "merch": []
@@ -3909,34 +5306,61 @@
       {
         "label": "Day1: 2026年2月21日(金) 開場17:00/開演18:00",
         "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "灯里愛夏",
+          "上水流宇宙",
+          "レトラ"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
       },
       {
         "label": "Day2: 2026年2月22日(土) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 8,
+        "castNames": [
+          "日高愛",
+          "水谷絵理",
+          "秋月涼",
+          "灯里愛夏",
+          "上水流宇宙",
+          "レトラ",
+          "兜大吾",
+          "九十九一希"
+        ],
+        "penlightCastCount": 8,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%97%A5%E9%AB%98%E6%84%9B%2C%E6%B0%B4%E8%B0%B7%E7%B5%B5%E7%90%86%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C"
       },
       {
         "label": "Day3 昼公演: 2026年2月23日(日) 開場13:00/開演14:00",
         "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day3.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "日高愛",
+          "水谷絵理",
+          "秋月涼",
+          "灯里愛夏",
+          "上水流宇宙",
+          "レトラ"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%97%A5%E9%AB%98%E6%84%9B%2C%E6%B0%B4%E8%B0%B7%E7%B5%B5%E7%90%86%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
       },
       {
         "label": "Day3 夜公演: 2026年2月23日(日) 開場16:30/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/idolmaster_876pro_fes_day3.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "日高愛",
+          "水谷絵理",
+          "秋月涼",
+          "灯里愛夏",
+          "上水流宇宙",
+          "レトラ"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%97%A5%E9%AB%98%E6%84%9B%2C%E6%B0%B4%E8%B0%B7%E7%B5%B5%E7%90%86%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E3%83%AC%E3%83%88%E3%83%A9"
       }
     ],
     "merch": []
@@ -3968,18 +5392,48 @@
       {
         "label": "Day1: 2026年2月28日(金) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_musicfestival_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 14,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "有村麻央",
+          "葛城リーリヤ",
+          "倉本千奈",
+          "紫雲清夏",
+          "篠澤広",
+          "姫崎莉波",
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南",
+          "雨夜燕",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 13,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97%2C%E9%9B%A8%E5%A4%9C%E7%87%95"
       },
       {
         "label": "Day2: 2026年3月1日(土) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_gkmas_musicfestival_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 14,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "有村麻央",
+          "葛城リーリヤ",
+          "倉本千奈",
+          "紫雲清夏",
+          "篠澤広",
+          "姫崎莉波",
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南",
+          "雨夜燕",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 13,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97%2C%E9%9B%A8%E5%A4%9C%E7%87%95"
       }
     ],
     "merch": []
@@ -4011,18 +5465,50 @@
       {
         "label": "Day1: 2026年3月14日(金) 開場14:30/開演15:30",
         "setlistUrl": "https://imas-db.jp/song/event/million_11thlive_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 14,
+        "castNames": [
+          "ロコ",
+          "最上静香",
+          "野々原茜",
+          "高山紗代子",
+          "横山奈緒",
+          "二階堂千鶴",
+          "馬場このみ",
+          "宮尾美也",
+          "福田のり子",
+          "永吉昴",
+          "北上麗花",
+          "ジュリア",
+          "白石紬",
+          "中谷育"
+        ],
+        "penlightCastCount": 14,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E3%83%AD%E3%82%B3%2C%E6%9C%80%E4%B8%8A%E9%9D%99%E9%A6%99%2C%E9%87%8E%E3%80%85%E5%8E%9F%E8%8C%9C%2C%E9%AB%98%E5%B1%B1%E7%B4%97%E4%BB%A3%E5%AD%90%2C%E6%A8%AA%E5%B1%B1%E5%A5%88%E7%B7%92%2C%E4%BA%8C%E9%9A%8E%E5%A0%82%E5%8D%83%E9%B6%B4%2C%E9%A6%AC%E5%A0%B4%E3%81%93%E3%81%AE%E3%81%BF%2C%E5%AE%AE%E5%B0%BE%E7%BE%8E%E4%B9%9F%2C%E7%A6%8F%E7%94%B0%E3%81%AE%E3%82%8A%E5%AD%90%2C%E6%B0%B8%E5%90%89%E6%98%B4%2C%E5%8C%97%E4%B8%8A%E9%BA%97%E8%8A%B1%2C%E3%82%B8%E3%83%A5%E3%83%AA%E3%82%A2%2C%E7%99%BD%E7%9F%B3%E7%B4%AC%2C%E4%B8%AD%E8%B0%B7%E8%82%B2"
       },
       {
         "label": "Day2: 2026年3月15日(土) 開場14:30/開演15:30",
         "setlistUrl": "https://imas-db.jp/song/event/million_11thlive_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 16,
+        "castNames": [
+          "七尾百合子",
+          "伊吹翼",
+          "島原エレナ",
+          "佐竹美奈子",
+          "箱崎星梨花",
+          "望月杏奈",
+          "中谷育",
+          "天空橋朋花",
+          "エミリー・スチュアート",
+          "大神環",
+          "豊川風花",
+          "真壁瑞希",
+          "篠宮可憐",
+          "百瀬莉緒",
+          "周防桃子",
+          "桜守歌織"
+        ],
+        "penlightCastCount": 16,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B8%83%E5%B0%BE%E7%99%BE%E5%90%88%E5%AD%90%2C%E4%BC%8A%E5%90%B9%E7%BF%BC%2C%E5%B3%B6%E5%8E%9F%E3%82%A8%E3%83%AC%E3%83%8A%2C%E4%BD%90%E7%AB%B9%E7%BE%8E%E5%A5%88%E5%AD%90%2C%E7%AE%B1%E5%B4%8E%E6%98%9F%E6%A2%A8%E8%8A%B1%2C%E6%9C%9B%E6%9C%88%E6%9D%8F%E5%A5%88%2C%E4%B8%AD%E8%B0%B7%E8%82%B2%2C%E5%A4%A9%E7%A9%BA%E6%A9%8B%E6%9C%8B%E8%8A%B1%2C%E3%82%A8%E3%83%9F%E3%83%AA%E3%83%BC%E3%83%BB%E3%82%B9%E3%83%81%E3%83%A5%E3%82%A2%E3%83%BC%E3%83%88%2C%E5%A4%A7%E7%A5%9E%E7%92%B0%2C%E8%B1%8A%E5%B7%9D%E9%A2%A8%E8%8A%B1%2C%E7%9C%9F%E5%A3%81%E7%91%9E%E5%B8%8C%2C%E7%AF%A0%E5%AE%AE%E5%8F%AF%E6%86%90%2C%E7%99%BE%E7%80%AC%E8%8E%89%E7%B7%92%2C%E5%91%A8%E9%98%B2%E6%A1%83%E5%AD%90%2C%E6%A1%9C%E5%AE%88%E6%AD%8C%E7%B9%94"
       }
     ],
     "merch": []
@@ -4054,26 +5540,38 @@
       {
         "label": "Day1: 2026年4月11日(金) 開場17:00/開演18:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_xxx.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D"
       },
       {
         "label": "Day2 昼公演: 2026年4月12日(土) 開場12:00/開演13:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_xxx.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D"
       },
       {
         "label": "Day2 夜公演: 2026年4月12日(土) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283_xxx.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 3,
+        "castNames": [
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依"
+        ],
+        "penlightCastCount": 3,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D"
       }
     ],
     "merch": []
@@ -4105,18 +5603,75 @@
       {
         "label": "Day1: 2026年4月25日(金) 開場16:30/開演18:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_8th_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 27,
+        "castNames": [
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "小宮果穂",
+          "西城樹里",
+          "杜野凛世",
+          "有栖川夏葉",
+          "大崎甘奈",
+          "大崎甜花",
+          "桑山千雪",
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依",
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜",
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 27,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       },
       {
         "label": "Day2: 2026年4月26日(土) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_8th_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 28,
+        "castNames": [
+          "櫻木真乃",
+          "風野灯織",
+          "八宮めぐる",
+          "月岡恋鐘",
+          "田中摩美々",
+          "白瀬咲耶",
+          "三峰結華",
+          "幽谷霧子",
+          "小宮果穂",
+          "園田智代子",
+          "西城樹里",
+          "杜野凛世",
+          "有栖川夏葉",
+          "大崎甘奈",
+          "大崎甜花",
+          "桑山千雪",
+          "芹沢あさひ",
+          "黛冬優子",
+          "和泉愛依",
+          "浅倉透",
+          "樋口円香",
+          "福丸小糸",
+          "市川雛菜",
+          "七草にちか",
+          "緋田美琴",
+          "斑鳩ルカ",
+          "鈴木羽那",
+          "郁田はるき"
+        ],
+        "penlightCastCount": 28,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E5%9C%92%E7%94%B0%E6%99%BA%E4%BB%A3%E5%AD%90%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D"
       }
     ],
     "merch": []
@@ -4148,18 +5703,47 @@
       {
         "label": "Day1: 2026年5月5日(月) 開場17:00/開演18:00",
         "setlistUrl": "https://imas-db.jp/song/event/million_13th_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 14,
+        "castNames": [
+          "高山紗代子",
+          "春日未来",
+          "伊吹翼",
+          "島原エレナ",
+          "徳川まつり",
+          "野々原茜",
+          "中谷育",
+          "矢吹可奈",
+          "横山奈緒",
+          "大神環",
+          "宮尾美也",
+          "福田のり子",
+          "篠宮可憐",
+          "北上麗花"
+        ],
+        "penlightCastCount": 14,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%AB%98%E5%B1%B1%E7%B4%97%E4%BB%A3%E5%AD%90%2C%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5%2C%E4%BC%8A%E5%90%B9%E7%BF%BC%2C%E5%B3%B6%E5%8E%9F%E3%82%A8%E3%83%AC%E3%83%8A%2C%E5%BE%B3%E5%B7%9D%E3%81%BE%E3%81%A4%E3%82%8A%2C%E9%87%8E%E3%80%85%E5%8E%9F%E8%8C%9C%2C%E4%B8%AD%E8%B0%B7%E8%82%B2%2C%E7%9F%A2%E5%90%B9%E5%8F%AF%E5%A5%88%2C%E6%A8%AA%E5%B1%B1%E5%A5%88%E7%B7%92%2C%E5%A4%A7%E7%A5%9E%E7%92%B0%2C%E5%AE%AE%E5%B0%BE%E7%BE%8E%E4%B9%9F%2C%E7%A6%8F%E7%94%B0%E3%81%AE%E3%82%8A%E5%AD%90%2C%E7%AF%A0%E5%AE%AE%E5%8F%AF%E6%86%90%2C%E5%8C%97%E4%B8%8A%E9%BA%97%E8%8A%B1"
       },
       {
         "label": "Day2: 2026年5月6日(火) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/million_13th_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 13,
+        "castNames": [
+          "二階堂千鶴",
+          "佐竹美奈子",
+          "ロコ",
+          "天空橋朋花",
+          "馬場このみ",
+          "豊川風花",
+          "真壁瑞希",
+          "百瀬莉緒",
+          "永吉昴",
+          "周防桃子",
+          "ジュリア",
+          "白石紬",
+          "桜守歌織"
+        ],
+        "penlightCastCount": 13,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%BA%8C%E9%9A%8E%E5%A0%82%E5%8D%83%E9%B6%B4%2C%E4%BD%90%E7%AB%B9%E7%BE%8E%E5%A5%88%E5%AD%90%2C%E3%83%AD%E3%82%B3%2C%E5%A4%A9%E7%A9%BA%E6%A9%8B%E6%9C%8B%E8%8A%B1%2C%E9%A6%AC%E5%A0%B4%E3%81%93%E3%81%AE%E3%81%BF%2C%E8%B1%8A%E5%B7%9D%E9%A2%A8%E8%8A%B1%2C%E7%9C%9F%E5%A3%81%E7%91%9E%E5%B8%8C%2C%E7%99%BE%E7%80%AC%E8%8E%89%E7%B7%92%2C%E6%B0%B8%E5%90%89%E6%98%B4%2C%E5%91%A8%E9%98%B2%E6%A1%83%E5%AD%90%2C%E3%82%B8%E3%83%A5%E3%83%AA%E3%82%A2%2C%E7%99%BD%E7%9F%B3%E7%B4%AC%2C%E6%A1%9C%E5%AE%88%E6%AD%8C%E7%B9%94"
       }
     ],
     "merch": []
@@ -4191,26 +5775,56 @@
       {
         "label": "Day1: 2026年5月9日(金) 開場17:00/開演18:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_sh.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 9,
+        "castNames": [
+          "乙倉悠貴",
+          "棟方愛海",
+          "浅利七海",
+          "大石泉",
+          "久川颯",
+          "森久保乃々",
+          "八神マキノ",
+          "喜多見柚",
+          "堀裕子"
+        ],
+        "penlightCastCount": 9,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B9%99%E5%80%89%E6%82%A0%E8%B2%B4%2C%E6%A3%9F%E6%96%B9%E6%84%9B%E6%B5%B7%2C%E6%B5%85%E5%88%A9%E4%B8%83%E6%B5%B7%2C%E5%A4%A7%E7%9F%B3%E6%B3%89%2C%E4%B9%85%E5%B7%9D%E9%A2%AF%2C%E6%A3%AE%E4%B9%85%E4%BF%9D%E4%B9%83%E3%80%85%2C%E5%85%AB%E7%A5%9E%E3%83%9E%E3%82%AD%E3%83%8E%2C%E5%96%9C%E5%A4%9A%E8%A6%8B%E6%9F%9A%2C%E5%A0%80%E8%A3%95%E5%AD%90"
       },
       {
         "label": "Day2 昼公演: 2026年5月10日(土) 開場11:00/開演12:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_sh.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 9,
+        "castNames": [
+          "乙倉悠貴",
+          "棟方愛海",
+          "浅利七海",
+          "大石泉",
+          "久川颯",
+          "森久保乃々",
+          "八神マキノ",
+          "喜多見柚",
+          "堀裕子"
+        ],
+        "penlightCastCount": 9,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B9%99%E5%80%89%E6%82%A0%E8%B2%B4%2C%E6%A3%9F%E6%96%B9%E6%84%9B%E6%B5%B7%2C%E6%B5%85%E5%88%A9%E4%B8%83%E6%B5%B7%2C%E5%A4%A7%E7%9F%B3%E6%B3%89%2C%E4%B9%85%E5%B7%9D%E9%A2%AF%2C%E6%A3%AE%E4%B9%85%E4%BF%9D%E4%B9%83%E3%80%85%2C%E5%85%AB%E7%A5%9E%E3%83%9E%E3%82%AD%E3%83%8E%2C%E5%96%9C%E5%A4%9A%E8%A6%8B%E6%9F%9A%2C%E5%A0%80%E8%A3%95%E5%AD%90"
       },
       {
         "label": "Day2 夜公演: 2026年5月10日(土) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_sh.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 9,
+        "castNames": [
+          "乙倉悠貴",
+          "棟方愛海",
+          "浅利七海",
+          "大石泉",
+          "久川颯",
+          "森久保乃々",
+          "八神マキノ",
+          "喜多見柚",
+          "堀裕子"
+        ],
+        "penlightCastCount": 9,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B9%99%E5%80%89%E6%82%A0%E8%B2%B4%2C%E6%A3%9F%E6%96%B9%E6%84%9B%E6%B5%B7%2C%E6%B5%85%E5%88%A9%E4%B8%83%E6%B5%B7%2C%E5%A4%A7%E7%9F%B3%E6%B3%89%2C%E4%B9%85%E5%B7%9D%E9%A2%AF%2C%E6%A3%AE%E4%B9%85%E4%BF%9D%E4%B9%83%E3%80%85%2C%E5%85%AB%E7%A5%9E%E3%83%9E%E3%82%AD%E3%83%8E%2C%E5%96%9C%E5%A4%9A%E8%A6%8B%E6%9F%9A%2C%E5%A0%80%E8%A3%95%E5%AD%90"
       }
     ],
     "merch": []
@@ -4242,18 +5856,33 @@
       {
         "label": "Day1: 2026年5月16日(金) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_2nd_selection_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "有村麻央",
+          "倉本千奈",
+          "篠澤広",
+          "花海佑芽",
+          "花海咲季",
+          "姫崎莉波"
+        ],
+        "penlightCastCount": 6,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2"
       },
       {
         "label": "Day2: 2026年5月17日(土) 開場15:00/開演16:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_2nd_selection_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 7,
+        "castNames": [
+          "雨夜燕",
+          "葛城リーリヤ",
+          "紫雲清夏",
+          "十王星南",
+          "月村手毬",
+          "秦谷美鈴",
+          "藤田ことね"
+        ],
+        "penlightCastCount": 7,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%9B%A8%E5%A4%9C%E7%87%95%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD"
       }
     ],
     "merch": []
@@ -4285,18 +5914,48 @@
       {
         "label": "Day1: 2026年6月6日(金) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_2ndperiod_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 14,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "有村麻央",
+          "葛城リーリヤ",
+          "倉本千奈",
+          "紫雲清夏",
+          "篠澤広",
+          "姫崎莉波",
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南",
+          "雨夜燕",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 13,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97%2C%E9%9B%A8%E5%A4%9C%E7%87%95"
       },
       {
         "label": "Day2: 2026年6月7日(土) 開場15:30/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_2ndperiod_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 14,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "有村麻央",
+          "葛城リーリヤ",
+          "倉本千奈",
+          "紫雲清夏",
+          "篠澤広",
+          "姫崎莉波",
+          "花海佑芽",
+          "秦谷美鈴",
+          "十王星南",
+          "雨夜燕",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 13,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97%2C%E9%9B%A8%E5%A4%9C%E7%87%95"
       }
     ],
     "merch": []
@@ -4328,26 +5987,56 @@
       {
         "label": "Day1: 2026年7月4日(金) 開場17:00/開演18:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_dd.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 9,
+        "castNames": [
+          "黒埼ちとせ",
+          "遊佐こずえ",
+          "荒木比奈",
+          "上条春菜",
+          "イヴ・サンタクロース",
+          "久川凪",
+          "的場梨沙",
+          "向井拓海",
+          "夢見りあむ"
+        ],
+        "penlightCastCount": 9,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%BB%92%E5%9F%BC%E3%81%A1%E3%81%A8%E3%81%9B%2C%E9%81%8A%E4%BD%90%E3%81%93%E3%81%9A%E3%81%88%2C%E8%8D%92%E6%9C%A8%E6%AF%94%E5%A5%88%2C%E4%B8%8A%E6%9D%A1%E6%98%A5%E8%8F%9C%2C%E3%82%A4%E3%83%B4%E3%83%BB%E3%82%B5%E3%83%B3%E3%82%BF%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B9%2C%E4%B9%85%E5%B7%9D%E5%87%AA%2C%E7%9A%84%E5%A0%B4%E6%A2%A8%E6%B2%99%2C%E5%90%91%E4%BA%95%E6%8B%93%E6%B5%B7%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80"
       },
       {
         "label": "Day2 昼公演: 2026年7月5日(土) 開場11:00/開演12:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_dd.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 9,
+        "castNames": [
+          "黒埼ちとせ",
+          "遊佐こずえ",
+          "荒木比奈",
+          "上条春菜",
+          "イヴ・サンタクロース",
+          "久川凪",
+          "的場梨沙",
+          "向井拓海",
+          "夢見りあむ"
+        ],
+        "penlightCastCount": 9,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%BB%92%E5%9F%BC%E3%81%A1%E3%81%A8%E3%81%9B%2C%E9%81%8A%E4%BD%90%E3%81%93%E3%81%9A%E3%81%88%2C%E8%8D%92%E6%9C%A8%E6%AF%94%E5%A5%88%2C%E4%B8%8A%E6%9D%A1%E6%98%A5%E8%8F%9C%2C%E3%82%A4%E3%83%B4%E3%83%BB%E3%82%B5%E3%83%B3%E3%82%BF%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B9%2C%E4%B9%85%E5%B7%9D%E5%87%AA%2C%E7%9A%84%E5%A0%B4%E6%A2%A8%E6%B2%99%2C%E5%90%91%E4%BA%95%E6%8B%93%E6%B5%B7%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80"
       },
       {
         "label": "Day2 夜公演: 2026年7月5日(土) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_musical_dd.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 9,
+        "castNames": [
+          "黒埼ちとせ",
+          "遊佐こずえ",
+          "荒木比奈",
+          "上条春菜",
+          "イヴ・サンタクロース",
+          "久川凪",
+          "的場梨沙",
+          "向井拓海",
+          "夢見りあむ"
+        ],
+        "penlightCastCount": 9,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%BB%92%E5%9F%BC%E3%81%A1%E3%81%A8%E3%81%9B%2C%E9%81%8A%E4%BD%90%E3%81%93%E3%81%9A%E3%81%88%2C%E8%8D%92%E6%9C%A8%E6%AF%94%E5%A5%88%2C%E4%B8%8A%E6%9D%A1%E6%98%A5%E8%8F%9C%2C%E3%82%A4%E3%83%B4%E3%83%BB%E3%82%B5%E3%83%B3%E3%82%BF%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B9%2C%E4%B9%85%E5%B7%9D%E5%87%AA%2C%E7%9A%84%E5%A0%B4%E6%A2%A8%E6%B2%99%2C%E5%90%91%E4%BA%95%E6%8B%93%E6%B5%B7%2C%E5%A4%A2%E8%A6%8B%E3%82%8A%E3%81%82%E3%82%80"
       }
     ],
     "merch": []
@@ -4387,26 +6076,71 @@
       {
         "label": "Day1: 2026年7月24日(木) 開場17:30/開演18:30",
         "setlistUrl": "https://imas-db.jp/song/event/idolmaster_iwsf_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 14,
+        "castNames": [
+          "星井美希",
+          "菊地真",
+          "神谷奈緒",
+          "城ヶ崎美嘉",
+          "伊吹翼",
+          "舞浜歩",
+          "牙崎漣",
+          "橘志狼",
+          "芹沢あさひ",
+          "緋田美琴",
+          "紫雲清夏",
+          "十王星南",
+          "上水流宇宙",
+          "玲音"
+        ],
+        "penlightCastCount": 14,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%98%9F%E4%BA%95%E7%BE%8E%E5%B8%8C%2C%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E7%A5%9E%E8%B0%B7%E5%A5%88%E7%B7%92%2C%E5%9F%8E%E3%83%B6%E5%B4%8E%E7%BE%8E%E5%98%89%2C%E4%BC%8A%E5%90%B9%E7%BF%BC%2C%E8%88%9E%E6%B5%9C%E6%AD%A9%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97%2C%E4%B8%8A%E6%B0%B4%E6%B5%81%E5%AE%87%E5%AE%99%2C%E7%8E%B2%E9%9F%B3"
       },
       {
         "label": "Day2: 2026年7月25日(金) 開場17:00/開演18:00",
         "setlistUrl": "https://imas-db.jp/song/event/idolmaster_iwsf_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 13,
+        "castNames": [
+          "如月千早",
+          "三浦あずさ",
+          "木村夏樹",
+          "望月聖",
+          "最上静香",
+          "ジュリア",
+          "都築圭",
+          "斑鳩ルカ",
+          "樋口円香",
+          "雨夜燕",
+          "月村手毬",
+          "レトラ",
+          "詩花"
+        ],
+        "penlightCastCount": 13,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A6%82%E6%9C%88%E5%8D%83%E6%97%A9%2C%E4%B8%89%E6%B5%A6%E3%81%82%E3%81%9A%E3%81%95%2C%E6%9C%A8%E6%9D%91%E5%A4%8F%E6%A8%B9%2C%E6%9C%9B%E6%9C%88%E8%81%96%2C%E6%9C%80%E4%B8%8A%E9%9D%99%E9%A6%99%2C%E3%82%B8%E3%83%A5%E3%83%AA%E3%82%A2%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E9%9B%A8%E5%A4%9C%E7%87%95%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E3%83%AC%E3%83%88%E3%83%A9%2C%E8%A9%A9%E8%8A%B1"
       },
       {
         "label": "Day3: 2026年7月26日(土) 開場17:00/開演18:00",
         "setlistUrl": "https://imas-db.jp/song/event/idolmaster_iwsf_day3.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 15,
+        "castNames": [
+          "天海春香",
+          "高槻やよい",
+          "島村卯月",
+          "安部菜々",
+          "春日未来",
+          "松田亜利沙",
+          "天道輝",
+          "紅井朱雀",
+          "櫻木真乃",
+          "小宮果穂",
+          "花海咲季",
+          "藤田ことね",
+          "灯里愛夏",
+          "奥空心白",
+          "日高愛"
+        ],
+        "penlightCastCount": 15,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E6%B5%B7%E6%98%A5%E9%A6%99%2C%E9%AB%98%E6%A7%BB%E3%82%84%E3%82%88%E3%81%84%2C%E5%B3%B6%E6%9D%91%E5%8D%AF%E6%9C%88%2C%E5%AE%89%E9%83%A8%E8%8F%9C%E3%80%85%2C%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5%2C%E6%9D%BE%E7%94%B0%E4%BA%9C%E5%88%A9%E6%B2%99%2C%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E7%81%AF%E9%87%8C%E6%84%9B%E5%A4%8F%2C%E5%A5%A5%E7%A9%BA%E5%BF%83%E7%99%BD%2C%E6%97%A5%E9%AB%98%E6%84%9B"
       }
     ],
     "merch": []
@@ -4438,10 +6172,12 @@
       {
         "label": "Day1: 2026年8月6日(水) 開場18:00/開演19:00",
         "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_amimam.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 1,
+        "castNames": [
+          "双海亜美・双海真美"
+        ],
+        "penlightCastCount": 1,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%8F%8C%E6%B5%B7%E4%BA%9C%E7%BE%8E%E3%83%BB%E5%8F%8C%E6%B5%B7%E7%9C%9F%E7%BE%8E"
       }
     ],
     "merch": []
@@ -4473,10 +6209,13 @@
       {
         "label": "Day1: 2026年8月7日(木) 開場18:00/開演19:00",
         "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_azurit.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 2,
+        "castNames": [
+          "三浦あずさ",
+          "秋月律子"
+        ],
+        "penlightCastCount": 2,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B8%89%E6%B5%A6%E3%81%82%E3%81%9A%E3%81%95%2C%E7%A7%8B%E6%9C%88%E5%BE%8B%E5%AD%90"
       }
     ],
     "merch": []
@@ -4508,50 +6247,62 @@
       {
         "label": "Day1 夕公演: 2026年8月13日(水) 開場15:00/開演16:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 1,
+        "castNames": [
+          "池袋晶葉"
+        ],
+        "penlightCastCount": 1,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B1%A0%E8%A2%8B%E6%99%B6%E8%91%89"
       },
       {
         "label": "Day2 昼公演: 2026年8月14日(木) 開場13:00/開演14:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 1,
+        "castNames": [
+          "池袋晶葉"
+        ],
+        "penlightCastCount": 1,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B1%A0%E8%A2%8B%E6%99%B6%E8%91%89"
       },
       {
         "label": "Day2 夜公演: 2026年8月14日(木) 開場18:00/開演19:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 1,
+        "castNames": [
+          "池袋晶葉"
+        ],
+        "penlightCastCount": 1,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B1%A0%E8%A2%8B%E6%99%B6%E8%91%89"
       },
       {
         "label": "Day3 夕公演: 2026年8月15日(金) 開場15:00/開演16:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 1,
+        "castNames": [
+          "池袋晶葉"
+        ],
+        "penlightCastCount": 1,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B1%A0%E8%A2%8B%E6%99%B6%E8%91%89"
       },
       {
         "label": "Day4 昼公演: 2026年8月16日(土) 開場13:00/開演14:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 1,
+        "castNames": [
+          "池袋晶葉"
+        ],
+        "penlightCastCount": 1,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B1%A0%E8%A2%8B%E6%99%B6%E8%91%89"
       },
       {
         "label": "Day4 夜公演: 2026年8月16日(土) 開場18:00/開演19:00",
         "setlistUrl": "https://imas-db.jp/song/event/cinderella_cg_ptb.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 1,
+        "castNames": [
+          "池袋晶葉"
+        ],
+        "penlightCastCount": 1,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B1%A0%E8%A2%8B%E6%99%B6%E8%91%89"
       }
     ],
     "merch": []
@@ -4583,10 +6334,12 @@
       {
         "label": "Day1: 2026年8月13日(水) 開場18:00/開演19:00",
         "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_amimam.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 1,
+        "castNames": [
+          "双海亜美・双海真美"
+        ],
+        "penlightCastCount": 1,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%8F%8C%E6%B5%B7%E4%BA%9C%E7%BE%8E%E3%83%BB%E5%8F%8C%E6%B5%B7%E7%9C%9F%E7%BE%8E"
       }
     ],
     "merch": []
@@ -4618,10 +6371,13 @@
       {
         "label": "Day1: 2026年8月14日(木) 開場18:00/開演19:00",
         "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_azurit.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 2,
+        "castNames": [
+          "三浦あずさ",
+          "秋月律子"
+        ],
+        "penlightCastCount": 2,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B8%89%E6%B5%A6%E3%81%82%E3%81%9A%E3%81%95%2C%E7%A7%8B%E6%9C%88%E5%BE%8B%E5%AD%90"
       }
     ],
     "merch": []
@@ -4653,18 +6409,30 @@
       {
         "label": "Day1: 2026年8月20日(水) 開場17:30/開演18:30",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukui.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 5,
+        "castNames": [
+          "有村麻央",
+          "葛城リーリヤ",
+          "姫崎莉波",
+          "花海佑芽",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 4,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD"
       },
       {
         "label": "Day2: 2026年8月21日(木) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukui.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 5,
+        "castNames": [
+          "有村麻央",
+          "葛城リーリヤ",
+          "姫崎莉波",
+          "花海佑芽",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 4,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%9C%89%E6%9D%91%E9%BA%BB%E5%A4%AE%2C%E8%91%9B%E5%9F%8E%E3%83%AA%E3%83%BC%E3%83%AA%E3%83%A4%2C%E5%A7%AB%E5%B4%8E%E8%8E%89%E6%B3%A2%2C%E8%8A%B1%E6%B5%B7%E4%BD%91%E8%8A%BD"
       }
     ],
     "merch": []
@@ -4696,10 +6464,12 @@
       {
         "label": "Day1: 2026年8月27日(水) 開場18:00/開演19:00",
         "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_amimam.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 1,
+        "castNames": [
+          "双海亜美・双海真美"
+        ],
+        "penlightCastCount": 1,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%8F%8C%E6%B5%B7%E4%BA%9C%E7%BE%8E%E3%83%BB%E5%8F%8C%E6%B5%B7%E7%9C%9F%E7%BE%8E"
       }
     ],
     "merch": []
@@ -4731,10 +6501,13 @@
       {
         "label": "Day1: 2026年8月28日(木) 開場18:00/開演19:00",
         "setlistUrl": "https://imas-db.jp/song/event/765as_dualtwin_azurit.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 2,
+        "castNames": [
+          "三浦あずさ",
+          "秋月律子"
+        ],
+        "penlightCastCount": 2,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E4%B8%89%E6%B5%A6%E3%81%82%E3%81%9A%E3%81%95%2C%E7%A7%8B%E6%9C%88%E5%BE%8B%E5%AD%90"
       }
     ],
     "merch": []
@@ -4766,18 +6539,32 @@
       {
         "label": "Day1: 2026年9月5日(金) 開場17:30/開演18:30",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukuoka.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "篠澤広",
+          "雨夜燕",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 5,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E9%9B%A8%E5%A4%9C%E7%87%95"
       },
       {
         "label": "Day2: 2026年9月6日(土) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_fukuoka.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 6,
+        "castNames": [
+          "花海咲季",
+          "月村手毬",
+          "藤田ことね",
+          "篠澤広",
+          "雨夜燕",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 5,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E8%8A%B1%E6%B5%B7%E5%92%B2%E5%AD%A3%2C%E6%9C%88%E6%9D%91%E6%89%8B%E6%AF%AC%2C%E8%97%A4%E7%94%B0%E3%81%93%E3%81%A8%E3%81%AD%2C%E7%AF%A0%E6%BE%A4%E5%BA%83%2C%E9%9B%A8%E5%A4%9C%E7%87%95"
       }
     ],
     "merch": []
@@ -4809,18 +6596,82 @@
       {
         "label": "Day1: 2026年9月12日(金) 開場16:00/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_11th_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 30,
+        "castNames": [
+          "天道輝",
+          "伊集院北斗",
+          "神楽麗",
+          "蒼井悠介",
+          "蒼井享介",
+          "握野英雄",
+          "信玄誠司",
+          "華村翔真",
+          "清澄九郎",
+          "秋山隼人",
+          "冬美旬",
+          "榊夏来",
+          "若里春名",
+          "伊瀬谷四季",
+          "紅井朱雀",
+          "黒野玄武",
+          "卯月巻緒",
+          "水嶋咲",
+          "硲道夫",
+          "山下次郎",
+          "大河タケル",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "北村想楽",
+          "天峰秀",
+          "花園百々人",
+          "眉見鋭心",
+          "神谷幸広",
+          "岡村直央"
+        ],
+        "penlightCastCount": 30,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E9%81%93%E8%BC%9D%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E7%A7%8B%E5%B1%B1%E9%9A%BC%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC%2C%E6%A6%8A%E5%A4%8F%E6%9D%A5%2C%E8%8B%A5%E9%87%8C%E6%98%A5%E5%90%8D%2C%E4%BC%8A%E7%80%AC%E8%B0%B7%E5%9B%9B%E5%AD%A3%2C%E7%B4%85%E4%BA%95%E6%9C%B1%E9%9B%80%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE"
       },
       {
         "label": "Day2: 2026年9月13日(土) 開場16:00/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/sidem_11th_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 32,
+        "castNames": [
+          "天ヶ瀬冬馬",
+          "伊集院北斗",
+          "都築圭",
+          "神楽麗",
+          "渡辺みのり",
+          "握野英雄",
+          "木村龍",
+          "信玄誠司",
+          "華村翔真",
+          "清澄九郎",
+          "黒野玄武",
+          "神谷幸広",
+          "東雲荘一郎",
+          "アスラン＝BBⅡ世",
+          "卯月巻緒",
+          "水嶋咲",
+          "岡村直央",
+          "硲道夫",
+          "舞田類",
+          "山下次郎",
+          "大河タケル",
+          "円城寺道流",
+          "牙崎漣",
+          "秋月涼",
+          "兜大吾",
+          "九十九一希",
+          "葛之葉雨彦",
+          "北村想楽",
+          "古論クリス",
+          "天峰秀",
+          "花園百々人",
+          "冬美旬"
+        ],
+        "penlightCastCount": 32,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E6%8F%A1%E9%87%8E%E8%8B%B1%E9%9B%84%2C%E6%9C%A8%E6%9D%91%E9%BE%8D%2C%E4%BF%A1%E7%8E%84%E8%AA%A0%E5%8F%B8%2C%E8%8F%AF%E6%9D%91%E7%BF%94%E7%9C%9F%2C%E6%B8%85%E6%BE%84%E4%B9%9D%E9%83%8E%2C%E9%BB%92%E9%87%8E%E7%8E%84%E6%AD%A6%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%EF%BC%9DBB%E2%85%A1%E4%B8%96%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A7%E6%B2%B3%E3%82%BF%E3%82%B1%E3%83%AB%2C%E5%86%86%E5%9F%8E%E5%AF%BA%E9%81%93%E6%B5%81%2C%E7%89%99%E5%B4%8E%E6%BC%A3%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E5%86%AC%E7%BE%8E%E6%97%AC"
       }
     ],
     "merch": []
@@ -4852,18 +6703,51 @@
       {
         "label": "Day1: 2026年9月19日(金) 開場16:30/開演17:30",
         "setlistUrl": "https://imas-db.jp/song/event/million_14th_day1.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 16,
+        "castNames": [
+          "徳川まつり",
+          "エミリー・スチュアート",
+          "伊吹翼",
+          "田中琴葉",
+          "箱崎星梨花",
+          "野々原茜",
+          "高山紗代子",
+          "中谷育",
+          "天空橋朋花",
+          "木下ひなた",
+          "矢吹可奈",
+          "豊川風花",
+          "宮尾美也",
+          "福田のり子",
+          "白石紬",
+          "桜守歌織"
+        ],
+        "penlightCastCount": 16,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%BE%B3%E5%B7%9D%E3%81%BE%E3%81%A4%E3%82%8A%2C%E3%82%A8%E3%83%9F%E3%83%AA%E3%83%BC%E3%83%BB%E3%82%B9%E3%83%81%E3%83%A5%E3%82%A2%E3%83%BC%E3%83%88%2C%E4%BC%8A%E5%90%B9%E7%BF%BC%2C%E7%94%B0%E4%B8%AD%E7%90%B4%E8%91%89%2C%E7%AE%B1%E5%B4%8E%E6%98%9F%E6%A2%A8%E8%8A%B1%2C%E9%87%8E%E3%80%85%E5%8E%9F%E8%8C%9C%2C%E9%AB%98%E5%B1%B1%E7%B4%97%E4%BB%A3%E5%AD%90%2C%E4%B8%AD%E8%B0%B7%E8%82%B2%2C%E5%A4%A9%E7%A9%BA%E6%A9%8B%E6%9C%8B%E8%8A%B1%2C%E6%9C%A8%E4%B8%8B%E3%81%B2%E3%81%AA%E3%81%9F%2C%E7%9F%A2%E5%90%B9%E5%8F%AF%E5%A5%88%2C%E8%B1%8A%E5%B7%9D%E9%A2%A8%E8%8A%B1%2C%E5%AE%AE%E5%B0%BE%E7%BE%8E%E4%B9%9F%2C%E7%A6%8F%E7%94%B0%E3%81%AE%E3%82%8A%E5%AD%90%2C%E7%99%BD%E7%9F%B3%E7%B4%AC%2C%E6%A1%9C%E5%AE%88%E6%AD%8C%E7%B9%94"
       },
       {
         "label": "Day2: 2026年9月20日(土) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/million_14th_day2.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 15,
+        "castNames": [
+          "馬場このみ",
+          "百瀬莉緒",
+          "春日未来",
+          "最上静香",
+          "島原エレナ",
+          "佐竹美奈子",
+          "所恵美",
+          "ロコ",
+          "北沢志保",
+          "横山奈緒",
+          "真壁瑞希",
+          "永吉昴",
+          "北上麗花",
+          "周防桃子",
+          "ジュリア"
+        ],
+        "penlightCastCount": 15,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%A6%AC%E5%A0%B4%E3%81%93%E3%81%AE%E3%81%BF%2C%E7%99%BE%E7%80%AC%E8%8E%89%E7%B7%92%2C%E6%98%A5%E6%97%A5%E6%9C%AA%E6%9D%A5%2C%E6%9C%80%E4%B8%8A%E9%9D%99%E9%A6%99%2C%E5%B3%B6%E5%8E%9F%E3%82%A8%E3%83%AC%E3%83%8A%2C%E4%BD%90%E7%AB%B9%E7%BE%8E%E5%A5%88%E5%AD%90%2C%E6%89%80%E6%81%B5%E7%BE%8E%2C%E3%83%AD%E3%82%B3%2C%E5%8C%97%E6%B2%A2%E5%BF%97%E4%BF%9D%2C%E6%A8%AA%E5%B1%B1%E5%A5%88%E7%B7%92%2C%E7%9C%9F%E5%A3%81%E7%91%9E%E5%B8%8C%2C%E6%B0%B8%E5%90%89%E6%98%B4%2C%E5%8C%97%E4%B8%8A%E9%BA%97%E8%8A%B1%2C%E5%91%A8%E9%98%B2%E6%A1%83%E5%AD%90%2C%E3%82%B8%E3%83%A5%E3%83%AA%E3%82%A2"
       }
     ],
     "merch": []
@@ -4895,18 +6779,30 @@
       {
         "label": "Day1: 2026年9月22日(月) 開場17:30/開演18:30",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_iwate.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 5,
+        "castNames": [
+          "倉本千奈",
+          "紫雲清夏",
+          "秦谷美鈴",
+          "十王星南",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 4,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       },
       {
         "label": "Day2: 2026年9月23日(火) 開場15:30/開演16:30",
         "setlistUrl": "https://imas-db.jp/song/event/gakuen_shirube_iwate.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 5,
+        "castNames": [
+          "倉本千奈",
+          "紫雲清夏",
+          "秦谷美鈴",
+          "十王星南",
+          "根緒亜紗里"
+        ],
+        "penlightCastCount": 4,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%80%89%E6%9C%AC%E5%8D%83%E5%A5%88%2C%E7%B4%AB%E9%9B%B2%E6%B8%85%E5%A4%8F%2C%E7%A7%A6%E8%B0%B7%E7%BE%8E%E9%88%B4%2C%E5%8D%81%E7%8E%8B%E6%98%9F%E5%8D%97"
       }
     ],
     "merch": []
@@ -4938,18 +6834,76 @@
       {
         "label": "Day1: 2026年9月26日(金) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_msp.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 28,
+        "castNames": [
+          "櫻木真乃",
+          "幽谷霧子",
+          "大崎甘奈",
+          "芹沢あさひ",
+          "市川雛菜",
+          "鈴木羽那",
+          "郁田はるき",
+          "八宮めぐる",
+          "月岡恋鐘",
+          "白瀬咲耶",
+          "杜野凛世",
+          "有栖川夏葉",
+          "桑山千雪",
+          "浅倉透",
+          "風野灯織",
+          "田中摩美々",
+          "小宮果穂",
+          "和泉愛依",
+          "樋口円香",
+          "七草にちか",
+          "斑鳩ルカ",
+          "三峰結華",
+          "園田智代子",
+          "西城樹里",
+          "大崎甜花",
+          "黛冬優子",
+          "福丸小糸",
+          "緋田美琴"
+        ],
+        "penlightCastCount": 28,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%9C%92%E7%94%B0%E6%99%BA%E4%BB%A3%E5%AD%90%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4"
       },
       {
         "label": "Day2: 2026年9月27日(土) 開場16:00/開演17:00",
         "setlistUrl": "https://imas-db.jp/song/event/shinycolors_283production_msp.html",
-        "castCount": 0,
-        "castNames": [],
-        "penlightCastCount": 0,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist"
+        "castCount": 28,
+        "castNames": [
+          "櫻木真乃",
+          "幽谷霧子",
+          "大崎甘奈",
+          "芹沢あさひ",
+          "市川雛菜",
+          "鈴木羽那",
+          "郁田はるき",
+          "八宮めぐる",
+          "月岡恋鐘",
+          "白瀬咲耶",
+          "杜野凛世",
+          "有栖川夏葉",
+          "桑山千雪",
+          "浅倉透",
+          "風野灯織",
+          "田中摩美々",
+          "小宮果穂",
+          "和泉愛依",
+          "樋口円香",
+          "七草にちか",
+          "斑鳩ルカ",
+          "三峰結華",
+          "園田智代子",
+          "西城樹里",
+          "大崎甜花",
+          "黛冬優子",
+          "福丸小糸",
+          "緋田美琴"
+        ],
+        "penlightCastCount": 28,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E5%A4%A7%E5%B4%8E%E7%94%98%E5%A5%88%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C%2C%E9%88%B4%E6%9C%A8%E7%BE%BD%E9%82%A3%2C%E9%83%81%E7%94%B0%E3%81%AF%E3%82%8B%E3%81%8D%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E6%9D%9C%E9%87%8E%E5%87%9B%E4%B8%96%2C%E6%9C%89%E6%A0%96%E5%B7%9D%E5%A4%8F%E8%91%89%2C%E6%A1%91%E5%B1%B1%E5%8D%83%E9%9B%AA%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E5%B0%8F%E5%AE%AE%E6%9E%9C%E7%A9%82%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E4%B8%83%E8%8D%89%E3%81%AB%E3%81%A1%E3%81%8B%2C%E6%96%91%E9%B3%A9%E3%83%AB%E3%82%AB%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%9C%92%E7%94%B0%E6%99%BA%E4%BB%A3%E5%AD%90%2C%E8%A5%BF%E5%9F%8E%E6%A8%B9%E9%87%8C%2C%E5%A4%A7%E5%B4%8E%E7%94%9C%E8%8A%B1%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E7%B7%8B%E7%94%B0%E7%BE%8E%E7%90%B4"
       }
     ],
     "merch": []
