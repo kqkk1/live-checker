@@ -360,6 +360,16 @@ body.scrolled .tools{background:var(--nav);-webkit-backdrop-filter:saturate(1.4)
 .dlg h3 .ic{color:var(--muted)}
 .dlg.mid{max-width:560px}
 .dlg .rimg{display:block;width:100%;height:auto;margin:8px 0;border-radius:10px;border:1px solid var(--line)}
+.rchk{display:flex;align-items:center;gap:8px;min-height:40px;font-size:13px;color:var(--text);cursor:pointer}
+.rchk input{width:18px;height:18px;accent-color:var(--accent)}
+.roshi{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin-top:14px;font-size:13px}
+.roshi .lb{color:var(--muted)}
+.roshi .on{display:inline-flex;align-items:center;gap:6px;font-weight:700}
+.odot{display:inline-block;width:12px;height:12px;border-radius:50%;box-shadow:0 0 0 1px var(--line2);flex:none}
+.olist{display:flex;flex-wrap:wrap;gap:6px;max-height:42vh;overflow:auto;margin-top:8px;padding:2px}
+.ochip{min-height:38px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text);background:transparent}
+.ochip.on{background:var(--sel);border-color:var(--sel-line);color:var(--sel-fg);font-weight:700}
+.oq{width:100%;min-height:42px;margin-top:10px;padding:8px 12px;border-radius:10px;border:1px solid var(--line2);background:var(--surface2);color:var(--text);font-size:15px}
 .dlg .xtxt{width:100%;margin:6px 0 2px;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:12px;line-height:1.6;resize:vertical}
 .dlg.wide{max-width:640px;height:88dvh;padding:0;display:flex;flex-direction:column;overflow:hidden}
 .dlg.wide .dh{padding:16px 18px 10px;border-bottom:1px solid var(--line)}
@@ -1360,7 +1370,7 @@ function showDlg(html, focusSel, cls) {
 }
 function closeDlg() {
   $('dlgb').hidden = true; $('dlg').innerHTML = ''; $('dlg').className = 'dlg'; pendingShare = null; bk = null;
-  if (card) { URL.revokeObjectURL(card.url); card = null; }
+  if (card) { URL.revokeObjectURL(card.url); if (card.c) URL.revokeObjectURL(card.c.url); card = null; }
   syncInert();
   if (dlgOpener && document.contains(dlgOpener)) dlgOpener.focus({ preventScroll: true });
   dlgOpener = null;
@@ -1512,6 +1522,7 @@ function drawRecord() {
     <section class="rcard" aria-label="${esc(recTitle(rYear))}">
       <div class="rhead"><b>${esc(recTitle(rYear))}</b><span class="sub">2023年以降の記録から集計</span></div>
       ${body}
+      ${oshiRow()}
       <div class="ract">${S.perfN ? `<button class="btn pri" data-rshare>${ic('share')}画像で共有</button>` : ''}<button class="btn" data-bulk>${ic('check')}過去の公演をまとめて記録</button></div>
       <details class="ropts"><summary>表示する項目<span class="sub">（共有する画像にも反映）</span></summary><div class="chips">${RITEMS.map(([k, l]) => `<button class="chip ${ropt[k] ? 'on' : ''}" data-ropt="${k}" aria-pressed="${!!ropt[k]}">${l}</button>`).join('')}</div></details>
     </section>
@@ -1577,23 +1588,151 @@ async function recCard(S) {
   font(500, 20); x.fillStyle = MU; x.textAlign = 'right'; x.fillText('アイマス ライブ情報ポータル', R, 606);
   return new Promise(res => c.toBlob(b => res(b), 'image/png'));
 }
-let card = null;   // { url, file }
+/* ---- 色の記録（参戦した公演の出演者のメンバーカラーを、公演ごとの縦の帯にした画像）----
+ *   色はペンライトアシスタントの色データ（colors.json）を使う。SideM はユニットカラーにまとめる
+ *   担当を選ぶと、担当の色だけを光らせ、ほかの色は控えめにする */
+const COLORS_URL = 'https://cdn.jsdelivr.net/gh/kqkk1/penlight-assistant@main/penlight-assistant/data/colors.json';
+const OSHI_KEY = 'imas_portal_oshi_v1', OSHI_MAX = 5;
+let oshi = (() => { try { const a = JSON.parse(localStorage.getItem(OSHI_KEY) || '[]'); return Array.isArray(a) ? a.slice(0, OSHI_MAX) : []; } catch (_) { return []; } })();
+let CD = null, cdLoading = null;   // 色データ { list:[{n,c,sheet,o}], by:Map, unit:{} }
+const SIDEM_UNIT = {Jupiter:'天ヶ瀬冬馬 御手洗翔太 伊集院北斗', DramaticStars:'天道輝 桜庭薫 柏木翼', Altessimo:'都築圭 神楽麗', Beit:'鷹城恭二 ピエール 渡辺みのり', W:'蒼井悠介 蒼井享介', Frame:'握野英雄 木村龍 信玄誠司', '彩':'猫柳キリオ 華村翔真 清澄九郎', 'High×Joker':'伊瀬谷四季 秋山隼人 冬美旬 榊夏来 若里春名', '神速一魂':'紅井朱雀 黒野玄武', CafeParade:'神谷幸広 東雲荘一郎 アスラン＝BBⅡ世 卯月巻緒 水嶋咲', 'もふもふえん':'岡村直央 橘志狼 姫野かのん', 'S.E.M':'硲道夫 舞田類 山下次郎', '虎牙道':'大河タケル 円城寺道流 牙崎漣', 'F-LAGS':'秋月涼 九十九一希 兜大吾', Legenders:'葛之葉雨彦 北村想楽 古論クリス', 'C.FIRST':'天峰秀 花園百々人 眉見鋭心'};
+function loadColors() {
+  if (CD) return Promise.resolve(CD);
+  if (cdLoading) return cdLoading;
+  cdLoading = fetch(COLORS_URL).then(r => r.ok ? r.json() : null).then(j => {
+    if (!j || !j.items) return null;
+    const list = [], by = new Map(), unitC = {}; let o = 0;
+    for (const [sheet, rows] of Object.entries(j.items)) for (const r of rows || []) {
+      if (!r || !r.n || !r.c) continue;
+      if (r.role === 'unit_color' && sheet === 'SideM') unitC[r.n] = r.c;
+      if (r.role === 'idol' || r.role === 'staff') { const it = { n: r.n, c: r.c, sheet, o: o++, idol: r.role === 'idol' }; list.push(it); if (!by.has(r.n)) by.set(r.n, it); }
+    }
+    const unit = {}; for (const [u, m] of Object.entries(SIDEM_UNIT)) if (unitC[u]) for (const n of m.split(' ')) unit[n] = unitC[u];
+    CD = { list, by, unit }; return CD;
+  }).catch(() => null).finally(() => { cdLoading = null; });
+  return cdLoading;
+}
+const oshiColor = n => (CD && CD.by.get(n) || {}).c || '#888';
+function oshiRow() {
+  if (!CD) { loadColors().then(d => { if (d && view === 'dates' && dtab === 'record') render(); }); }
+  const names = oshi.map(n => `<span class="on"><i class="odot" style="background:${esc(oshiColor(n))}"></i>${esc(n)}</span>`).join('');
+  return `<div class="roshi"><span class="lb">担当</span>${names || '<span class="lb">未設定（選ぶと、色の記録の画像で担当の色が光ります）</span>'}<button class="btn sm" data-oshiopen>${oshi.length ? '変える' : '担当を選ぶ'}</button></div>`;
+}
+let oSheet = null;
+async function openOshiDlg() {
+  const d = await loadColors();
+  if (!d) { toast('色のデータを読めませんでした。時間をおいて、もう一度お試しください', null, 3500); return; }
+  if (!oSheet) oSheet = oshi.length ? (d.by.get(oshi[0]) || {}).sheet : '765AS';
+  showDlg(`<h3>担当を選ぶ</h3><p class="sub">色の記録の画像で、担当の色が光ります（${OSHI_MAX}人まで・ブランドをまたいで選べます）</p>
+    <div class="chips" id="osel"></div>
+    <input class="oq" id="oq" type="search" placeholder="名前で探す" aria-label="名前で探す" autocomplete="off">
+    <div class="chips" id="osh" role="group" aria-label="ブランド"></div>
+    <div class="olist" id="olist"></div>
+    <div class="dact"><button class="btn pri" data-dlg="close">完了</button></div>`, '#oq', 'mid');
+  oshiDraw();
+}
+function oshiDraw() {
+  if (!CD || !$('olist')) return;
+  const q = (($('oq') || {}).value || '').replace(/\s+/g, '');
+  const ORDER = ['765AS', 'ミリオン', 'デレマス', 'シャニマス', 'SideM', '学マス', '876', 'その他'], rank = sh => { const i = ORDER.indexOf(sh); return i < 0 ? 99 : i; };
+  const sheets = [...new Set(CD.list.map(x => x.sheet))].sort((a, b) => rank(a) - rank(b));   // 「876」が先頭に来ないよう、並びを決めておく
+  $('osel').innerHTML = oshi.length ? oshi.map(n => `<button class="ochip on" data-oshi="${esc(n)}" aria-label="${esc(n)} を外す"><i class="odot" style="background:${esc(oshiColor(n))}"></i>${esc(n)} ×</button>`).join('') : '<span class="sub">まだ選ばれていません</span>';
+  $('osh').innerHTML = q ? '' : sheets.map(sh => `<button class="chip ${sh === oSheet ? 'on' : ''}" data-osheet="${esc(sh)}" aria-pressed="${sh === oSheet}">${esc(sh)}</button>`).join('');
+  const items = CD.list.filter(x => x.idol && (q ? x.n.replace(/\s+/g, '').includes(q) : x.sheet === oSheet));
+  $('olist').innerHTML = items.map(x => `<button class="ochip ${oshi.includes(x.n) ? 'on' : ''}" data-oshi="${esc(x.n)}" aria-pressed="${oshi.includes(x.n)}"><i class="odot" style="background:${esc(x.c)}"></i>${esc(x.n)}</button>`).join('') || '<p class="sub">見つかりませんでした</p>';
+}
+function oshiToggle(n) {
+  if (oshi.includes(n)) oshi = oshi.filter(x => x !== n);
+  else if (oshi.length >= OSHI_MAX) { toast(`担当は${OSHI_MAX}人まで選べます`, null, 2500); return; }
+  else oshi = [...oshi, n];
+  try { localStorage.setItem(OSHI_KEY, JSON.stringify(oshi)); } catch (_) {}
+  oshiDraw(); if (view === 'dates' && dtab === 'record') render();
+}
+/** 色の記録の画像（1200×675）。参戦した公演を日付順に、1公演＝縦1本の帯にする */
+async function colorCard(S) {
+  const d = await loadColors(); if (!d) return null;
+  const perfs = S.won.slice().sort((a, b) => a.date.localeCompare(b.date) || (a.i - b.i)).map(x => {
+    const sc = (x.ev.schedules || [])[x.i] || {}, cast = sc.castNames || [], segs = [];
+    for (const n of cast) { const it = d.by.get(n); if (!it) continue; segs.push({ c: d.unit[n] || it.c, o: it.o, oshi: oshi.includes(n), who: n }); }
+    segs.sort((a, b) => a.o - b.o);
+    if (!segs.length) segs.push({ c: BRX[(x.ev.brands || [])[0]] || '#888', o: 0, oshi: false });   // 出演者が分からない公演は、ブランドの色1色
+    const merged = []; for (const g of segs) { const l = merged[merged.length - 1]; if (l && l.c === g.c && l.oshi === g.oshi) l.w++; else merged.push({ ...g, w: 1 }); }
+    return { date: x.date, segs: merged, tot: segs.length, met: segs.some(g => g.oshi), cast };
+  });
+  const people = new Set(perfs.flatMap(p => p.cast.filter(n => d.by.has(n)))).size, met = perfs.filter(p => p.met).length, hasO = oshi.length > 0;
+  const W = 1200, H = 675, c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d'), cs = getComputedStyle(document.documentElement), v = (n, dd) => cs.getPropertyValue(n).trim() || dd;
+  const BG = v('--bg', '#111214'), SF = v('--surface', '#17181b'), TX = v('--text', '#ececf0'), MU = v('--muted', '#9c9ea8'), LN = v('--line2', 'rgba(255,255,255,.16)'), AC = v('--accent', '#a3b6ff');
+  const dark = document.documentElement.dataset.theme !== 'light';
+  const FF = getComputedStyle(document.body).fontFamily || 'sans-serif';
+  try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (_) {}
+  const font = (w, s) => { x.font = `${w} ${s}px ${FF}`; };
+  const fit = (t, max) => { t = String(t); if (x.measureText(t).width <= max) return t; while (t.length > 1 && x.measureText(t + '…').width > max) t = t.slice(0, -1); return t + '…'; };
+  const L = 84, R = W - 84;
+  x.fillStyle = BG; x.fillRect(0, 0, W, H);
+  rrect(x, 36, 36, W - 72, H - 72, 28); x.fillStyle = SF; x.fill(); x.lineWidth = 2; x.strokeStyle = LN; x.stroke();
+  x.textBaseline = 'alphabetic'; x.textAlign = 'left';
+  font(700, 30); x.fillStyle = TX; x.fillText(fit(`${S.year ? `${S.year}年の` : 'これまでの'}${brand !== 'すべて' ? `${brand} ` : ''}色の記録`, 620), L, 116);
+  if (hasO) {
+    font(500, 20); x.fillStyle = MU; x.fillText('担当に会えた公演', L, 152); const w1 = x.measureText('担当に会えた公演').width;
+    font(800, 26); x.fillStyle = TX; x.fillText(String(met), L + w1 + 10, 153); const w2 = x.measureText(String(met)).width;
+    font(500, 20); x.fillStyle = MU; x.fillText(`／ ${perfs.length}公演`, L + w1 + 16 + w2, 152);
+    // 右上に担当（入りきらない分は「ほかn人」）
+    font(700, 22); x.textAlign = 'right'; let rx = R; const shown = [];
+    for (const n of oshi) { const w = x.measureText(n).width + 44; if (R - (rx - w) > 440 && shown.length) break; shown.push(n); rx -= w; }
+    rx = R; const rest = oshi.length - shown.length;
+    if (rest) { font(500, 18); x.fillStyle = MU; x.fillText(`ほか${rest}人`, rx, 116); rx -= x.measureText(`ほか${rest}人`).width + 16; font(700, 22); }
+    for (const n of shown.slice().reverse()) { x.fillStyle = TX; x.fillText(n, rx, 116); const tw = x.measureText(n).width; x.fillStyle = oshiColor(n); x.beginPath(); x.arc(rx - tw - 16, 108, 8, 0, Math.PI * 2); x.fill(); x.lineWidth = 1.5; x.strokeStyle = LN; x.stroke(); rx -= tw + 44; }
+    font(500, 18); x.fillStyle = MU; x.fillText('担当', R, 150); x.textAlign = 'left';
+  } else { font(500, 20); x.fillStyle = MU; x.fillText(`${perfs.length}公演で出会ったアイドル ${people}人の色`, L, 150); }
+  const N = perfs.length, gap = N <= 20 ? 8 : N <= 40 ? 4 : 2, top = 190, bot = hasO ? 528 : 556, bw = R - L, sw = (bw - gap * (N - 1)) / N, rad = Math.min(10, sw / 2);
+  const dim = hasO ? (dark ? 0.28 : 0.32) : 1;
+  perfs.forEach((p, i) => {
+    const sx = L + i * (sw + gap), u = (bot - top) / p.tot; let yy = top; p.segs.forEach(g => { g.y = yy; g.h = g.w * u; yy += g.h; });
+    x.save(); rrect(x, sx, top, sw, bot - top, rad); x.clip(); x.fillStyle = SF; x.fillRect(sx, top, sw, bot - top);
+    p.segs.forEach(g => { x.globalAlpha = g.oshi ? 1 : dim; x.fillStyle = g.c; x.fillRect(sx, g.y, sw, g.h); });
+    x.globalAlpha = 1; x.restore();
+    if (sw > 3) { rrect(x, sx + .5, top + .5, sw - 1, bot - top - 1, rad); x.lineWidth = 1; x.strokeStyle = LN; x.stroke(); }   // ふち（白い色が背景に溶けないように）
+    const out = sw > 12 ? 4 : 1;
+    p.segs.forEach(g => { if (!g.oshi) return; x.save(); x.shadowColor = g.c; x.shadowBlur = 18; x.fillStyle = g.c; rrect(x, sx - out, g.y, sw + out * 2, Math.max(g.h, 6), Math.min(4, sw / 2)); x.fill(); x.restore(); });
+  });
+  if (hasO) {   // 担当に会えた公演の下にだけ、月（その担当の色で。重なるときは省く）
+    font(700, 19); x.textAlign = 'center'; let lastEnd = -1;
+    perfs.forEach((p, i) => { if (!p.met) return; const cx = L + i * (sw + gap) + sw / 2, t = `${+p.date.slice(5, 7)}月`, tw = x.measureText(t).width; if (cx - tw / 2 < lastEnd + 6) return; x.fillStyle = p.segs.find(g => g.oshi).c; x.fillText(t, cx, 560); lastEnd = cx + tw / 2; });
+    x.textAlign = 'left';
+  }
+  font(700, 24); x.fillStyle = AC; x.fillText(`#アイマス参戦記録${S.year || ''}`, L, 612);
+  font(500, 20); x.fillStyle = MU; x.textAlign = 'right'; x.fillText('アイマス ライブ情報ポータル', R, 612); x.textAlign = 'left';
+  return { blob: await new Promise(res => c.toBlob(b => res(b), 'image/png')), met, n: perfs.length };
+}
+const RCOLOR_KEY = 'imas_portal_rcolor_v1';
+let card = null;   // { url, file, name, c:{ url, file, name, met, n } }
 async function openCardDlg() {
   const S = recStats(rYear); if (!S.perfN) return;
   const blob = await recCard(S); if (!blob) { toast('画像を作れませんでした', null, 3000); return; }
   const name = `imas-sansen-${S.year || 'all'}.png`, file = new File([blob], name, { type: 'image/png' });
-  card = { url: URL.createObjectURL(blob), file, name };
-  const canFiles = !!(navigator.canShare && navigator.canShare({ files: [file] }));
+  card = { url: URL.createObjectURL(blob), file, name, c: null };
+  const cc = await colorCard(S).catch(() => null);
+  if (cc && cc.blob) { const n2 = `imas-color-${S.year || 'all'}.png`; card.c = { url: URL.createObjectURL(cc.blob), file: new File([cc.blob], n2, { type: 'image/png' }), name: n2, met: cc.met, n: cc.n }; }
+  const useC = () => !!(card && card.c && ($('rcolor') ? $('rcolor').checked : true));
+  card.useC = useC;
+  const canFiles = !!(navigator.canShare && navigator.canShare({ files: card.c ? [file, card.c.file] : [file] }));
+  let colorOn = true; try { colorOn = localStorage.getItem(RCOLOR_KEY) !== '0'; } catch (_) {}
   showDlg(`<h3>${ic('share')}参戦記録を共有</h3>
     <img class="rimg" src="${card.url}" alt="${esc(recText(S).split('\n').slice(0, 3).join(' '))}">
+    ${card.c ? `<label class="rchk"><input type="checkbox" id="rcolor" ${colorOn ? 'checked' : ''}>2枚目に「色の記録」も付ける</label><img class="rimg" id="rimg2" src="${card.c.url}" alt="参戦した公演の出演者のメンバーカラーを、公演ごとの帯にした画像${oshi.length ? `（担当に会えた公演 ${card.c.met}／${card.c.n}）` : ''}" ${colorOn ? '' : 'hidden'}>` : ''}
     <textarea class="xtxt" id="xtxt" rows="5" aria-label="一緒に投稿する文章（編集できます）">${esc(recText(S))}</textarea>
     <p class="sub">画像はこの端末の中で作っています。サーバーには送りません。${canFiles ? '' : '<br>Xでは、先に「画像を保存」してから、投稿画面で画像を添付してください。'}</p>
     <div class="dact">${canFiles ? '<button class="btn pri" data-dlg="rshare">画像と文章を共有する…</button>' : ''}<button class="btn" data-dlg="rsave">画像を保存</button><button class="btn" data-dlg="rx">Xの投稿画面を開く</button><button class="btn" data-dlg="rcopy">文章をコピー</button><button class="btn ghost" data-dlg="close">閉じる</button></div>`, null, 'mid');
 }
 async function recAction(a) {
-  const text = ($('xtxt') || {}).value || '';
-  if (a === 'rshare' && card) { try { await navigator.share({ files: [card.file], text }); } catch (_) {} return; }
-  if (a === 'rsave' && card) { const l = document.createElement('a'); l.href = card.url; l.download = card.name; document.body.appendChild(l); l.click(); l.remove(); toast('画像を保存しました', null, 2000); return; }
+  const text = ($('xtxt') || {}).value || '', two = !!(card && card.useC && card.useC());
+  if (a === 'rshare' && card) { try { await navigator.share({ files: two ? [card.file, card.c.file] : [card.file], text }); } catch (_) {} return; }
+  if (a === 'rsave' && card) {
+    const dl = (u, n) => { const l = document.createElement('a'); l.href = u; l.download = n; document.body.appendChild(l); l.click(); l.remove(); };
+    dl(card.url, card.name); if (two) setTimeout(() => dl(card.c.url, card.c.name), 400);
+    toast(two ? '画像を2枚保存しました' : '画像を保存しました', null, 2000); return;
+  }
   if (a === 'rx') { window.open(`https://x.com/intent/post?text=${encodeURIComponent(text)}`, '_blank', 'noopener'); return; }
   if (a === 'rcopy') { const done = () => toast('文章をコピーしました', null, 2000); if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => prompt('この文章をコピーしてください', text)); else prompt('この文章をコピーしてください', text); }
 }
@@ -1702,6 +1841,9 @@ document.addEventListener('click', e => {
   const bkY = e.target.closest('[data-bky]'); if (bkY && bk) { bk.y = bkY.dataset.bky; bkDraw(); const db = $('bkb'); if (db) db.scrollTop = 0; return; }
   if (e.target.closest('[data-bulk]')) { openBulk(); return; }
   if (e.target.closest('[data-rshare]')) { openCardDlg(); return; }
+  if (e.target.closest('[data-oshiopen]')) { openOshiDlg(); return; }
+  const oB = e.target.closest('[data-oshi]'); if (oB) { oshiToggle(oB.dataset.oshi); return; }
+  const oS = e.target.closest('[data-osheet]'); if (oS) { oSheet = oS.dataset.osheet; oshiDraw(); return; }
   const rY = e.target.closest('[data-ryear]'); if (rY) { rYear = rY.dataset.ryear || null; render(); return; }
   const rU = e.target.closest('[data-runit]'); if (rU) { rUnit = rU.dataset.runit; render(); return; }
   const rO = e.target.closest('[data-ropt]'); if (rO) { ropt[rO.dataset.ropt] = !ropt[rO.dataset.ropt]; try { localStorage.setItem(ROPT_KEY, JSON.stringify(ropt)); } catch (_) {} render(); return; }
@@ -1751,7 +1893,10 @@ document.addEventListener('click', e => {
 $('q').oninput = render;
 addEventListener('hashchange', () => { if (/^#s=/.test(location.hash) && events.length) importFromHash(); });   // 開いたままのタブにリンクを貼ったとき
 document.addEventListener('change', e => { if (e.target.matches('[data-dlg-memo]')) { shareMemo = e.target.checked; openShareDlg(); } });
-document.addEventListener('input', e => { if (e.target && e.target.id === 'bkq' && bk) { bk.q = e.target.value; bkDraw(); } });
+document.addEventListener('input', e => { if (e.target && e.target.id === 'bkq' && bk) { bk.q = e.target.value; bkDraw(); } if (e.target && e.target.id === 'oq') oshiDraw(); });
+document.addEventListener('change', e => {   // 共有の画面: 色の記録を付けるか
+  if (e.target && e.target.id === 'rcolor') { const im = $('rimg2'); if (im) im.hidden = !e.target.checked; try { localStorage.setItem(RCOLOR_KEY, e.target.checked ? '1' : '0'); } catch (_) {} }
+});
 addEventListener('keydown', e => {
   if (e.key === 'Escape' && dlgOpen()) { tryCloseDlg(); return; }
   if (e.key === 'Escape') { if (fOpen) { fOpen = false; drawFilter(); const fb = $('fbtn'); if (fb) fb.focus(); return; } closeSheet(); }
