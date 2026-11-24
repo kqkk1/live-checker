@@ -302,6 +302,7 @@ body.scrolled .tools{background:var(--nav);-webkit-backdrop-filter:saturate(1.4)
 .mrow{display:flex;gap:10px;align-items:flex-start;margin-top:12px}
 .mrow .badge{flex:none;margin-top:2px}
 .mrow.done{opacity:.55}
+.mlink{display:inline-block;margin-top:6px;font-size:12px;color:var(--muted);text-decoration:underline;text-underline-offset:2px}
 .mtime{margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--bg);font-size:13px;line-height:1.6}
 .mtime .mt{display:block;color:var(--muted);font-size:12px;font-weight:700;margin-bottom:2px}
 .btn.sm{display:inline-block;padding:8px 14px;margin-top:6px;font-size:13px}
@@ -540,6 +541,7 @@ const ms = v => v ? new Date(v).getTime() : null;
 function phase(ev) {
   const n = Date.now(), s = ms(ev.applyStartDate), e = ms(ev.deadline);
   if (e && e < n) return 'closed';
+  if (!e && isPastEv(ev)) return 'closed';   // 締切が書かれていない受付（先着など）も、ライブが終わっていれば終了
   if (s && s > n) return 'before';
   if (e && e - n <= 3*864e5) return 'urgent';
   return (s || e) ? 'open' : (isPastEv(ev) ? 'closed' : 'tbd');   // 受付の情報がない過去のライブは「終了」
@@ -650,22 +652,53 @@ function slotInner(ev) {   // 受付枠が2つ以上あるイベントだけ、�
 }
 
 /* ---- 物販（会場物販のデジタル注文書・整理券・事前販売）---- */
+const fmtD = v => { const p = Object.fromEntries(fmtJ.formatToParts(new Date(v)).map(x => [x.type, x.value])); return `${p.month}/${p.day}(${p.weekday})`; };
+/** 事前販売の期間
+ *   ・期間の欄が空で、名前に期間が書かれているとき（例: 「協賛社グッズ 2026年9月17日(木)～10月4日(日)」）は、名前から読む。期間の部分は名前から外して、下の行に出す
+ *   ・日付だけ（時刻なし）の期間は、開始日の0:00〜終了日の23:59（日本時間）とみなし、時刻は表示しない */
+function presaleWhen(x, ev) {
+  const day = v => /^\d{4}-\d{2}-\d{2}$/.test(String(v || '').trim());
+  let name = x.name, start = x.start || '', end = x.end || '';
+  const nm = String(x.name || '').normalize('NFKC'), D = '(?:(\\d{4})\\s*年\\s*)?(\\d{1,2})\\s*[月/]\\s*(\\d{1,2})\\s*日?(?:\\s*[(（][^)）]{1,4}[)）])?';
+  const m = nm.match(new RegExp(`${D}\\s*[~〜～－-]\\s*${D}`));
+  if (m) {
+    const evDay = (ev.eventDateStart || '').slice(0, 10), two = n => String(n).padStart(2, '0');
+    let y1 = +m[1] || +evDay.slice(0, 4) || new Date().getFullYear(), s = `${y1}-${two(m[2])}-${two(m[3])}`;
+    if (!m[1] && evDay && s > evDay) s = `${--y1}-${two(m[2])}-${two(m[3])}`;   // 年が書かれていなければ、ライブより前の日付にする
+    const y2 = +m[4] || (+m[5] < +m[2] ? y1 + 1 : y1), e = `${y2}-${two(m[5])}-${two(m[6])}`;
+    if (e >= s) {
+      if (!start) start = s;
+      if (!end) end = e;
+      name = (nm.slice(0, m.index) + nm.slice(m.index + m[0].length)).replace(/\s+/g, ' ').trim() || x.name;
+    }
+  }
+  const sOnly = day(start), eOnly = day(end);
+  return { name, start: sOnly ? `${start.trim()}T00:00:00+09:00` : start, end: eOnly ? `${end.trim()}T23:59:00+09:00` : end, sOnly, eOnly };
+}
 function merchInfo(ev) {   // { html, hint } を返す。物販情報がなければ null
   const items = (ev.merch || []).filter(x => x && x.kind);
   if (!items.length) return null;
   const end = (ev.eventDateEnd || ev.eventDateStart || '').slice(0, 10);
   if (end && end < new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'})) return null;   // 終わったライブでは出さない
   const range = x => x.start && x.end ? `${fmt(ms(x.start))} 〜 ${fmt(ms(x.end))}` : x.start ? `${fmt(ms(x.start))} 〜` : x.end ? `〜 ${fmt(ms(x.end))}` : '';
-  const badge = x => { const ph = phase({applyStartDate: x.start, deadline: x.end}); return ph === 'tbd' ? '' : `<span class="badge ${ph}">${{open:'受付中', urgent:'締切間近', before:'受付前', closed:'終了'}[ph]}</span>`; };
+  const phOf = x => phase({applyStartDate: x.start, deadline: x.end});
+  const badgeOf = ph => ph === 'tbd' ? '' : `<span class="badge ${ph}">${{open:'受付中', urgent:'締切間近', before:'受付前', closed:'終了'}[ph]}</span>`;
+  const badge = x => badgeOf(phOf(x));
   const link = (x, label) => x.url ? `<a class="btn sm" href="${esc(x.url)}" target="_blank" rel="noopener">${label}</a>` : '';
+  const doneLink = (x, label) => x.url ? `<a class="mlink" href="${esc(x.url)}" target="_blank" rel="noopener">${label}（受付終了） ↗</a>` : '';   // 終わったものは、ボタンにしない
   const lines = t => (t || '').split('\n').map(l => l.trim()).filter(Boolean);
   const site = items.filter(x => x.kind === '会場物販').map(x => `<div class="mrow"><div><b>会場物販</b>
       ${lines(x.dates).map(l => `<div class="sub">${esc(l)}</div>`).join('')}${x.place ? `<div class="sub">${ic('pin')}${esc(x.place)}</div>` : ''}
       ${lines(x.seiriken).length ? `<div class="mtime"><span class="mt">${ic('ticket')}整理券の方（当選者）</span>${lines(x.seiriken).map(l => `<div>${esc(l)}</div>`).join('')}</div>` : ''}
       ${lines(x.free).length ? `<div class="mtime"><span class="mt">${ic('user')}フリー（整理券なし）</span>${lines(x.free).map(l => `<div>${esc(l)}</div>`).join('')}<div class="sub">※ 時間は予定・目安です。当日の状況により変わります</div></div>` : ''}
       ${link(x, 'デジタル注文書を開く ↗')}</div></div>`).join('');
-  const sei = items.filter(x => x.kind === '整理券').map(x => `<div class="mrow">${badge(x)}<div><b>${esc(x.name || '物販整理券')}</b><div class="sub">${esc(range(x))}${x.lottery ? `　当落発表 ${esc(fmt(ms(x.lottery)))}` : ''}</div>${link(x, '整理券の受付ページ ↗')}</div></div>`).join('');
-  const pre = items.filter(x => x.kind === '事前販売').map(x => `<div class="mrow ${phase({applyStartDate: x.start, deadline: x.end}) === 'closed' ? 'done' : ''}">${badge(x)}<div><b>${esc(x.name || '事前販売')}</b>${range(x) ? `<div class="sub">${esc(range(x))}</div>` : '<div class="sub">期間は公式で確認</div>'}${link(x, '事前販売ページを開く ↗')}</div></div>`).join('');
+  const sei = items.filter(x => x.kind === '整理券').map(x => { const over = phOf(x) === 'closed';
+    return `<div class="mrow${over ? ' done' : ''}">${badge(x)}<div><b>${esc(x.name || '物販整理券')}</b><div class="sub">${esc(range(x))}${x.lottery ? `　当落発表 ${esc(fmt(ms(x.lottery)))}` : ''}</div>${over ? doneLink(x, '受付ページ') : link(x, '整理券の受付ページ ↗')}</div></div>`; }).join('');
+  const pre = items.filter(x => x.kind === '事前販売').map(x => {
+    const w = presaleWhen(x, ev), ph = phOf(w), over = ph === 'closed';
+    const f = (v, only) => (only ? fmtD : fmt)(ms(v)), r = w.start && w.end ? `${f(w.start, w.sOnly)} 〜 ${f(w.end, w.eOnly)}` : w.start ? `${f(w.start, w.sOnly)} 〜` : w.end ? `〜 ${f(w.end, w.eOnly)}` : '';
+    return `<div class="mrow${over ? ' done' : ''}">${badgeOf(ph)}<div><b>${esc(w.name || '事前販売')}</b>${r ? `<div class="sub">${esc(r)}</div>` : '<div class="sub">期間は公式で確認</div>'}${over ? doneLink(x, '販売ページ') : link(x, '事前販売ページを開く ↗')}</div></div>`;
+  }).join('');
   if (!site && !sei && !pre) return null;
   const nPre = items.filter(x => x.kind === '事前販売').length;
   const hint = [items.some(x => x.kind === '会場物販' && x.url) ? 'デジタル注文書' : (site ? '会場物販' : ''), sei ? '整理券' : '', nPre ? `事前販売 ${nPre}件` : ''].filter(Boolean).join(' ・ ');
@@ -1058,7 +1091,8 @@ function userMode(ev) {
   if (ph === 'before') return 'before';
   return 'apply';
 }
-function nextSlot(ev) {   // まだ終わっていない受付枠のうち、いちばん早いもの
+function nextSlot(ev) {   // まだ終わっていない受付枠のうち、いちばん早いもの（ライブが終わっていれば、なし）
+  if (isPastEv(ev)) return null;
   return (ev.slots || []).filter(s => phase({applyStartDate: s.start, deadline: s.end}) !== 'closed').sort((a, b) => (ms(a.start) || 0) - (ms(b.start) || 0))[0] || null;
 }
 function slotRange(sl) { return sl.start && sl.end ? `${fmt(ms(sl.start))} 〜 ${fmt(ms(sl.end))}` : sl.start ? `${fmt(ms(sl.start))} 〜` : sl.end ? `〜 ${fmt(ms(sl.end))}` : '日時は未定'; }
