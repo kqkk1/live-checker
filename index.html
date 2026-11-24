@@ -1659,6 +1659,67 @@ function oshiToggle(n) {
   try { localStorage.setItem(OSHI_KEY, JSON.stringify(oshi)); } catch (_) {}
   oshiDraw(); if (view === 'dates' && dtab === 'record') render();
 }
+/** 色の明るさ（WCAGの相対輝度）と、2色のコントラスト比 */
+function lumOf(c) { const m = /^#?([0-9a-f]{6})$/i.exec(String(c).trim()); if (!m) return 0.5; return [0, 2, 4].map(i => parseInt(m[1].slice(i, i + 2), 16) / 255).map(v => v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4).reduce((t, v, i) => t + v * [0.2126, 0.7152, 0.0722][i], 0); }
+const contrastOf = (a, b) => { const [x, y] = [lumOf(a), lumOf(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+/** 背景の上で読める色にする（色合いは残して、足りない分だけ白か黒に寄せる） */
+function readable(c, bg, min = 3) {
+  const m = /^#?([0-9a-f]{6})$/i.exec(String(c).trim()); if (!m || contrastOf(c, bg) >= min) return c;
+  const to = lumOf(bg) < 0.4 ? 255 : 0, rgb = [0, 2, 4].map(i => parseInt(m[1].slice(i, i + 2), 16));
+  for (let t = 0.1; t <= 1.001; t += 0.1) { const h = '#' + rgb.map(v => Math.round(v + (to - v) * t).toString(16).padStart(2, '0')).join(''); if (contrastOf(h, bg) >= min) return h; }
+  return to ? '#ffffff' : '#000000';
+}
+/** 日本語の折り返し（英単語は途中で切らない。行頭に「、。」」！」などが来ないよう前の行へ、行末の「「（」は次の行へ） */
+function wrapJa(x, text, max) {
+  const NO_HEAD = '、。，．,.・：；:;？！?!ー－〜～）)］]」』】〕〉》’”…‥ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶ々ゝゞ', NO_TAIL = '「『（(［[【〔〈《‘“';
+  const toks = String(text).match(/[A-Za-z0-9@#&'’._\-]+|\s+|[\s\S]/gu) || [], out = []; let ln = '';
+  const W = t => x.measureText(t).width;
+  for (const tk of toks) {
+    if (!ln && /^\s+$/.test(tk)) continue;
+    if (W(ln + tk) <= max || !ln) {
+      if (!ln && W(tk) > max) { for (const ch of tk) { if (ln && W(ln + ch) > max) { out.push(ln); ln = ''; } ln += ch; } continue; }
+      ln += tk; continue;
+    }
+    if (NO_HEAD.includes(tk[0]) && tk.length === 1) { ln += tk; continue; }   // ぶら下げ（1文字だけはみ出してよい）
+    let carry = '';
+    while (ln && NO_TAIL.includes(ln[ln.length - 1])) { carry = ln[ln.length - 1] + carry; ln = ln.slice(0, -1); }
+    out.push(ln.replace(/\s+$/, '')); ln = carry + tk.replace(/^\s+/, '');
+  }
+  if (ln) out.push(ln.replace(/\s+$/, ''));
+  return out.filter(l => l !== '');
+}
+/** 担当の並び（色の丸＋名前）。右端そろえのかたまりにして、1行→2行→文字を小さく→長い名前だけ縮める の順で収める */
+function oshiLegend(x, names, R, avail, ys, o) {
+  if (!names.length) return;
+  const lab = o.label || '担当', GAP = 26, DOT = 16, DG = 9, one = ys.length < 2;   // ys が1つなら1行だけ
+  for (const size of [22, 20, 18]) {
+    o.font(700, size); const ws = names.map(n => DOT + DG + x.measureText(n).width);
+    o.font(500, size - 4); const lw = x.measureText(lab).width + 14;
+    const rowW = a => a.reduce((t, w) => t + w, 0) + GAP * Math.max(0, a.length - 1);
+    let rows = null;
+    if (lw + rowW(ws) <= avail || (one && size === 18)) rows = [names.length];
+    else if (names.length > 1 && !one) {   // 2行。行の長さがなるべくそろう分け方
+      let bestK = 1, bestM = Infinity; for (let k = 1; k < names.length; k++) { const m = Math.max(rowW(ws.slice(0, k)), rowW(ws.slice(k))); if (m < bestM) { bestM = m; bestK = k; } }
+      if (lw + bestM <= avail || size === 18) rows = [bestK, names.length - bestK];
+    } else if (size === 18 && !one) rows = [1];
+    if (!rows) continue;
+    // 18pxでも入らないときは、長い名前から「…」で縮める（人数は減らさない）
+    const maxRow = avail - lw; let lines = [names.slice(0, rows[0]), names.slice(rows[0])].filter(a => a.length);
+    o.font(700, size);
+    lines = lines.map(a => { let t = a.slice(); for (let guard = 0; guard < 40; guard++) { const w = t.map(n => DOT + DG + x.measureText(n).width); if (rowW(w) <= maxRow) break; let li = 0; w.forEach((v, i) => { if (v > w[li]) li = i; }); const cur = t[li].replace(/…$/, ''); if (cur.length <= 2) break; t[li] = cur.slice(0, -1) + '…'; } return t.map((n, i) => ({ n, full: a[i] })); });
+    const widths = lines.map(a => rowW(a.map(e => DOT + DG + x.measureText(e.n).width)));
+    const bx = R - Math.max(...widths), lx = bx - lw;
+    o.font(500, size - 4); x.fillStyle = o.MU; x.textAlign = 'left'; x.fillText(lab, lx, ys[0]);
+    lines.forEach((a, r) => {
+      let cx = bx; const y = ys[r];
+      for (const e of a) {
+        o.font(700, size); x.fillStyle = oshiColor(e.full); x.beginPath(); x.arc(cx + DOT / 2, y - size * 0.36, DOT / 2, 0, Math.PI * 2); x.fill(); x.lineWidth = 1.5; x.strokeStyle = o.LN; x.stroke();
+        x.fillStyle = o.TX; x.fillText(e.n, cx + DOT + DG, y); cx += DOT + DG + x.measureText(e.n).width + GAP;
+      }
+    });
+    return;
+  }
+}
 /** 色の記録の画像（1200×675）。参戦した公演を日付順に、1公演＝縦1本の帯にする */
 async function colorCard(S) {
   const d = await loadColors(); if (!d) return null;
@@ -1688,13 +1749,10 @@ async function colorCard(S) {
     font(500, 20); x.fillStyle = MU; x.fillText('担当に会えた公演', L, 152); const w1 = x.measureText('担当に会えた公演').width;
     font(800, 26); x.fillStyle = TX; x.fillText(String(met), L + w1 + 10, 153); const w2 = x.measureText(String(met)).width;
     font(500, 20); x.fillStyle = MU; x.fillText(`／ ${perfs.length}公演`, L + w1 + 16 + w2, 152);
-    // 右上に担当（入りきらない分は「ほかn人」）
-    font(700, 22); x.textAlign = 'right'; let rx = R; const shown = [];
-    for (const n of oshi) { const w = x.measureText(n).width + 44; if (R - (rx - w) > 440 && shown.length) break; shown.push(n); rx -= w; }
-    rx = R; const rest = oshi.length - shown.length;
-    if (rest) { font(500, 18); x.fillStyle = MU; x.fillText(`ほか${rest}人`, rx, 116); rx -= x.measureText(`ほか${rest}人`).width + 16; font(700, 22); }
-    for (const n of shown.slice().reverse()) { x.fillStyle = TX; x.fillText(n, rx, 116); const tw = x.measureText(n).width; x.fillStyle = oshiColor(n); x.beginPath(); x.arc(rx - tw - 16, 108, 8, 0, Math.PI * 2); x.fill(); x.lineWidth = 1.5; x.strokeStyle = LN; x.stroke(); rx -= tw + 44; }
-    font(500, 18); x.fillStyle = MU; x.fillText('担当', R, 150); x.textAlign = 'left';
+    // 右上に担当。全員を出す（1行で入らなければ2行にし、それでも入らなければ文字を小さくする。人を省くことはしない）
+    font(700, 30); const titleW = x.measureText(fit(`${S.year ? `${S.year}年の` : 'これまでの'}${brand !== 'すべて' ? `${brand} ` : ''}色の記録`, 620)).width;
+    const statW = w1 + 16 + w2 + (font(500, 20), x.measureText(`／ ${perfs.length}公演`).width);
+    oshiLegend(x, oshi, R, R - (L + Math.max(titleW, statW) + 56), [116, 152], { font, fit, TX, MU, LN });
   } else { font(500, 20); x.fillStyle = MU; x.fillText(`${perfs.length}公演で出会ったアイドル ${people}人の色`, L, 150); }
   const N = perfs.length, gap = N <= 20 ? 8 : N <= 40 ? 4 : 2, top = 190, bot = hasO ? 528 : 556, bw = R - L, sw = (bw - gap * (N - 1)) / N, rad = Math.min(10, sw / 2);
   const dim = hasO ? (dark ? 0.28 : 0.32) : 1;
@@ -1705,11 +1763,14 @@ async function colorCard(S) {
     x.globalAlpha = 1; x.restore();
     if (sw > 3) { rrect(x, sx + .5, top + .5, sw - 1, bot - top - 1, rad); x.lineWidth = 1; x.strokeStyle = LN; x.stroke(); }   // ふち（白い色が背景に溶けないように）
     const out = sw > 12 ? 4 : 1;
-    p.segs.forEach(g => { if (!g.oshi) return; x.save(); x.shadowColor = g.c; x.shadowBlur = 18; x.fillStyle = g.c; rrect(x, sx - out, g.y, sw + out * 2, Math.max(g.h, 6), Math.min(4, sw / 2)); x.fill(); x.restore(); });
+    p.segs.forEach(g => {
+      if (!g.oshi) return; x.save(); x.shadowColor = g.c; x.shadowBlur = 18; x.fillStyle = g.c; rrect(x, sx - out, g.y, sw + out * 2, Math.max(g.h, 6), Math.min(4, sw / 2)); x.fill(); x.restore();
+      if (contrastOf(g.c, SF) < 1.6) { rrect(x, sx - out + .75, g.y + .75, sw + out * 2 - 1.5, Math.max(g.h, 6) - 1.5, Math.min(4, sw / 2)); x.lineWidth = 1.5; x.strokeStyle = dark ? 'rgba(255,255,255,.45)' : 'rgba(20,22,28,.3)'; x.stroke(); }   // 背景に近い色（白・紺など）でも光っている所が分かるように
+    });
   });
   if (hasO) {   // 担当に会えた公演の下にだけ、月（その担当の色で。重なるときは省く）
     font(700, 19); x.textAlign = 'center'; let lastEnd = -1;
-    perfs.forEach((p, i) => { if (!p.met) return; const cx = L + i * (sw + gap) + sw / 2, t = `${+p.date.slice(5, 7)}月`, tw = x.measureText(t).width; if (cx - tw / 2 < lastEnd + 6) return; x.fillStyle = p.segs.find(g => g.oshi).c; x.fillText(t, cx, 560); lastEnd = cx + tw / 2; });
+    perfs.forEach((p, i) => { if (!p.met) return; const cx = L + i * (sw + gap) + sw / 2, t = `${+p.date.slice(5, 7)}月`, tw = x.measureText(t).width; if (cx - tw / 2 < lastEnd + 6) return; x.fillStyle = readable(p.segs.find(g => g.oshi).c, SF); x.fillText(t, cx, 560); lastEnd = cx + tw / 2; });
     x.textAlign = 'left';
   }
   font(700, 24); x.fillStyle = AC; x.fillText(`#アイマス参戦記録${S.year || ''}`, L, 612);
@@ -1744,14 +1805,6 @@ function bestSave(clear) {
   try { localStorage.setItem(BEST_KEY, JSON.stringify(best)); } catch (_) {}
   closeDlg(); render(); toast(clear ? 'ベスト公演を外しました' : 'ベスト公演を保存しました', null, 2000);
 }
-/** 公演の出演者の色（並び順は色データの順。SideM はユニットカラー。担当は oshi: true） */
-function castSegs(ev, i, d) {
-  const cast = ((ev.schedules || [])[i] || {}).castNames || [], segs = [];
-  for (const n of cast) { const it = d.by.get(n); if (it) segs.push({ c: d.unit[n] || it.c, o: it.o, oshi: oshi.includes(n) }); }
-  segs.sort((a, b) => a.o - b.o);
-  if (!segs.length) segs.push({ c: BRX[(ev.brands || [])[0]] || '#888', o: 0, oshi: false });
-  return segs;
-}
 /** 共有画像の土台（テーマの色・フォント・枠・下のハッシュタグ） */
 async function cardBase(S) {
   const W = 1200, H = 675, c = document.createElement('canvas'); c.width = W; c.height = H;
@@ -1768,34 +1821,70 @@ async function cardBase(S) {
   const done = () => new Promise(res => c.toBlob(b => res(b), 'image/png'));
   return { c, x, T, font, fit, footer, done, L: 84, R: W - 84 };
 }
-/** 3枚目: ベスト公演 */
+/** 3枚目: ベスト公演（チケットの形。右の半券に日付。色は1色だけ＝その公演に出ていた担当の色。いなければライブのブランドの色） */
 async function bestCard(S) {
   const b = bestOf(S); if (!b) return null;
-  const d = await loadColors();
-  const { x, T, font, fit, footer, done, L, R } = await cardBase(S), ev = b.x.ev;
-  font(700, 22); x.fillStyle = T.MU; x.fillText(`${S.year ? `${S.year}年の` : ''}ベスト公演`, L, 112);
-  let fs = 54; font(800, fs); while (fs > 32 && x.measureText(ev.title).width > R - L) { fs -= 2; font(800, fs); }
-  x.fillStyle = T.TX; x.fillText(fit(ev.title, R - L), L, 186);
-  const dt = b.x.date, line2 = [`${+dt.slice(0, 4)}年${+dt.slice(5, 7)}月${+dt.slice(8, 10)}日(${wd(dt)})${b.x.label ? ` ${b.x.label}` : ''}`, ev.venue || ''].filter(Boolean).join(' ・ ');
-  font(500, 24); x.fillStyle = T.MU; x.fillText(fit(line2, R - L), L, 228);
-  // 出演者の色（横1本。担当がいれば、担当だけ光らせる）
-  const segs = d ? castSegs(ev, b.x.i, d) : [{ c: BRX[(ev.brands || [])[0]] || '#888', oshi: false }];
-  const hasO = segs.some(g => g.oshi), top = 262, h = 40, w = (R - L) / segs.length;
-  x.save(); rrect(x, L, top, R - L, h, 12); x.clip(); x.fillStyle = T.SF; x.fillRect(L, top, R - L, h);
-  segs.forEach((g, i) => { x.globalAlpha = hasO && !g.oshi ? (T.dark ? 0.35 : 0.4) : 1; x.fillStyle = g.c; x.fillRect(L + i * w, top, w + 1, h); });
-  x.globalAlpha = 1; x.restore();
-  rrect(x, L + .5, top + .5, R - L - 1, h - 1, 12); x.lineWidth = 1; x.strokeStyle = T.LN; x.stroke();
-  segs.forEach((g, i) => { if (!g.oshi) return; x.save(); x.shadowColor = g.c; x.shadowBlur = 18; x.fillStyle = g.c; rrect(x, L + i * w, top - 6, w, h + 12, Math.min(6, w / 2)); x.fill(); x.restore(); });
-  // ひとこと（長さで文字の大きさを変える。3行まで）
-  if (b.note) {
-    const wrap = (t, max) => { const out = []; let ln = ''; for (const ch of t) { if (x.measureText(ln + ch).width > max) { out.push(ln); ln = ch; } else ln += ch; } if (ln) out.push(ln); return out; };
-    let size = 40, lines; for (; size >= 28; size -= 2) { font(700, size); lines = wrap(b.note, R - L - 60); if (lines.length <= 3) break; }
-    if (lines.length > 3) { lines = lines.slice(0, 3); lines[2] = fit(lines[2] + '…', R - L - 60); }
-    font(800, 72); x.fillStyle = T.AC; x.fillText('“', L - 6, 392);
-    font(700, size); x.fillStyle = T.TX; lines.forEach((l, i) => x.fillText(l, L + 44, 400 + i * Math.round(size * 1.5)));
-  } else {
-    const n = (((ev.schedules || [])[b.x.i] || {}).castNames || []).length;
-    if (n) { font(500, 24); x.fillStyle = T.MU; x.fillText(`出演アイドル ${n}人`, L, 340); }
+  await loadColors();
+  const { x, T, font, fit, footer, done, L, R } = await cardBase(S), ev = b.x.ev, dt = b.x.date || ev.eventDateStart || '';
+  const cast = ((ev.schedules || [])[b.x.i] || {}).castNames || [];
+  const met = oshi.filter(n => cast.includes(n));   // この公演に出ていた担当（選んだ順）
+  const brs = ev.brands || [];
+  const C = met.length ? oshiColor(met[0]) : brs.length === 1 && BRX[brs[0]] ? BRX[brs[0]] : T.AC;
+  const INK = contrastOf(C, '#111214') >= contrastOf(C, '#ffffff') ? '#111214' : '#ffffff';
+  // 見出しと、この公演に出ていた担当（色の記録と同じ右上の位置）
+  const head = `${S.year ? `${S.year}年の` : ''}ベスト公演`;
+  font(700, 30); x.fillStyle = T.TX; x.fillText(head, L, 116); const hw = x.measureText(head).width;
+  oshiLegend(x, met, R, R - (L + hw + 56), [116], { font, fit, TX: T.TX, MU: T.MU, LN: T.LN, label: '出演した担当' });
+  // チケットの形（右に半券。切り取り線の上下に半円の切り欠き）
+  const x0 = L, x1 = R, y0 = 150, y1 = 560, r = 22, n = 17, xs = x1 - 296;
+  const ticket = () => { x.beginPath(); x.moveTo(x0 + r, y0); x.lineTo(xs - n, y0); x.arc(xs, y0, n, Math.PI, 0, true); x.arcTo(x1, y0, x1, y1, r); x.arcTo(x1, y1, xs, y1, r); x.lineTo(xs + n, y1); x.arc(xs, y1, n, 0, Math.PI, true); x.arcTo(x0, y1, x0, y0, r); x.arcTo(x0, y0, x0 + r, y0, r); x.closePath(); };
+  x.save(); ticket(); if (!T.dark) { x.shadowColor = 'rgba(20,22,28,.10)'; x.shadowBlur = 28; x.shadowOffsetY = 10; } x.fillStyle = T.dark ? '#1e1f23' : T.BG; x.fill(); x.restore();
+  x.save(); ticket(); x.clip(); x.fillStyle = C; x.fillRect(xs, y0, x1 - xs, y1 - y0); x.restore();
+  x.save(); x.setLineDash([2, 9]); x.lineCap = 'round'; x.lineWidth = 2.5; x.strokeStyle = T.LN; x.beginPath(); x.moveTo(xs, y0 + n + 12); x.lineTo(xs, y1 - n - 12); x.stroke(); x.restore();
+  ticket(); x.lineWidth = 1.5; x.strokeStyle = T.LN; x.stroke();
+  // 半券: 年・日付・曜日・公演（Day1 など）。まとまりを上下のまん中に
+  const sc = (xs + x1) / 2, sw = x1 - xs - 64, ds = `${+dt.slice(5, 7)}.${+dt.slice(8, 10)}`;
+  let dsz = 112; font(800, dsz); while (dsz > 64 && x.measureText(ds).width > sw) { dsz -= 4; font(800, dsz); }
+  const capD = Math.round(dsz * 0.72), hasL = !!b.x.label, blockH = 24 + 26 + capD + 22 + 24 + (hasL ? 30 + 40 : 0);
+  let sy = y0 + (y1 - y0 - blockH) / 2;
+  x.textAlign = 'center'; x.fillStyle = INK;
+  x.globalAlpha = 0.75; font(700, 24); x.fillText(dt.slice(0, 4), sc, sy + 22); x.globalAlpha = 1;
+  sy += 24 + 26 + capD; font(800, dsz); x.fillText(ds, sc, sy);
+  sy += 22 + 24; x.globalAlpha = 0.75; font(600, 24); x.fillText(`${wd(dt)}曜日`, sc, sy - 2); x.globalAlpha = 1;
+  if (hasL) {
+    sy += 30; font(700, 22); const t = fit(b.x.label, sw - 36), tw = x.measureText(t).width;
+    rrect(x, sc - tw / 2 - 18, sy, tw + 36, 40, 20); x.lineWidth = 1.5; x.strokeStyle = INK; x.globalAlpha = 0.45; x.stroke(); x.globalAlpha = 1;
+    x.fillText(t, sc, sy + 28);
+  }
+  x.textAlign = 'left';
+  // 本券: ブランド・ライブ名・会場。ひとことは下にそろえる
+  const mx = x0 + 56, mw = xs - 52 - mx, top = y0 + 58, bottom = y1 - 56;
+  const kick = brs.length === 0 ? '' : brs.length <= 3 ? brs.map(bName).join(' × ') : '合同ライブ';
+  const note = b.note.replace(/\s+/g, ' ').trim();
+  // ライブ名: 1行に入る一番大きい文字（52→38px）。入らなければ2行（2行目が1〜2文字だけにならないように）
+  const avail = bottom - top, kH = kick ? 34 : 0;
+  const titleAt = ts => { font(800, ts); let tl = wrapJa(x, ev.title, mw); if (tl.length > 2) { tl = tl.slice(0, 2); tl[1] = fit(tl[1] + '…', mw); } return tl; };
+  let ts = 52, tl = titleAt(ts);
+  while (tl.length > 1 && ts > 38) { ts -= 2; tl = titleAt(ts); }
+  if (tl.length > 1) { ts = 44; tl = titleAt(ts); while (ts > 34 && (tl.length > 2 || tl[tl.length - 1].length <= 2)) { ts -= 2; tl = titleAt(ts); } }
+  const tlh = Math.round(ts * 1.2), headH = kH + Math.round(ts * 0.8) + (tl.length - 1) * tlh + 22 + 24;
+  // ひとこと: 短いほど大きく（36→24px、3行まで）
+  let ns = 36, nl = [], nlh = 0;
+  if (note) for (ns = 36; ns >= 24; ns -= 2) {
+    font(500, ns); nl = wrapJa(x, note, mw); nlh = Math.round(ns * 1.65);
+    if (nl.length <= 3 && headH + 48 + Math.round(ns * 0.8) + (nl.length - 1) * nlh <= avail && (nl.length === 1 || nl[nl.length - 1].length > 3 || ns <= 28)) break;   // 最後の行が2〜3文字だけになるなら、もう少し小さく
+    if (ns === 24 && nl.length > 3) { nl = nl.slice(0, 3); nl[2] = fit(nl[2] + '…', mw); }
+  }
+  const P = { ts, tl, tlh, headH, ns, nl, nlh };
+  let y = P.nl.length ? top : top + (bottom - top - P.headH) / 2;   // ひとことが無いときは、まん中に
+  if (kick) { font(700, 20); x.fillStyle = T.MU; x.fillText(fit(kick, mw), mx, y + 16); y += 34; }
+  font(800, P.ts); x.fillStyle = T.TX; P.tl.forEach((l, i) => x.fillText(l, mx, y + Math.round(P.ts * 0.8) + i * P.tlh));
+  y += Math.round(P.ts * 0.8) + (P.tl.length - 1) * P.tlh + 22 + 24;
+  font(500, 24); x.fillStyle = T.MU; x.fillText(fit(ev.venue || '', mw), mx, y);
+  if (P.nl.length) {
+    const firstBase = bottom - (P.nl.length - 1) * P.nlh, capN = Math.round(P.ns * 0.8);
+    x.fillStyle = readable(C, T.dark ? '#1e1f23' : T.BG, 2); x.fillRect(mx, firstBase - capN - 28, 40, 4);   // ひとことの前の短い線（半券と同じ色。背景に近い色は少し濃く）
+    font(500, P.ns); x.fillStyle = T.TX; P.nl.forEach((l, i) => x.fillText(l, mx, firstBase + i * P.nlh));
   }
   footer(); return await done();
 }
