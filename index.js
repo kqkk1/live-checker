@@ -875,6 +875,19 @@ async function grab(page, url) {   // ページを開いて、本文・リンク
       const pick = el => ({ text: el.innerText || '', anchors: Array.from(el.querySelectorAll('a')).filter(a => !a.closest('header, nav, footer, [class*="menu" i], [id*="menu" i], [class*="share" i], [id*="share" i]')).map(a => ({ text: (a.innerText || '').trim(), alt: (a.querySelector('img') || {}).alt || '', href: a.href || '' })) });
       const el = document.querySelector('#goodsCol') || document.querySelector('section#goods') || (document.body.id === 'goods' ? (document.querySelector('main, article, #main') || document.body) : null);
       if (el) return pick(el);
+      // 1ページ型のサイト（トップページの途中に「Goods」の欄がある）。見出しが「Goods／グッズ／物販」の欄を探し、
+      // その見出しを1つだけ含む一番外側のかたまりを GOODS欄とする（隣の「Ticket」「Attention」などの欄は入らない）
+      const HEAD = 'h1, h2, h3, h4, [class*="ttl" i], [class*="title" i], [class*="heading" i]';
+      const labelOf = e => `${e.innerText || ''} ${Array.from(e.querySelectorAll('img')).map(i => i.alt || '').join(' ')} ${e.tagName === 'IMG' ? e.alt || '' : ''}`.replace(/\s+/g, ' ').trim();
+      const heads = Array.from(document.querySelectorAll(HEAD)).filter(h => !h.closest('header, nav, footer, [class*="menu" i], [id*="menu" i]') && /^(goods|グッズ|物販)/i.test(labelOf(h)) && labelOf(h).length <= 16);
+      for (const h of heads) {
+        const same = e => e !== h && e.tagName === h.tagName && e.className === h.className && labelOf(e) !== '';   // 「Ticket」「Attention」など、同じ作りの別の見出し
+        let box = h;
+        while (box.parentElement && box.parentElement !== document.body && !box.parentElement.matches('main, html') && !Array.from(box.parentElement.querySelectorAll(HEAD)).some(same)) box = box.parentElement;
+        if (box !== h && /販売|物販|グッズ|受注|注文/.test(box.innerText || '')) { const g = pick(box); g.section = true; return g; }
+      }
+      const byId = Array.from(document.querySelectorAll('#goods, section[id*="goods" i], div[id*="goods" i]')).find(e => !e.closest('header, nav, footer') && /販売|物販|グッズ|受注|注文/.test(e.innerText || '') && !/チケット|先行|抽選/.test(e.innerText || ''));
+      if (byId) return pick(byId);
       if (/\/goods(\/|\/index\.\w+|\.php)?$/i.test(location.pathname)) { const m = document.querySelector('main, article, #main') || document.body, g = pick(m); g.text = Array.from(m.children).filter(c => !c.matches('header, nav, footer') && !/menu|share/i.test(`${c.id} ${c.className}`)).map(c => c.innerText || '').join('\n'); g.whole = true; return g; }
       return null;
     })(),
@@ -980,7 +993,13 @@ async function scrapeMerch(page) {
       let g = null;
       for (const u of cands) { try { const x = await grab(page, u); if (!isNotFound(x)) { g = x; break; } } catch (e) { /* 次の候補へ */ } }
       if (!g) {   // 公式ページのナビから GOODS のリンクを探す
-        try { const home = await grab(page, official); const link = merch.pickGoodsLink(home.anchors, official); if (link) { const x = await grab(page, link); if (!isNotFound(x)) g = x; } } catch (e) { /* なし */ }
+        try {
+          const home = await grab(page, official), link = merch.pickGoodsLink(home.anchors, official);
+          const x = link ? await grab(page, link) : null;
+          if (x && !isNotFound(x) && x.goods) g = x;
+          else if (home.goods) g = home;   // 1ページ型のサイト: トップページの中の Goods 欄を読む
+          else if (x && !isNotFound(x)) g = x;   // これまでどおり（欄が見つからなければ、下で警告する）
+        } catch (e) { /* なし */ }
       }
       if (!g) { console.log(' ├─ ⏩ 物販ページが見つかりません'); continue; }
       if (!g.goods) { warn(`${title}: 物販ページに GOODS欄（#goodsCol）が見つかりませんでした。ほかの欄の値が混ざるのを防ぐため、このライブの物販は更新しません（${g.url}）${g.goodsIds?.length ? ` ページ内のgoods系の要素: ${g.goodsIds.join(' , ')}` : ' ページ内にgoods系の要素は見つかりませんでした'}`); continue; }
