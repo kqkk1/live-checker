@@ -114,7 +114,8 @@ function dropOffstage(lines) {
   const out = []; let skip = false;
   for (const l of lines) {
     if (/VTR|映像出演|声のみ|声の出演/.test(l)) { skip = true; continue; }
-    if (/メンバー|出演|ゲスト/.test(l)) { skip = false; continue; }
+    if (/メンバー|出演|出場|ゲスト/.test(l)) { skip = false; continue; }   // 「夜公演の出演(歌唱/演奏)」のように「出演」があれば、出演者の欄
+    if (/アンサンブル|スウィング|演奏|バンド|司会|ダンサー|^MC[:：]?$/.test(l)) { skip = true; continue; }   // アイドル以外の欄
     if (!skip) out.push(l);
   }
   return out;
@@ -151,6 +152,7 @@ function matchCast(lines, cv, idolData, brands) {
     const k = key(t);
     if (idolData.units.has(k)) continue;   // ユニット名・ブランド名
     if (byKey.has(k)) { add(byKey.get(k).name); continue; }   // アイドル名がそのまま書かれている（vα-liv・xRライブなど）
+    if (anyKey.has(k)) { add(anyKey.get(k).name); continue; }   // ほかのブランドのアイドルがゲストで出ている（Re:FLAME の 765 のアイドルなど）
     if (otherChars.has(k) && !anyKey.has(k)) continue;   // 社長・スタッフなど、アイドル以外のキャラ
     const va = cv.get(k);
     if (va) {
