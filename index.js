@@ -169,7 +169,9 @@ const W = {
  * 表記の整形（以前のものをそのまま引き継ぎ）
  * ===================================================================== */
 const WAIT_SCALE = Number(process.env.AI_WAIT_SCALE ?? 1);   // 待ち時間の倍率（テストでは 0）
+let lastApiError = null;   // 直前の、やり直しても通らないエラー（HTTP番号と本文）。考える量の指定に対応していないモデルの見分けに使う
 async function fetchWithRetry(url, options, maxRetries = 4, waitUnit = 30000) {
+  lastApiError = null;
   for (let i = 0; i < maxRetries; i++) {
     const last = i === maxRetries - 1;
     try {
@@ -186,7 +188,9 @@ async function fetchWithRetry(url, options, maxRetries = 4, waitUnit = 30000) {
         if (!last) await sleep(waitTime);
         continue;
       }
-      console.log(` ├─ ❌ APIエラー発生 (HTTP ${res.status}): ${String(await res.text()).slice(0, 300)}`);
+      const errText = String(await res.text().catch(() => ''));
+      lastApiError = { status: res.status, body: errText };
+      console.log(` ├─ ❌ APIエラー発生 (HTTP ${res.status}): ${errText.slice(0, 300)}`);
       return null;
     } catch (err) {
       console.log(` ├─ ⚠️ 通信エラー: ${err.message}。${last ? '' : '再試行します'}...(${i + 1}/${maxRetries})`);
@@ -234,6 +238,26 @@ const AI_DOWN_LIMIT = 2;
 let aiDownStreak = 0;
 const aiReport = [];   // 通知用の行
 const aiState = { failed: [], fallback: [], deferred: [], ok: 0 };
+/* 考える量（thinkingLevel）
+ *   ・Gemini 3 以降のモデルは、回答の前に「考える」。考えた分も出力の上限（maxOutputTokens）に含まれるため、考えすぎると回答が途中で切れる
+ *   ・初期設定は medium（中くらい）。環境変数 GEMINI_THINKING で minimal / low / medium / high に変えられる。auto にすると指定しない（モデルの初期設定のまま）
+ *   ・指定に対応していないモデルでは、指定なしでやり直す */
+const AI_THINKING = String(process.env.GEMINI_THINKING ?? 'medium').trim().toLowerCase();
+const noThinkingModels = new Set();   // 考える量の指定に対応していなかったモデル（この実行のあいだは、指定なしで送る）
+function withThinking(body, model) {
+  if (!/^(minimal|low|medium|high)$/.test(AI_THINKING) || noThinkingModels.has(model)) return body;
+  const gc = body.generationConfig || {};
+  if (gc.thinkingConfig) return body;   // 依頼側で指定済みなら、そのまま
+  return { ...body, generationConfig: { ...gc, thinkingConfig: { thinkingLevel: AI_THINKING } } };
+}
+const FINISH_JA = { STOP: '正常に終了', MAX_TOKENS: '出力の上限に到達（回答が途中で切れています）', SAFETY: '安全フィルターで停止', RECITATION: '引用の制限で停止', PROHIBITED_CONTENT: '禁止された内容として停止', BLOCKLIST: '禁止語で停止', OTHER: 'その他の理由で停止' };
+/** 応答の使用量と終了理由を、ログ用の短い文にする（例: 考えた量 2,345 ／ 回答 1,234トークン（上限 16,384）・出力の上限に到達） */
+function aiUsage(j, sent, withReason = true) {
+  const u = j?.usageMetadata || {}, fr = j?.candidates?.[0]?.finishReason || '';
+  const n = x => Number(x || 0).toLocaleString('en-US');
+  const cap = sent?.generationConfig?.maxOutputTokens;
+  return `考えた量 ${n(u.thoughtsTokenCount)} ／ 回答 ${n(u.candidatesTokenCount)}トークン${cap ? `（上限 ${n(cap)}）` : ''}${withReason && fr ? `・${FINISH_JA[fr] || fr}` : ''}`;
+}
 async function geminiJson(body, check = d => !!d) {
   if (aiDownStreak >= AI_DOWN_LIMIT) return null;
   let responded = false;
@@ -241,20 +265,29 @@ async function geminiJson(body, check = d => !!d) {
   for (let i = 0; i < models.length; i++) {
     const model = models[i];
     if (i > 0) console.log(` ├─ 🔁 代替モデル「${model}」で、同じ依頼をやり直します`);
-    const res = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }, i === 0 ? 3 : 2, i === 0 ? 20000 : 15000);
-    let data = null;
+    const send = b => fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) }, i === 0 ? 3 : 2, i === 0 ? 20000 : 15000);
+    let sent = withThinking(body, model);
+    let res = await send(sent);
+    if (!res && sent !== body && lastApiError && lastApiError.status === 400 && /thinking/i.test(lastApiError.body)) {
+      noThinkingModels.add(model);
+      console.log(' ├─ ↩️ このモデルは「考える量」の指定に対応していないため、指定なしでやり直します');
+      sent = body;
+      res = await send(sent);
+    }
+    let data = null, j = null;
     if (res) {
       responded = true;
-      let j = null; try { j = await res.json(); } catch (e) { console.log(' ├─ ⚠️ AIの応答を読めませんでした'); }
-      const raw = j?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (j && !raw) console.log(` ├─ ⚠️ AIの応答が空です（${JSON.stringify(j.promptFeedback || {})}）`);
+      try { j = await res.json(); } catch (e) { console.log(' ├─ ⚠️ AIの応答を読めませんでした'); }
+      const parts = j?.candidates?.[0]?.content?.parts || [];
+      const raw = parts.filter(p => p && !p.thought && typeof p.text === 'string').map(p => p.text).join('');   // 考えた内容（thought）は除き、回答の部分だけをつなげる
+      if (j && !raw) console.log(` ├─ ⚠️ AIの応答が空です（${aiUsage(j, sent)}${j.promptFeedback ? ` ／ ${JSON.stringify(j.promptFeedback)}` : ''}）`);
       if (raw) {
-        try { const m = raw.match(/\{[\s\S]*\}/); data = JSON.parse(m ? m[0] : raw); } catch (e) { console.log(' ├─ ⚠️ JSONの解析に失敗しました'); }
+        try { const m = raw.match(/\{[\s\S]*\}/); data = JSON.parse(m ? m[0] : raw); } catch (e) { console.log(` ├─ ⚠️ JSONの解析に失敗しました（${aiUsage(j, sent)}・回答 ${raw.length.toLocaleString('en-US')}字）`); }
         if (data && !check(data)) { console.log(' ├─ ⚠️ AIの応答が、期待した形ではありませんでした'); data = null; }
       }
     }
-    if (data) { aiDownStreak = 0; aiState.ok++; return { data, model, fallback: i > 0 }; }
+    if (data) { console.log(` ├─ 🧠 AIの使用量: ${aiUsage(j, sent, false)}`); aiDownStreak = 0; aiState.ok++; return { data, model, fallback: i > 0 }; }
     if (i === 0) models.push(...await geminiFallbacks());   // 1つ目で取れなかったときに、はじめて代替モデルを選ぶ
   }
   aiDownStreak = responded ? 0 : aiDownStreak + 1;   // 1度でも応答があれば、障害ではなく内容の問題
@@ -801,7 +834,7 @@ let _mh = null;
 const merchHashes = () => (_mh = _mh || (readMeta().merch || {}));   // 事前販売ページの内容のハッシュ（変わったときだけAIを呼ぶ）
 const sha = t => crypto.createHash('sha1').update(String(t)).digest('hex').slice(0, 12);
 async function askGemini(prompt) {
-  const r = await geminiJson({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.1, responseMimeType: 'application/json', maxOutputTokens: 2048 } });
+  const r = await geminiJson({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.1, responseMimeType: 'application/json', maxOutputTokens: 8192 } });   // 上限には「考えた量」も含まれる
   return r ? r.data : null;
 }
 let ai = askGemini;
@@ -1229,7 +1262,8 @@ async function run() {
       try {
         const gen = await geminiJson({ contents: [{ parts: [{ text: buildPrompt(existingNames, pageData.links, text) }] }],
           safetySettings: ['HARASSMENT', 'HATE_SPEECH', 'SEXUALLY_EXPLICIT', 'DANGEROUS_CONTENT'].map(c => ({ category: `HARM_CATEGORY_${c}`, threshold: 'BLOCK_NONE' })),
-          generationConfig: { temperature: 0.1, responseMimeType: 'application/json', maxOutputTokens: 4096 } }, d => d && typeof d === 'object');
+          // 上限には「考えた量」も含まれる。まとめ記事（複数のライブ×日程×出演者）でも回答が途中で切れないよう、余裕を持たせる
+          generationConfig: { temperature: 0.1, responseMimeType: 'application/json', maxOutputTokens: 16384 } }, d => d && typeof d === 'object');
         if (!gen) { console.log(' ├─ ❌ どのモデルでも解析できませんでした。次回に再試行します'); aiState.failed.push({ url: article.url, title }); await recordLog(article.url, title, 'エラー', null); continue; }
         data = gen.data;
         if (gen.fallback) { console.log(` ├─ ✅ 代替モデル（${gen.model}）で解析できました`); aiState.fallback.push({ url: article.url, title, model: gen.model }); }
