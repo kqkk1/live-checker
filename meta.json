@@ -1,8 +1,8 @@
 {
-  "checkedAt": "2026-11-25T15:03:47.159Z",
+  "checkedAt": "2026-11-25T19:30:10.262Z",
   "count": 125,
-  "warnHash": "",
-  "aiHash": "e401519654f1",
+  "warnHash": "7a6803aa30a2",
+  "aiHash": "fbd2493923df",
   "merch": {
     "https://shop.asobistore.jp/feature/cg_15th_for_your_one": "e6a3d3887f4a",
     "https://shop.asobistore.jp/feature/cg_vote2026_goods": "64b42e6c3679",
@@ -12,6 +12,8 @@
     "https://shop.asobistore.jp/feature/sc_refrac7ions_still_blue_p": "1b54d9d900c3",
     "https://shop.asobistore.jp/feature/cg_ml_clash_match": "5afe393f18df",
     "https://shop.asobistore.jp/feature/cg_15th_orchestra": "ce7ce0c22854",
-    "https://shop.asobistore.jp/feature/sc_orchestra": "177ef2a25582"
+    "https://shop.asobistore.jp/feature/sc_orchestra": "177ef2a25582",
+    "https://shop.asobistore.jp/feature/sidem_fbfes_wsi": "df9f99264c9d",
+    "https://shop.asobistore.jp/feature/sidempm2027": "ce7d194c198b"
   }
 }

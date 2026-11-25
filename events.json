@@ -7510,7 +7510,7 @@
     "schedules": [
       {
         "label": "Day1 昼公演: 12月26日(土) 開場11:00/開演12:00",
-        "castCount": 24,
+        "castCount": 25,
         "castNames": [
           "天ヶ瀬冬馬",
           "御手洗翔太",
@@ -7535,14 +7535,15 @@
           "山下次郎",
           "天峰秀",
           "花園百々人",
-          "眉見鋭心"
+          "眉見鋭心",
+          "アスラン＝BBII世"
         ],
-        "penlightCastCount": 24,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E5%BE%A1%E6%89%8B%E6%B4%97%E7%BF%94%E5%A4%AA%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E9%B7%B9%E5%9F%8E%E6%81%AD%E4%BA%8C%2C%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%3DBB%E2%85%A1%E4%B8%96%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83"
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E5%BE%A1%E6%89%8B%E6%B4%97%E7%BF%94%E5%A4%AA%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E9%B7%B9%E5%9F%8E%E6%81%AD%E4%BA%8C%2C%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%3DBB%E2%85%A1%E4%B8%96%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%EF%BC%9DBBII%E4%B8%96"
       },
       {
         "label": "Day1 夜公演: 12月26日(土) 開場16:00/開演17:00",
-        "castCount": 24,
+        "castCount": 25,
         "castNames": [
           "天ヶ瀬冬馬",
           "御手洗翔太",
@@ -7567,14 +7568,15 @@
           "山下次郎",
           "天峰秀",
           "花園百々人",
-          "眉見鋭心"
+          "眉見鋭心",
+          "アスラン＝BBII世"
         ],
-        "penlightCastCount": 24,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E5%BE%A1%E6%89%8B%E6%B4%97%E7%BF%94%E5%A4%AA%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E9%B7%B9%E5%9F%8E%E6%81%AD%E4%BA%8C%2C%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%3DBB%E2%85%A1%E4%B8%96%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83"
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E5%BE%A1%E6%89%8B%E6%B4%97%E7%BF%94%E5%A4%AA%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E9%B7%B9%E5%9F%8E%E6%81%AD%E4%BA%8C%2C%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%3DBB%E2%85%A1%E4%B8%96%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%EF%BC%9DBBII%E4%B8%96"
       },
       {
         "label": "Day2 昼公演: 12月27日(日) 開場11:00/開演12:00",
-        "castCount": 24,
+        "castCount": 25,
         "castNames": [
           "天ヶ瀬冬馬",
           "御手洗翔太",
@@ -7599,14 +7601,15 @@
           "山下次郎",
           "天峰秀",
           "花園百々人",
-          "眉見鋭心"
+          "眉見鋭心",
+          "アスラン＝BBII世"
         ],
-        "penlightCastCount": 24,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E5%BE%A1%E6%89%8B%E6%B4%97%E7%BF%94%E5%A4%AA%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E9%B7%B9%E5%9F%8E%E6%81%AD%E4%BA%8C%2C%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%3DBB%E2%85%A1%E4%B8%96%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83"
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E5%BE%A1%E6%89%8B%E6%B4%97%E7%BF%94%E5%A4%AA%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E9%B7%B9%E5%9F%8E%E6%81%AD%E4%BA%8C%2C%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%3DBB%E2%85%A1%E4%B8%96%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%EF%BC%9DBBII%E4%B8%96"
       },
       {
         "label": "Day2 夜公演: 12月27日(日) 開場16:00/開演17:00",
-        "castCount": 24,
+        "castCount": 25,
         "castNames": [
           "天ヶ瀬冬馬",
           "御手洗翔太",
@@ -7631,10 +7634,11 @@
           "山下次郎",
           "天峰秀",
           "花園百々人",
-          "眉見鋭心"
+          "眉見鋭心",
+          "アスラン＝BBII世"
         ],
-        "penlightCastCount": 24,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E5%BE%A1%E6%89%8B%E6%B4%97%E7%BF%94%E5%A4%AA%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E9%B7%B9%E5%9F%8E%E6%81%AD%E4%BA%8C%2C%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%3DBB%E2%85%A1%E4%B8%96%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83"
+        "penlightCastCount": 25,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%A4%A9%E3%83%B6%E7%80%AC%E5%86%AC%E9%A6%AC%2C%E5%BE%A1%E6%89%8B%E6%B4%97%E7%BF%94%E5%A4%AA%2C%E4%BC%8A%E9%9B%86%E9%99%A2%E5%8C%97%E6%96%97%2C%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E9%B7%B9%E5%9F%8E%E6%81%AD%E4%BA%8C%2C%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%2C%E6%B8%A1%E8%BE%BA%E3%81%BF%E3%81%AE%E3%82%8A%2C%E8%92%BC%E4%BA%95%E6%82%A0%E4%BB%8B%2C%E8%92%BC%E4%BA%95%E4%BA%AB%E4%BB%8B%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%3DBB%E2%85%A1%E4%B8%96%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E5%B2%A1%E6%9D%91%E7%9B%B4%E5%A4%AE%2C%E6%A9%98%E5%BF%97%E7%8B%BC%2C%E5%A7%AB%E9%87%8E%E3%81%8B%E3%81%AE%E3%82%93%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E5%A4%A9%E5%B3%B0%E7%A7%80%2C%E8%8A%B1%E5%9C%92%E7%99%BE%E3%80%85%E4%BA%BA%2C%E7%9C%89%E8%A6%8B%E9%8B%AD%E5%BF%83%2C%E3%82%A2%E3%82%B9%E3%83%A9%E3%83%B3%EF%BC%9DBBII%E4%B8%96"
       }
     ],
     "merch": [
@@ -7739,14 +7743,14 @@
     "phaseKind": "抽選",
     "applyStartDate": "2026-11-21T12:00:00.000+09:00",
     "deadline": "2026-12-06T23:59:00.000+09:00",
-    "lotteryDate": "",
+    "lotteryDate": "2026-12-17",
     "slots": [
       {
         "name": "先行販売",
         "kind": "抽選",
         "start": "2026-11-21T12:00:00.000+09:00",
         "end": "2026-12-06T23:59:00.000+09:00",
-        "lottery": ""
+        "lottery": "2026-12-17"
       }
     ],
     "eventDateStart": "2027-01-23",
@@ -7894,7 +7898,7 @@
         "name": "販売ページはこちら",
         "url": "https://shop.asobistore.jp/feature/sidem_fbfes_wsi",
         "start": "",
-        "end": "",
+        "end": "2026-11-15",
         "lottery": "",
         "dates": "",
         "place": "",
@@ -8286,8 +8290,8 @@
         "kind": "事前販売",
         "name": "https://shop.asobistore.jp/feature/sidempm2027",
         "url": "https://shop.asobistore.jp/feature/sidempm2027",
-        "start": "",
-        "end": "",
+        "start": "2026-11-25",
+        "end": "2026-12-06",
         "lottery": "",
         "dates": "",
         "place": "",
