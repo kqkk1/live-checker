@@ -157,6 +157,11 @@ body.scrolled .tools{background:var(--nav);-webkit-backdrop-filter:saturate(1.4)
 .meta{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .seg{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:4px;margin-top:8px;padding:3px;background:transparent;border:1px solid var(--line);border-radius:12px}
 .seg button{min-height:44px;font-size:12px;font-weight:700;color:var(--muted);border-radius:9px}
+.grid>.mh{grid-column:1/-1;display:flex;align-items:baseline;gap:8px;margin:18px 0 -4px}
+.grid>.mh:first-child{margin-top:2px}
+.grid>.mh .n{font-weight:600;letter-spacing:0;opacity:.8}
+.oldtgl{grid-column:1/-1;display:flex;justify-content:center;margin-top:8px}
+.grid>.empty.slim{padding:28px 12px 8px}
 .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:48px 12px}
 .hints{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
 .lot{font-size:12px;color:var(--gold);font-weight:700}
@@ -546,6 +551,7 @@ const TABS = [['now','今応募できる'],['before','受付前・未定'],['min
 const RANK = {urgent:0, open:1, before:2, tbd:3, closed:4};
 let events = [], brand = 'すべて', tab = 'now', openId = null;
 let fOpen = false;   // 絞り込みパネルの開閉（スマホ）
+let mineOld = false;   // 「応募済み」で、終わったライブも出すか（ふだんは隠して、これからの分だけ見やすくする）
 let meta = null;   // meta.json（スナイパーが最後に確認した日時）
 let view = localStorage.getItem('imas_portal_view_v1') === 'dates' ? 'dates' : 'apply', dtab = 'upcoming';   // 表示: 受付状況 / 公演日順
 let gmode = localStorage.getItem('imas_portal_mode_v1') === 'pair' ? 'pair' : 'solo';   // 基本の参戦スタイル
@@ -1038,9 +1044,9 @@ function draw() {
     return [ev.title, ev.venue, ev.phase, me(ev.id).memo, ...(ev.brands || []), ...(ev.schedules || []).flatMap(s => s.castNames || [])].join(' ').toLowerCase().includes(q);
   });
   const cnt = {};
-  // 終わったライブは「すべて」「応募済み」だけに出す（下の一覧と同じ数え方にする）
+  // 終わったライブは「すべて」だけに出す。「応募済み」では下にたたんで出す（タブの数は、ふだん見えている「これから」の分）
   const endedEv = ev => { const end = ev.eventDateEnd || ev.eventDateStart || ''; return !!end && end < today; };
-  TABS.forEach(([k]) => { const t = tab; tab = k; cnt[k] = base.filter(ev => matchTab(ev, phase(ev), me(ev.id)) && !(endedEv(ev) && k !== 'all' && k !== 'mine')).length; tab = t; });
+  TABS.forEach(([k]) => { const t = tab; tab = k; cnt[k] = base.filter(ev => matchTab(ev, phase(ev), me(ev.id)) && !(endedEv(ev) && k !== 'all')).length; tab = t; });
   $('tabs').innerHTML = TABS.map(([k, l]) => `<button class="tab ${tab === k ? 'on' : ''}" data-tab="${k}" aria-pressed="${tab === k}">${l}<b>${cnt[k]}</b></button>`).join('');
   $('gmode').innerHTML = [['solo','ソロ'],['pair','連番']].map(([v, l]) => `<button class="chip ${gmode === v ? 'on' : ''}" data-gmode="${v}">${l}</button>`).join('');
   $('brands').innerHTML = BRANDS.map(b => `<button class="chip ${brand === b ? 'on' : ''}" data-brand="${b}" aria-pressed="${brand === b}">${b}</button>`).join('');
@@ -1048,14 +1054,14 @@ function draw() {
   const list = base.filter(ev => {
     const ph = phase(ev), st = me(ev.id);
     if (!matchTab(ev, ph, st)) return false;
-    return !(endedEv(ev) && tab !== 'all' && tab !== 'mine');
+    return !(endedEv(ev) && tab !== 'all');
   }).sort((a, b) => {
     const pa = phase(a), pb = phase(b);
     const k = (ev, p) => p === 'before' ? ms(ev.applyStartDate) : p === 'closed' ? -(ms(ev.deadline) || ms(ev.eventDateStart) || 0) : (ms(ev.deadline) || 8.64e15);
     return RANK[pa] - RANK[pb] || k(a, pa) - k(b, pb);
   });
 
-  $('grid').innerHTML = list.length ? list.map(ev => {
+  const card = ev => {
     const p = period(ev), st = me(ev.id);
     const d = ev.eventDateStart ? (ev.eventDateEnd && ev.eventDateEnd !== ev.eventDateStart ? `${ev.eventDateStart} 〜 ${ev.eventDateEnd.slice(5)}` : ev.eventDateStart) : '未定';
     return `<article class="card ${p.ph === 'closed' || allSkip(ev) ? 'closed' : ''}" data-id="${esc(ev.id)}" style="--b:${stripe(ev)}" tabindex="0" aria-label="${esc(ev.title)}（Enterで詳細を開く）">
@@ -1070,7 +1076,27 @@ function draw() {
       </div>
       ${seg(ev, common(ev))}${chips(ev)}
     </article>`;
-  }).join('') : `<div class="empty">${events.length ? emptyHtml(cnt, q) : 'events.json を読み込めませんでした。index.html と同じ場所に置いてあるか確認してください'}</div>`;
+  };
+  const none = `<div class="empty">${events.length ? emptyHtml(cnt, q) : 'events.json を読み込めませんでした。index.html と同じ場所に置いてあるか確認してください'}</div>`;
+  if (tab === 'mine') {
+    // 応募済み: これからのライブを「結果待ち → 当選・入手 → 落選・入手できず」に分けて出す。終わったライブは下にたたむ（検索中は開く）
+    const old = base.filter(ev => anyDone(ev) && endedEv(ev)).sort((a, b) => (b.eventDateStart || '').localeCompare(a.eventDateStart || ''));
+    const grp = ev => { const a = dstats(ev); return a.includes('当落待ち⏳') ? 0 : a.some(v => v === '当選🎉' || v === '入手🎫') ? 1 : 2; };
+    const byDate = (a, b) => (a.eventDateStart || '9999').localeCompare(b.eventDateStart || '9999');
+    const byLot = (a, b) => (a.lotteryDate || '9999').localeCompare(b.lotteryDate || '9999') || byDate(a, b);
+    let h = '';
+    [['結果待ち', byLot], ['当選・入手', byDate], ['落選・入手できず', byDate]].forEach(([l, f], g) => {
+      const xs = list.filter(ev => grp(ev) === g).sort(f);
+      if (xs.length) h += `<h3 class="mh">${l}<span class="n">${xs.length}</span></h3>${xs.map(card).join('')}`;
+    });
+    if (old.length) {
+      const show = mineOld || !!q;
+      if (!list.length) h += `<div class="empty slim">これからのライブで、応募済みのものはありません</div>`;
+      if (!q) h += `<div class="oldtgl"><button class="chip" data-mineold aria-expanded="${show}">${show ? '終わったライブを隠す' : `終わったライブも見る（${old.length}件）`}</button></div>`;
+      if (show) h += `<h3 class="mh">終わったライブ<span class="n">${old.length}</span></h3>${old.map(card).join('')}`;
+    }
+    $('grid').innerHTML = h || none;
+  } else $('grid').innerHTML = list.length ? list.map(card).join('') : none;
 
   renderTodo();
   if (openId) renderSheet(openId);
@@ -2102,6 +2128,7 @@ document.addEventListener('click', e => {
   if (mb) { const ev = events.find(x => x.id === mb.parentElement.dataset.id); if (ev) { const st = me(ev.id); if (mb.dataset.mode === gmode) delete st.mode; else st.mode = mb.dataset.mode; save(); render(); } return; }
   const vw = e.target.closest('[data-view]'); if (vw) { view = vw.dataset.view; localStorage.setItem('imas_portal_view_v1', view); render(); return; }
   const dt = e.target.closest('[data-dtab]'); if (dt) { dtab = dt.dataset.dtab; render(); return; }
+  if (e.target.closest('[data-mineold]')) { mineOld = !mineOld; render(); return; }
   const t = e.target.closest('[data-tab]'); if (t) { tab = t.dataset.tab; render(); return; }
   const b = e.target.closest('[data-brand]'); if (b) { brand = b.dataset.brand; fOpen = false; render(); return; }
   if (e.target.closest('[data-close]') || e.target === $('back')) { closeSheet(); return; }
