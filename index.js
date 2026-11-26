@@ -590,6 +590,9 @@ function cleanTier(s) {
   return r && r !== t && !/^配信/.test(r) ? r : t;   // 「現地・配信セット」のようなものは、そのまま
 }
 const tierKey = s => norm(cleanTier(s)).replace(/発売/g, '販売');
+const tierBase = s => tierKey(s).replace(/[(（](先着|抽選)[)）]/g, '');   // 「一般販売(先着)」と「一般発売」を同じとみなすため（種別も同じときだけ）
+// 「先行販売」のような総称の受付名。正式な名前（例: アソビストア一般会員先行）が分かったら、そちらに直す
+const GENERIC_TIER = /^(先行|先行販売|先行受付|先行抽選|抽選|抽選販売|チケット先行|チケット販売|販売|一般販売|一般)$/;
 const slotsOfLive = liveId => S.slot.pages.filter(p => relIds(p, S.slot.rel.live).includes(liveId)).map(toSlot);
 const schedPagesOfLive = liveId => S.sched.pages
   .filter(p => relIds(p, S.sched.rel.live).includes(liveId))
@@ -730,16 +733,28 @@ async function applyEvent(ev, article) {
     const start = toNotionDate(ev.apply_start_date), end = toNotionDate(ev.deadline_date);
     const lot = isValidDate(ev.result_date_notion) ? toNotionDate(ev.result_date_notion) : '';
     const mine = S.slot.pages.filter(p => relIds(p, S.slot.rel.live).includes(live.id));
-    let existing = mine.find(p => tierKey(toSlot(p).name) === tierKey(tier));
+    let existing = mine.find(p => tierKey(toSlot(p).name) === tierKey(tier)) || mine.find(p => { const s = toSlot(p); return s.kind === kind && tierBase(s.name) === tierBase(tier); });
     // AIは記事ごとに、同じ受付を違う名前で書くことがある（例: 「現地チケット 一般販売(先着)」と「一般販売(先着)」）。
     // 名前が違っても、同じライブで種別・受付開始・締切がすべて同じなら、同じ受付とみなして新しい枠は作らない
     if (!existing && (start || end)) {
       existing = mine.find(p => { const s = toSlot(p); return s.kind === kind && sameDate(start, s.start) && sameDate(end, s.end); });
       if (existing) console.log(` ├─ 🎫 「${tier}」は、登録済みの「${toSlot(existing).name}」と期間が同じため、同じ受付として扱います`);
     }
-    const exName = existing ? toSlot(existing).name : tier;   // 登録済みの枠は、登録済みの名前のまま扱う
+    let exName = existing ? toSlot(existing).name : tier;   // 登録済みの枠は、登録済みの名前のまま扱う
     const sm = S.slot.meta;
-    if (!existing) {
+    // 登録済みの枠が「先行販売」のような総称で、今回の記事に正式な名前があるときは、正式な名前に直す（同じ受付と分かっているときだけ）
+    if (existing && !isLocked(existing) && GENERIC_TIER.test(tierBase(exName)) && !GENERIC_TIER.test(tierBase(tier)) && tierKey(tier) !== tierKey(exName)) {
+      const props = {}; put(sm, props, titleName(sm), `${liveTitle}｜${tier}`); put(sm, props, '枠名', tier);
+      const u = await W.update({ page_id: existing.id, properties: props }); if (u) replacePage(S.slot, u);
+      console.log(` ├─ 🏷 受付枠の名前を「${exName}」→「${tier}」に直しました（期間が同じ受付のため）`);
+      news.push(`🏷 受付の名前を直しました: ${liveTitle}｜${exName} → ${tier}`);
+      exName = tier;
+    }
+    if (!existing && !start && !end) {
+      // 受付期間が書かれていない受付は登録しない（「後日発表」など。期間が発表された記事で登録する）。
+      // 以前は、ここで期間なしの枠が作られ、受付中の枠と二重になっていた
+      console.log(` ├─ ⏩ 受付枠「${tier}」は受付期間が書かれていないため、登録しません（期間が発表されたら登録します）`);
+    } else if (!existing) {
       const props = {};
       put(sm, props, titleName(sm), `${liveTitle}｜${tier}`); put(sm, props, '枠名', tier);
       if (sm.properties['ライブ']?.type === 'rich_text') put(sm, props, 'ライブ', liveTitle);   // テキスト列が残っている場合のみ
@@ -786,7 +801,16 @@ async function applyEvent(ev, article) {
     const d = parseLabelDate(text, liveStart);
     if (d && liveStart && (Date.parse(d.date) < Date.parse(liveStart) - 864e5 || Date.parse(d.date) > Date.parse(liveEnd) + 864e5))
       warn(`${liveTitle} / ${key}: 公演日(${d.date})がライブ開催日(${liveStart}〜${liveEnd})の範囲外です`);
-    const row = schedPagesOfLive(live.id).find(p => norm(propText(p.properties['Day'])) === norm(key));
+    let row = schedPagesOfLive(live.id).find(p => norm(propText(p.properties['Day'])) === norm(key));
+    if (!row && !/開演|\d{1,2}\s*[:：]\s*\d{2}/.test(text)) {
+      // 時刻の書かれていない記事（受付のお知らせなど）は「Day1」「Day2」のように日付だけで返ってくる。
+      // 同じDay・同じ日の公演（「Day1 昼公演」など）が登録済みなら、日付だけの行は作らない（以前はここで余分な行ができていた）
+      const n = (String(key).match(/^Day\s*(\d+)/i) || [])[1];
+      const jst = v => { const t = Date.parse(v || ''); return isNaN(t) ? '' : new Date(t + 9 * 3600e3).toISOString().slice(0, 10); };
+      const same = schedPagesOfLive(live.id).filter(p => { const k = propText(p.properties['Day']); return (n && new RegExp(`^Day\\s*${n}(?!\\d)`, 'i').test(k)) || (d && dateStart(p, '開演日時') && jst(dateStart(p, '開演日時')) === d.date.slice(0, 10)); });
+      if (same.length === 1) row = same[0];   // 1つだけなら、その行に出演者などを足す
+      else if (same.length > 1) { console.log(` ├─ ⏩ 公演 ${key}: 同じ日の公演（${same.map(p => propText(p.properties['Day'])).join('・')}）が登録済みのため、日付だけの行は作りません`); continue; }
+    }
     if (!row) {
       const props = {};
       put(sm2, props, titleName(sm2), `${liveTitle} ${key}`); put(sm2, props, S.sched.rel.live, [live.id]);
@@ -1232,7 +1256,7 @@ ${existingNames}
       "schedules": [
         { "label": "Day1", "text": "Day1: 1月30日(土) 開場16:30/開演17:30", "name": "公演名（サブタイトル）。なければ空文字", "cast": ["灯里愛夏", "上水流宇宙", "レトラ"] }
       ],
-      "ticket_tier": "現在募集している現地チケットの受付名称（「現地チケット」「現地」は付けず、受付の名前だけ。例: 一般販売(先着)、アソビストア一般会員先行）",
+      "ticket_tier": "現在募集している現地チケットの受付名称（「現地チケット」「現地」は付けず、受付の名前だけ。例: 一般販売(先着)、アソビストア一般会員先行）。記事に『アソビストア一般会員先行』『アソビストアプレミアム会員2次先行』のような正式な受付名があれば、それをそのまま使う。『先行販売』『チケット販売』のような総称にはしない",
       "ticket_kind": "抽選 または 先着",
       "apply_start_date": "上記受付の開始日時（'YYYY-MM-DDTHH:mm' または 'YYYY-MM-DD' 形式。不明なら空文字）",
       "deadline_date": "上記受付の最終締切日時（'YYYY-MM-DDTHH:mm' または 'YYYY-MM-DD' 形式。不明なら空文字）",
