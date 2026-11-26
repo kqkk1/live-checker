@@ -8536,7 +8536,20 @@
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C"
       }
     ],
-    "merch": []
+    "merch": [
+      {
+        "kind": "事前販売",
+        "name": "事前販売",
+        "url": "https://shop.asobistore.jp/feature/283_noctchill",
+        "start": "",
+        "end": "",
+        "lottery": "",
+        "dates": "",
+        "place": "",
+        "seiriken": "",
+        "free": ""
+      }
+    ]
   },
   {
     "id": "40317392-1f2b-8035-a390-c9790e2e057d",
