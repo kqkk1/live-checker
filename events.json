@@ -7028,10 +7028,10 @@
     "brands": [
       "デレマス"
     ],
-    "phase": "一般販売2次(先着)",
+    "phase": "当日券",
     "phaseKind": "先着",
-    "applyStartDate": "2026-11-25T18:00:00.000+09:00",
-    "deadline": "2026-11-28T23:00:00.000+09:00",
+    "applyStartDate": "2026-11-28T00:00:00.000+09:00",
+    "deadline": "",
     "lotteryDate": "",
     "slots": [
       {
