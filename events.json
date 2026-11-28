@@ -7035,6 +7035,13 @@
     "lotteryDate": "",
     "slots": [
       {
+        "name": "当日券",
+        "kind": "先着",
+        "start": "2026-11-28T00:00:00.000+09:00",
+        "end": "",
+        "lottery": ""
+      },
+      {
         "name": "一般販売2次(先着)",
         "kind": "先着",
         "start": "2026-11-25T18:00:00.000+09:00",
@@ -7263,7 +7270,7 @@
       {
         "label": "Day2: 12月13日(日) 開場15:00/開演16:00 「第四公演　Pop’n ToyBox!! もういっかい！ [夕方公演]」",
         "name": "第四公演　Pop’n ToyBox!! もういっかい！ [夕方公演]",
-        "castCount": 19,
+        "castCount": 21,
         "castNames": [
           "市原仁奈",
           "龍崎薫",
@@ -7283,10 +7290,12 @@
           "柊志乃",
           "黒川千秋",
           "東郷あい",
-          "池袋晶葉"
+          "池袋晶葉",
+          "菊地真",
+          "萩原雪歩"
         ],
-        "penlightCastCount": 19,
-        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B8%82%E5%8E%9F%E4%BB%81%E5%A5%88%2C%E9%BE%8D%E5%B4%8E%E8%96%AB%2C%E8%B5%A4%E5%9F%8E%E3%81%BF%E3%82%8A%E3%81%82%2C%E6%A4%8E%E5%90%8D%E6%B3%95%E5%AD%90%2C%E6%B5%85%E5%88%A9%E4%B8%83%E6%B5%B7%2C%E4%BD%90%E5%9F%8E%E9%9B%AA%E7%BE%8E%2C%E5%B7%9D%E5%B3%B6%E7%91%9E%E6%A8%B9%2C%E4%BD%90%E8%97%A4%E5%BF%83%2C%E9%AB%98%E5%9E%A3%E6%A5%93%2C%E4%B8%89%E8%88%B9%E7%BE%8E%E5%84%AA%2C%E5%A4%A7%E5%92%8C%E4%BA%9C%E5%AD%A3%2C%E9%B7%B9%E5%AF%8C%E5%A3%AB%E8%8C%84%E5%AD%90%2C%E7%AF%A0%E5%8E%9F%E7%A4%BC%2C%E8%B2%A1%E5%89%8D%E6%99%82%E5%AD%90%2C%E9%AB%98%E6%A9%8B%E7%A4%BC%E5%AD%90%2C%E6%9F%8A%E5%BF%97%E4%B9%83%2C%E9%BB%92%E5%B7%9D%E5%8D%83%E7%A7%8B%2C%E6%9D%B1%E9%83%B7%E3%81%82%E3%81%84%2C%E6%B1%A0%E8%A2%8B%E6%99%B6%E8%91%89"
+        "penlightCastCount": 21,
+        "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E5%B8%82%E5%8E%9F%E4%BB%81%E5%A5%88%2C%E9%BE%8D%E5%B4%8E%E8%96%AB%2C%E8%B5%A4%E5%9F%8E%E3%81%BF%E3%82%8A%E3%81%82%2C%E6%A4%8E%E5%90%8D%E6%B3%95%E5%AD%90%2C%E6%B5%85%E5%88%A9%E4%B8%83%E6%B5%B7%2C%E4%BD%90%E5%9F%8E%E9%9B%AA%E7%BE%8E%2C%E5%B7%9D%E5%B3%B6%E7%91%9E%E6%A8%B9%2C%E4%BD%90%E8%97%A4%E5%BF%83%2C%E9%AB%98%E5%9E%A3%E6%A5%93%2C%E4%B8%89%E8%88%B9%E7%BE%8E%E5%84%AA%2C%E5%A4%A7%E5%92%8C%E4%BA%9C%E5%AD%A3%2C%E9%B7%B9%E5%AF%8C%E5%A3%AB%E8%8C%84%E5%AD%90%2C%E7%AF%A0%E5%8E%9F%E7%A4%BC%2C%E8%B2%A1%E5%89%8D%E6%99%82%E5%AD%90%2C%E9%AB%98%E6%A9%8B%E7%A4%BC%E5%AD%90%2C%E6%9F%8A%E5%BF%97%E4%B9%83%2C%E9%BB%92%E5%B7%9D%E5%8D%83%E7%A7%8B%2C%E6%9D%B1%E9%83%B7%E3%81%82%E3%81%84%2C%E6%B1%A0%E8%A2%8B%E6%99%B6%E8%91%89%2C%E8%8F%8A%E5%9C%B0%E7%9C%9F%2C%E8%90%A9%E5%8E%9F%E9%9B%AA%E6%AD%A9"
       },
       {
         "label": "Day2 夕公演: 12月13日(日) 開場15:00/開演16:00 「Pop’n ToyBox!! もういっかい！ [夕方公演]」",
@@ -8643,7 +8652,7 @@
       },
       {
         "label": "Day2: 2027年6月6日(日) 開場16:00 / 開演17:30",
-        "castCount": 30,
+        "castCount": 31,
         "castNames": [
           "都築圭",
           "神楽麗",
@@ -8674,7 +8683,8 @@
           "樋口円香",
           "福丸小糸",
           "市川雛菜",
-          "東雲荘一郎"
+          "東雲荘一郎",
+          "山次第郎"
         ],
         "penlightCastCount": 30,
         "penlightUrl": "https://penlight-supporter.onrender.com/setlist?auto_cast=%E9%83%BD%E7%AF%89%E5%9C%AD%2C%E7%A5%9E%E6%A5%BD%E9%BA%97%2C%E7%A5%9E%E8%B0%B7%E5%B9%B8%E5%BA%83%2C%E5%8D%AF%E6%9C%88%E5%B7%BB%E7%B7%92%2C%E6%B0%B4%E5%B6%8B%E5%92%B2%2C%E7%A1%B2%E9%81%93%E5%A4%AB%2C%E8%88%9E%E7%94%B0%E9%A1%9E%2C%E5%B1%B1%E4%B8%8B%E6%AC%A1%E9%83%8E%2C%E7%A7%8B%E6%9C%88%E6%B6%BC%2C%E5%85%9C%E5%A4%A7%E5%90%BE%2C%E4%B9%9D%E5%8D%81%E4%B9%9D%E4%B8%80%E5%B8%8C%2C%E8%91%9B%E4%B9%8B%E8%91%89%E9%9B%A8%E5%BD%A6%2C%E5%8C%97%E6%9D%91%E6%83%B3%E6%A5%BD%2C%E5%8F%A4%E8%AB%96%E3%82%AF%E3%83%AA%E3%82%B9%2C%E6%AB%BB%E6%9C%A8%E7%9C%9F%E4%B9%83%2C%E9%A2%A8%E9%87%8E%E7%81%AF%E7%B9%94%2C%E5%85%AB%E5%AE%AE%E3%82%81%E3%81%90%E3%82%8B%2C%E6%9C%88%E5%B2%A1%E6%81%8B%E9%90%98%2C%E7%94%B0%E4%B8%AD%E6%91%A9%E7%BE%8E%E3%80%85%2C%E7%99%BD%E7%80%AC%E5%92%B2%E8%80%B6%2C%E4%B8%89%E5%B3%B0%E7%B5%90%E8%8F%AF%2C%E5%B9%BD%E8%B0%B7%E9%9C%A7%E5%AD%90%2C%E8%8A%B9%E6%B2%A2%E3%81%82%E3%81%95%E3%81%B2%2C%E9%BB%9B%E5%86%AC%E5%84%AA%E5%AD%90%2C%E5%92%8C%E6%B3%89%E6%84%9B%E4%BE%9D%2C%E6%B5%85%E5%80%89%E9%80%8F%2C%E6%A8%8B%E5%8F%A3%E5%86%86%E9%A6%99%2C%E7%A6%8F%E4%B8%B8%E5%B0%8F%E7%B3%B8%2C%E5%B8%82%E5%B7%9D%E9%9B%9B%E8%8F%9C%2C%E6%9D%B1%E9%9B%B2%E8%8D%98%E4%B8%80%E9%83%8E"
